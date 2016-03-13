@@ -1,0 +1,15 @@
+F:\project\2016\Rogat\Rotal\project\CalibrationPLCControlTester\DeltaPlcCommunication\bin\Debug\DeltaPlcCommunication.dll
+F:\project\2016\Rogat\Rotal\project\CalibrationPLCControlTester\DeltaPlcCommunication\bin\Debug\DeltaPlcCommunication.pdb
+F:\project\2016\Rogat\Rotal\project\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.dll
+F:\project\2016\Rogat\Rotal\project\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.pdb
+F:\project\2016\Rogat\Rotal\project\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.csprojResolveAssemblyReference.cache
+C:\work\Rotal calibration\project\CalibrationPLCControlTester\DeltaPlcCommunication\bin\Debug\DeltaPlcCommunication.dll
+C:\work\Rotal calibration\project\CalibrationPLCControlTester\DeltaPlcCommunication\bin\Debug\DeltaPlcCommunication.pdb
+C:\work\Rotal calibration\project\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.csprojResolveAssemblyReference.cache
+C:\work\Rotal calibration\project\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.dll
+C:\work\Rotal calibration\project\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.pdb
+C:\Users\dudi9\Desktop\dashboard\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\bin\Debug\DeltaPlcCommunication.dll
+C:\Users\dudi9\Desktop\dashboard\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\bin\Debug\DeltaPlcCommunication.pdb
+C:\Users\dudi9\Desktop\dashboard\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.csprojResolveAssemblyReference.cache
+C:\Users\dudi9\Desktop\dashboard\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.dll
+C:\Users\dudi9\Desktop\dashboard\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.pdb

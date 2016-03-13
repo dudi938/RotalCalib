@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DP_dashboard", "DP_dashboard.csproj", "{C7C24B9D-B15D-416C-8FC8-D7F089A8CD5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "multiplexing_dll", "multiplexing_dll\multiplexing_dll\multiplexing_dll.csproj", "{E7395EE7-01D7-475A-B8D4-962641356987}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeltaPlcCommunication", "CalibrationPLCControlTester\DeltaPlcCommunication\DeltaPlcCommunication.csproj", "{F9134DF7-057E-4403-A914-EB584B9C7808}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DP_dll", "DP_dll\DP_dll.csproj", "{C28275B2-776B-4E06-ADDD-3C84D4EF4DA7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C7C24B9D-B15D-416C-8FC8-D7F089A8CD5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7C24B9D-B15D-416C-8FC8-D7F089A8CD5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7C24B9D-B15D-416C-8FC8-D7F089A8CD5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7C24B9D-B15D-416C-8FC8-D7F089A8CD5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7395EE7-01D7-475A-B8D4-962641356987}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7395EE7-01D7-475A-B8D4-962641356987}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7395EE7-01D7-475A-B8D4-962641356987}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7395EE7-01D7-475A-B8D4-962641356987}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9134DF7-057E-4403-A914-EB584B9C7808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9134DF7-057E-4403-A914-EB584B9C7808}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9134DF7-057E-4403-A914-EB584B9C7808}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9134DF7-057E-4403-A914-EB584B9C7808}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C28275B2-776B-4E06-ADDD-3C84D4EF4DA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C28275B2-776B-4E06-ADDD-3C84D4EF4DA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C28275B2-776B-4E06-ADDD-3C84D4EF4DA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C28275B2-776B-4E06-ADDD-3C84D4EF4DA7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

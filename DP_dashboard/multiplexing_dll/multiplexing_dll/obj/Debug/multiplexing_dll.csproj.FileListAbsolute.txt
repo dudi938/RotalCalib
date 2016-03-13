@@ -1,0 +1,11 @@
+C:\work\פרויקט כיול - רוטל\project\dashboard\DP_dashboard\multiplexing_dll\multiplexing_dll\bin\Debug\multiplexing_dll.dll
+C:\work\פרויקט כיול - רוטל\project\dashboard\DP_dashboard\multiplexing_dll\multiplexing_dll\bin\Debug\multiplexing_dll.pdb
+C:\work\פרויקט כיול - רוטל\project\dashboard\DP_dashboard\multiplexing_dll\multiplexing_dll\obj\Debug\multiplexing_dll.dll
+C:\work\פרויקט כיול - רוטל\project\dashboard\DP_dashboard\multiplexing_dll\multiplexing_dll\obj\Debug\multiplexing_dll.pdb
+C:\Users\dudi9\Desktop\dashboard\DP_dashboard\multiplexing_dll\multiplexing_dll\bin\Debug\multiplexing_dll.dll
+C:\Users\dudi9\Desktop\dashboard\DP_dashboard\multiplexing_dll\multiplexing_dll\bin\Debug\multiplexing_dll.pdb
+C:\Users\dudi9\Desktop\dashboard\DP_dashboard\multiplexing_dll\multiplexing_dll\obj\Debug\multiplexing_dll.dll
+C:\Users\dudi9\Desktop\dashboard\DP_dashboard\multiplexing_dll\multiplexing_dll\obj\Debug\multiplexing_dll.pdb
+C:\Users\dudi9\Desktop\dashboard\DP_dashboard\multiplexing_dll\multiplexing_dll\obj\Debug\multiplexing_dll.csprojResolveAssemblyReference.cache
+C:\Users\dudi9\Desktop\dashboard\DP_dashboard\multiplexing_dll\multiplexing_dll\bin\Debug\SerialPort_dll.dll
+C:\Users\dudi9\Desktop\dashboard\DP_dashboard\multiplexing_dll\multiplexing_dll\bin\Debug\SerialPort_dll.pdb

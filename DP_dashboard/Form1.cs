@@ -12,7 +12,7 @@ using multiplexing_dll;
 using DeltaPlcCommunication;
 using DpCommunication;
 using System.Diagnostics;
-
+#define xx
 namespace DP_dashboard
 {
     public partial class Form1 : Form
@@ -40,6 +40,7 @@ namespace DP_dashboard
         public Form1()
         {
             InitializeComponent();
+
 #if xx
             // plc protocol init          
             PLCinfo = new DeltaIncomingInformation();

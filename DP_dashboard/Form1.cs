@@ -12,7 +12,7 @@ using multiplexing_dll;
 using DeltaPlcCommunication;
 using DpCommunication;
 using System.Diagnostics;
-#define xx
+
 namespace DP_dashboard
 {
     public partial class Form1 : Form
@@ -122,7 +122,7 @@ namespace DP_dashboard
         private bool FlashDpDevice( string fileName )
         {
             string path = @"C:\Program Files (x86)\Texas Instruments\SmartRF Tools\Flash Programmer\bin\SmartRFProgConsole.exe";
-            string args = string.Format("S() EP F={0}",fileName);
+            string args = string.Format("S() EPV F={0}",fileName);
             Process burn = new Process();
             burn.StartInfo.FileName = path;
             burn.StartInfo.Arguments = args;
@@ -134,7 +134,7 @@ namespace DP_dashboard
 
         private void button1_Click(object sender, EventArgs e)
         {
-            bool res = FlashDpDevice(@"f:\project\2016\Rogat\Rotal\project\DP_dashboard\NunuBLE.hex");
+            bool res = FlashDpDevice(@"C:\work\grow_me\projects\BLE-CC254x-1.4.0\Projects\ble\grow_me\CC2541DB\CC2541\Exe\SimpleBLEPeripheral.hex");
 
             if( !res)
             {

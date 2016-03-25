@@ -17,13 +17,34 @@ namespace DpCommunication
         public string controlReceiverMessage; // RX line
     }
 
+    public class DpSingelPrssurePoint
+    {
+        public float temp;                  // temperature of the current pressure value
+        public float pressure;                // Physical pressure of the current a2d pressure value
+        public float a2dPressureValue;        // A2D value
+    }
 
-    public class ClassDpCommunication 
+    public class DpTempLine
+    {
+       public List<DpSingelPrssurePoint> oneTempLine = new List<DpSingelPrssurePoint>();
+    }
+
+
+    public class ClassDpCommunication
     {
 
+        private const byte MAX_TEMP_POINTS = 0x05;
+        private const byte MAX_PRESSURE_POINTS = 0x0f;
+
+        //op cod's//
+        private const byte API_MSG_DP_ACK_OK              = 0x00;  //opcode
+        private const byte API_MSG_DP_SEND_PRESSURE_TO_DP = 0x01;  //opcode
+        private const byte API_MSG_DP_GET_DP_INFO         = 0x02;  //opcode
+        
 
 
 
+        public List<DpTempLine> DPPressuresTable = new List<DpTempLine>();
         private const byte API_RECEIVE_MSG_MAX_SIZE = 255;
         private DateTime communicationPacketTimeLast;
 
@@ -120,7 +141,17 @@ namespace DpCommunication
 
                 switch (packetType)
                 {
-                    case 1:
+                    case API_MSG_DP_ACK_OK:
+                        {
+
+                        }
+                        break;
+                    case API_MSG_DP_SEND_PRESSURE_TO_DP:
+                        {
+
+                        }
+                        break;
+                    case API_MSG_DP_GET_DP_INFO:
                         {
 
                         }
@@ -130,7 +161,6 @@ namespace DpCommunication
                 }
             }
         }
-
 
         public void SendRxTxStringAsHex(byte[] data, byte dataDirection, byte length)
         {
@@ -173,9 +203,49 @@ namespace DpCommunication
             return (byte)~sumByteValue;
         }
 
+        public void DpWritePressurePointToDevice(float a2dValue, byte TempN, byte PreesureN)
+        {
+            byte[] data = new byte[API_MSG_MAG_BASIC_MASSEGE_LENGTH + 4];
+            data[0] = API_MSG_PREAMBLE;
+            data[1] = (byte)data.Count();
+            data[2] = API_MSG_DP_SEND_PRESSURE_TO_DP;  //opcode
+            data[3] = (byte)(a2dValue / 256);
+            data[4] = (byte)(a2dValue);
+            data[5] = TempN;
+            data[6] = PreesureN;
+            data[data.Count() - 1] = CheckCum(data, data.Count());
 
-        
+            SerialPortInstanse.Send(data, data.Count());
 
+            //SendRxTxStringAsHex(data, COM_PACKET_MESSAGE_TX, data[1]);  // send to consule (DEBUG)
+            //incomingInfo.newControlTransmitMessage = true;
+        }
 
+        public void Simulation()
+        {
+            for (int i = 0; i < MAX_TEMP_POINTS; i++)
+            {
+                DpTempLine newTempLine = new DpTempLine();
+                for (int j = 0; j < MAX_PRESSURE_POINTS; j++)
+                {
+                    DpSingelPrssurePoint newPoint = new DpSingelPrssurePoint();
+                    newPoint.a2dPressureValue = 1000 * j;
+                    newTempLine.oneTempLine.Add(newPoint);
+                }
+                DPPressuresTable.Add(newTempLine);
+            }
+
+        }
+        public void DPgetDpInfo()
+        {
+            byte[] data = new byte[API_MSG_MAG_BASIC_MASSEGE_LENGTH];
+            data[0] = API_MSG_PREAMBLE;
+            data[1] = (byte)data.Count();
+            data[2] = API_MSG_DP_GET_DP_INFO;  //opcode
+
+            data[data.Count() - 1] = CheckCum(data, data.Count());
+
+            SerialPortInstanse.Send(data, data.Count());
+        }
     }
 }

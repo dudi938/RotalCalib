@@ -1,4 +1,8 @@
-﻿using System;
+﻿#define DP_COM_CONNECTED
+#define PLC_COM_CONNECTED
+#define MULTIPLEXING_COM_CONNECTED
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,10 +17,18 @@ using DeltaPlcCommunication;
 using DpCommunication;
 using System.Diagnostics;
 
+
+
+
+
 namespace DP_dashboard
 {
+
     public partial class Form1 : Form
     {
+//#define DP_COM_CONNECTED
+//#define PLC_COM_CONNECTED
+//#define MULTIPLEXING_COM_CONNECTED
         //cosntants
         private const int MAX_PRESSURE_POINT = 10;
 
@@ -41,7 +53,7 @@ namespace DP_dashboard
         {
             InitializeComponent();
 
-#if xx
+#if xx 
             // plc protocol init          
             PLCinfo = new DeltaIncomingInformation();
             DeltaProtocolInstanse = new classDeltaProtocol(Properties.Settings.Default.plcComPort, 9600, PLCinfo);
@@ -49,11 +61,13 @@ namespace DP_dashboard
             // mult plexing protocol init 
             MultiplexingInfo = new MultiplexingIncomingInformation();
             MultiplexingProtocolInstanse = new classMultiplexing(Properties.Settings.Default.multiplexingComPort, 115200, MultiplexingInfo);
+
 #if xx
             // DP protocol init
 
             DPinfo = new DpIncomingInformation();
             DpProtocolInstanse = new ClassDpCommunication(Properties.Settings.Default.dpComPort, 115200, DPinfo);
+            DpProtocolInstanse.Simulation();
 #endif
         }
 
@@ -64,6 +78,7 @@ namespace DP_dashboard
             {
                 dgv_prressureTable.Rows.Add(i.ToString());
             }
+            
         }
 
         private void bt_writePressureTableToPlc_Click(object sender, EventArgs e)
@@ -140,6 +155,46 @@ namespace DP_dashboard
             {
                 MessageBox.Show("burn fail");
             }
+        }
+
+        private void bt_writePressursToDP_Click(object sender, EventArgs e)
+        {
+            SendPressuresTableToDP();
+        }
+
+        private void bt_exportPressursTableToCSVfile_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SendPressuresTableToDP()
+        {
+            byte TempLinesCount          = 0;
+            byte PressureInTempLineCount = 0;
+
+            if (DpProtocolInstanse.DPPressuresTable.Capacity > 0)
+            {
+                foreach (DpTempLine currentTempLine in DpProtocolInstanse.DPPressuresTable)
+                {
+                    foreach (DpSingelPrssurePoint currentPoint in currentTempLine.oneTempLine)
+                    {
+                        DpProtocolInstanse.DpWritePressurePointToDevice(currentPoint.a2dPressureValue, TempLinesCount, PressureInTempLineCount);
+                        PressureInTempLineCount++;
+                    }
+                    TempLinesCount++;
+                    PressureInTempLineCount = 0;
+                }
+            }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void bt_getDPinfo_Click(object sender, EventArgs e)
+        {
+            DpProtocolInstanse.DPgetDpInfo();
         }
     }
 }

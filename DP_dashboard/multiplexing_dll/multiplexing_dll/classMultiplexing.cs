@@ -19,8 +19,12 @@ namespace multiplexing_dll
 
     public class classMultiplexing
     {
+
         // op code's
-        private const byte API_MSG_MAG_HAND_CHECKING = 0x0B;
+        private const byte API_MSG_CONNECT_CH = 0x01;
+        private const byte API_MSG_DISCONNECT_CH = 0x02;
+        private const byte API_MSG_CONNECT_ALL_CH = 0x03;
+        private const byte API_MSG_DISCONNECT_ALL_CH = 0x04;
 
 
 
@@ -120,15 +124,14 @@ namespace multiplexing_dll
 
                 switch (packetType)
                 {
-                    case API_MSG_MAG_HAND_CHECKING:
+                    case API_MSG_CONNECT_CH:
                         {
-                            byte[] data = new byte[API_MSG_MAG_BASIC_MASSEGE_LENGTH];
-                            data[0] = API_MSG_PREAMBLE;
-                            data[1] = (byte)data.Count();
-                            data[2] = 55;  //opcode
-                            data[data.Count() - 1] = CheckCum(data, data.Count());
 
-                            SerialPortInstanse.Send(data, data.Count());
+                        }
+                        break;
+                    case API_MSG_DISCONNECT_CH:
+                        {
+
                         }
                         break;
                     default:
@@ -155,6 +158,33 @@ namespace multiplexing_dll
                 }
             }
 
+        }
+
+
+        public void ConnectDpDevice(byte DpId)
+        {
+
+            byte[] data = new byte[API_MSG_MAG_BASIC_MASSEGE_LENGTH + 1];
+            data[0] = API_MSG_PREAMBLE;
+            data[1] = (byte)data.Count();
+            data[2] = API_MSG_CONNECT_CH;//opcode
+            data[3] = DpId;
+            data[data.Count() - 1] = CheckCum(data, data.Count());
+
+            SerialPortInstanse.Send(data, data.Count());
+        }
+
+
+        public void DisConnectAllDp()
+        {
+
+            byte[] data = new byte[API_MSG_MAG_BASIC_MASSEGE_LENGTH];
+            data[0] = API_MSG_PREAMBLE;
+            data[1] = (byte)data.Count();
+            data[2] = API_MSG_DISCONNECT_ALL_CH;//opcode
+            data[data.Count() - 1] = CheckCum(data, data.Count());
+
+            SerialPortInstanse.Send(data, data.Count());
         }
 
         private byte CheckCum(byte[] data, int length)

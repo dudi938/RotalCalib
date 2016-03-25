@@ -45,11 +45,11 @@ namespace DP_dashboard
             // plc protocol init          
             PLCinfo = new DeltaIncomingInformation();
             DeltaProtocolInstanse = new classDeltaProtocol(Properties.Settings.Default.plcComPort, 9600, PLCinfo);
-
+#endif
             // mult plexing protocol init 
             MultiplexingInfo = new MultiplexingIncomingInformation();
             MultiplexingProtocolInstanse = new classMultiplexing(Properties.Settings.Default.multiplexingComPort, 115200, MultiplexingInfo);
-
+#if xx
             // DP protocol init
 
             DPinfo = new DpIncomingInformation();
@@ -111,12 +111,12 @@ namespace DP_dashboard
         private void bt_connectToDp_Click(object sender, EventArgs e)
         {
             byte DpId = (byte)(int.Parse(cmb_dpDeviceNumber.SelectedItem.ToString()));
-            DpProtocolInstanse.ConnectDpDevice(DpId);            
+            MultiplexingProtocolInstanse.ConnectDpDevice(DpId);            
         }
 
         private void bt_disconnect_Click(object sender, EventArgs e)
         {
-            DpProtocolInstanse.DisConnectAllDp();
+            MultiplexingProtocolInstanse.DisConnectAllDp();
         }
 
         private bool FlashDpDevice( string fileName )

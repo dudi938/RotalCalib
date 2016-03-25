@@ -1,60 +1,4 @@
-/***********************************************************
- *
- *   Program:  STM32F072 USB CDC Test      Version: 1.00
- *
- *   Author:  S. Swift					   Date: Sep 9, 2014
- *
- *   This test example application configures the STM32F072 as a CDC USB device
- *   using the CooCox V1.7.7 IDE and STMicroelectronics STM32F0x2_USB-FS-Device_Lib V1.0.0.
- *
- *   This software can be used without restriction as the basis for other applications
- *   and products.  The STM32F072 is a low cost ($2.50) ARM M0 processor running at 48MHz
- *   with 128K of flash, 16K SRAM, A/D, D/A, SPI, USARTs, I2C, HDMI, etc in 48, 64 and 100
- *   pin QFP and QFN package types.  A good, low cost, processor.  We are building the F072
- *   into several new products.
- *
- *   The application configures the USB peripheral as a CDC device, USART3 to 38,400,N,8,1,
- *   TIM3 as 1msec time delay clock, sets up a few other timers and implements a printf,scanf
- *   for USB CDC and printf3 for USART3.  USART3 is interrupt driven.  The RF24L01 code was
- *   ported but not configured or tested with SPI - TBD.
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License. Use at your own risk.
- *
- *   Copyright 2014,  SOC Robotics, Inc.
- ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT 2013 STMicroelectronics</center></h2>
-  *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
-  *
-  *        http://www.st.com/software_license_agreement_liberty_v2
-  *
-  * Unless required by applicable law or agreed to in writing, software
-  * distributed under the License is distributed on an "AS IS" BASIS,
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  *
- */
-/* Includes ------------------------------------------------------------------*/
-#include "stm32f0xx.h"
-#include "stm32f0xx_conf.h"
-#include "stm32072b_eval.h"
-
-#include "usbd_cdc_core.h"
-#include "usbd_usr.h"
-
-#include "stdarg.h"
-#include "string.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "include_all_headers.h"
 
 USB_CORE_HANDLE  USB_Device_dev ;
 
@@ -638,6 +582,7 @@ static uint16_t VCP_DataTx2(uint8_t* Buf, uint32_t Len)
     	//PutChar(Buf[i]);
     	if(APP_Rx_ptr_in == APP_RX_DATA_SIZE)  APP_Rx_ptr_in = 0;
     	}
+
   return USBD_OK;
 }
 
@@ -648,19 +593,25 @@ void PutChar(unsigned char outchar)
 
 	outbuf[0] = outchar;
 	VCP_DataTx2(outbuf,1);
+	char *str= "test1\r\n";
 }
 
 // USB no wait getchar
 int GetCharnw(void)
 {
 	int intchar;
-
-	if(usbrxheadptr!=usbrxtailptr) {
-		intchar = usbrxbuffer[usbrxtailptr++];
+    bool NewData = false;
+	while(usbrxheadptr!=usbrxtailptr)
+	{
+		apiInfo.receiveBufferInterruptPC[apiInfo.receiveBufferCyclicIndexPC] = usbrxbuffer[usbrxtailptr++];
+		apiInfo.receiveBufferCyclicIndexPC = ((apiInfo.receiveBufferCyclicIndexPC + 1) & API_RECEIVE_CYCLIC_BUFFER_SIZE_MASK);
+		intchar = apiInfo.receiveBufferInterruptPC[apiInfo.receiveBufferCyclicIndexPC];
 		if(usbrxtailptr==USB_RX_BUFFERSIZE) usbrxtailptr = 0;
-		return intchar;
-		}
-	else return -1;
+		NewData = true;
+	}
+	if(NewData)
+		return 1;
+	return -1;
 }
 
 // USB wait getchar
@@ -905,8 +856,12 @@ int main(void)
 	            &USBD_CDC_cb,
 	            &USR_cb);
 
+
 	while(1) {
-		intchar = GetCharnw();
+
+		ApiTaskCommunicationReceivePC();
+#if 0
+		//intchar = GetCharnw();
 		if(intchar==-1)
 		{
 			inchar = 0;
@@ -917,7 +872,9 @@ int main(void)
 			GPIOB->BRR = GPIO_Pin_All;
 			inchar = intchar;
 			printf("%d\r\n",inchar);
+
 		}
+
 		switch(inchar)
 		{
 			case '0':
@@ -969,6 +926,7 @@ int main(void)
 				GPIOB->BSRR |= GPIO_Pin_15;
 				break;
 			}
+#endif
 		Toggle_Leds(100,200);
 		}
 }

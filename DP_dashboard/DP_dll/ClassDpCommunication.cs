@@ -21,11 +21,7 @@ namespace DpCommunication
     public class ClassDpCommunication 
     {
 
-        // op code's
-        private const byte API_MSG_CONNECT_CH 			=	0x01;
-        private const byte API_MSG_DISCONNECT_CH 		=   0x02;
-        private const byte API_MSG_CONNECT_ALL_CH 		=   0x03;
-        private const byte API_MSG_DISCONNECT_ALL_CH    =   0x04;
+
 
 
         private const byte API_RECEIVE_MSG_MAX_SIZE = 255;
@@ -124,7 +120,7 @@ namespace DpCommunication
 
                 switch (packetType)
                 {
-                    case API_MSG_CONNECT_CH:
+                    case 1:
                         {
 
                         }
@@ -177,29 +173,7 @@ namespace DpCommunication
             return (byte)~sumByteValue;
         }
 
-        public void ConnectDpDevice(byte DpId)
-        {
 
-            byte[] data = new byte[API_MSG_MAG_BASIC_MASSEGE_LENGTH + 1];
-            data[0] = API_MSG_PREAMBLE;
-            data[1] = (byte)data.Count();
-            data[2] = API_MSG_CONNECT_CH;//opcode
-            data[3] = DpId;
-            data[data.Count() - 1] = CheckCum(data, data.Count());
-
-            SerialPortInstanse.Send(data, data.Count());
-        }
-        public void DisConnectAllDp()
-        {
-
-            byte[] data = new byte[API_MSG_MAG_BASIC_MASSEGE_LENGTH];
-            data[0] = API_MSG_PREAMBLE;
-            data[1] = (byte)data.Count();
-            data[2] = API_MSG_DISCONNECT_ALL_CH;//opcode
-            data[data.Count() - 1] = CheckCum(data, data.Count());
-
-            SerialPortInstanse.Send(data, data.Count());
-        }
         
 
 

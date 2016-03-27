@@ -17,16 +17,27 @@ namespace DpCommunication
         public string controlReceiverMessage; // RX line
     }
 
-    public class DpSingelPrssurePoint
+    public class DpCalibPoint
     {
-        public float temp;                  // temperature of the current pressure value
+        public float temp;                    // temperature of the current pressure value
         public float pressure;                // Physical pressure of the current a2d pressure value
         public float a2dPressureValue;        // A2D value
+
+        public DpCalibPoint()
+        {
+
+        }
+
+        public DpCalibPoint(float Pressure, float Temp)
+        {
+            temp = Temp;
+            pressure = Pressure;
+        }
     }
 
-    public class DpTempLine
+    public class DpCalibPointsInTemperature
     {
-       public List<DpSingelPrssurePoint> oneTempLine = new List<DpSingelPrssurePoint>();
+       public List<DpCalibPoint> oneTempLine = new List<DpCalibPoint>();
     }
 
 
@@ -44,7 +55,7 @@ namespace DpCommunication
 
 
 
-        public List<DpTempLine> DPPressuresTable = new List<DpTempLine>();
+        public List<DpCalibPointsInTemperature> DPPressuresTable = new List<DpCalibPointsInTemperature>();
         private const byte API_RECEIVE_MSG_MAX_SIZE = 255;
         private DateTime communicationPacketTimeLast;
 
@@ -225,10 +236,10 @@ namespace DpCommunication
         {
             for (int i = 0; i < MAX_TEMP_POINTS; i++)
             {
-                DpTempLine newTempLine = new DpTempLine();
+                DpCalibPointsInTemperature newTempLine = new DpCalibPointsInTemperature();
                 for (int j = 0; j < MAX_PRESSURE_POINTS; j++)
                 {
-                    DpSingelPrssurePoint newPoint = new DpSingelPrssurePoint();
+                    DpCalibPoint newPoint = new DpCalibPoint();
                     newPoint.a2dPressureValue = 1000 * j;
                     newTempLine.oneTempLine.Add(newPoint);
                 }
@@ -247,5 +258,27 @@ namespace DpCommunication
 
             SerialPortInstanse.Send(data, data.Count());
         }
+
+
+        public void SendPressuresTableToDP()
+        {
+            byte TempCount = 0;
+            byte PressureInTempCount = 0;
+
+            if (DPPressuresTable.Capacity > 0)
+            {
+                foreach (DpCalibPointsInTemperature currentTempLine in DPPressuresTable)
+                {
+                    foreach (DpCalibPoint currentPoint in currentTempLine.oneTempLine)
+                    {
+                        DpWritePressurePointToDevice(currentPoint.a2dPressureValue, TempCount, PressureInTempCount);
+                        PressureInTempCount++;
+                    }
+                    TempCount++;
+                    PressureInTempCount = 0;
+                }
+            }
+        }
+
     }
 }

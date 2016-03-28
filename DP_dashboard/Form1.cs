@@ -53,19 +53,19 @@ namespace DP_dashboard
             // plc protocol init          
             PLCinfo = new DeltaIncomingInformation();
             DeltaProtocolInstanse = new classDeltaProtocol(Properties.Settings.Default.plcComPort, 9600, PLCinfo);
-#endif
+
             // multplexing protocol init 
             MultiplexingInfo = new MultiplexingIncomingInformation();
             MultiplexingProtocolInstanse = new classMultiplexing(Properties.Settings.Default.multiplexingComPort, 115200, MultiplexingInfo);
 
-#if xx
+#endif
 
             // DP protocol init
 
             DPinfo = new DpIncomingInformation();
             DpProtocolInstanse = new ClassDpCommunication(Properties.Settings.Default.dpComPort, 115200, DPinfo);
             //DpProtocolInstanse.Simulation();
-#endif
+
         }
 
 
@@ -155,7 +155,9 @@ namespace DP_dashboard
         }
 
         private void bt_writePressursToDP_Click(object sender, EventArgs e)
-        {
+        {         
+            DpProtocolInstanse.SendDpSerialNumber(System.Text.Encoding.ASCII.GetBytes(tb_dpSerialNumber.Text));
+
             DpProtocolInstanse.SendPressuresTableToDP();
         }
 

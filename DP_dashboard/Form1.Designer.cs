@@ -52,6 +52,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.bt_configuration = new System.Windows.Forms.Button();
+            this.tb_dpSerialNumber = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_prressureTable)).BeginInit();
             this.pnl_plcControl.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -65,11 +68,11 @@
             this.Address,
             this.A2D_Value,
             this.Pressure});
-            this.dgv_prressureTable.Location = new System.Drawing.Point(140, 19);
-            this.dgv_prressureTable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgv_prressureTable.Location = new System.Drawing.Point(187, 23);
+            this.dgv_prressureTable.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgv_prressureTable.Name = "dgv_prressureTable";
             this.dgv_prressureTable.RowTemplate.Height = 24;
-            this.dgv_prressureTable.Size = new System.Drawing.Size(353, 306);
+            this.dgv_prressureTable.Size = new System.Drawing.Size(471, 377);
             this.dgv_prressureTable.TabIndex = 11;
             // 
             // Address
@@ -89,10 +92,10 @@
             // 
             // bt_readPressureTableFromPlc
             // 
-            this.bt_readPressureTableFromPlc.Location = new System.Drawing.Point(23, 101);
-            this.bt_readPressureTableFromPlc.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bt_readPressureTableFromPlc.Location = new System.Drawing.Point(31, 124);
+            this.bt_readPressureTableFromPlc.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bt_readPressureTableFromPlc.Name = "bt_readPressureTableFromPlc";
-            this.bt_readPressureTableFromPlc.Size = new System.Drawing.Size(99, 34);
+            this.bt_readPressureTableFromPlc.Size = new System.Drawing.Size(132, 42);
             this.bt_readPressureTableFromPlc.TabIndex = 10;
             this.bt_readPressureTableFromPlc.Text = "Read Pressure Table From PLC";
             this.bt_readPressureTableFromPlc.UseVisualStyleBackColor = true;
@@ -100,10 +103,10 @@
             // 
             // bt_writePressureTableToPlc
             // 
-            this.bt_writePressureTableToPlc.Location = new System.Drawing.Point(23, 43);
-            this.bt_writePressureTableToPlc.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bt_writePressureTableToPlc.Location = new System.Drawing.Point(31, 53);
+            this.bt_writePressureTableToPlc.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bt_writePressureTableToPlc.Name = "bt_writePressureTableToPlc";
-            this.bt_writePressureTableToPlc.Size = new System.Drawing.Size(99, 34);
+            this.bt_writePressureTableToPlc.Size = new System.Drawing.Size(132, 42);
             this.bt_writePressureTableToPlc.TabIndex = 9;
             this.bt_writePressureTableToPlc.Text = "Write Pressure Table To PLC";
             this.bt_writePressureTableToPlc.UseVisualStyleBackColor = true;
@@ -111,10 +114,10 @@
             // 
             // rtbLog
             // 
-            this.rtbLog.Location = new System.Drawing.Point(140, 344);
-            this.rtbLog.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rtbLog.Location = new System.Drawing.Point(187, 423);
+            this.rtbLog.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rtbLog.Name = "rtbLog";
-            this.rtbLog.Size = new System.Drawing.Size(354, 122);
+            this.rtbLog.Size = new System.Drawing.Size(471, 149);
             this.rtbLog.TabIndex = 8;
             this.rtbLog.Text = "";
             // 
@@ -129,9 +132,10 @@
             this.pnl_plcControl.Controls.Add(this.rtbLog);
             this.pnl_plcControl.Controls.Add(this.bt_readPressureTableFromPlc);
             this.pnl_plcControl.Controls.Add(this.bt_writePressureTableToPlc);
-            this.pnl_plcControl.Location = new System.Drawing.Point(10, 12);
+            this.pnl_plcControl.Location = new System.Drawing.Point(13, 15);
+            this.pnl_plcControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnl_plcControl.Name = "pnl_plcControl";
-            this.pnl_plcControl.Size = new System.Drawing.Size(516, 495);
+            this.pnl_plcControl.Size = new System.Drawing.Size(688, 609);
             this.pnl_plcControl.TabIndex = 12;
             this.pnl_plcControl.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl_plcControl_Paint);
             // 
@@ -139,9 +143,10 @@
             // 
             this.bt_programDP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.bt_programDP.ForeColor = System.Drawing.Color.Black;
-            this.bt_programDP.Location = new System.Drawing.Point(300, 83);
+            this.bt_programDP.Location = new System.Drawing.Point(400, 102);
+            this.bt_programDP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bt_programDP.Name = "bt_programDP";
-            this.bt_programDP.Size = new System.Drawing.Size(102, 79);
+            this.bt_programDP.Size = new System.Drawing.Size(136, 97);
             this.bt_programDP.TabIndex = 12;
             this.bt_programDP.Text = "Program DP";
             this.bt_programDP.UseVisualStyleBackColor = true;
@@ -156,9 +161,10 @@
             this.panel1.Controls.Add(this.cmb_dpDeviceNumber);
             this.panel1.Controls.Add(this.label1);
             this.panel1.ForeColor = System.Drawing.Color.BlanchedAlmond;
-            this.panel1.Location = new System.Drawing.Point(763, 12);
+            this.panel1.Location = new System.Drawing.Point(1017, 15);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(538, 195);
+            this.panel1.Size = new System.Drawing.Size(717, 240);
             this.panel1.TabIndex = 13;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -166,9 +172,10 @@
             // 
             this.bt_disconnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_disconnect.ForeColor = System.Drawing.Color.Black;
-            this.bt_disconnect.Location = new System.Drawing.Point(22, 126);
+            this.bt_disconnect.Location = new System.Drawing.Point(29, 155);
+            this.bt_disconnect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bt_disconnect.Name = "bt_disconnect";
-            this.bt_disconnect.Size = new System.Drawing.Size(102, 54);
+            this.bt_disconnect.Size = new System.Drawing.Size(136, 66);
             this.bt_disconnect.TabIndex = 4;
             this.bt_disconnect.TabStop = false;
             this.bt_disconnect.Text = "Disconnect";
@@ -180,9 +187,10 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(274, 107);
+            this.label2.Location = new System.Drawing.Point(365, 132);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 16);
+            this.label2.Size = new System.Drawing.Size(68, 20);
             this.label2.TabIndex = 3;
             this.label2.Text = "DP NO";
             // 
@@ -190,9 +198,10 @@
             // 
             this.bt_connectToDp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_connectToDp.ForeColor = System.Drawing.Color.Black;
-            this.bt_connectToDp.Location = new System.Drawing.Point(20, 57);
+            this.bt_connectToDp.Location = new System.Drawing.Point(27, 70);
+            this.bt_connectToDp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bt_connectToDp.Name = "bt_connectToDp";
-            this.bt_connectToDp.Size = new System.Drawing.Size(102, 54);
+            this.bt_connectToDp.Size = new System.Drawing.Size(136, 66);
             this.bt_connectToDp.TabIndex = 2;
             this.bt_connectToDp.Text = "Connect to DP";
             this.bt_connectToDp.UseVisualStyleBackColor = true;
@@ -218,9 +227,10 @@
             "13",
             "14",
             "15"});
-            this.cmb_dpDeviceNumber.Location = new System.Drawing.Point(238, 135);
+            this.cmb_dpDeviceNumber.Location = new System.Drawing.Point(317, 166);
+            this.cmb_dpDeviceNumber.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmb_dpDeviceNumber.Name = "cmb_dpDeviceNumber";
-            this.cmb_dpDeviceNumber.Size = new System.Drawing.Size(121, 21);
+            this.cmb_dpDeviceNumber.Size = new System.Drawing.Size(160, 24);
             this.cmb_dpDeviceNumber.TabIndex = 1;
             // 
             // label1
@@ -229,33 +239,38 @@
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label1.Location = new System.Drawing.Point(160, 19);
+            this.label1.Location = new System.Drawing.Point(213, 23);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(218, 25);
+            this.label1.Size = new System.Drawing.Size(265, 31);
             this.label1.TabIndex = 0;
             this.label1.Text = "Multiplexing control";
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.tb_dpSerialNumber);
             this.panel2.Controls.Add(this.bt_getDPinfo);
             this.panel2.Controls.Add(this.bt_programDP);
             this.panel2.Controls.Add(this.bt_writePressursToDP);
             this.panel2.Controls.Add(this.bt_exportPressursTableToCSVfile);
             this.panel2.Controls.Add(this.label4);
             this.panel2.ForeColor = System.Drawing.Color.BlanchedAlmond;
-            this.panel2.Location = new System.Drawing.Point(763, 234);
+            this.panel2.Location = new System.Drawing.Point(1017, 288);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(538, 191);
+            this.panel2.Size = new System.Drawing.Size(717, 235);
             this.panel2.TabIndex = 14;
             // 
             // bt_getDPinfo
             // 
             this.bt_getDPinfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_getDPinfo.ForeColor = System.Drawing.Color.Black;
-            this.bt_getDPinfo.Location = new System.Drawing.Point(159, 83);
+            this.bt_getDPinfo.Location = new System.Drawing.Point(212, 102);
+            this.bt_getDPinfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bt_getDPinfo.Name = "bt_getDPinfo";
-            this.bt_getDPinfo.Size = new System.Drawing.Size(102, 79);
+            this.bt_getDPinfo.Size = new System.Drawing.Size(136, 97);
             this.bt_getDPinfo.TabIndex = 13;
             this.bt_getDPinfo.TabStop = false;
             this.bt_getDPinfo.Text = "Get DP Info";
@@ -266,9 +281,10 @@
             // 
             this.bt_writePressursToDP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_writePressursToDP.ForeColor = System.Drawing.Color.Black;
-            this.bt_writePressursToDP.Location = new System.Drawing.Point(22, 83);
+            this.bt_writePressursToDP.Location = new System.Drawing.Point(29, 102);
+            this.bt_writePressursToDP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bt_writePressursToDP.Name = "bt_writePressursToDP";
-            this.bt_writePressursToDP.Size = new System.Drawing.Size(102, 79);
+            this.bt_writePressursToDP.Size = new System.Drawing.Size(136, 97);
             this.bt_writePressursToDP.TabIndex = 4;
             this.bt_writePressursToDP.TabStop = false;
             this.bt_writePressursToDP.Text = "Write pressurs table to DP";
@@ -279,9 +295,10 @@
             // 
             this.bt_exportPressursTableToCSVfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_exportPressursTableToCSVfile.ForeColor = System.Drawing.Color.Black;
-            this.bt_exportPressursTableToCSVfile.Location = new System.Drawing.Point(422, 83);
+            this.bt_exportPressursTableToCSVfile.Location = new System.Drawing.Point(563, 102);
+            this.bt_exportPressursTableToCSVfile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bt_exportPressursTableToCSVfile.Name = "bt_exportPressursTableToCSVfile";
-            this.bt_exportPressursTableToCSVfile.Size = new System.Drawing.Size(102, 79);
+            this.bt_exportPressursTableToCSVfile.Size = new System.Drawing.Size(136, 97);
             this.bt_exportPressursTableToCSVfile.TabIndex = 2;
             this.bt_exportPressursTableToCSVfile.Text = "Export pressurs table to CSV file";
             this.bt_exportPressursTableToCSVfile.UseVisualStyleBackColor = true;
@@ -293,14 +310,16 @@
             this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label4.Location = new System.Drawing.Point(245, 12);
+            this.label4.Location = new System.Drawing.Point(327, 15);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(122, 25);
+            this.label4.Size = new System.Drawing.Size(151, 31);
             this.label4.TabIndex = 0;
             this.label4.Text = "DP control";
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
@@ -309,24 +328,51 @@
             this.bt_configuration.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.bt_configuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_configuration.ForeColor = System.Drawing.Color.Black;
-            this.bt_configuration.Location = new System.Drawing.Point(763, 460);
+            this.bt_configuration.Location = new System.Drawing.Point(1017, 566);
+            this.bt_configuration.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bt_configuration.Name = "bt_configuration";
-            this.bt_configuration.Size = new System.Drawing.Size(124, 47);
+            this.bt_configuration.Size = new System.Drawing.Size(165, 58);
             this.bt_configuration.TabIndex = 16;
             this.bt_configuration.TabStop = false;
             this.bt_configuration.Text = "Configuration";
             this.bt_configuration.UseVisualStyleBackColor = false;
             this.bt_configuration.Click += new System.EventHandler(this.bt_configuration_Click);
             // 
+            // tb_dpSerialNumber
+            // 
+            this.tb_dpSerialNumber.Location = new System.Drawing.Point(29, 42);
+            this.tb_dpSerialNumber.Name = "tb_dpSerialNumber";
+            this.tb_dpSerialNumber.Size = new System.Drawing.Size(136, 22);
+            this.tb_dpSerialNumber.TabIndex = 14;
+            // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(67, 4);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(35, 15);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(114, 20);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "DP serial no";
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1313, 534);
+            this.ClientSize = new System.Drawing.Size(1751, 657);
             this.Controls.Add(this.bt_configuration);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnl_plcControl);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.TransparencyKey = System.Drawing.Color.Lime;
@@ -366,6 +412,9 @@
         private System.Windows.Forms.Button bt_getDPinfo;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Button bt_configuration;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox tb_dpSerialNumber;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
     }
 }
 

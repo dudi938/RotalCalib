@@ -11,9 +11,9 @@ namespace DpCommunication
 
     public class DpIncomingInformation
     {
-        public bool newControlTransmitMessage = false;
+        public bool   newControlTransmitMessage = false;
         public string controlTransmitMessage; // TX line
-        public bool newControlReceiverMessage = false;
+        public bool   newControlReceiverMessage = false;
         public string controlReceiverMessage; // RX line
     }
 
@@ -21,7 +21,9 @@ namespace DpCommunication
     {
         public float temp;                    // temperature of the current pressure value
         public float pressure;                // Physical pressure of the current a2d pressure value
-        public float a2dPressureValue;        // A2D value
+        public int a2dPressureValue;          // A2D value
+
+
 
         public DpCalibPoint()
         {
@@ -51,7 +53,7 @@ namespace DpCommunication
         private const byte API_MSG_DP_ACK_OK              = 0x00;  //opcode
         private const byte API_MSG_DP_SEND_PRESSURE_TO_DP = 0x01;  //opcode
         private const byte API_MSG_DP_GET_DP_INFO         = 0x02;  //opcode
-        
+        private const byte API_MSG_DP_GET_SERIAL_NUMBER   = 0x03;  //opcode
 
 
 
@@ -61,9 +63,9 @@ namespace DpCommunication
 
         private const byte COM_PACKET_MESSAGE_TX = 0x01;  //parameter
         private const byte COM_PACKET_MESSAGE_RX = 0x00;  //parameter
-        private const byte API_MSG_MAG_BASIC_MASSEGE_LENGTH = 0x04;
+        private const byte API_MSG_DP_BASIC_MASSEGE_LENGTH = 0x04;
         //optional preambles bytes that represent the start of the received packet
-        private const byte API_MSG_PREAMBLE = 170;
+        private const byte API_MSG_PREAMBLE = 248;  // 0xf8
 
         //optional indexes in the received packet
         private const byte COM_PACKET_INDEX_START_BYTE = 0; //index of the preamble byte data in the received packet
@@ -71,6 +73,9 @@ namespace DpCommunication
         private const byte COM_PACKET_INDEX_MESSAGE_TYPE = 2;	//index of the message type data in the received packet
         private const byte COM_PACKET_INDEX_MESSAGE_ID = 3; //index of the message id data in the received packet
 
+
+        //general constants
+        private const byte SIZE_OF_FLOAT = 0x04;
 
         private DpIncomingInformation incomingInfo;
         private classSerial SerialPortInstanse;
@@ -214,22 +219,26 @@ namespace DpCommunication
             return (byte)~sumByteValue;
         }
 
-        public void DpWritePressurePointToDevice(float a2dValue, byte TempN, byte PreesureN)
+        public void DpWritePressurePointToDevice(int a2dValue, byte TempN, byte PreesureN)
         {
-            byte[] data = new byte[API_MSG_MAG_BASIC_MASSEGE_LENGTH + 4];
+            float pressure = 2.17f;
+
+            byte[] FloatToByteArray = new byte[SIZE_OF_FLOAT];
+            FloatToByteArray = BitConverter.GetBytes(pressure); 
+
+            byte[] data = new byte[API_MSG_DP_BASIC_MASSEGE_LENGTH + 6];
             data[0] = API_MSG_PREAMBLE;
             data[1] = (byte)data.Count();
             data[2] = API_MSG_DP_SEND_PRESSURE_TO_DP;  //opcode
-            data[3] = (byte)(a2dValue / 256);
-            data[4] = (byte)(a2dValue);
-            data[5] = TempN;
-            data[6] = PreesureN;
+            data[3] = FloatToByteArray[0];  // byte 1 from the float pressure value
+            data[4] = FloatToByteArray[1];  // byte 2 from the float pressure value
+            data[5] = FloatToByteArray[2];  // byte 3 from the float pressure value
+            data[6] = FloatToByteArray[3];  // byte 4 from the float pressure value
+            data[7] = TempN;
+            data[8] = PreesureN;
             data[data.Count() - 1] = CheckCum(data, data.Count());
 
             SerialPortInstanse.Send(data, data.Count());
-
-            //SendRxTxStringAsHex(data, COM_PACKET_MESSAGE_TX, data[1]);  // send to consule (DEBUG)
-            //incomingInfo.newControlTransmitMessage = true;
         }
 
         public void Simulation()
@@ -249,7 +258,7 @@ namespace DpCommunication
         }
         public void DPgetDpInfo()
         {
-            byte[] data = new byte[API_MSG_MAG_BASIC_MASSEGE_LENGTH];
+            byte[] data = new byte[API_MSG_DP_BASIC_MASSEGE_LENGTH];
             data[0] = API_MSG_PREAMBLE;
             data[1] = (byte)data.Count();
             data[2] = API_MSG_DP_GET_DP_INFO;  //opcode
@@ -278,6 +287,18 @@ namespace DpCommunication
                     PressureInTempCount = 0;
                 }
             }
+        }
+
+        public void SendDpSerialNumber(byte[] serialNumber)
+        {
+            byte[] data = new byte[API_MSG_DP_BASIC_MASSEGE_LENGTH + serialNumber.Count()];
+            data[0] = API_MSG_PREAMBLE;
+            data[1] = (byte)data.Count();
+            data[2] = API_MSG_DP_GET_SERIAL_NUMBER;  //opcode
+            Array.Copy(serialNumber, 0, data, API_MSG_DP_BASIC_MASSEGE_LENGTH - 1, serialNumber.Count());
+            data[data.Count() - 1] = CheckCum(data, data.Count());
+
+            SerialPortInstanse.Send(data, data.Count());
         }
 
     }

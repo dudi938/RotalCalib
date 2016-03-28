@@ -75,7 +75,6 @@ namespace DP_dashboard
                                             float pressureValue = float.Parse(dgv_calibPressuresPointsTable.Rows[j].Cells[1].Value.ToString());
                                             float TempValue = float.Parse(dgv_calibTempPointsTable.Rows[i].Cells[1].Value.ToString());
                                             DpCalibPoint NewCalibPoint = new DpCalibPoint(pressureValue, TempValue);
-
                                             NewTempLine.oneTempLine.Add(NewCalibPoint);
                                      }
                                 }

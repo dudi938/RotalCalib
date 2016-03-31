@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.dgv_calibTempPointsTable = new System.Windows.Forms.DataGridView();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.bt_saveCalibPoint = new System.Windows.Forms.Button();
-            this.bt_Cancel = new System.Windows.Forms.Button();
             this.Enable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Temperture = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.dgv_calibPressuresPointsTable = new System.Windows.Forms.DataGridView();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Pressure = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bt_Cancel = new System.Windows.Forms.Button();
+            this.bt_saveCalibPoint = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calibTempPointsTable)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calibPressuresPointsTable)).BeginInit();
@@ -55,58 +55,6 @@
             this.dgv_calibTempPointsTable.TabIndex = 0;
             this.dgv_calibTempPointsTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.dgv_calibPressuresPointsTable);
-            this.panel1.Controls.Add(this.bt_Cancel);
-            this.panel1.Controls.Add(this.bt_saveCalibPoint);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.dgv_calibTempPointsTable);
-            this.panel1.Location = new System.Drawing.Point(54, 34);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(691, 543);
-            this.panel1.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoEllipsis = true;
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label1.Location = new System.Drawing.Point(34, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(379, 24);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Enter Calibration point: pressures & temp";
-            // 
-            // bt_saveCalibPoint
-            // 
-            this.bt_saveCalibPoint.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.bt_saveCalibPoint.CausesValidation = false;
-            this.bt_saveCalibPoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_saveCalibPoint.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.bt_saveCalibPoint.Location = new System.Drawing.Point(59, 494);
-            this.bt_saveCalibPoint.Name = "bt_saveCalibPoint";
-            this.bt_saveCalibPoint.Size = new System.Drawing.Size(176, 36);
-            this.bt_saveCalibPoint.TabIndex = 3;
-            this.bt_saveCalibPoint.Text = "Save calib point";
-            this.bt_saveCalibPoint.UseVisualStyleBackColor = false;
-            this.bt_saveCalibPoint.Click += new System.EventHandler(this.bt_saveCalibPoint_Click);
-            // 
-            // bt_Cancel
-            // 
-            this.bt_Cancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.bt_Cancel.CausesValidation = false;
-            this.bt_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_Cancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.bt_Cancel.Location = new System.Drawing.Point(373, 494);
-            this.bt_Cancel.Name = "bt_Cancel";
-            this.bt_Cancel.Size = new System.Drawing.Size(176, 36);
-            this.bt_Cancel.TabIndex = 4;
-            this.bt_Cancel.Text = "Cancel";
-            this.bt_Cancel.UseVisualStyleBackColor = false;
-            this.bt_Cancel.Click += new System.EventHandler(this.bt_Cancel_Click);
-            // 
             // Enable
             // 
             this.Enable.HeaderText = "Enable";
@@ -119,12 +67,25 @@
             this.Temperture.HeaderText = "Temperture[c]";
             this.Temperture.Name = "Temperture";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.dgv_calibPressuresPointsTable);
+            this.panel1.Controls.Add(this.bt_Cancel);
+            this.panel1.Controls.Add(this.bt_saveCalibPoint);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.dgv_calibTempPointsTable);
+            this.panel1.Location = new System.Drawing.Point(54, 34);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(691, 543);
+            this.panel1.TabIndex = 1;
+            // 
             // dgv_calibPressuresPointsTable
             // 
             this.dgv_calibPressuresPointsTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_calibPressuresPointsTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewCheckBoxColumn1,
             this.Pressure});
+            this.dgv_calibPressuresPointsTable.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgv_calibPressuresPointsTable.Location = new System.Drawing.Point(350, 83);
             this.dgv_calibPressuresPointsTable.Name = "dgv_calibPressuresPointsTable";
             this.dgv_calibPressuresPointsTable.Size = new System.Drawing.Size(239, 197);
@@ -141,6 +102,46 @@
             // 
             this.Pressure.HeaderText = "Pressure[bar]";
             this.Pressure.Name = "Pressure";
+            // 
+            // bt_Cancel
+            // 
+            this.bt_Cancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.bt_Cancel.CausesValidation = false;
+            this.bt_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_Cancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.bt_Cancel.Location = new System.Drawing.Point(373, 494);
+            this.bt_Cancel.Name = "bt_Cancel";
+            this.bt_Cancel.Size = new System.Drawing.Size(176, 36);
+            this.bt_Cancel.TabIndex = 4;
+            this.bt_Cancel.Text = "Cancel";
+            this.bt_Cancel.UseVisualStyleBackColor = false;
+            this.bt_Cancel.Click += new System.EventHandler(this.bt_Cancel_Click);
+            // 
+            // bt_saveCalibPoint
+            // 
+            this.bt_saveCalibPoint.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.bt_saveCalibPoint.CausesValidation = false;
+            this.bt_saveCalibPoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_saveCalibPoint.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.bt_saveCalibPoint.Location = new System.Drawing.Point(59, 494);
+            this.bt_saveCalibPoint.Name = "bt_saveCalibPoint";
+            this.bt_saveCalibPoint.Size = new System.Drawing.Size(176, 36);
+            this.bt_saveCalibPoint.TabIndex = 3;
+            this.bt_saveCalibPoint.Text = "Save calib point";
+            this.bt_saveCalibPoint.UseVisualStyleBackColor = false;
+            this.bt_saveCalibPoint.Click += new System.EventHandler(this.bt_saveCalibPoint_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoEllipsis = true;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.label1.Location = new System.Drawing.Point(34, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(476, 29);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Enter Calibration point: pressures & temp";
             // 
             // ConfigForm
             // 
@@ -168,8 +169,8 @@
         private System.Windows.Forms.Button bt_saveCalibPoint;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Enable;
         private System.Windows.Forms.DataGridViewTextBoxColumn Temperture;
-        private System.Windows.Forms.DataGridView dgv_calibPressuresPointsTable;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Pressure;
+        public System.Windows.Forms.DataGridView dgv_calibPressuresPointsTable;
     }
 }

@@ -49,7 +49,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("COM11")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM3")]
         public string dpComPort {
             get {
                 return ((string)(this["dpComPort"]));

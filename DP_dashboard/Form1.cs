@@ -59,12 +59,12 @@ namespace DP_dashboard
             MultiplexingProtocolInstanse = new classMultiplexing(Properties.Settings.Default.multiplexingComPort, 115200, MultiplexingInfo);
 
 #endif
-
             // DP protocol init
 
             DPinfo = new DpIncomingInformation();
             DpProtocolInstanse = new ClassDpCommunication(Properties.Settings.Default.dpComPort, 115200, DPinfo);
-            //DpProtocolInstanse.Simulation();
+            DpProtocolInstanse.Simulation();
+
 
         }
 
@@ -156,7 +156,7 @@ namespace DP_dashboard
 
         private void bt_writePressursToDP_Click(object sender, EventArgs e)
         {         
-            DpProtocolInstanse.SendDpSerialNumber(System.Text.Encoding.ASCII.GetBytes(tb_dpSerialNumber.Text));
+           // DpProtocolInstanse.SendDpSerialNumber(System.Text.Encoding.ASCII.GetBytes(tb_dpSerialNumber.Text));
 
             DpProtocolInstanse.SendPressuresTableToDP();
         }

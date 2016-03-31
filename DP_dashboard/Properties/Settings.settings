@@ -9,7 +9,7 @@
       <Value Profile="(Default)">COM1</Value>
     </Setting>
     <Setting Name="dpComPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">COM11</Value>
+      <Value Profile="(Default)">COM3</Value>
     </Setting>
   </Settings>
 </SettingsFile>

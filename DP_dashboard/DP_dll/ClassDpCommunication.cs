@@ -9,6 +9,18 @@ using SerialPort_dll;
 namespace DpCommunication
 {
 
+    public class DpInfo
+    {
+
+        private const byte SERIAL_NUMBER_LENGTH = 0x0A;
+
+        public string  DeviseMacAddress;
+        public byte    CurrentTemp;
+        public float   S1Pressure;
+        public float   S2Pressure;              
+        public byte    Calibrated;         
+    }
+
     public class DpIncomingInformation
     {
         public bool   newControlTransmitMessage = false;
@@ -45,15 +57,34 @@ namespace DpCommunication
 
     public class ClassDpCommunication
     {
+        DpInfo dpInfo = new DpInfo();
+        // DP info Offset 
+        private const byte SERIAL_NUMBER_LENGTH             = 0x0a;
+
+        private const byte DEVICE_INFO_SERIAL_NUMBER_OFFSET = 0x03;
+        private const byte DEVICE_INFO_CURRENT_TEMP_OFFSET  = DEVICE_INFO_SERIAL_NUMBER_OFFSET + SERIAL_NUMBER_LENGTH;
+        private const byte DEVICE_INFO_S1_PRESSURE_OFFSET   = DEVICE_INFO_CURRENT_TEMP_OFFSET  + 0x01;
+        private const byte DEVICE_INFO_S2_PRESSURE_OFFSET   = DEVICE_INFO_S1_PRESSURE_OFFSET   + 0x04;
+        private const byte DEVICE_INFO_CALIBRATED_OFFSET    = DEVICE_INFO_S2_PRESSURE_OFFSET   + 0x04;
+
+        //end DP info Offset 
+
+
+
 
         private const byte MAX_TEMP_POINTS = 0x05;
         private const byte MAX_PRESSURE_POINTS = 0x0f;
 
         //op cod's//
-        private const byte API_MSG_DP_ACK_OK              = 0x00;  //opcode
-        private const byte API_MSG_DP_SEND_PRESSURE_TO_DP = 0x01;  //opcode
-        private const byte API_MSG_DP_GET_DP_INFO         = 0x02;  //opcode
-        private const byte API_MSG_DP_GET_SERIAL_NUMBER   = 0x03;  //opcode
+        private const byte API_MSG_DP_GET_DP_INFO             = 0x01;  //opcode
+        private const byte API_MSG_DP_GET_SELF_TEST           = 0x02;  //opcode
+        private const byte API_MSG_DP_GET_CURRENT_TEMP        = 0x03;  //opcode
+        private const byte API_MSG_DP_GET_CURRENT_PRESSURE    = 0x04;  //opcode
+        private const byte API_MSG_DP_SEND_PRESSURE_TO_DP     = 0x05;  //opcode
+        private const byte API_MSG_DP_CALIBRATION_DONE        = 0x06;  //opcode
+        private const byte API_MSG_DP_ACK_OK                  = 0x07;  //opcode
+        private const byte API_MSG_DP_SEND_SERIAL_NUMBER      = 0x08;  //opcode
+
 
 
 
@@ -165,11 +196,16 @@ namespace DpCommunication
                     case API_MSG_DP_SEND_PRESSURE_TO_DP:
                         {
 
+
                         }
                         break;
                     case API_MSG_DP_GET_DP_INFO:
                         {
-
+                            dpInfo.DeviseMacAddress = System.Text.Encoding.UTF8.GetString(incomingData, DEVICE_INFO_SERIAL_NUMBER_OFFSET, 10);
+                            dpInfo.CurrentTemp = incomingData[DEVICE_INFO_CURRENT_TEMP_OFFSET];
+                            dpInfo.S1Pressure = System.BitConverter.ToSingle(incomingData, DEVICE_INFO_S1_PRESSURE_OFFSET);
+                            dpInfo.S2Pressure = System.BitConverter.ToSingle(incomingData, DEVICE_INFO_S2_PRESSURE_OFFSET);
+                            dpInfo.Calibrated = incomingData[DEVICE_INFO_CALIBRATED_OFFSET];
                         }
                         break;
                     default:
@@ -294,7 +330,7 @@ namespace DpCommunication
             byte[] data = new byte[API_MSG_DP_BASIC_MASSEGE_LENGTH + serialNumber.Count()];
             data[0] = API_MSG_PREAMBLE;
             data[1] = (byte)data.Count();
-            data[2] = API_MSG_DP_GET_SERIAL_NUMBER;  //opcode
+            data[2] = API_MSG_DP_SEND_SERIAL_NUMBER;  //opcode
             Array.Copy(serialNumber, 0, data, API_MSG_DP_BASIC_MASSEGE_LENGTH - 1, serialNumber.Count());
             data[data.Count() - 1] = CheckCum(data, data.Count());
 

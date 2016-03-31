@@ -44,6 +44,7 @@ namespace DP_dashboard
 
         private void bt_saveCalibPoint_Click(object sender, EventArgs e)
         {
+
             DpProtocolInstanse.DPPressuresTable.Clear();
 
             MessageBox.Show("You go to delete the old configuration points");
@@ -75,6 +76,7 @@ namespace DP_dashboard
                                             float pressureValue = float.Parse(dgv_calibPressuresPointsTable.Rows[j].Cells[1].Value.ToString());
                                             float TempValue = float.Parse(dgv_calibTempPointsTable.Rows[i].Cells[1].Value.ToString());
                                             DpCalibPoint NewCalibPoint = new DpCalibPoint(pressureValue, TempValue);
+                                            NewCalibPoint.a2dPressureValue = 400;
                                             NewTempLine.oneTempLine.Add(NewCalibPoint);
                                      }
                                 }
@@ -83,10 +85,12 @@ namespace DP_dashboard
                         DpProtocolInstanse.DPPressuresTable.Add(NewTempLine);
                     }
                 }
+
             }
 
             this.Hide();
             Form1.currentForm.Show();
+
         }
 
 
@@ -94,5 +98,6 @@ namespace DP_dashboard
 
 
     }
-}
+
+        }
 

@@ -20,12 +20,12 @@ using System.Diagnostics;
 namespace DP_dashboard
 {
 
-    public partial class Form1 : Form
+    public partial class CalibForm : Form
     {
-        public static Form1 currentForm;
+        public static CalibForm currentForm;
 
         //cosntants
-        private const int MAX_PRESSURE_POINT = 10;
+        private const int MAX_PRESSURE_POINT = 0x0f;
 
         // mult plexing protocol instance
         private MultiplexingIncomingInformation MultiplexingInfo;
@@ -44,11 +44,18 @@ namespace DP_dashboard
         // end  
 
         private classLog log = new classLog();
+        private ClassCalibrationInfo classCalibrationInfo;
+        private string CurrentSnDeviceIsFocus = "";
 
-        public Form1()
+        public CalibForm(ClassCalibrationInfo info)
         {
             InitializeComponent();
+            System.Windows.Forms.DataGridView[] dgvDeviceResultTable = new System.Windows.Forms.DataGridView[16];
             currentForm = this;
+            classCalibrationInfo = info;
+
+
+
 #if xx
             // plc protocol init          
             PLCinfo = new DeltaIncomingInformation();
@@ -71,11 +78,7 @@ namespace DP_dashboard
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            for (int i = 300; i < 310; i++)
-            {
-                dgv_prressureTable.Rows.Add(i.ToString());
-            }
-            
+            UpdateDeviceTable();          
         }
 
         private void bt_writePressureTableToPlc_Click(object sender, EventArgs e)
@@ -113,6 +116,13 @@ namespace DP_dashboard
         private void timer1_Tick(object sender, EventArgs e)
         {
             //rtbLog.Lines = PLCinfo.listDebugInfo.ToArray();
+
+            if (classCalibrationInfo.DoCalibration)
+            {
+                string Message = string.Format("Calibration in process : Device number:{0}. Temp index:{1}. Pressure index:{2}. Current device status:{3}", classCalibrationInfo.CurrentCalibDeviceIndex.ToString(), classCalibrationInfo.CurrentCalibTempIndex.ToString(), classCalibrationInfo.CurrentCalibPressureIndex.ToString(), classCalibrationInfo.CurrentCalibDevice.deviceStatus.ToString());
+                lbl_info.Text = Message;
+            }
+                        
         }
 
         private void pnl_plcControl_Paint(object sender, PaintEventArgs e)
@@ -183,6 +193,88 @@ namespace DP_dashboard
             ConfigForm configForm = new ConfigForm(DpProtocolInstanse);
             this.Hide();
             configForm.Show();
+        }
+
+        private void rtbLog_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgv_prressureTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void bt_startCalibration_Click(object sender, EventArgs e)
+        {
+            classCalibrationInfo.DoCalibration = true;
+        }
+
+        private void UpdateDeviceTable()
+        {          
+            for (int i = 0; i< classCalibrationInfo.DpCountAxist; i++)
+            {
+                dgv_devicesQueue.Rows.Add(i.ToString(), classCalibrationInfo.classDevices[i].DeviceName.ToString(), classCalibrationInfo.classDevices[i].DeviceSerialNumber.ToString());
+            }
+        }
+        private void UpdateDataTable(string serialNumber)
+        {
+            bool ExistDevice = false;
+            int i = 0;
+            for (i = 0; i < classCalibrationInfo.DpCountAxist; i++)
+            {
+                if (classCalibrationInfo.classDevices[i].DeviceSerialNumber == serialNumber)
+                {
+                    ExistDevice = true;
+                    break;
+                }             
+            }
+
+            
+            if (ExistDevice)
+            {
+                dgv_deviceData.Rows.Clear();
+                ExistDevice = false;
+                for (int j = 0; j < MAX_PRESSURE_POINT; j++)
+                {
+                    dgv_deviceData.Rows.Add(
+                                                classCalibrationInfo.classDevices[i].CalibrationData[0, 0].extA2dPressureValue.ToString(),
+
+                                                classCalibrationInfo.classDevices[i].CalibrationData[0, j].a2dPressureValue1.ToString(),
+                                                classCalibrationInfo.classDevices[i].CalibrationData[0, j].a2dPressureValue2.ToString(),
+
+                                                classCalibrationInfo.classDevices[i].CalibrationData[1, j].a2dPressureValue1.ToString(),
+                                                classCalibrationInfo.classDevices[i].CalibrationData[1, j].a2dPressureValue2.ToString(),
+
+                                                classCalibrationInfo.classDevices[i].CalibrationData[2, j].a2dPressureValue1.ToString(),
+                                                classCalibrationInfo.classDevices[i].CalibrationData[2, j].a2dPressureValue2.ToString(),
+
+                                                classCalibrationInfo.classDevices[i].CalibrationData[3, j].a2dPressureValue1.ToString(),
+                                                classCalibrationInfo.classDevices[i].CalibrationData[3, j].a2dPressureValue2.ToString(),
+
+                                                classCalibrationInfo.classDevices[i].CalibrationData[4, j].a2dPressureValue1.ToString(),
+                                                classCalibrationInfo.classDevices[i].CalibrationData[4, j].a2dPressureValue2.ToString(),
+
+                                                classCalibrationInfo.classDevices[i].deviceStatus.ToString()
+                                            );
+
+                }
+            }
+
+        }
+
+        private void dgv_devicesQueue_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgv_devicesQueue.Rows[e.RowIndex].Cells[1].Value != null)
+            {
+                CurrentSnDeviceIsFocus = dgv_devicesQueue.Rows[e.RowIndex].Cells[2].Value.ToString();
+                UpdateDataTable(CurrentSnDeviceIsFocus);
+            }
+        }
+
+        private void dgv_deviceData_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

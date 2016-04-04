@@ -37,7 +37,7 @@ namespace DP_dashboard
         private void bt_Cancel_Click(object sender, EventArgs e)
         {            
             this.Hide();
-            Form1.currentForm.Show();      
+            CalibForm.currentForm.Show();      
         }
 
 
@@ -89,7 +89,7 @@ namespace DP_dashboard
             }
 
             this.Hide();
-            Form1.currentForm.Show();
+            CalibForm.currentForm.Show();
 
         }
 

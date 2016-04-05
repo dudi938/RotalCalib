@@ -11,9 +11,9 @@ namespace DP_dashboard
     {
 
         //state machine stats
-        private  byte CurrentState                     = StateStartCalib;
-        private  byte NextState                        = 0x00;
-        private  byte PreviousState                    = 0x00;
+        public byte CurrentState                     = StateStartCalib;
+        public byte NextState                        = 0x00;
+        public byte PreviousState                    = 0x00;
 
         private const byte StateStartCalib             = 0x01;
         private const byte StateSendSetPoints          = 0x02;
@@ -45,8 +45,9 @@ namespace DP_dashboard
         public byte CurrentCalibDeviceIndex = 0;
         public byte CurrentCalibTempIndex = 0;
         public byte CurrentCalibPressureIndex = 0;
-        public bool DoCalibration = false; 
-
+        public bool DoCalibration = false;
+        public bool ChengeStateEvent = false;
+        public bool IncermentCalibPointStep= false;
 
 
         public ClassCalibrationInfo()
@@ -90,6 +91,7 @@ namespace DP_dashboard
                                 TimeFromSetPointRequest = DateTime.Now;
 
                                 StateChangeState(StateWaitToSetPointsStable);
+                                IncermentCalibPointStep = true;
                             }
                             break;
 
@@ -128,7 +130,6 @@ namespace DP_dashboard
                                 }
                                 else
                                 {
-                                    CurrentCalibDevice.deviceStatus = DeviceStatus.Pass;
                                     StateChangeState(StateFinishAllCalibPoint);
                                 }
                             }
@@ -143,7 +144,7 @@ namespace DP_dashboard
                             {
                                 if (CurrentCalibPressureIndex < MAX_PRESSURE_CALIB_POINT)
                                 {
-                                    if (CurrentCalibDeviceIndex < DpCountAxist)
+                                    if (CurrentCalibDeviceIndex < DpCountAxist - 1)
                                     {
                                         CurrentCalibDeviceIndex++;
                                         CurrentCalibDevice = classDevices[CurrentCalibDeviceIndex];
@@ -164,6 +165,11 @@ namespace DP_dashboard
                             break;
                         case StateFinishAllCalibPoint:
                             {
+                                if (CurrentCalibDevice.deviceStatus != DeviceStatus.Fail)
+                                {
+                                    CurrentCalibDevice.deviceStatus = DeviceStatus.Pass;
+                                }
+
                                 DoCalibration = false;
                                 StateChangeState(StateStartCalib);
                             }
@@ -183,6 +189,7 @@ namespace DP_dashboard
         {
             PreviousState = CurrentState;
             CurrentState = nextState;
+            ChengeStateEvent = true;
         }
 
 

@@ -117,10 +117,18 @@ namespace DP_dashboard
         {
             //rtbLog.Lines = PLCinfo.listDebugInfo.ToArray();
 
-            if (classCalibrationInfo.DoCalibration)
+            if (classCalibrationInfo.IncermentCalibPointStep)
             {
+                classCalibrationInfo.IncermentCalibPointStep = false;
                 string Message = string.Format("Calibration in process : Device number:{0}. Temp index:{1}. Pressure index:{2}. Current device status:{3}", classCalibrationInfo.CurrentCalibDeviceIndex.ToString(), classCalibrationInfo.CurrentCalibTempIndex.ToString(), classCalibrationInfo.CurrentCalibPressureIndex.ToString(), classCalibrationInfo.CurrentCalibDevice.deviceStatus.ToString());
-                lbl_info.Text = Message;
+                rtb_info.Text += Message + "\r\n";
+            }
+
+            if (classCalibrationInfo.ChengeStateEvent)
+            {
+               // classCalibrationInfo.ChengeStateEvent = false;
+               // string Message = string.Format("state change: from {0}  ->   {1}", classCalibrationInfo.PreviousState.);
+               // rtb_info.Text += Message + "\r\n";
             }
                         
         }

@@ -56,10 +56,6 @@
             this.bt_stopCalibration = new System.Windows.Forms.Button();
             this.bt_startCalibration = new System.Windows.Forms.Button();
             this.dgv_deviceData = new System.Windows.Forms.DataGridView();
-            this.dgv_devicesQueue = new System.Windows.Forms.DataGridView();
-            this.col_no = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_deviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_serialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_extPressure = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_Temp1_1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_Temp1_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -72,7 +68,11 @@
             this.col_temp5_p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_Temp5_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lbl_info = new System.Windows.Forms.Label();
+            this.dgv_devicesQueue = new System.Windows.Forms.DataGridView();
+            this.col_no = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_deviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_serialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rtb_info = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_prressureTable)).BeginInit();
@@ -347,7 +347,7 @@
             // 
             // pnl_calibrationPanel
             // 
-            this.pnl_calibrationPanel.Controls.Add(this.lbl_info);
+            this.pnl_calibrationPanel.Controls.Add(this.rtb_info);
             this.pnl_calibrationPanel.Controls.Add(this.bt_stopCalibration);
             this.pnl_calibrationPanel.Controls.Add(this.bt_startCalibration);
             this.pnl_calibrationPanel.Controls.Add(this.dgv_deviceData);
@@ -361,9 +361,9 @@
             // 
             this.bt_stopCalibration.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_stopCalibration.ForeColor = System.Drawing.Color.Black;
-            this.bt_stopCalibration.Location = new System.Drawing.Point(646, 498);
+            this.bt_stopCalibration.Location = new System.Drawing.Point(831, 498);
             this.bt_stopCalibration.Name = "bt_stopCalibration";
-            this.bt_stopCalibration.Size = new System.Drawing.Size(178, 74);
+            this.bt_stopCalibration.Size = new System.Drawing.Size(178, 49);
             this.bt_stopCalibration.TabIndex = 5;
             this.bt_stopCalibration.Text = "Stop Calibration";
             this.bt_stopCalibration.UseVisualStyleBackColor = true;
@@ -372,9 +372,9 @@
             // 
             this.bt_startCalibration.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_startCalibration.ForeColor = System.Drawing.Color.Black;
-            this.bt_startCalibration.Location = new System.Drawing.Point(413, 498);
+            this.bt_startCalibration.Location = new System.Drawing.Point(831, 578);
             this.bt_startCalibration.Name = "bt_startCalibration";
-            this.bt_startCalibration.Size = new System.Drawing.Size(178, 74);
+            this.bt_startCalibration.Size = new System.Drawing.Size(178, 49);
             this.bt_startCalibration.TabIndex = 3;
             this.bt_startCalibration.Text = "Start Calibration";
             this.bt_startCalibration.UseVisualStyleBackColor = true;
@@ -401,38 +401,6 @@
             this.dgv_deviceData.Size = new System.Drawing.Size(644, 430);
             this.dgv_deviceData.TabIndex = 1;
             this.dgv_deviceData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_deviceData_CellContentClick);
-            // 
-            // dgv_devicesQueue
-            // 
-            this.dgv_devicesQueue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_devicesQueue.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_no,
-            this.col_deviceName,
-            this.col_serialNumber});
-            this.dgv_devicesQueue.Location = new System.Drawing.Point(22, 43);
-            this.dgv_devicesQueue.Name = "dgv_devicesQueue";
-            this.dgv_devicesQueue.Size = new System.Drawing.Size(281, 442);
-            this.dgv_devicesQueue.TabIndex = 0;
-            this.dgv_devicesQueue.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_devicesQueue_CellEnter);
-            // 
-            // col_no
-            // 
-            this.col_no.HeaderText = "NO";
-            this.col_no.Name = "col_no";
-            this.col_no.ReadOnly = true;
-            this.col_no.Width = 40;
-            // 
-            // col_deviceName
-            // 
-            this.col_deviceName.HeaderText = "Device name";
-            this.col_deviceName.Name = "col_deviceName";
-            this.col_deviceName.ReadOnly = true;
-            // 
-            // col_serialNumber
-            // 
-            this.col_serialNumber.HeaderText = "Serial Number ";
-            this.col_serialNumber.Name = "col_serialNumber";
-            this.col_serialNumber.ReadOnly = true;
             // 
             // col_extPressure
             // 
@@ -517,13 +485,45 @@
             this.col_status.Name = "col_status";
             this.col_status.ReadOnly = true;
             // 
-            // lbl_info
+            // dgv_devicesQueue
             // 
-            this.lbl_info.AutoSize = true;
-            this.lbl_info.Location = new System.Drawing.Point(413, 603);
-            this.lbl_info.Name = "lbl_info";
-            this.lbl_info.Size = new System.Drawing.Size(0, 15);
-            this.lbl_info.TabIndex = 6;
+            this.dgv_devicesQueue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_devicesQueue.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_no,
+            this.col_deviceName,
+            this.col_serialNumber});
+            this.dgv_devicesQueue.Location = new System.Drawing.Point(22, 43);
+            this.dgv_devicesQueue.Name = "dgv_devicesQueue";
+            this.dgv_devicesQueue.Size = new System.Drawing.Size(281, 442);
+            this.dgv_devicesQueue.TabIndex = 0;
+            this.dgv_devicesQueue.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_devicesQueue_CellEnter);
+            // 
+            // col_no
+            // 
+            this.col_no.HeaderText = "NO";
+            this.col_no.Name = "col_no";
+            this.col_no.ReadOnly = true;
+            this.col_no.Width = 40;
+            // 
+            // col_deviceName
+            // 
+            this.col_deviceName.HeaderText = "Device name";
+            this.col_deviceName.Name = "col_deviceName";
+            this.col_deviceName.ReadOnly = true;
+            // 
+            // col_serialNumber
+            // 
+            this.col_serialNumber.HeaderText = "Serial Number ";
+            this.col_serialNumber.Name = "col_serialNumber";
+            this.col_serialNumber.ReadOnly = true;
+            // 
+            // rtb_info
+            // 
+            this.rtb_info.Location = new System.Drawing.Point(413, 498);
+            this.rtb_info.Name = "rtb_info";
+            this.rtb_info.Size = new System.Drawing.Size(403, 129);
+            this.rtb_info.TabIndex = 6;
+            this.rtb_info.Text = "";
             // 
             // CalibForm
             // 
@@ -546,7 +546,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_prressureTable)).EndInit();
             this.pnl_plcControl.ResumeLayout(false);
             this.pnl_calibrationPanel.ResumeLayout(false);
-            this.pnl_calibrationPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_deviceData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_devicesQueue)).EndInit();
             this.ResumeLayout(false);
@@ -597,7 +596,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_no;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_deviceName;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_serialNumber;
-        private System.Windows.Forms.Label lbl_info;
+        private System.Windows.Forms.RichTextBox rtb_info;
     }
 }
 

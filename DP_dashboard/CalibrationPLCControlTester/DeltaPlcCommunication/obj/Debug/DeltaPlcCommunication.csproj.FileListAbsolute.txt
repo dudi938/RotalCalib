@@ -13,3 +13,8 @@ C:\Users\dudi9\Desktop\dashboard\DP_dashboard\CalibrationPLCControlTester\DeltaP
 C:\Users\dudi9\Desktop\dashboard\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.csprojResolveAssemblyReference.cache
 C:\Users\dudi9\Desktop\dashboard\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.dll
 C:\Users\dudi9\Desktop\dashboard\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.pdb
+C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\bin\Debug\DeltaPlcCommunication.dll
+C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\bin\Debug\DeltaPlcCommunication.pdb
+C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.csprojResolveAssemblyReference.cache
+C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.dll
+C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.pdb

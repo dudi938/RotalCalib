@@ -12,7 +12,7 @@ using multiplexing_dll;
 using DeltaPlcCommunication;
 using DpCommunication;
 using System.Diagnostics;
-
+using TempController_dll;
 
 
 
@@ -44,17 +44,16 @@ namespace DP_dashboard
         // end  
 
         private classLog log = new classLog();
-        private ClassCalibrationInfo classCalibrationInfo;
+        public ClassCalibrationInfo classCalibrationInfo;
         private string CurrentSnDeviceIsFocus = "";
+
+
 
         public CalibForm(ClassCalibrationInfo info)
         {
             InitializeComponent();
             System.Windows.Forms.DataGridView[] dgvDeviceResultTable = new System.Windows.Forms.DataGridView[16];
             currentForm = this;
-            classCalibrationInfo = info;
-
-
 
 #if xx
             // plc protocol init          
@@ -71,8 +70,10 @@ namespace DP_dashboard
             DPinfo = new DpIncomingInformation();
             DpProtocolInstanse = new ClassDpCommunication(Properties.Settings.Default.dpComPort, 115200, DPinfo);
             DpProtocolInstanse.Simulation();
+            //end
 
-
+            // Calibration class init           
+            classCalibrationInfo = info;
         }
 
 
@@ -117,6 +118,12 @@ namespace DP_dashboard
         {
             //rtbLog.Lines = PLCinfo.listDebugInfo.ToArray();
 
+            if (classCalibrationInfo.DoCalibration)
+            {
+                tb_currentTemperature.Text = classCalibrationInfo.CurrentTemp.ToString();
+                tb_targetTemperature.Text = classCalibrationInfo.CurrentCalibDevice.CalibrationData[classCalibrationInfo.CurrentCalibTempIndex, classCalibrationInfo.CurrentCalibPressureIndex].tempUnderTest.ToString();
+            }
+
             if (classCalibrationInfo.IncermentCalibPointStep)
             {
                 classCalibrationInfo.IncermentCalibPointStep = false;
@@ -130,7 +137,19 @@ namespace DP_dashboard
                // string Message = string.Format("state change: from {0}  ->   {1}", classCalibrationInfo.PreviousState.);
                // rtb_info.Text += Message + "\r\n";
             }
-                        
+            if (classCalibrationInfo.TempControllerInstanse.TempControllerConnectionEvent)
+            {
+                classCalibrationInfo.TempControllerInstanse.TempControllerConnectionEvent = false;
+                if (classCalibrationInfo.TempControllerInstanse.TempControllerConnectionStatus)
+                {
+                    classCalibrationInfo.TempControllerInstanse.TempControllerConnectionStatus = false;
+                    tb_connectionStatus.Text = "Connected";
+                }
+                else
+                {
+                    tb_connectionStatus.Text = "Not connected";
+                }
+            }
         }
 
         private void pnl_plcControl_Paint(object sender, PaintEventArgs e)
@@ -281,6 +300,31 @@ namespace DP_dashboard
         }
 
         private void dgv_deviceData_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void bt_stopCalibration_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pnl_TempData_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
         {
 
         }

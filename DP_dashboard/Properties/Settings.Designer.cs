@@ -313,13 +313,25 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public float Setting {
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public byte TempControllerSlaveAddress {
             get {
-                return ((float)(this["Setting"]));
+                return ((byte)(this["TempControllerSlaveAddress"]));
             }
             set {
-                this["Setting"] = value;
+                this["TempControllerSlaveAddress"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM19")]
+        public string TempControllerComPort {
+            get {
+                return ((string)(this["TempControllerComPort"]));
+            }
+            set {
+                this["TempControllerComPort"] = value;
             }
         }
     }

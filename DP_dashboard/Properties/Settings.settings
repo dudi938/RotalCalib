@@ -74,8 +74,11 @@
     <Setting Name="TempUnderTest5" Type="System.Single" Scope="User">
       <Value Profile="(Default)">35</Value>
     </Setting>
-    <Setting Name="Setting" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="TempControllerSlaveAddress" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="TempControllerComPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">COM19</Value>
     </Setting>
   </Settings>
 </SettingsFile>

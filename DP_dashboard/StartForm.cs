@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using TempController_dll;
 namespace DP_dashboard
 {
     public partial class StartForm : Form
@@ -20,9 +20,9 @@ namespace DP_dashboard
         //init forms
         public CalibForm calibForm;
         public ProgForm progForm;
-
+        public  TempControllerProtocol tempControllerInstanse;
         // data members
-        ClassCalibrationInfo classCalibrationInfo = new ClassCalibrationInfo();
+        ClassCalibrationInfo classCalibrationInfo;
 
 
 
@@ -51,6 +51,25 @@ namespace DP_dashboard
 
         private void bt_next_Click(object sender, EventArgs e)
         {
+
+            if (Properties.Settings.Default.StationType == "CalibrationStation")
+            {
+                if (calibForm == null)
+                {
+                    tempControllerInstanse = new TempControllerProtocol(Properties.Settings.Default.TempControllerComPort, 9600);
+                    classCalibrationInfo = new ClassCalibrationInfo(tempControllerInstanse);
+                    calibForm = new CalibForm(classCalibrationInfo);
+                }
+            }
+            else if (Properties.Settings.Default.StationType == "ProgramStation")
+            {
+                if (progForm == null)
+                {
+                    progForm = new ProgForm(classCalibrationInfo, this);
+                }
+            }
+
+
             classCalibrationInfo.DpCountAxist = 0;
             for (int i = 0; i <= MAX_DP_DEVICES; i++)
             {
@@ -83,20 +102,10 @@ namespace DP_dashboard
             this.Hide();
             if (Properties.Settings.Default.StationType == "CalibrationStation")
             {
-                if (calibForm == null)
-                {
-                     calibForm = new CalibForm(classCalibrationInfo);
-                }
-
                 calibForm.Show();
             }
             else if (Properties.Settings.Default.StationType == "ProgramStation")
             {
-                if (progForm == null)
-                {
-                    progForm = new ProgForm(classCalibrationInfo,this);
-                }
-
                 progForm.Show();
             }
         }

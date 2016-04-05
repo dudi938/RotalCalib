@@ -122,6 +122,10 @@
       <Project>{e7395ee7-01d7-475a-b8d4-962641356987}</Project>
       <Name>multiplexing_dll</Name>
     </ProjectReference>
+    <ProjectReference Include="TempController\TempController.csproj">
+      <Project>{93b04cbf-c68c-45a7-b423-810c8e776737}</Project>
+      <Name>TempController</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

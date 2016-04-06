@@ -217,7 +217,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        [global::System.Configuration.DefaultSettingValueAttribute("14")]
         public float PressureUnderTest13 {
             get {
                 return ((float)(this["PressureUnderTest13"]));
@@ -253,7 +253,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        [global::System.Configuration.DefaultSettingValueAttribute("14")]
         public float TempUnderTest1 {
             get {
                 return ((float)(this["TempUnderTest1"]));

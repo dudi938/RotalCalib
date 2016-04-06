@@ -67,9 +67,9 @@ namespace DP_dashboard
 #endif
             // DP protocol init
 
-            DPinfo = new DpIncomingInformation();
-            DpProtocolInstanse = new ClassDpCommunication(Properties.Settings.Default.dpComPort, 115200, DPinfo);
-            DpProtocolInstanse.Simulation();
+            //DPinfo = new DpIncomingInformation();
+            //DpProtocolInstanse = new ClassDpCommunication(Properties.Settings.Default.dpComPort, 115200, DPinfo);
+            // DpProtocolInstanse.Simulation();
             //end
 
             // Calibration class init           
@@ -137,12 +137,12 @@ namespace DP_dashboard
                // string Message = string.Format("state change: from {0}  ->   {1}", classCalibrationInfo.PreviousState.);
                // rtb_info.Text += Message + "\r\n";
             }
-            if (classCalibrationInfo.TempControllerInstanse.TempControllerConnectionEvent)
+            if (classCalibrationInfo.ClassTempControllerInstanse.TempControllerConnectionEvent)
             {
-                classCalibrationInfo.TempControllerInstanse.TempControllerConnectionEvent = false;
-                if (classCalibrationInfo.TempControllerInstanse.TempControllerConnectionStatus)
+                classCalibrationInfo.ClassTempControllerInstanse.TempControllerConnectionEvent = false;
+                if (classCalibrationInfo.ClassTempControllerInstanse.TempControllerConnectionStatus)
                 {
-                    classCalibrationInfo.TempControllerInstanse.TempControllerConnectionStatus = false;
+                    classCalibrationInfo.ClassTempControllerInstanse.TempControllerConnectionStatus = false;
                     tb_connectionStatus.Text = "Connected";
                 }
                 else
@@ -150,6 +150,12 @@ namespace DP_dashboard
                     tb_connectionStatus.Text = "Not connected";
                 }
             }
+
+            if (classCalibrationInfo.ChengeStateEvent)
+            {
+
+            }
+
         }
 
         private void pnl_plcControl_Paint(object sender, PaintEventArgs e)

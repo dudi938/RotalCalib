@@ -40,13 +40,13 @@ namespace DP_dashboard
 
             // multplexing protocol init 
             MultiplexingInfo = new MultiplexingIncomingInformation();
-            MultiplexingProtocolInstanse = new classMultiplexing(Properties.Settings.Default.multiplexingComPort, 115200, MultiplexingInfo);
+            MultiplexingProtocolInstanse = CalibrationInfo.classMultiplexingInstanse;
 
             // DP protocol init
-            DPinfo = new DpIncomingInformation();
-            DpProtocolInstanse = new ClassDpCommunication(Properties.Settings.Default.dpComPort, 115200, DPinfo);
+            //DPinfo = new DpIncomingInformation();
+            DpProtocolInstanse = CalibrationInfo.classDpCommunicationInstanse;
 
-            UpdateExistDevicesTable();
+
         }
 
         private void ProgForm_Load(object sender, EventArgs e)
@@ -55,7 +55,8 @@ namespace DP_dashboard
         }
 
         private void UpdateExistDevicesTable()
-        {            
+        {
+            dgv_dpTableInfo.Rows.Clear();
             for (int i = 0; i < classCalibrationInfo.DpCountAxist ;  i++)
             {
                 dgv_dpTableInfo.Rows.Add(i.ToString(),true,classCalibrationInfo.classDevices[i].DeviceSerialNumber,classCalibrationInfo.classDevices[i].DeviceName);
@@ -65,6 +66,10 @@ namespace DP_dashboard
         private void timer1_Tick(object sender, EventArgs e)
         {
             lbl_info.Text = DateTime.Now.ToString();
+
+            //UpdateExistDevicesTable();
+
+            
         }
 
         private void bt_back_Click(object sender, EventArgs e)
@@ -112,6 +117,11 @@ namespace DP_dashboard
         private void bt_stopProgram_Click(object sender, EventArgs e)
         {
             EnableProgram = false;
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            UpdateExistDevicesTable();
         }
     }
 }

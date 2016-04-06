@@ -51,7 +51,7 @@
       <Value Profile="(Default)">14.5</Value>
     </Setting>
     <Setting Name="PressureUnderTest13" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">15</Value>
+      <Value Profile="(Default)">14</Value>
     </Setting>
     <Setting Name="PressureUnderTest14" Type="System.Single" Scope="User">
       <Value Profile="(Default)">15.5</Value>
@@ -60,7 +60,7 @@
       <Value Profile="(Default)">16</Value>
     </Setting>
     <Setting Name="TempUnderTest1" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">10</Value>
+      <Value Profile="(Default)">14</Value>
     </Setting>
     <Setting Name="TempUnderTest2" Type="System.Single" Scope="User">
       <Value Profile="(Default)">20</Value>

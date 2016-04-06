@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using TempController_dll;
+using DpCommunication;
+using multiplexing_dll;
 
 namespace DP_dashboard
 {
@@ -16,29 +18,34 @@ namespace DP_dashboard
         public byte NextState                          = 0x00;
         public byte PreviousState                      = 0x00;
 
-        private const byte StateStartCalib             = 0x01;
-        private const byte StateSendSetPoints          = 0x02;
-        private const byte StateWaitToSetPointsStable  = 0x03;
-        private const byte StateReadInfoFromDp         = 0x04;
-        private const byte StateSaveValues             = 0x05;
-        private const byte StateSendValusToDP          = 0x06;
-        private const byte StateEndOneCalibPoint       = 0x07;
-        private const byte StateEndOneCalibTemp        = 0x08;
-        private const byte StateFinishAllCalibPoint    = 0x09;
-        private const byte StateError                  = 0x0a;
+        private const byte StateStartCalib               = 0x01;
+        private const byte StateSendPressureSetPoints    = 0x02;
+        private const byte StateSendTempSetPoints        = 0x03;
+        private const byte StateWaitToSetPressureStable  = 0x04;
+        private const byte StateWaitToSetTempStable      = 0x05;
+        private const byte StateRunOfAllDp               = 0x06;
+        private const byte StateSaveValues               = 0x07;
+        private const byte StateSendValusToDP            = 0x08;
+        private const byte StateEndOneCalibPoint         = 0x09;
+        private const byte StateEndOneCalibTemp          = 0x0a;
+        private const byte StateFinishAllCalibPoint      = 0x0b;
+        private const byte StateError                    = 0x0c;
 
 
-        private const byte MAX_TIME_WAIT_TO_SET_POINT  = 30; //30 sec'
-
-
+        //timing parameters
+        private const byte MAX_TIME_WAIT_TO_PRESSURE_SET_POINT      = 1;      //30 sec'
+        private const int  MAX_TIME_WAIT_TO_TEMP_SET_POINT          = 600;     // 10 min
+        private const int  GET_DP_INFO_TIMOUT                       = 1;       // 1 sec
 
         //constant parameters
         private const byte MAX_DP_DEVICES                                     = 0x10;      //16
         private const byte MAX_PRESSURE_CALIB_POINT                           = 0x0f;      // 15
         private const byte MAX_TEMP_CALIB_POINT                               = 0x05;      // 5
+        private const byte TEMP_SELECT_SET_POINT_REGISTER_ADDRESSS            = 15;
         private const byte TEMP_SET_POINT_1_REGISTER_ADDRESSS                 = 24;
         private const byte TEMP_SET_POINT_2_REGISTER_ADDRESSS                 = 25;
         private const byte TEMP_PRESENT_VALUE_REGISTER_ADDRESSS               = 1;
+
 
         private Thread CalibrationTaskHandlerThread;
         public ClassDevice[] classDevices = new ClassDevice[MAX_DP_DEVICES];
@@ -53,16 +60,29 @@ namespace DP_dashboard
         public float CurrentTemp;
         public float CurrentPressure;
         public bool IncermentCalibPointStep= false;
+        DateTime GetDpInforequestTime;
         //public TempControllerProtocol TempControllerInstanse = new TempControllerProtocol();
-        public TempControllerProtocol TempControllerInstanse;
+
+        public TempControllerProtocol ClassTempControllerInstanse;
+        public ClassDpCommunication classDpCommunicationInstanse;
+        public classMultiplexing classMultiplexingInstanse;
         public string TempControllerRxData = "";
 
 
-        public ClassCalibrationInfo(TempControllerProtocol tempControllerInstanse)
+        public ClassCalibrationInfo(TempControllerProtocol tempControllerInstanse , ClassDpCommunication ClassDpCommunication, classMultiplexing ClassMultiplexing)
         {
             CalibrationTaskHandlerThread = new Thread(CalibrationTask);
             CalibrationTaskHandlerThread.Start();
-            TempControllerInstanse = tempControllerInstanse;
+
+
+            // DP TempController
+            ClassTempControllerInstanse = tempControllerInstanse;
+
+            // DP comunication
+            classDpCommunicationInstanse = ClassDpCommunication;
+
+            // Multiplexer comunication
+            classMultiplexingInstanse = ClassMultiplexing;
         }
 
         //methods
@@ -78,7 +98,7 @@ namespace DP_dashboard
         private void UpdateRealTimeData()
         {
             CurrentTemp = TempControllerReadTemp();
-            CurrentPressure = 0;
+            CurrentPressure = 500;
         }
         private void CalibrationTask()
         {
@@ -95,53 +115,78 @@ namespace DP_dashboard
                                 CurrentCalibDevice = classDevices[CurrentCalibDeviceIndex];
                                 CurrentCalibDevice.DeviceCalibrationTime = DateTime.Now;
 
-                                StateChangeState(StateSendSetPoints);
+                                StateChangeState(StateSendTempSetPoints);
                             }
                             break;
 
-                        case StateSendSetPoints:
+                        case StateSendPressureSetPoints:
                             {
                                 WritePressureSetPoint(CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].pressureUnderTest);
-                                WriteTempSetPoint(TEMP_SET_POINT_1_REGISTER_ADDRESSS,CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempUnderTest);
+                               // WriteTempSetPoint(TEMP_SET_POINT_1_REGISTER_ADDRESSS,CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempUnderTest);
                                 TimeFromSetPointRequest = DateTime.Now;
 
-                                StateChangeState(StateWaitToSetPointsStable);
+                                StateChangeState(StateWaitToSetPressureStable);
                                 IncermentCalibPointStep = true;
                             }
                             break;
 
-                        case StateWaitToSetPointsStable:
+                        case StateSendTempSetPoints:
                             {
-                                if (CheckTimout(TimeFromSetPointRequest, MAX_TIME_WAIT_TO_SET_POINT))
+                                //WritePressureSetPoint(CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].pressureUnderTest);
+                                WriteTempSetPoint(TEMP_SET_POINT_1_REGISTER_ADDRESSS, CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempUnderTest);
+                                SelectSetPoint(TEMP_SELECT_SET_POINT_REGISTER_ADDRESSS, 0);
+                                TimeFromSetPointRequest = DateTime.Now;
+
+                                StateChangeState(StateWaitToSetTempStable);
+                                //IncermentCalibPointStep = true;
+                            }
+                            break;
+
+                        case StateWaitToSetPressureStable:
+                            {
+                                if (CheckTimout(TimeFromSetPointRequest, MAX_TIME_WAIT_TO_PRESSURE_SET_POINT))
                                 {
                                     StateChangeState(StateError);
                                 }
-                                else if (CurrentTemp == CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex,CurrentCalibPressureIndex].tempUnderTest  && WaitePressureFlag() == true)
+                                else if (CurrentPressure == CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex,CurrentCalibPressureIndex].pressureUnderTest)
                                 {
-                                    StateChangeState(StateReadInfoFromDp);
+                                    StateChangeState(StateRunOfAllDp);
                                 }
                             }
                             break;
-                        case StateReadInfoFromDp:
+
+                        case StateWaitToSetTempStable:
                             {
-                                ReadInfoFromDp();
-                                StateChangeState(StateSaveValues);
+                                if (CheckTimout(TimeFromSetPointRequest, MAX_TIME_WAIT_TO_TEMP_SET_POINT))
+                                {
+                                    StateChangeState(StateError);
+                                }
+                                else if (CurrentTemp == CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempUnderTest)
+                                {
+                                    StateChangeState(StateSendPressureSetPoints);
+                                }
                             }
                             break;
-                        case StateSaveValues:
+                        case StateRunOfAllDp:
                             {
-                                CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].extA2dPressureValue = GetPressureFromPlc();
-                                StateChangeState(StateSendValusToDP);
+                                ReadInfoFromDp();//loop of all dp's
+                                StateChangeState(StateEndOneCalibPoint);
                             }
                             break;
+                        //case StateSaveValues:
+                        //    {
+                        //        CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].extA2dPressureValue = GetPressureFromPlc();
+                        //        StateChangeState(StateSendValusToDP);
+                        //    }
+                        //    break;
                         case StateEndOneCalibTemp:
                             {
-                                CurrentCalibTempIndex++;
                                 CurrentCalibPressureIndex = 0;
 
-                                if (CurrentCalibTempIndex < MAX_TEMP_CALIB_POINT)
+                                if (CurrentCalibTempIndex < (MAX_TEMP_CALIB_POINT - 1))
                                 {
-                                    StateChangeState(StateSendSetPoints);
+                                    CurrentCalibTempIndex++;
+                                    StateChangeState(StateSendTempSetPoints);
                                 }
                                 else
                                 {
@@ -149,28 +194,18 @@ namespace DP_dashboard
                                 }
                             }
                             break;
-                        case StateSendValusToDP:
-                            {
-                                SendCalibPointToDp(CurrentCalibDevice);
-                                StateChangeState(StateEndOneCalibPoint);
-                            }
-                            break;
+                        //case StateSendValusToDP:
+                        //    {
+                        //        SendCalibPointToDp(CurrentCalibDevice);
+                        //        StateChangeState(StateEndOneCalibPoint);
+                        //    }
+                        //    break;
                         case StateEndOneCalibPoint:
                             {
-                                if (CurrentCalibPressureIndex < MAX_PRESSURE_CALIB_POINT)
+                                if (CurrentCalibPressureIndex < (MAX_PRESSURE_CALIB_POINT - 1))
                                 {
-                                    if (CurrentCalibDeviceIndex < DpCountAxist - 1)
-                                    {
-                                        CurrentCalibDeviceIndex++;
-                                        CurrentCalibDevice = classDevices[CurrentCalibDeviceIndex];
-
-                                    }
-                                    else
-                                    {
-                                        CurrentCalibPressureIndex++;
-                                        CurrentCalibDeviceIndex = 0;
-                                    }
-                                    StateChangeState(StateSendSetPoints);
+                                    CurrentCalibPressureIndex++;                                    
+                                    StateChangeState(StateSendPressureSetPoints);
                                 }
                                 else
                                 {
@@ -191,7 +226,6 @@ namespace DP_dashboard
                             break;
                         case StateError:
                             {
-                                CurrentCalibDevice.deviceStatus = DeviceStatus.Fail;
                                 StateChangeState(StateEndOneCalibPoint);
                             }
                             break;
@@ -226,7 +260,7 @@ namespace DP_dashboard
             //Read registers and display data in desired format:
             try
             {
-                while (!TempControllerInstanse.SendFc3(Convert.ToByte(Properties.Settings.Default.TempControllerSlaveAddress), pollStart, pollLength, ref values)) ;
+                while (!ClassTempControllerInstanse.SendFc3(Convert.ToByte(Properties.Settings.Default.TempControllerSlaveAddress), pollStart, pollLength, ref values)) ;
             }
             catch (Exception err)
             {
@@ -294,7 +328,38 @@ namespace DP_dashboard
         }
         private void ReadInfoFromDp()
         {
+            for (byte i = 0; i < DpCountAxist; i++)
+            {
+                if (classDevices[i].deviceStatus != DeviceStatus.Fail)
+                {
+                    classMultiplexingInstanse.ConnectDpDevice(i);
+                    Thread.Sleep(1000);
 
+                    classDpCommunicationInstanse.NewDpInfoEvent = false;
+                    classDpCommunicationInstanse.DPgetDpInfo();
+                    GetDpInforequestTime = DateTime.Now;
+
+                    while (!classDpCommunicationInstanse.NewDpInfoEvent)
+                    {
+                        if (CheckTimout(GetDpInforequestTime, GET_DP_INFO_TIMOUT))
+                        {
+                            break;
+                        }
+                    }
+
+                    if (classDpCommunicationInstanse.NewDpInfoEvent) // check if recieve data from DP
+                    {
+                        //save the data on the current device and current calibpoint..
+                        classDevices[i].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].a2dPressureValue1 = classDpCommunicationInstanse.dpInfo.S1Pressure;
+                        classDevices[i].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].a2dPressureValue1 = classDpCommunicationInstanse.dpInfo.S2Pressure;
+                        classDevices[i].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempOnDevice = classDpCommunicationInstanse.dpInfo.CurrentTemp;
+
+                        classDevices[i].DeviceMacAddress = classDpCommunicationInstanse.dpInfo.DeviseMacAddress;
+                        classDpCommunicationInstanse.NewDpInfoEvent = false;
+                    }
+
+                }
+            }
 
         }
 
@@ -315,36 +380,39 @@ namespace DP_dashboard
 
         private void WriteTempSetPoint(Byte registerAddress,float tempValue)
         {
-            //StopPoll();
-                tempValue = tempValue * 10;
-                short[] value = new short[1];
-                value[0] = Convert.ToInt16(tempValue);
+            tempValue = tempValue * 10;
+            short[] value = new short[1];
+            value[0] = Convert.ToInt16(tempValue);
 
-                try
-                {
-                    while (!TempControllerInstanse.SendFc16(Properties.Settings.Default.TempControllerSlaveAddress, registerAddress, (ushort)1, value)) ;
-                }
-                catch (Exception err)
-                {
-                //DoGUIStatus("Error in write function: " + err.Message);
+            try
+            {
+                while (!ClassTempControllerInstanse.SendFc16(Properties.Settings.Default.TempControllerSlaveAddress, registerAddress, (ushort)1, value)) ;
+            }
+            catch (Exception err)
+            {
                 string error = err.ToString();
-                }
-                //DoGUIStatus(TempControllerInstanse.modbusStatus);
+            }
 
-
+            //SelectSetPoint(TEMP_SELECT_SET_POINT_REGISTER_ADDRESSS, 1);
         }
 
-        //public void DoGUIStatus(string paramString)
-        //{
-        //    if (this.InvokeRequired)
-        //    {
-        //        GUIStatus delegateMethod = new GUIStatus(this.DoGUIStatus);
-        //        this.Invoke(delegateMethod, new object[] { paramString });
-        //    }
-        //    else
-        //        this.lblStatus.Text = paramString;
-        //}
+        private void SelectSetPoint(Byte registerAddress, float SPn)
+        {
+            SPn = SPn * 10;
+            short[] value = new short[1];
+            value[0] = Convert.ToInt16(SPn);
+
+            try
+            {
+                while (!ClassTempControllerInstanse.SendFc16(Properties.Settings.Default.TempControllerSlaveAddress, registerAddress, (ushort)1, value)) ;
+            }
+            catch (Exception err)
+            {
+                string error = err.ToString();
+            }
+        }
+
     }
 }
-//TempControllerInstanse
+
                    

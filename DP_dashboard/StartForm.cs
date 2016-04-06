@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TempController_dll;
+using DpCommunication;
+using multiplexing_dll;
+
 namespace DP_dashboard
 {
     public partial class StartForm : Form
@@ -54,17 +57,38 @@ namespace DP_dashboard
 
             if (Properties.Settings.Default.StationType == "CalibrationStation")
             {
+
                 if (calibForm == null)
                 {
+                    MultiplexingIncomingInformation MultiplexingInfo = new MultiplexingIncomingInformation();
+                    classMultiplexing classMultiplexing = new classMultiplexing(Properties.Settings.Default.multiplexingComPort, 115200, MultiplexingInfo);
+
+                    DpIncomingInformation DPinfo = new DpIncomingInformation();
+                    ClassDpCommunication ClassDpCommunication = new ClassDpCommunication(Properties.Settings.Default.dpComPort, 115200, DPinfo);
+
                     tempControllerInstanse = new TempControllerProtocol(Properties.Settings.Default.TempControllerComPort, 9600);
-                    classCalibrationInfo = new ClassCalibrationInfo(tempControllerInstanse);
+
+                    classCalibrationInfo = new ClassCalibrationInfo(tempControllerInstanse, ClassDpCommunication, classMultiplexing);
                     calibForm = new CalibForm(classCalibrationInfo);
                 }
             }
+
+
+
             else if (Properties.Settings.Default.StationType == "ProgramStation")
             {
                 if (progForm == null)
                 {
+
+                    MultiplexingIncomingInformation MultiplexingInfo = new MultiplexingIncomingInformation();
+                    classMultiplexing classMultiplexing = new classMultiplexing(Properties.Settings.Default.multiplexingComPort, 115200, MultiplexingInfo);
+
+                    DpIncomingInformation DPinfo = new DpIncomingInformation();
+                    ClassDpCommunication ClassDpCommunication = new ClassDpCommunication(Properties.Settings.Default.dpComPort, 115200, DPinfo);
+
+                    tempControllerInstanse = new TempControllerProtocol(Properties.Settings.Default.TempControllerComPort, 9600);
+
+                    classCalibrationInfo = new ClassCalibrationInfo(tempControllerInstanse, ClassDpCommunication, classMultiplexing);
                     progForm = new ProgForm(classCalibrationInfo, this);
                 }
             }
@@ -95,6 +119,8 @@ namespace DP_dashboard
 
                 classCalibrationInfo.classDevices[i] = NewExistDevice;
             }
+
+
             string UpdateMassege = string.Format("{0} DP devices added.", classCalibrationInfo.DpCountAxist.ToString());
             MessageBox.Show(UpdateMassege);
 

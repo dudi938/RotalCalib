@@ -57,7 +57,8 @@ namespace DpCommunication
 
     public class ClassDpCommunication
     {
-        DpInfo dpInfo = new DpInfo();
+        public bool NewDpInfoEvent = false;
+        public DpInfo dpInfo = new DpInfo();
         // DP info Offset 
         private const byte SERIAL_NUMBER_LENGTH             = 0x0a;
 
@@ -206,6 +207,7 @@ namespace DpCommunication
                             dpInfo.S1Pressure = System.BitConverter.ToSingle(incomingData, DEVICE_INFO_S1_PRESSURE_OFFSET);
                             dpInfo.S2Pressure = System.BitConverter.ToSingle(incomingData, DEVICE_INFO_S2_PRESSURE_OFFSET);
                             dpInfo.Calibrated = incomingData[DEVICE_INFO_CALIBRATED_OFFSET];
+                            NewDpInfoEvent = true;
                         }
                         break;
                     default:

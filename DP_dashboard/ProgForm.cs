@@ -51,7 +51,7 @@ namespace DP_dashboard
 
         private void ProgForm_Load(object sender, EventArgs e)
         {
-
+            UpdateExistDevicesTable();
         }
 
         private void UpdateExistDevicesTable()
@@ -121,7 +121,7 @@ namespace DP_dashboard
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            UpdateExistDevicesTable();
+
         }
     }
 }

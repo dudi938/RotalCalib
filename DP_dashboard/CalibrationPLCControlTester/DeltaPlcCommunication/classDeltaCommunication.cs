@@ -43,7 +43,7 @@ namespace DeltaPlcCommunication
 #region Constants
         private const string STX = ":01";   //address of device
         private const int MAX_QUIRY = 11;
-
+        public string RxMsg;
 
         public const int S_OFFSET = 0x00;   //~3ff
         public const int X_OFFSET = 0x400;  //~04FF
@@ -74,7 +74,7 @@ namespace DeltaPlcCommunication
         }
 
 
-        public DeltaReturnedData SendNewMessage(DeltaMsgType bCommand, DeltaMemType bType, int iAddress, byte bSize,List<UInt16> oDataArrayToWrite = null)
+        public DeltaReturnedData SendNewMessage(DeltaMsgType bCommand, DeltaMemType bType, int iAddress, byte bSize,List<Int16> oDataArrayToWrite = null)
         {
             byte bcheckSum;
             string stSendBuf;
@@ -243,7 +243,7 @@ namespace DeltaPlcCommunication
             stSendBuf += Convert.ToString((0x100 - bcheckSum), 16).PadLeft(2, '0');
             stSendBuf = stSendBuf.ToUpper();
 
-            string RxMsg = SendAndRecieveData(stSendBuf);
+            RxMsg = SendAndRecieveData(stSendBuf);
             if (RxMsg == "")
             {
                 incomingInfo.listDebugInfo.Add("No Response From unit -Check The Connection");
@@ -430,6 +430,15 @@ namespace DeltaPlcCommunication
                 incomingInfo.listDebugInfo.Add(string.Format("response timeout\r\n"));
             }
             return rx;
+        }
+
+
+
+
+        public string WritePressureTableToPLC(List<Int16> PressureTable)
+        {
+            SendNewMessage(DeltaMsgType.PresetMultipleRegister, DeltaMemType.D, 300, (byte)PressureTable.Count, PressureTable);
+            return RxMsg;
         }
 
 #if xx

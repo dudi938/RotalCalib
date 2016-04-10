@@ -7,7 +7,7 @@ using System.Threading;
 using TempController_dll;
 using DpCommunication;
 using multiplexing_dll;
-
+using DeltaPlcCommunication;
 namespace DP_dashboard
 {
     public class ClassCalibrationInfo
@@ -67,9 +67,9 @@ namespace DP_dashboard
         public ClassDpCommunication classDpCommunicationInstanse;
         public classMultiplexing classMultiplexingInstanse;
         public string TempControllerRxData = "";
+        public  classDeltaProtocol classDeltaProtocolInstanse;
 
-
-        public ClassCalibrationInfo(TempControllerProtocol tempControllerInstanse , ClassDpCommunication ClassDpCommunication, classMultiplexing ClassMultiplexing)
+        public ClassCalibrationInfo(TempControllerProtocol tempControllerInstanse , ClassDpCommunication ClassDpCommunication, classMultiplexing ClassMultiplexing , classDeltaProtocol classDeltaIncomingInformation)
         {
             CalibrationTaskHandlerThread = new Thread(CalibrationTask);
             CalibrationTaskHandlerThread.Start();
@@ -83,6 +83,10 @@ namespace DP_dashboard
 
             // Multiplexer comunication
             classMultiplexingInstanse = ClassMultiplexing;
+
+            //delta protocol 
+            classDeltaProtocolInstanse = classDeltaIncomingInformation;
+
         }
 
         //methods
@@ -173,12 +177,6 @@ namespace DP_dashboard
                                 StateChangeState(StateEndOneCalibPoint);
                             }
                             break;
-                        //case StateSaveValues:
-                        //    {
-                        //        CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].extA2dPressureValue = GetPressureFromPlc();
-                        //        StateChangeState(StateSendValusToDP);
-                        //    }
-                        //    break;
                         case StateEndOneCalibTemp:
                             {
                                 CurrentCalibPressureIndex = 0;
@@ -194,12 +192,6 @@ namespace DP_dashboard
                                 }
                             }
                             break;
-                        //case StateSendValusToDP:
-                        //    {
-                        //        SendCalibPointToDp(CurrentCalibDevice);
-                        //        StateChangeState(StateEndOneCalibPoint);
-                        //    }
-                        //    break;
                         case StateEndOneCalibPoint:
                             {
                                 if (CurrentCalibPressureIndex < (MAX_PRESSURE_CALIB_POINT - 1))
@@ -266,52 +258,7 @@ namespace DP_dashboard
             {
 
             }
-            
 
-
-
-            //switch (dataType)
-            //{
-            //    case "Decimal":
-                    for (int i = 0; i < pollLength; i++)
-                    {
-                        TempControllerRxData = Convert.ToString(pollStart + i + 40001)+
-                        Convert.ToString(pollStart + i) + values[i].ToString();
-                    }
-            //        break;
-            //    case "Hexadecimal":
-            //        for (int i = 0; i < pollLength; i++)
-            //        {
-            //            itemString = "[" + Convert.ToString(pollStart + i + 40001) + "] , MB[" +
-            //                Convert.ToString(pollStart + i) + "] = " + values[i].ToString("X");
-            //            DoGUIUpdate(itemString);
-            //        }
-            //        break;
-            //    case "Float":
-            //        for (int i = 0; i < (pollLength / 2); i++)
-            //        {
-            //            int intValue = (int)values[2 * i];
-            //            intValue <<= 16;
-            //            intValue += (int)values[2 * i + 1];
-            //            itemString = "[" + Convert.ToString(pollStart + 2 * i + 40001) + "] , MB[" +
-            //                Convert.ToString(pollStart + 2 * i) + "] = " +
-            //                (BitConverter.ToSingle(BitConverter.GetBytes(intValue), 0)).ToString();
-            //            DoGUIUpdate(itemString);
-            //        }
-            //        break;
-            //    case "Reverse":
-            //        for (int i = 0; i < (pollLength / 2); i++)
-            //        {
-            //            int intValue = (int)values[2 * i + 1];
-            //            intValue <<= 16;
-            //            intValue += (int)values[2 * i];
-            //            itemString = "[" + Convert.ToString(pollStart + 2 * i + 40001) + "] , MB[" +
-            //                Convert.ToString(pollStart + 2 * i) + "] = " +
-            //                (BitConverter.ToSingle(BitConverter.GetBytes(intValue), 0)).ToString();
-            //            DoGUIUpdate(itemString);
-            //        }
-            //        break;
-            //}
             float value = float.Parse(values[0].ToString()) / 10;
 
             return value;
@@ -352,8 +299,7 @@ namespace DP_dashboard
                         //save the data on the current device and current calibpoint..
                         classDevices[i].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].a2dPressureValue1 = classDpCommunicationInstanse.dpInfo.S1Pressure;
                         classDevices[i].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].a2dPressureValue1 = classDpCommunicationInstanse.dpInfo.S2Pressure;
-                        classDevices[i].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempOnDevice = classDpCommunicationInstanse.dpInfo.CurrentTemp;
-
+                        classDevices[i].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempOnDevice      = classDpCommunicationInstanse.dpInfo.CurrentTemp;
                         classDevices[i].DeviceMacAddress = classDpCommunicationInstanse.dpInfo.DeviseMacAddress;
                         classDpCommunicationInstanse.NewDpInfoEvent = false;
                     }

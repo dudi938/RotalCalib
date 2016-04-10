@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using TempController_dll;
 using DpCommunication;
 using multiplexing_dll;
+using DeltaPlcCommunication;
 
 namespace DP_dashboard
 {
@@ -68,7 +69,10 @@ namespace DP_dashboard
 
                     tempControllerInstanse = new TempControllerProtocol(Properties.Settings.Default.TempControllerComPort, 9600);
 
-                    classCalibrationInfo = new ClassCalibrationInfo(tempControllerInstanse, ClassDpCommunication, classMultiplexing);
+                    DeltaIncomingInformation PLCinfo = new DeltaIncomingInformation();
+                    classDeltaProtocol ClassDeltaProtocol = new classDeltaProtocol(Properties.Settings.Default.plcComPort, 9600, PLCinfo);
+
+                    classCalibrationInfo = new ClassCalibrationInfo(tempControllerInstanse, ClassDpCommunication, classMultiplexing, ClassDeltaProtocol);
                     calibForm = new CalibForm(classCalibrationInfo);
                 }
             }
@@ -80,6 +84,9 @@ namespace DP_dashboard
                 if (progForm == null)
                 {
 
+                    DeltaIncomingInformation PLCinfo = new DeltaIncomingInformation();
+                    classDeltaProtocol ClassDeltaProtocol = new classDeltaProtocol(Properties.Settings.Default.plcComPort, 9600, PLCinfo);
+
                     MultiplexingIncomingInformation MultiplexingInfo = new MultiplexingIncomingInformation();
                     classMultiplexing classMultiplexing = new classMultiplexing(Properties.Settings.Default.multiplexingComPort, 115200, MultiplexingInfo);
 
@@ -88,7 +95,7 @@ namespace DP_dashboard
 
                     tempControllerInstanse = new TempControllerProtocol(Properties.Settings.Default.TempControllerComPort, 9600);
 
-                    classCalibrationInfo = new ClassCalibrationInfo(tempControllerInstanse, ClassDpCommunication, classMultiplexing);
+                    classCalibrationInfo = new ClassCalibrationInfo(tempControllerInstanse, ClassDpCommunication, classMultiplexing , ClassDeltaProtocol);
                     progForm = new ProgForm(classCalibrationInfo, this);
                 }
             }

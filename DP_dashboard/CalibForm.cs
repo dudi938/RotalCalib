@@ -79,22 +79,30 @@ namespace DP_dashboard
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            UpdateDeviceTable();          
+            UpdateDeviceTable();
         }
 
         private void bt_writePressureTableToPlc_Click(object sender, EventArgs e)
         {
-            List<UInt16> preshureTable = new List<UInt16>();
-            for (int i = 1; i <= MAX_PRESSURE_POINT; i++)
-            {
-                if (dgv_prressureTable.Rows[i - 1].Cells[1].Value == null)
-                {
-                    preshureTable.Add(0);
-                    continue;
-                }
-                preshureTable.Add(UInt16.Parse(dgv_prressureTable.Rows[i - 1].Cells[1].Value.ToString()));
-            }
-            DeltaProtocolInstanse.SendNewMessage(DeltaMsgType.PresetMultipleRegister, DeltaMemType.D, 300, (byte)preshureTable.Count, preshureTable);
+
+            List<Int16> PressureTable = new List<Int16>();
+            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest1 * 10));
+            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest2 * 10));
+            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest3 * 10));
+            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest4 * 10));
+            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest5 * 10));
+            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest6 * 10));
+            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest7 * 10));
+            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest8 * 10));
+            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest9 * 10));
+            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest10 * 10));
+            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest11 * 10));
+            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest12 * 10));
+            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest13 * 10));
+            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest14 * 10));
+            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest15 * 10));
+
+            rtb_info.Text += "PLC ->  " +  classCalibrationInfo.classDeltaProtocolInstanse.WritePressureTableToPLC(PressureTable) +  "\r\n";
         }
 
         private void bt_readPressureTableFromPlc_Click(object sender, EventArgs e)
@@ -108,7 +116,7 @@ namespace DP_dashboard
 
                 for (int i = 1; i <= MAX_PRESSURE_POINT; i++)
                 {
-                    dgv_prressureTable.Rows[i - 1].Cells[1].Value = IncumingParametersFromPLC.IntValue[i - 1].ToString();
+                    //dgv_prressureTable.Rows[i - 1].Cells[1].Value = IncumingParametersFromPLC.IntValue[i - 1].ToString();
                 }
 
             }
@@ -165,8 +173,8 @@ namespace DP_dashboard
 
         private void bt_connectToDp_Click(object sender, EventArgs e)
         {
-            byte DpId = (byte)(int.Parse(cmb_dpDeviceNumber.SelectedItem.ToString()));
-            MultiplexingProtocolInstanse.ConnectDpDevice(DpId);            
+            //byte DpId = (byte)(int.Parse(cmb_dpDeviceNumber.SelectedItem.ToString()));
+            //MultiplexingProtocolInstanse.ConnectDpDevice(DpId);            
         }
 
         private void bt_disconnect_Click(object sender, EventArgs e)
@@ -312,7 +320,7 @@ namespace DP_dashboard
 
         private void bt_stopCalibration_Click(object sender, EventArgs e)
         {
-
+            classCalibrationInfo.DoCalibration = false;
         }
 
         private void pnl_TempData_Paint(object sender, PaintEventArgs e)
@@ -333,6 +341,22 @@ namespace DP_dashboard
         private void label6_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void bt_clear_Click(object sender, EventArgs e)
+        {
+            rtb_info.Text = "";
+        }
+
+        private void bt_connectDP_Click(object sender, EventArgs e)
+        {
+            byte DpId = (byte)(int.Parse(cmb_dpList.SelectedItem.ToString()));
+            classCalibrationInfo.classMultiplexingInstanse.ConnectDpDevice(DpId);
+        }
+
+        private void bt_disConnectDP_Click(object sender, EventArgs e)
+        {
+            classCalibrationInfo.classMultiplexingInstanse.DisConnectAllDp();
         }
     }
 }

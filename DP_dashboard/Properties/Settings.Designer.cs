@@ -25,7 +25,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("COM7")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM11")]
         public string multiplexingComPort {
             get {
                 return ((string)(this["multiplexingComPort"]));

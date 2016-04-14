@@ -34,7 +34,7 @@ namespace DeltaPlcCommunication
             }
             catch (Exception ex)
             {
-                throw new System.ArgumentException(ex.Message);
+                //throw new System.ArgumentException(ex.Message);
             }
 
         }

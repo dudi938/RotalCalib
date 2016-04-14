@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="multiplexingComPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">COM7</Value>
+      <Value Profile="(Default)">COM11</Value>
     </Setting>
     <Setting Name="plcComPort" Type="System.String" Scope="User">
       <Value Profile="(Default)">COM1</Value>

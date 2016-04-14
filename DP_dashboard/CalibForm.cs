@@ -85,42 +85,62 @@ namespace DP_dashboard
         private void bt_writePressureTableToPlc_Click(object sender, EventArgs e)
         {
 
-            List<Int16> PressureTable = new List<Int16>();
-            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest1 * 10));
-            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest2 * 10));
-            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest3 * 10));
-            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest4 * 10));
-            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest5 * 10));
-            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest6 * 10));
-            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest7 * 10));
-            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest8 * 10));
-            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest9 * 10));
-            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest10 * 10));
-            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest11 * 10));
-            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest12 * 10));
-            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest13 * 10));
-            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest14 * 10));
-            PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest15 * 10));
+            //List<Int16> PressureTable = new List<Int16>();
+            //PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest1 * 10));
+            //PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest2 * 10));
+            //PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest3 * 10));
+            //PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest4 * 10));
+            //PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest5 * 10));
+            //PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest6 * 10));
+            //PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest7 * 10));
+            //PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest8 * 10));
+            //PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest9 * 10));
+            //PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest10 * 10));
+            //PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest11 * 10));
+            //PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest12 * 10));
+            //PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest13 * 10));
+            //PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest14 * 10));
+            //PressureTable.Add((Int16)(Properties.Settings.Default.PressureUnderTest15 * 10));
 
-            rtb_info.Text += "PLC ->  " +  classCalibrationInfo.classDeltaProtocolInstanse.WritePressureTableToPLC(PressureTable) +  "\r\n";
+            //rtb_info.Text += "PLC ->  " +  classCalibrationInfo.classDeltaProtocolInstanse.WritePressureTableToPLC(PressureTable) +  "\r\n";
+
+
+            // SHLOM integration
+            //List<Int16> SetPointPressure = new List<Int16>();
+
+            //SetPointPressure.Add(Int16.Parse(tb_setpoint.Text));
+            //classCalibrationInfo.classDeltaProtocolInstanse.classDeltaWriteSetpoint(SetPointPressure);
         }
 
         private void bt_readPressureTableFromPlc_Click(object sender, EventArgs e)
         {
-            IncumingParametersFromPLC = DeltaProtocolInstanse.SendNewMessage(DeltaMsgType.ReadHoldingRegisters, DeltaMemType.D, 300, MAX_PRESSURE_POINT);
+            //IncumingParametersFromPLC = DeltaProtocolInstanse.SendNewMessage(DeltaMsgType.ReadHoldingRegisters, DeltaMemType.D, 300, MAX_PRESSURE_POINT);
 
-            if (DeltaProtocolInstanse.newPressureTableReceive == true)
-            {
-                DeltaProtocolInstanse.newPressureTableReceive = false;
+            //if (DeltaProtocolInstanse.newPressureTableReceive == true)
+            //{
+            //    DeltaProtocolInstanse.newPressureTableReceive = false;
 
 
-                for (int i = 1; i <= MAX_PRESSURE_POINT; i++)
-                {
-                    //dgv_prressureTable.Rows[i - 1].Cells[1].Value = IncumingParametersFromPLC.IntValue[i - 1].ToString();
-                }
+            //    for (int i = 1; i <= MAX_PRESSURE_POINT; i++)
+            //    {
+            //        //dgv_prressureTable.Rows[i - 1].Cells[1].Value = IncumingParametersFromPLC.IntValue[i - 1].ToString();
+            //    }
 
-            }
+            //}
+
+            //classCalibrationInfo.classDeltaProtocolInstanse.SendNewMessage
+            //Shalom integration
+            IncumingParametersFromPLC = classCalibrationInfo.classDeltaProtocolInstanse.SendNewMessage(DeltaMsgType.ReadHoldingRegisters, DeltaMemType.D, 300, 1);
+            rtb_info.Text += "flag register " + IncumingParametersFromPLC.IntValue[0].ToString() + "\r\n";
+
+            IncumingParametersFromPLC = classCalibrationInfo.classDeltaProtocolInstanse.SendNewMessage(DeltaMsgType.ReadHoldingRegisters, DeltaMemType.D, 301, 1);
+            rtb_info.Text += "PV = " + IncumingParametersFromPLC.IntValue[0].ToString() + "\r\n";
+
+
+
         }
+
+
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -128,8 +148,13 @@ namespace DP_dashboard
 
             if (classCalibrationInfo.DoCalibration)
             {
-                tb_currentTemperature.Text = classCalibrationInfo.CurrentTemp.ToString();
-                tb_targetTemperature.Text = classCalibrationInfo.CurrentCalibDevice.CalibrationData[classCalibrationInfo.CurrentCalibTempIndex, classCalibrationInfo.CurrentCalibPressureIndex].tempUnderTest.ToString();
+                UpdateRealTimeData();
+            }
+
+            if(classCalibrationInfo.ErrorEvent)
+            {
+                classCalibrationInfo.ErrorEvent = false;
+                rtb_info.Text += "Error:   " + classCalibrationInfo.ErrorMessage + "\r\n";
             }
 
             if (classCalibrationInfo.IncermentCalibPointStep)
@@ -313,6 +338,30 @@ namespace DP_dashboard
             }
         }
 
+
+        void UpdateRealTimeData()
+        {
+            //temp controller
+            tb_currentTemperature.Text = classCalibrationInfo.CurrentTemp.ToString();
+            tb_targetTemperature.Text = classCalibrationInfo.CurrentCalibDevice.CalibrationData[classCalibrationInfo.CurrentCalibTempIndex, classCalibrationInfo.CurrentCalibPressureIndex].tempUnderTest.ToString();
+
+
+            //pressure
+            tb_pressCurrentPressure.Text = classCalibrationInfo.CurrentPressure.ToString();
+            tb_pressTargetPressure.Text = classCalibrationInfo.PlcBar2Adc(classCalibrationInfo.CurrentCalibDevice.CalibrationData[classCalibrationInfo.CurrentCalibTempIndex, classCalibrationInfo.CurrentCalibPressureIndex].pressureUnderTest).ToString();
+
+            if (classCalibrationInfo.PressureStableFlag)
+            {
+                tb_preeStable.Text = "Yes";
+            }
+            else
+            {
+                tb_preeStable.Text = "No";
+            }
+
+        }
+
+
         private void dgv_deviceData_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -357,6 +406,16 @@ namespace DP_dashboard
         private void bt_disConnectDP_Click(object sender, EventArgs e)
         {
             classCalibrationInfo.classMultiplexingInstanse.DisConnectAllDp();
+        }
+
+        private void dgv_devicesQueue_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void pnl_calibrationPanel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

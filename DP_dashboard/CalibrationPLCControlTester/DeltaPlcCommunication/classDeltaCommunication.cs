@@ -441,6 +441,12 @@ namespace DeltaPlcCommunication
             return RxMsg;
         }
 
+        public void classDeltaWriteSetpoint(List<Int16> SetPoint)
+        {
+            SendNewMessage(DeltaMsgType.PresetMultipleRegister, DeltaMemType.D, 305,1, SetPoint);
+
+        }
+
 #if xx
         public string WriteWordToDataRegister(int iAddress, int iSize, int value)
         {

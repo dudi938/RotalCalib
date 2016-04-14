@@ -33,9 +33,11 @@ namespace DP_dashboard
 
 
         //timing parameters
-        private const byte MAX_TIME_WAIT_TO_PRESSURE_SET_POINT      = 1;      //30 sec'
+        private const byte MAX_TIME_WAIT_TO_PRESSURE_SET_POINT      = 180;      //30 sec'
         private const int  MAX_TIME_WAIT_TO_TEMP_SET_POINT          = 600;     // 10 min
         private const int  GET_DP_INFO_TIMOUT                       = 1;       // 1 sec
+        private const int READ_PRESSURE_INTERVAL                    = 1;
+
 
         //constant parameters
         private const byte MAX_DP_DEVICES                                     = 0x10;      //16
@@ -45,6 +47,16 @@ namespace DP_dashboard
         private const byte TEMP_SET_POINT_1_REGISTER_ADDRESSS                 = 24;
         private const byte TEMP_SET_POINT_2_REGISTER_ADDRESSS                 = 25;
         private const byte TEMP_PRESENT_VALUE_REGISTER_ADDRESSS               = 1;
+        private const byte PRESSURE_STABLE_BIT_INDEX_FLAG                     = 0;
+        private const int  PLC_FLAG_STATUS_REGISTER_ADDRESS                   = 300;
+        private const int  PLC_PRESENT_VALUE_REGISTER_ADDRESS                 = 301;
+        
+        //Convert A2D to BAR constant
+        private const int  PLC_A2D_START_POINT = 6378;
+        private const float PLC_A2D_A = 0.07856f;
+        private const float PLC_A2D_B = 500f;
+
+
 
 
         private Thread CalibrationTaskHandlerThread;
@@ -59,7 +71,15 @@ namespace DP_dashboard
         public bool ChengeStateEvent = false;
         public float CurrentTemp;
         public float CurrentPressure;
+        public bool PressureStableFlag = false;
         public bool IncermentCalibPointStep= false;
+        public DateTime LastPressureSample = DateTime.Now;
+
+        public string ErrorMessage = "";
+        public bool ErrorEvent = false;
+
+
+
         DateTime GetDpInforequestTime;
         //public TempControllerProtocol TempControllerInstanse = new TempControllerProtocol();
 
@@ -68,6 +88,11 @@ namespace DP_dashboard
         public classMultiplexing classMultiplexingInstanse;
         public string TempControllerRxData = "";
         public  classDeltaProtocol classDeltaProtocolInstanse;
+
+
+
+
+
 
         public ClassCalibrationInfo(TempControllerProtocol tempControllerInstanse , ClassDpCommunication ClassDpCommunication, classMultiplexing ClassMultiplexing , classDeltaProtocol classDeltaIncomingInformation)
         {
@@ -102,7 +127,8 @@ namespace DP_dashboard
         private void UpdateRealTimeData()
         {
             CurrentTemp = TempControllerReadTemp();
-            CurrentPressure = 500;
+
+            ReadPressureFromPlc();
         }
         private void CalibrationTask()
         {
@@ -117,16 +143,16 @@ namespace DP_dashboard
                         case StateStartCalib:
                             {
                                 CurrentCalibDevice = classDevices[CurrentCalibDeviceIndex];
-                                CurrentCalibDevice.DeviceCalibrationTime = DateTime.Now;
-
                                 StateChangeState(StateSendTempSetPoints);
                             }
                             break;
 
                         case StateSendPressureSetPoints:
                             {
-                                WritePressureSetPoint(CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].pressureUnderTest);
-                               // WriteTempSetPoint(TEMP_SET_POINT_1_REGISTER_ADDRESSS,CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempUnderTest);
+                                List<Int16> SetPointPressure = new List<short>();
+                                SetPointPressure.Add(PlcBar2Adc(CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex,CurrentCalibPressureIndex].pressureUnderTest));
+                                classDeltaProtocolInstanse.classDeltaWriteSetpoint(SetPointPressure);
+
                                 TimeFromSetPointRequest = DateTime.Now;
 
                                 StateChangeState(StateWaitToSetPressureStable);
@@ -152,7 +178,11 @@ namespace DP_dashboard
                                 {
                                     StateChangeState(StateError);
                                 }
-                                else if (CurrentPressure == CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex,CurrentCalibPressureIndex].pressureUnderTest)
+                                //else if (CurrentPressure == CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex,CurrentCalibPressureIndex].pressureUnderTest && PressureStableFlag)
+                                //{
+                                //    StateChangeState(StateRunOfAllDp);
+                                //}
+                                else if (PressureStableFlag)
                                 {
                                     StateChangeState(StateRunOfAllDp);
                                 }
@@ -194,6 +224,7 @@ namespace DP_dashboard
                             break;
                         case StateEndOneCalibPoint:
                             {
+                                PressureStableFlag = false;
                                 if (CurrentCalibPressureIndex < (MAX_PRESSURE_CALIB_POINT - 1))
                                 {
                                     CurrentCalibPressureIndex++;                                    
@@ -234,10 +265,34 @@ namespace DP_dashboard
         }
 
 
-        private bool WaitePressureFlag()
+        private float ReadPressureFromPlc()
         {
-            return false;
+            if (CheckTimout(LastPressureSample, READ_PRESSURE_INTERVAL))
+            {
+                try
+                {
+                    LastPressureSample = DateTime.Now;
+
+                    DeltaReturnedData DataFromPLC = new DeltaReturnedData();
+                    DataFromPLC = classDeltaProtocolInstanse.SendNewMessage(DeltaMsgType.ReadHoldingRegisters, DeltaMemType.D, PLC_FLAG_STATUS_REGISTER_ADDRESS, 1);
+                    PressureStableFlag = IsBitSet(Convert.ToByte(DataFromPLC.IntValue[0]), PRESSURE_STABLE_BIT_INDEX_FLAG);
+
+
+                    DataFromPLC = classDeltaProtocolInstanse.SendNewMessage(DeltaMsgType.ReadHoldingRegisters, DeltaMemType.D, PLC_PRESENT_VALUE_REGISTER_ADDRESS, 1);
+                    CurrentPressure = DataFromPLC.IntValue[0];
+                }
+
+                catch(Exception ex)
+                {
+                    ErrorMessage =  "PLC ERROR-" + ex.ToString();
+                    ErrorEvent = true;
+
+                }
+            }
+            return CurrentPressure;
         }
+
+
         private float TempControllerReadTemp()
         {
             //Create array to accept read values:
@@ -323,6 +378,12 @@ namespace DP_dashboard
 
         }
 
+        bool IsBitSet(byte b, int pos)
+        {
+            return (b & (1 << pos)) != 0;
+        }
+
+
 
         private void WriteTempSetPoint(Byte registerAddress,float tempValue)
         {
@@ -357,6 +418,22 @@ namespace DP_dashboard
                 string error = err.ToString();
             }
         }
+
+
+        float PlcAdc2Bar(Int16 a2d)
+        {
+            float bar = 0;
+            bar = (float)((a2d * PLC_A2D_A) - PLC_A2D_B) / 100;
+            return bar;
+        }
+
+        public Int16 PlcBar2Adc(float barValue)
+        {
+            Int16 A2DValue = 0;
+            A2DValue =(Int16) ((100 * barValue + PLC_A2D_B) / PLC_A2D_A);
+            return A2DValue;
+        }
+
 
     }
 }

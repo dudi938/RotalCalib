@@ -31,7 +31,7 @@ namespace DP_dashboard
         public DateTime DeviceProgramTime { get; set; }
         public DeviceStatus deviceStatus = DeviceStatus.Pass;
         public DpCalibPointData[,] CalibrationData = new DpCalibPointData[MAX_TEMP_CALIB_POINT, MAX_PRESSURE_CALIB_POINT];
-
+        public string CSVFileName;
 
 
         private List<float> TempUnderTestList = new List<float>();

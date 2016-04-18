@@ -25,7 +25,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("COM11")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM12")]
         public string multiplexingComPort {
             get {
                 return ((string)(this["multiplexingComPort"]));
@@ -73,7 +73,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.2")]
         public float PressureUnderTest1 {
             get {
                 return ((float)(this["PressureUnderTest1"]));
@@ -85,7 +85,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.2")]
         public float PressureUnderTest2 {
             get {
                 return ((float)(this["PressureUnderTest2"]));
@@ -97,7 +97,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.2")]
         public float PressureUnderTest3 {
             get {
                 return ((float)(this["PressureUnderTest3"]));
@@ -109,7 +109,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("6")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.2")]
         public float PressureUnderTest4 {
             get {
                 return ((float)(this["PressureUnderTest4"]));
@@ -121,7 +121,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.23")]
         public float PressureUnderTest5 {
             get {
                 return ((float)(this["PressureUnderTest5"]));
@@ -133,7 +133,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.256")]
         public float PressureUnderTest6 {
             get {
                 return ((float)(this["PressureUnderTest6"]));
@@ -145,7 +145,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("12")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.22")]
         public float PressureUnderTest7 {
             get {
                 return ((float)(this["PressureUnderTest7"]));
@@ -157,7 +157,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("12.5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.258")]
         public float PressureUnderTest8 {
             get {
                 return ((float)(this["PressureUnderTest8"]));
@@ -169,7 +169,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("13")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.2852")]
         public float PressureUnderTest9 {
             get {
                 return ((float)(this["PressureUnderTest9"]));
@@ -181,7 +181,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("13.5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.256599")]
         public float PressureUnderTest10 {
             get {
                 return ((float)(this["PressureUnderTest10"]));
@@ -193,7 +193,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("14")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.2741")]
         public float PressureUnderTest11 {
             get {
                 return ((float)(this["PressureUnderTest11"]));
@@ -205,7 +205,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("14.5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.2")]
         public float PressureUnderTest12 {
             get {
                 return ((float)(this["PressureUnderTest12"]));
@@ -217,7 +217,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("14")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.2222")]
         public float PressureUnderTest13 {
             get {
                 return ((float)(this["PressureUnderTest13"]));
@@ -229,7 +229,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("15.5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.29999")]
         public float PressureUnderTest14 {
             get {
                 return ((float)(this["PressureUnderTest14"]));
@@ -241,7 +241,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("16")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.2852")]
         public float PressureUnderTest15 {
             get {
                 return ((float)(this["PressureUnderTest15"]));
@@ -253,7 +253,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("14")]
+        [global::System.Configuration.DefaultSettingValueAttribute("19")]
         public float TempUnderTest1 {
             get {
                 return ((float)(this["TempUnderTest1"]));
@@ -265,7 +265,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        [global::System.Configuration.DefaultSettingValueAttribute("19.5")]
         public float TempUnderTest2 {
             get {
                 return ((float)(this["TempUnderTest2"]));
@@ -277,7 +277,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("25.5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
         public float TempUnderTest3 {
             get {
                 return ((float)(this["TempUnderTest3"]));
@@ -289,7 +289,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("29")]
+        [global::System.Configuration.DefaultSettingValueAttribute("21")]
         public float TempUnderTest4 {
             get {
                 return ((float)(this["TempUnderTest4"]));
@@ -301,7 +301,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("35")]
+        [global::System.Configuration.DefaultSettingValueAttribute("22")]
         public float TempUnderTest5 {
             get {
                 return ((float)(this["TempUnderTest5"]));
@@ -325,13 +325,25 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("COM19")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM6")]
         public string TempControllerComPort {
             get {
                 return ((string)(this["TempControllerComPort"]));
             }
             set {
                 this["TempControllerComPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\work\\Rotal calibration\\project\\RotalCalib\\DP_dashboard\\bin\\Debug\\Logs")]
+        public string LogPath {
+            get {
+                return ((string)(this["LogPath"]));
+            }
+            set {
+                this["LogPath"] = value;
             }
         }
     }

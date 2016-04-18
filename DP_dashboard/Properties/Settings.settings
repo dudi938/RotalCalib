@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="multiplexingComPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">COM11</Value>
+      <Value Profile="(Default)">COM12</Value>
     </Setting>
     <Setting Name="plcComPort" Type="System.String" Scope="User">
       <Value Profile="(Default)">COM1</Value>
@@ -15,70 +15,73 @@
       <Value Profile="(Default)">CalibrationStation</Value>
     </Setting>
     <Setting Name="PressureUnderTest1" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">-2</Value>
+      <Value Profile="(Default)">1.2</Value>
     </Setting>
     <Setting Name="PressureUnderTest2" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">1.2</Value>
     </Setting>
     <Setting Name="PressureUnderTest3" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">4</Value>
+      <Value Profile="(Default)">1.2</Value>
     </Setting>
     <Setting Name="PressureUnderTest4" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">6</Value>
+      <Value Profile="(Default)">1.2</Value>
     </Setting>
     <Setting Name="PressureUnderTest5" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">8</Value>
+      <Value Profile="(Default)">1.23</Value>
     </Setting>
     <Setting Name="PressureUnderTest6" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">10</Value>
+      <Value Profile="(Default)">1.256</Value>
     </Setting>
     <Setting Name="PressureUnderTest7" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">12</Value>
+      <Value Profile="(Default)">1.22</Value>
     </Setting>
     <Setting Name="PressureUnderTest8" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">12.5</Value>
+      <Value Profile="(Default)">1.258</Value>
     </Setting>
     <Setting Name="PressureUnderTest9" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">13</Value>
+      <Value Profile="(Default)">1.2852</Value>
     </Setting>
     <Setting Name="PressureUnderTest10" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">13.5</Value>
+      <Value Profile="(Default)">1.256599</Value>
     </Setting>
     <Setting Name="PressureUnderTest11" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">14</Value>
+      <Value Profile="(Default)">1.2741</Value>
     </Setting>
     <Setting Name="PressureUnderTest12" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">14.5</Value>
+      <Value Profile="(Default)">1.2</Value>
     </Setting>
     <Setting Name="PressureUnderTest13" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">14</Value>
+      <Value Profile="(Default)">1.2222</Value>
     </Setting>
     <Setting Name="PressureUnderTest14" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">15.5</Value>
+      <Value Profile="(Default)">1.29999</Value>
     </Setting>
     <Setting Name="PressureUnderTest15" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">16</Value>
+      <Value Profile="(Default)">1.2852</Value>
     </Setting>
     <Setting Name="TempUnderTest1" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">14</Value>
+      <Value Profile="(Default)">19</Value>
     </Setting>
     <Setting Name="TempUnderTest2" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">20</Value>
+      <Value Profile="(Default)">19.5</Value>
     </Setting>
     <Setting Name="TempUnderTest3" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">25.5</Value>
+      <Value Profile="(Default)">20</Value>
     </Setting>
     <Setting Name="TempUnderTest4" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">29</Value>
+      <Value Profile="(Default)">21</Value>
     </Setting>
     <Setting Name="TempUnderTest5" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">35</Value>
+      <Value Profile="(Default)">22</Value>
     </Setting>
     <Setting Name="TempControllerSlaveAddress" Type="System.Byte" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="TempControllerComPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">COM19</Value>
+      <Value Profile="(Default)">COM6</Value>
+    </Setting>
+    <Setting Name="LogPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\Logs</Value>
     </Setting>
   </Settings>
 </SettingsFile>

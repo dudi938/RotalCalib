@@ -239,9 +239,9 @@ namespace DP_dashboard
 
         private void bt_exportPressursTableToCSVfile_Click(object sender, EventArgs e)
         {
-            log.OpenFileForLogging(Application.StartupPath + @"\Logs", "1.0.0", "1.0.0","6778899");
-            log.PrintLogRecordToFile(DpProtocolInstanse);
-            log.CloseFileForLogging();
+            //log.OpenFileForLogging(Application.StartupPath + @"\Logs", "1.0.0", "1.0.0","6778899");
+            //log.PrintLogRecordToFile(DpProtocolInstanse);
+            //log.CloseFileForLogging();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -274,6 +274,7 @@ namespace DP_dashboard
         private void bt_startCalibration_Click(object sender, EventArgs e)
         {
             classCalibrationInfo.DoCalibration = true;
+            classCalibrationInfo.CreateLogFiles();
         }
 
         private void UpdateDeviceTable()
@@ -304,7 +305,7 @@ namespace DP_dashboard
                 for (int j = 0; j < MAX_PRESSURE_POINT; j++)
                 {
                     dgv_deviceData.Rows.Add(
-                                                classCalibrationInfo.classDevices[i].CalibrationData[0, 0].extA2dPressureValue.ToString(),
+                                                classCalibrationInfo.classDevices[i].CalibrationData[0, j].extA2dPressureValue.ToString(),
 
                                                 classCalibrationInfo.classDevices[i].CalibrationData[0, j].a2dPressureValue1.ToString(),
                                                 classCalibrationInfo.classDevices[i].CalibrationData[0, j].a2dPressureValue2.ToString(),
@@ -370,6 +371,7 @@ namespace DP_dashboard
         private void bt_stopCalibration_Click(object sender, EventArgs e)
         {
             classCalibrationInfo.DoCalibration = false;
+            classCalibrationInfo.StateMachineReset();
         }
 
         private void pnl_TempData_Paint(object sender, PaintEventArgs e)

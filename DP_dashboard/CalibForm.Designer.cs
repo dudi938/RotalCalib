@@ -53,27 +53,27 @@
             this.col_deviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_serialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnl_TempData = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
             this.tb_targetTemperature = new System.Windows.Forms.TextBox();
             this.tb_currentTemperature = new System.Windows.Forms.TextBox();
+            this.tb_connectionStatus = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmb_dpList = new System.Windows.Forms.ComboBox();
             this.bt_disConnectDP = new System.Windows.Forms.Button();
             this.bt_connectDP = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.tb_pressTargetPressure = new System.Windows.Forms.TextBox();
-            this.tb_pressCurrentPressure = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.tb_preeStable = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tb_pressTargetPressure = new System.Windows.Forms.TextBox();
+            this.tb_pressCurrentPressure = new System.Windows.Forms.TextBox();
             this.tb_presConnectionStatus = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tb_connectionStatus = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.pnl_calibrationPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_deviceData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_devicesQueue)).BeginInit();
@@ -289,6 +289,7 @@
             // 
             // pnl_TempData
             // 
+            this.pnl_TempData.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pnl_TempData.Controls.Add(this.label8);
             this.pnl_TempData.Controls.Add(this.tb_targetTemperature);
             this.pnl_TempData.Controls.Add(this.tb_currentTemperature);
@@ -296,16 +297,28 @@
             this.pnl_TempData.Controls.Add(this.label7);
             this.pnl_TempData.Controls.Add(this.label6);
             this.pnl_TempData.Controls.Add(this.label5);
-            this.pnl_TempData.Location = new System.Drawing.Point(1394, 58);
+            this.pnl_TempData.Location = new System.Drawing.Point(1339, 58);
             this.pnl_TempData.Margin = new System.Windows.Forms.Padding(4);
             this.pnl_TempData.Name = "pnl_TempData";
-            this.pnl_TempData.Size = new System.Drawing.Size(336, 190);
+            this.pnl_TempData.Size = new System.Drawing.Size(391, 190);
             this.pnl_TempData.TabIndex = 16;
             this.pnl_TempData.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl_TempData_Paint);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label8.Location = new System.Drawing.Point(84, 18);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(177, 25);
+            this.label8.TabIndex = 6;
+            this.label8.Text = "Temperature Info";
+            // 
             // tb_targetTemperature
             // 
-            this.tb_targetTemperature.Location = new System.Drawing.Point(215, 146);
+            this.tb_targetTemperature.Location = new System.Drawing.Point(259, 146);
             this.tb_targetTemperature.Margin = new System.Windows.Forms.Padding(4);
             this.tb_targetTemperature.Name = "tb_targetTemperature";
             this.tb_targetTemperature.ReadOnly = true;
@@ -314,12 +327,21 @@
             // 
             // tb_currentTemperature
             // 
-            this.tb_currentTemperature.Location = new System.Drawing.Point(215, 103);
+            this.tb_currentTemperature.Location = new System.Drawing.Point(259, 103);
             this.tb_currentTemperature.Margin = new System.Windows.Forms.Padding(4);
             this.tb_currentTemperature.Name = "tb_currentTemperature";
             this.tb_currentTemperature.ReadOnly = true;
             this.tb_currentTemperature.Size = new System.Drawing.Size(99, 22);
             this.tb_currentTemperature.TabIndex = 4;
+            // 
+            // tb_connectionStatus
+            // 
+            this.tb_connectionStatus.Location = new System.Drawing.Point(259, 65);
+            this.tb_connectionStatus.Margin = new System.Windows.Forms.Padding(4);
+            this.tb_connectionStatus.Name = "tb_connectionStatus";
+            this.tb_connectionStatus.ReadOnly = true;
+            this.tb_connectionStatus.Size = new System.Drawing.Size(99, 22);
+            this.tb_connectionStatus.TabIndex = 3;
             // 
             // label7
             // 
@@ -329,7 +351,7 @@
             this.label7.Location = new System.Drawing.Point(19, 105);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(162, 20);
+            this.label7.Size = new System.Drawing.Size(193, 25);
             this.label7.TabIndex = 2;
             this.label7.Text = "Current temperture";
             this.label7.Click += new System.EventHandler(this.label7_Click);
@@ -342,10 +364,23 @@
             this.label6.Location = new System.Drawing.Point(21, 146);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(153, 20);
+            this.label6.Size = new System.Drawing.Size(186, 25);
             this.label6.TabIndex = 1;
             this.label6.Text = "TargetTemperture";
             this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label5.Location = new System.Drawing.Point(23, 67);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(186, 25);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Connection status";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // panel1
             // 
@@ -407,6 +442,7 @@
             // 
             // panel2
             // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.tb_preeStable);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.label4);
@@ -416,81 +452,15 @@
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Location = new System.Drawing.Point(1394, 267);
+            this.panel2.Location = new System.Drawing.Point(1339, 267);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(336, 239);
+            this.panel2.Size = new System.Drawing.Size(391, 239);
             this.panel2.TabIndex = 17;
-            // 
-            // tb_pressTargetPressure
-            // 
-            this.tb_pressTargetPressure.Location = new System.Drawing.Point(218, 143);
-            this.tb_pressTargetPressure.Margin = new System.Windows.Forms.Padding(4);
-            this.tb_pressTargetPressure.Name = "tb_pressTargetPressure";
-            this.tb_pressTargetPressure.ReadOnly = true;
-            this.tb_pressTargetPressure.Size = new System.Drawing.Size(99, 22);
-            this.tb_pressTargetPressure.TabIndex = 5;
-            // 
-            // tb_pressCurrentPressure
-            // 
-            this.tb_pressCurrentPressure.Location = new System.Drawing.Point(215, 100);
-            this.tb_pressCurrentPressure.Margin = new System.Windows.Forms.Padding(4);
-            this.tb_pressCurrentPressure.Name = "tb_pressCurrentPressure";
-            this.tb_pressCurrentPressure.ReadOnly = true;
-            this.tb_pressCurrentPressure.Size = new System.Drawing.Size(99, 22);
-            this.tb_pressCurrentPressure.TabIndex = 4;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(15, 102);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(149, 20);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Current  pressure";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(17, 144);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(136, 20);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Target pressure";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label4.Location = new System.Drawing.Point(103, 14);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(115, 20);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Pressure info";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label8.Location = new System.Drawing.Point(84, 18);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(148, 20);
-            this.label8.TabIndex = 6;
-            this.label8.Text = "Temperature Info";
             // 
             // tb_preeStable
             // 
-            this.tb_preeStable.Location = new System.Drawing.Point(219, 189);
+            this.tb_preeStable.Location = new System.Drawing.Point(271, 189);
             this.tb_preeStable.Margin = new System.Windows.Forms.Padding(4);
             this.tb_preeStable.Name = "tb_preeStable";
             this.tb_preeStable.ReadOnly = true;
@@ -506,9 +476,72 @@
             this.label9.Location = new System.Drawing.Point(23, 189);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(61, 20);
+            this.label9.Size = new System.Drawing.Size(74, 25);
             this.label9.TabIndex = 7;
             this.label9.Text = "Stable";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label4.Location = new System.Drawing.Point(103, 14);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(139, 25);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Pressure info";
+            // 
+            // tb_pressTargetPressure
+            // 
+            this.tb_pressTargetPressure.Location = new System.Drawing.Point(270, 143);
+            this.tb_pressTargetPressure.Margin = new System.Windows.Forms.Padding(4);
+            this.tb_pressTargetPressure.Name = "tb_pressTargetPressure";
+            this.tb_pressTargetPressure.ReadOnly = true;
+            this.tb_pressTargetPressure.Size = new System.Drawing.Size(99, 22);
+            this.tb_pressTargetPressure.TabIndex = 5;
+            // 
+            // tb_pressCurrentPressure
+            // 
+            this.tb_pressCurrentPressure.Location = new System.Drawing.Point(267, 100);
+            this.tb_pressCurrentPressure.Margin = new System.Windows.Forms.Padding(4);
+            this.tb_pressCurrentPressure.Name = "tb_pressCurrentPressure";
+            this.tb_pressCurrentPressure.ReadOnly = true;
+            this.tb_pressCurrentPressure.Size = new System.Drawing.Size(99, 22);
+            this.tb_pressCurrentPressure.TabIndex = 4;
+            // 
+            // tb_presConnectionStatus
+            // 
+            this.tb_presConnectionStatus.Location = new System.Drawing.Point(267, 62);
+            this.tb_presConnectionStatus.Margin = new System.Windows.Forms.Padding(4);
+            this.tb_presConnectionStatus.Name = "tb_presConnectionStatus";
+            this.tb_presConnectionStatus.ReadOnly = true;
+            this.tb_presConnectionStatus.Size = new System.Drawing.Size(99, 22);
+            this.tb_presConnectionStatus.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label1.Location = new System.Drawing.Point(15, 102);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(180, 25);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Current  pressure";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label2.Location = new System.Drawing.Point(17, 144);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(165, 25);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Target pressure";
             // 
             // label3
             // 
@@ -518,40 +551,9 @@
             this.label3.Location = new System.Drawing.Point(14, 64);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(155, 20);
+            this.label3.Size = new System.Drawing.Size(186, 25);
             this.label3.TabIndex = 0;
             this.label3.Text = "Connection status";
-            // 
-            // tb_presConnectionStatus
-            // 
-            this.tb_presConnectionStatus.Location = new System.Drawing.Point(215, 62);
-            this.tb_presConnectionStatus.Margin = new System.Windows.Forms.Padding(4);
-            this.tb_presConnectionStatus.Name = "tb_presConnectionStatus";
-            this.tb_presConnectionStatus.ReadOnly = true;
-            this.tb_presConnectionStatus.Size = new System.Drawing.Size(99, 22);
-            this.tb_presConnectionStatus.TabIndex = 3;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label5.Location = new System.Drawing.Point(23, 67);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(155, 20);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Connection status";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
-            // 
-            // tb_connectionStatus
-            // 
-            this.tb_connectionStatus.Location = new System.Drawing.Point(215, 65);
-            this.tb_connectionStatus.Margin = new System.Windows.Forms.Padding(4);
-            this.tb_connectionStatus.Name = "tb_connectionStatus";
-            this.tb_connectionStatus.ReadOnly = true;
-            this.tb_connectionStatus.Size = new System.Drawing.Size(99, 22);
-            this.tb_connectionStatus.TabIndex = 3;
             // 
             // CalibForm
             // 

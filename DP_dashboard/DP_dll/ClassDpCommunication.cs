@@ -257,9 +257,8 @@ namespace DpCommunication
             return (byte)~sumByteValue;
         }
 
-        public void DpWritePressurePointToDevice(int a2dValue, byte TempN, byte PreesureN)
+        public void DpWritePressurePointToDevice(float pressure, byte TempN, byte PreesureN)
         {
-            float pressure = 2.17f;
 
             byte[] FloatToByteArray = new byte[SIZE_OF_FLOAT];
             FloatToByteArray = BitConverter.GetBytes(pressure); 

@@ -28,6 +28,10 @@ namespace DP_dashboard
 
         ClassCalibrationInfo classCalibrationInfo;
         StartForm startForm;
+
+        Process burn = new Process();
+
+
         bool EnableProgram = false;
 
         public ProgForm(ClassCalibrationInfo CalibrationInfo, StartForm SenderForm)
@@ -91,7 +95,7 @@ namespace DP_dashboard
                 string RealTimeData = string.Format("Start Program DP Number {0}. Serial number:{1}. Name: {2}.",i.ToString(), classCalibrationInfo.classDevices[i].DeviceSerialNumber.ToString(), classCalibrationInfo.classDevices[i].DeviceName.ToString());
                 lbl_info.Text = RealTimeData; 
 
-                bool res = FlashDpDevice(@"C:\work\grow_me\projects\BLE-CC254x-1.4.0\Projects\ble\grow_me\CC2541DB\CC2541\Exe\SimpleBLEPeripheral.hex");
+                bool res = FlashDpDevice(@"C:\Users\dudi9\Desktop\DPT.hex");
 
                 if (!res)
                 {
@@ -105,7 +109,7 @@ namespace DP_dashboard
         {
             string path = @"C:\Program Files (x86)\Texas Instruments\SmartRF Tools\Flash Programmer\bin\SmartRFProgConsole.exe";
             string args = string.Format("S() EPV F={0}", fileName);
-            Process burn = new Process();
+
             burn.StartInfo.FileName = path;
             burn.StartInfo.Arguments = args;
             burn.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
@@ -117,6 +121,7 @@ namespace DP_dashboard
         private void bt_stopProgram_Click(object sender, EventArgs e)
         {
             EnableProgram = false;
+            burn.Close();
         }
 
         private void timer2_Tick(object sender, EventArgs e)

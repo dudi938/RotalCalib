@@ -110,6 +110,11 @@ namespace DP_dashboard
                     break;
                 }
 
+                if ((bool)dgv_registerDpPacket.Rows[i].Cells[1].Value == false)
+                {
+                    break;
+                }
+
                 ClassDevice NewExistDevice = new ClassDevice();
                 classCalibrationInfo.DpCountAxist++;
 
@@ -143,6 +148,33 @@ namespace DP_dashboard
             }
         }
 
+        private void dgv_registerDpPacket_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgv_registerDpPacket.Rows[e.RowIndex].Cells[2].Value != null)
+            {
+                if (dgv_registerDpPacket.Rows[e.RowIndex].Cells[2].Value.ToString() != "" && dgv_registerDpPacket.Rows[e.RowIndex].Cells[2].Value.ToString().Length > 1)
+                {
+                    dgv_registerDpPacket.Rows[e.RowIndex].Cells[1].Value = true;
+                }
+            }
 
+        }
+
+        private void dgv_registerDpPacket_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgv_registerDpPacket_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
+
+        }
+
+        private void dgv_registerDpPacket_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+
+
+        }
     }
 }

@@ -372,6 +372,9 @@ namespace DP_dashboard
         {
             classCalibrationInfo.DoCalibration = false;
             classCalibrationInfo.StateMachineReset();
+
+            //classCalibrationInfo.classDpCommunicationInstanse.DPgetDpInfo();
+
         }
 
         private void pnl_TempData_Paint(object sender, PaintEventArgs e)
@@ -397,6 +400,9 @@ namespace DP_dashboard
         private void bt_clear_Click(object sender, EventArgs e)
         {
             rtb_info.Text = "";
+            //classCalibrationInfo.classDpCommunicationInstanse.DpWritePressurePointToDevice(45.2f,3,56.9f,2);
+
+            //DpWritePressurePointToDevice(float tempUnderTest, byte TempN, float extPressure, byte PreesureN);
         }
 
         private void bt_connectDP_Click(object sender, EventArgs e)

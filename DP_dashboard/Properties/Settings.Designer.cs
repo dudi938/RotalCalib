@@ -61,7 +61,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("CalibrationStation")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ProgramStation")]
         public string StationType {
             get {
                 return ((string)(this["StationType"]));

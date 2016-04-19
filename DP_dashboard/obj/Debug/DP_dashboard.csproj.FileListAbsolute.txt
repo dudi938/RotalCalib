@@ -44,3 +44,4 @@ C:\work\Rotal calibration\project\rotal_DP_calibration_project_10032016\dashboar
 C:\work\Rotal calibration\project\rotal_DP_calibration_project_10032016\dashboard\DP_dashboard\obj\Debug\DP_dashboard.Form1.resources
 C:\work\Rotal calibration\project\rotal_DP_calibration_project_10032016\dashboard\DP_dashboard\obj\Debug\DP_dashboard.Properties.Resources.resources
 C:\work\Rotal calibration\project\rotal_DP_calibration_project_10032016\dashboard\DP_dashboard\obj\Debug\DP_dashboard.csproj.GenerateResource.Cache
+C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\DP_dashboard.exe.config

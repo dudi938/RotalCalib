@@ -12,7 +12,7 @@
       <Value Profile="(Default)">COM3</Value>
     </Setting>
     <Setting Name="StationType" Type="System.String" Scope="User">
-      <Value Profile="(Default)">CalibrationStation</Value>
+      <Value Profile="(Default)">ProgramStation</Value>
     </Setting>
     <Setting Name="PressureUnderTest1" Type="System.Single" Scope="User">
       <Value Profile="(Default)">1.2</Value>

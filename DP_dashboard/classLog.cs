@@ -34,11 +34,8 @@ namespace DP_dashboard
 
 
         public string OpenFileForLogging(string path,ClassDevice dpDevice)
-        {
-            string title1 = string.Format(",DP MAC address,{0},,DP SN,{1},", dpDevice.DeviceMacAddress.ToString(), dpDevice.DeviceSerialNumber.ToString());
-            string title2 = string.Format(",DP Name,{0},", dpDevice.DeviceName);
-
-            string title3 = string.Format(",P_1 = {0},P_2 = {1},P_3 = {2},P_4 = {3},P_5 = {4},P_6 = {5},P_7 = {6},P_8 = {7},P_9 = {8},P_10 = {9},P_11 = {10},P_12 = {11},P_13 = {12},P_14 = {13},P_15 = {14},",
+        {            
+            string title1 = string.Format(",T_1 = {0},P_2 = {1},P_3 = {2},P_4 = {3},P_5 = {4},P_6 = {5},P_7 = {6},P_8 = {7},P_9 = {8},P_10 = {9},P_11 = {10},P_12 = {11},P_13 = {12},P_14 = {13},P_15 = {14},DP_MAC_Address,DP_SN,DP_Name,",
             dpDevice.CalibrationData[0, 0].pressureUnderTest.ToString(),
             dpDevice.CalibrationData[0, 1].pressureUnderTest.ToString(),
             dpDevice.CalibrationData[0, 2].pressureUnderTest.ToString(),
@@ -61,20 +58,14 @@ namespace DP_dashboard
 
             sPath = path;
 
-            logFileName = string.Format("{0:0000}_{1:00}_{2:00}_{3:00}_{4:00}_{5:00}_hv{6}",now.Year,now.Month,now.Day,now.Hour,now.Minute,now.Second, dpDevice.DeviceName) + ".csv";
+            logFileName = string.Format("{0:0000}_{1:00}_{2:00}_{3:00}_{4:00}_{5:00}_{6}",now.Year,now.Month,now.Day,now.Hour,now.Minute,now.Second, dpDevice.DeviceSerialNumber) + ".csv";
             dpDevice.CSVFileName = logFileName;
             CreateDirectoryIfNotExist(path);
 
             try
             {
                 file = new StreamWriter(path + @"\" +  logFileName,false);
-                file.WriteLine(title1);
-                file.WriteLine(title2);
-
-                file.WriteLine("");
-                file.WriteLine("");
-
-                file.WriteLine(title3);
+                file.WriteLine(title1);     
 
             }
             catch( Exception ex )
@@ -92,12 +83,47 @@ namespace DP_dashboard
 
             if (file != null)
             {
-                string line = string.Format("Temp(UT)= {0}," , dpDevice.CalibrationData[tempIndex, 0].tempUnderTest.ToString());
+
+                //write ext pressure
+                string line = string.Format("Temp#{0}-PLC_pressure," , tempIndex);
                 for(int i = 0; i <15 ; i++ )
                 {
                     line += dpDevice.CalibrationData[tempIndex, i].extA2dPressureValue.ToString() + ",";
                 }
+                line += string.Format("{0},{1},{2},", dpDevice.DeviceMacAddress, dpDevice.DeviceSerialNumber, dpDevice.DeviceName);
                 file.WriteLine(line);
+
+                //write dp A2D1
+                line = string.Empty;
+                line = string.Format("Temp#{0}-DP_A2D_1,", tempIndex);
+                for (int i = 0; i < 15; i++)
+                {
+                    line += dpDevice.CalibrationData[tempIndex, i].a2dPressureValue1.ToString() + ",";
+                }
+                line += string.Format("{0},{1},{2},", dpDevice.DeviceMacAddress, dpDevice.DeviceSerialNumber, dpDevice.DeviceName);
+                file.WriteLine(line);
+
+                //write dp A2D2
+                line = string.Empty;
+                line = string.Format("Temp#{0}-DP_A2D_2,", tempIndex);
+                for (int i = 0; i < 15; i++)
+                {
+                    line += dpDevice.CalibrationData[tempIndex, i].a2dPressureValue2.ToString() + ",";
+                }
+                line += string.Format("{0},{1},{2},", dpDevice.DeviceMacAddress, dpDevice.DeviceSerialNumber, dpDevice.DeviceName);
+                file.WriteLine(line);
+
+
+                //write  dp temp
+                line = string.Empty;
+                line = string.Format("Temp#{0}-DP_Temp,", tempIndex);
+                for (int i = 0; i < 15; i++)
+                {
+                    line += dpDevice.CalibrationData[tempIndex, i].tempOnDevice.ToString() + ",";
+                }
+                line += string.Format("{0},{1},{2},", dpDevice.DeviceMacAddress, dpDevice.DeviceSerialNumber, dpDevice.DeviceName);
+                file.WriteLine(line);
+
                 file.Close();
 
             }

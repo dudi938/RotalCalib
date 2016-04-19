@@ -201,7 +201,7 @@ namespace DP_dashboard
                             break;
                         case StateRunOfAllDp:
                             {
-                                ReadInfoFromDp();//loop of all dp's
+                                WriteReadInfoFromDp();//loop of all dp's
                                 StateChangeState(StateEndOneCalibPoint);
                             }
                             break;
@@ -334,7 +334,7 @@ namespace DP_dashboard
 
 
         }
-        private void ReadInfoFromDp()
+        private void WriteReadInfoFromDp()
         {
 
             for (byte i = 0; i < DpCountAxist; i++)
@@ -345,8 +345,9 @@ namespace DP_dashboard
                 Thread.Sleep(1000);
 
                 //write preaaure value to DP
-                classDpCommunicationInstanse.DpWritePressurePointToDevice(PlcAdc2Bar(CurrentPressure), CurrentCalibTempIndex, CurrentCalibPressureIndex);
-
+                //classDpCommunicationInstanse.DpWritePressurePointToDevice(PlcAdc2Bar(CurrentPressure), CurrentCalibTempIndex, classDevices[i].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempUnderTest, CurrentCalibPressureIndex, classDevices[i].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].pressureUnderTest);
+                classDpCommunicationInstanse.DpWritePressurePointToDevice(classDevices[i].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempUnderTest, CurrentCalibTempIndex,CurrentPressure, CurrentCalibPressureIndex);
+                
                 classDpCommunicationInstanse.NewDpInfoEvent = false;
                 classDpCommunicationInstanse.DPgetDpInfo();
                 GetDpInforequestTime = DateTime.Now;

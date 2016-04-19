@@ -215,7 +215,7 @@ namespace DpCommunication
                 }
             }
         }
-
+        
         public void SendRxTxStringAsHex(byte[] data, byte dataDirection, byte length)
         {
             incomingInfo.controlReceiverMessage = "";
@@ -257,22 +257,32 @@ namespace DpCommunication
             return (byte)~sumByteValue;
         }
 
-        public void DpWritePressurePointToDevice(float pressure, byte TempN, byte PreesureN)
+        public void DpWritePressurePointToDevice(float tempUnderTest, byte TempN, float extPressure,byte PreesureN)
         {
 
-            byte[] FloatToByteArray = new byte[SIZE_OF_FLOAT];
-            FloatToByteArray = BitConverter.GetBytes(pressure); 
+            byte[] TargetTempArray = new byte[SIZE_OF_FLOAT];
+            TargetTempArray = BitConverter.GetBytes(tempUnderTest);
 
-            byte[] data = new byte[API_MSG_DP_BASIC_MASSEGE_LENGTH + 6];
+            byte[] extPressArray = new byte[SIZE_OF_FLOAT];
+            extPressArray = BitConverter.GetBytes(extPressure);
+
+            byte[] data = new byte[API_MSG_DP_BASIC_MASSEGE_LENGTH + 10];
             data[0] = API_MSG_PREAMBLE;
             data[1] = (byte)data.Count();
             data[2] = API_MSG_DP_SEND_PRESSURE_TO_DP;  //opcode
-            data[3] = FloatToByteArray[0];  // byte 1 from the float pressure value
-            data[4] = FloatToByteArray[1];  // byte 2 from the float pressure value
-            data[5] = FloatToByteArray[2];  // byte 3 from the float pressure value
-            data[6] = FloatToByteArray[3];  // byte 4 from the float pressure value
+
+            data[3] = TargetTempArray[0];  // byte 1 from the float temp value
+            data[4] = TargetTempArray[1];  // byte 2 from the float temp value
+            data[5] = TargetTempArray[2];  // byte 3 from the float temp value
+            data[6] = TargetTempArray[3];  // byte 4 from the float temp value
             data[7] = TempN;
-            data[8] = PreesureN;
+
+            data[8]  = extPressArray[0];   // byte 1 from the float pressure value
+            data[9]  = extPressArray[1];   // byte 2 from the float pressure value
+            data[10] = extPressArray[2];   // byte 3 from the float pressure value
+            data[11] = extPressArray[3];   // byte 4 from the float pressure value
+            data[12] = PreesureN;
+
             data[data.Count() - 1] = CheckCum(data, data.Count());
 
             SerialPortInstanse.Send(data, data.Count());
@@ -317,7 +327,8 @@ namespace DpCommunication
                 {
                     foreach (DpCalibPoint currentPoint in currentTempLine.oneTempLine)
                     {
-                        DpWritePressurePointToDevice(currentPoint.a2dPressureValue, TempCount, PressureInTempCount);
+                        //public void DpWritePressurePointToDevice(byte PreesureN, float extPressure, byte TempN, float tempUnderTest)
+                       // DpWritePressurePointToDevice(currentPoint.a2dPressureValue, TempCount, PressureInTempCount);
                         PressureInTempCount++;
                     }
                     TempCount++;

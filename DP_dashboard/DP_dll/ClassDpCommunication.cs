@@ -349,5 +349,15 @@ namespace DpCommunication
             SerialPortInstanse.Send(data, data.Count());
         }
 
+        public void SendEndCalibration()
+        {
+            byte[] data = new byte[API_MSG_DP_BASIC_MASSEGE_LENGTH];
+            data[0] = API_MSG_PREAMBLE;
+            data[1] = (byte)data.Count();
+            data[2] = API_MSG_DP_CALIBRATION_DONE;  //opcode
+            data[data.Count() - 1] = CheckCum(data, data.Count());
+            SerialPortInstanse.Send(data, data.Count());
+        }
+
     }
 }

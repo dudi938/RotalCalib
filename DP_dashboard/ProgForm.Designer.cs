@@ -41,6 +41,8 @@
             this.lbl_info = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.button1 = new System.Windows.Forms.Button();
+            this.tb_connectdp = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dpTableInfo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,7 +67,7 @@
             this.col_serialNumber,
             this.col_name});
             this.dgv_dpTableInfo.Location = new System.Drawing.Point(47, 121);
-            this.dgv_dpTableInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgv_dpTableInfo.Margin = new System.Windows.Forms.Padding(4);
             this.dgv_dpTableInfo.Name = "dgv_dpTableInfo";
             this.dgv_dpTableInfo.Size = new System.Drawing.Size(431, 542);
             this.dgv_dpTableInfo.TabIndex = 1;
@@ -104,9 +106,9 @@
             this.bt_startProgram.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold);
             this.bt_startProgram.ForeColor = System.Drawing.Color.Blue;
             this.bt_startProgram.Location = new System.Drawing.Point(677, 208);
-            this.bt_startProgram.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.bt_startProgram.Margin = new System.Windows.Forms.Padding(4);
             this.bt_startProgram.Name = "bt_startProgram";
-            this.bt_startProgram.Size = new System.Drawing.Size(559, 122);
+            this.bt_startProgram.Size = new System.Drawing.Size(321, 122);
             this.bt_startProgram.TabIndex = 2;
             this.bt_startProgram.Text = "Start Program";
             this.bt_startProgram.UseVisualStyleBackColor = false;
@@ -118,9 +120,9 @@
             this.bt_stopProgram.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold);
             this.bt_stopProgram.ForeColor = System.Drawing.Color.Blue;
             this.bt_stopProgram.Location = new System.Drawing.Point(677, 377);
-            this.bt_stopProgram.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.bt_stopProgram.Margin = new System.Windows.Forms.Padding(4);
             this.bt_stopProgram.Name = "bt_stopProgram";
-            this.bt_stopProgram.Size = new System.Drawing.Size(559, 122);
+            this.bt_stopProgram.Size = new System.Drawing.Size(321, 122);
             this.bt_stopProgram.TabIndex = 3;
             this.bt_stopProgram.Text = "Stop program";
             this.bt_stopProgram.UseVisualStyleBackColor = false;
@@ -132,9 +134,9 @@
             this.bt_back.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_back.ForeColor = System.Drawing.Color.Blue;
             this.bt_back.Location = new System.Drawing.Point(677, 546);
-            this.bt_back.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.bt_back.Margin = new System.Windows.Forms.Padding(4);
             this.bt_back.Name = "bt_back";
-            this.bt_back.Size = new System.Drawing.Size(559, 122);
+            this.bt_back.Size = new System.Drawing.Size(321, 122);
             this.bt_back.TabIndex = 4;
             this.bt_back.Text = "Back";
             this.bt_back.UseVisualStyleBackColor = false;
@@ -160,18 +162,37 @@
             this.timer2.Interval = 1000;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1057, 239);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(193, 74);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "connect DP";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // tb_connectdp
+            // 
+            this.tb_connectdp.Location = new System.Drawing.Point(1293, 268);
+            this.tb_connectdp.Name = "tb_connectdp";
+            this.tb_connectdp.Size = new System.Drawing.Size(100, 22);
+            this.tb_connectdp.TabIndex = 7;
+            // 
             // ProgForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1744, 742);
+            this.Controls.Add(this.tb_connectdp);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lbl_info);
             this.Controls.Add(this.bt_back);
             this.Controls.Add(this.bt_stopProgram);
             this.Controls.Add(this.bt_startProgram);
             this.Controls.Add(this.dgv_dpTableInfo);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ProgForm";
             this.Text = "ProgForm";
             this.Load += new System.EventHandler(this.ProgForm_Load);
@@ -195,5 +216,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_name;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox tb_connectdp;
     }
 }

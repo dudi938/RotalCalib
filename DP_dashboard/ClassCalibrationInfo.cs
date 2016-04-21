@@ -244,6 +244,9 @@ namespace DP_dashboard
                                 }
 
                                 DoCalibration = false;
+
+
+
                                 StateChangeState(StateStartCalib);
                             }
                             break;
@@ -369,6 +372,14 @@ namespace DP_dashboard
                     classDevices[i].DeviceMacAddress = classDpCommunicationInstanse.dpInfo.DeviseMacAddress;
 
                     classDpCommunicationInstanse.NewDpInfoEvent = false;
+                    //classDpCommunicationInstanse.DPgetDpInfo();
+
+                if(CurrentCalibPressureIndex == MAX_PRESSURE_CALIB_POINT  &&  CurrentCalibTempIndex == MAX_TEMP_CALIB_POINT)
+                {
+                    //send end calibration CMD
+                    classDpCommunicationInstanse.SendEndCalibration();
+                }
+
                 }           
             }
 
@@ -462,8 +473,6 @@ namespace DP_dashboard
             A2DValue =(Int16) ((100 * barValue + PLC_A2D_B) / PLC_A2D_A);
             return A2DValue;
         }
-
-
     }
 }
 

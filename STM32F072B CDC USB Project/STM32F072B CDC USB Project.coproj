@@ -194,9 +194,9 @@
     <File name="cmsis_usb/src/usbd_usr.c" path="USB-CDC/src/usbd_usr.c" type="1"/>
     <File name="cmsis_lib/include/stm32f0xx_pwr.h" path="cmsis_lib/include/stm32f0xx_pwr.h" type="1"/>
     <File name="cmsis_lib/include" path="" type="2"/>
-    <File name="cmsis_usb/inc/stm32f0xx_conf.h" path="USB-CDC/inc/stm32f0xx_conf.h" type="1"/>
     <File name="cmsis_lib/source/stm32f0xx_flash.c" path="cmsis_lib/source/stm32f0xx_flash.c" type="1"/>
     <File name="cmsis_lib/include/stm32f0xx_syscfg.h" path="cmsis_lib/include/stm32f0xx_syscfg.h" type="1"/>
+    <File name="cmsis_usb/inc/stm32f0xx_conf.h" path="USB-CDC/inc/stm32f0xx_conf.h" type="1"/>
     <File name="cmsis_lib/include/stm32f0xx_comp.h" path="cmsis_lib/include/stm32f0xx_comp.h" type="1"/>
   </Files>
 </Project>

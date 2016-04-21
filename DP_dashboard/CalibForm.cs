@@ -373,7 +373,10 @@ namespace DP_dashboard
             classCalibrationInfo.DoCalibration = false;
             classCalibrationInfo.StateMachineReset();
 
-            //classCalibrationInfo.classDpCommunicationInstanse.DPgetDpInfo();
+
+            //TEST
+            classCalibrationInfo.classMultiplexingInstanse.ConnectDpDevice(2);
+            classCalibrationInfo.classDpCommunicationInstanse.DPgetDpInfo();
 
         }
 

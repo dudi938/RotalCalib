@@ -297,7 +297,7 @@
             this.pnl_TempData.Controls.Add(this.label7);
             this.pnl_TempData.Controls.Add(this.label6);
             this.pnl_TempData.Controls.Add(this.label5);
-            this.pnl_TempData.Location = new System.Drawing.Point(1339, 58);
+            this.pnl_TempData.Location = new System.Drawing.Point(1495, 48);
             this.pnl_TempData.Margin = new System.Windows.Forms.Padding(4);
             this.pnl_TempData.Name = "pnl_TempData";
             this.pnl_TempData.Size = new System.Drawing.Size(391, 190);
@@ -387,10 +387,10 @@
             this.panel1.Controls.Add(this.cmb_dpList);
             this.panel1.Controls.Add(this.bt_disConnectDP);
             this.panel1.Controls.Add(this.bt_connectDP);
-            this.panel1.Location = new System.Drawing.Point(1394, 529);
+            this.panel1.Location = new System.Drawing.Point(1495, 532);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(336, 147);
+            this.panel1.Size = new System.Drawing.Size(391, 147);
             this.panel1.TabIndex = 13;
             // 
             // cmb_dpList
@@ -452,7 +452,7 @@
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Location = new System.Drawing.Point(1339, 267);
+            this.panel2.Location = new System.Drawing.Point(1495, 257);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(391, 239);

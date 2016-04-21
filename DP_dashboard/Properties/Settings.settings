@@ -9,10 +9,10 @@
       <Value Profile="(Default)">COM1</Value>
     </Setting>
     <Setting Name="dpComPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">COM3</Value>
+      <Value Profile="(Default)">COM13</Value>
     </Setting>
     <Setting Name="StationType" Type="System.String" Scope="User">
-      <Value Profile="(Default)">ProgramStation</Value>
+      <Value Profile="(Default)">CalibrationStation</Value>
     </Setting>
     <Setting Name="PressureUnderTest1" Type="System.Single" Scope="User">
       <Value Profile="(Default)">1.2</Value>

@@ -97,10 +97,8 @@ namespace DP_dashboard
 
                 bool res = FlashDpDevice(@"C:\Users\dudi9\Desktop\DPT.hex");
 
-                if (!res)
-                {
-                    //MessageBox.Show("burn fail");
-                }
+                DGVSetCellColor(dgv_dpTableInfo, 1, i, res ? Color.Green: Color.Red);
+              
             }
             EnableProgram = false;
         }
@@ -127,6 +125,18 @@ namespace DP_dashboard
         private void timer2_Tick(object sender, EventArgs e)
         {
 
+        }
+
+        private void DGVSetCellColor(DataGridView dgv, int col, int row, Color color)
+        {
+            DataGridViewCellStyle style = new DataGridViewCellStyle();
+            style.BackColor = color;
+            dgv_dpTableInfo[col, row].Style = style;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            classCalibrationInfo.classMultiplexingInstanse.ConnectDpDevice(byte.Parse(tb_connectdp.Text.ToString()));
         }
     }
 }

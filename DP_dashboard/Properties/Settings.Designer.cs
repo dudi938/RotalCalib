@@ -49,7 +49,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("COM3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM13")]
         public string dpComPort {
             get {
                 return ((string)(this["dpComPort"]));
@@ -61,7 +61,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ProgramStation")]
+        [global::System.Configuration.DefaultSettingValueAttribute("CalibrationStation")]
         public string StationType {
             get {
                 return ((string)(this["StationType"]));

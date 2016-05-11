@@ -16,7 +16,15 @@ namespace DP_dashboard
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new StartForm ());
+
+            if (Properties.Settings.Default.StationType == "CalibrationStation")
+            {
+                Application.Run(new CalibForm());
+            }
+            else if (Properties.Settings.Default.StationType == "ProgramStation")
+            {
+               Application.Run(new StartForm());
+            }
 
 
         }

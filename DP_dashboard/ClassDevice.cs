@@ -32,59 +32,15 @@ namespace DP_dashboard
         public DeviceStatus deviceStatus = DeviceStatus.Pass;
         public DpCalibPointData[,] CalibrationData = new DpCalibPointData[MAX_TEMP_CALIB_POINT, MAX_PRESSURE_CALIB_POINT];
         public string CSVFileName;
-
-
-        private List<float> TempUnderTestList = new List<float>();
-        private List<float> PressureUnderTestList = new List<float>();
-
         
 
         //c'tor
         public ClassDevice()
         {
-
-            PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest1);
-            PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest2);
-            PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest3);
-            PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest4);
-            PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest5);
-            PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest6);
-            PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest7);
-            PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest8);
-            PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest9);
-            PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest10);
-            PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest11);
-            PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest12);
-            PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest13);
-            PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest14);
-            PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest15);
-
-            TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest1);
-            TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest2);
-            TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest3);
-            TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest4);
-            TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest5);
-
-
-
-
             DeviceName = "Default";
             DeviceSerialNumber = "000000";
             DeviceMacAddress = "111111";
             deviceStatus = (byte)DeviceStatus.Wait;
-            for (int i = 0;  i< MAX_TEMP_CALIB_POINT; i++)
-            {
-                for (int j = 0; j < MAX_PRESSURE_CALIB_POINT; j++)
-                {
-                    DpCalibPointData newCalibPoint = new DpCalibPointData();
-
-                    newCalibPoint.pressureUnderTest = PressureUnderTestList[j];
-                    newCalibPoint.tempUnderTest = TempUnderTestList[i];
-
-                    CalibrationData[i, j] = newCalibPoint;
-                }
-
-            }
         }
 
     }

@@ -52,6 +52,7 @@
             this.dgv_registerDpPacket.Name = "dgv_registerDpPacket";
             this.dgv_registerDpPacket.Size = new System.Drawing.Size(452, 507);
             this.dgv_registerDpPacket.TabIndex = 0;
+            this.dgv_registerDpPacket.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_registerDpPacket_CellContentClick);
             this.dgv_registerDpPacket.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_registerDpPacket_CellEndEdit);
             this.dgv_registerDpPacket.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_registerDpPacket_CellEnter);
             this.dgv_registerDpPacket.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_registerDpPacket_CellLeave);

@@ -74,6 +74,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.bt_detectDp = new System.Windows.Forms.Button();
+            this.bt_settings = new System.Windows.Forms.Button();
             this.pnl_calibrationPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_deviceData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_devicesQueue)).BeginInit();
@@ -395,6 +397,7 @@
             // 
             // cmb_dpList
             // 
+            this.cmb_dpList.DisplayMember = "0";
             this.cmb_dpList.FormattingEnabled = true;
             this.cmb_dpList.Items.AddRange(new object[] {
             "0",
@@ -555,11 +558,41 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Connection status";
             // 
+            // bt_detectDp
+            // 
+            this.bt_detectDp.BackColor = System.Drawing.Color.SteelBlue;
+            this.bt_detectDp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_detectDp.ForeColor = System.Drawing.Color.Black;
+            this.bt_detectDp.Location = new System.Drawing.Point(1739, 713);
+            this.bt_detectDp.Margin = new System.Windows.Forms.Padding(4);
+            this.bt_detectDp.Name = "bt_detectDp";
+            this.bt_detectDp.Size = new System.Drawing.Size(147, 99);
+            this.bt_detectDp.TabIndex = 18;
+            this.bt_detectDp.Text = "Detect DP devices";
+            this.bt_detectDp.UseVisualStyleBackColor = false;
+            this.bt_detectDp.Click += new System.EventHandler(this.bt_detectDp_Click);
+            // 
+            // bt_settings
+            // 
+            this.bt_settings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.bt_settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_settings.ForeColor = System.Drawing.Color.Black;
+            this.bt_settings.Location = new System.Drawing.Point(1545, 713);
+            this.bt_settings.Margin = new System.Windows.Forms.Padding(4);
+            this.bt_settings.Name = "bt_settings";
+            this.bt_settings.Size = new System.Drawing.Size(147, 99);
+            this.bt_settings.TabIndex = 19;
+            this.bt_settings.Text = "Settings";
+            this.bt_settings.UseVisualStyleBackColor = false;
+            this.bt_settings.Click += new System.EventHandler(this.bt_settings_Click);
+            // 
             // CalibForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1914, 837);
+            this.Controls.Add(this.bt_settings);
+            this.Controls.Add(this.bt_detectDp);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnl_TempData);
@@ -627,6 +660,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tb_presConnectionStatus;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button bt_detectDp;
+        private System.Windows.Forms.Button bt_settings;
     }
 }
 

@@ -59,21 +59,21 @@ namespace DP_dashboard
             if (Properties.Settings.Default.StationType == "CalibrationStation")
             {
 
-                if (calibForm == null)
+                if (calibForm == null) 
                 {
-                    MultiplexingIncomingInformation MultiplexingInfo = new MultiplexingIncomingInformation();
-                    classMultiplexing classMultiplexing = new classMultiplexing(Properties.Settings.Default.multiplexingComPort, 115200, MultiplexingInfo);
+                    //MultiplexingIncomingInformation MultiplexingInfo = new MultiplexingIncomingInformation();
+                    //classMultiplexing classMultiplexing = new classMultiplexing(Properties.Settings.Default.multiplexingComPort, 115200, MultiplexingInfo);
+                    
+                    //DpIncomingInformation DPinfo = new DpIncomingInformation();
+                    //ClassDpCommunication ClassDpCommunication = new ClassDpCommunication(Properties.Settings.Default.dpComPort, 115200, DPinfo);
 
-                    DpIncomingInformation DPinfo = new DpIncomingInformation();
-                    ClassDpCommunication ClassDpCommunication = new ClassDpCommunication(Properties.Settings.Default.dpComPort, 115200, DPinfo);
+                    //tempControllerInstanse = new TempControllerProtocol(Properties.Settings.Default.TempControllerComPort, 9600);
+                    
+                    //DeltaIncomingInformation PLCinfo = new DeltaIncomingInformation();
+                    //classDeltaProtocol ClassDeltaProtocol = new classDeltaProtocol(Properties.Settings.Default.plcComPort, 9600, PLCinfo);
 
-                    tempControllerInstanse = new TempControllerProtocol(Properties.Settings.Default.TempControllerComPort, 9600);
-
-                    DeltaIncomingInformation PLCinfo = new DeltaIncomingInformation();
-                    classDeltaProtocol ClassDeltaProtocol = new classDeltaProtocol(Properties.Settings.Default.plcComPort, 9600, PLCinfo);
-
-                    classCalibrationInfo = new ClassCalibrationInfo(tempControllerInstanse, ClassDpCommunication, classMultiplexing, ClassDeltaProtocol);
-                    calibForm = new CalibForm(classCalibrationInfo);
+                    //classCalibrationInfo = new ClassCalibrationInfo(tempControllerInstanse, ClassDpCommunication, classMultiplexing, ClassDeltaProtocol);
+                    //calibForm = new CalibForm(classCalibrationInfo);
                 }
             }
 
@@ -174,6 +174,11 @@ namespace DP_dashboard
         private void dgv_registerDpPacket_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
 
+
+        }
+
+        private void dgv_registerDpPacket_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }

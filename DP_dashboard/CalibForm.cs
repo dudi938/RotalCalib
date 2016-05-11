@@ -23,23 +23,23 @@ namespace DP_dashboard
     public partial class CalibForm : Form
     {
         public static CalibForm currentForm;
-
+         
         //cosntants
         private const int MAX_PRESSURE_POINT = 0x0f;
 
         // mult plexing protocol instance
         private MultiplexingIncomingInformation MultiplexingInfo;
-        private classMultiplexing MultiplexingProtocolInstanse;
+        private classMultiplexing classMultiplexing;
         // end
 
         // plc protocol instance
-        private classDeltaProtocol DeltaProtocolInstanse;
+        private classDeltaProtocol ClassDeltaProtocol;
         private DeltaIncomingInformation PLCinfo;
         private DeltaReturnedData IncumingParametersFromPLC;
-        // end
+        // end   
 
-        // DP protocol instance
-        private ClassDpCommunication DpProtocolInstanse;
+        // DP protocol instance  
+        private ClassDpCommunication ClassDpCommunication;
         private DpIncomingInformation DPinfo;
         // end  
 
@@ -47,39 +47,49 @@ namespace DP_dashboard
         public ClassCalibrationInfo classCalibrationInfo;
         private string CurrentSnDeviceIsFocus = "";
 
+        // temp controller protocol instance
+        TempControllerProtocol tempControllerInstanse;
+
+        ConfigForm ConfigFormInstanse;
 
 
-        public CalibForm(ClassCalibrationInfo info)
+        public CalibForm()
         {
             InitializeComponent();
             System.Windows.Forms.DataGridView[] dgvDeviceResultTable = new System.Windows.Forms.DataGridView[16];
             currentForm = this;
 
-#if xx
+
             // plc protocol init          
             PLCinfo = new DeltaIncomingInformation();
-            DeltaProtocolInstanse = new classDeltaProtocol(Properties.Settings.Default.plcComPort, 9600, PLCinfo);
+            ClassDeltaProtocol = new classDeltaProtocol(Properties.Settings.Default.plcComPort, 9600, PLCinfo);
 
             // multplexing protocol init 
             MultiplexingInfo = new MultiplexingIncomingInformation();
-            MultiplexingProtocolInstanse = new classMultiplexing(Properties.Settings.Default.multiplexingComPort, 115200, MultiplexingInfo);
+            classMultiplexing = new classMultiplexing(Properties.Settings.Default.multiplexingComPort, 115200, MultiplexingInfo);
 
-#endif
+
             // DP protocol init
 
-            //DPinfo = new DpIncomingInformation();
-            //DpProtocolInstanse = new ClassDpCommunication(Properties.Settings.Default.dpComPort, 115200, DPinfo);
-            // DpProtocolInstanse.Simulation();
-            //end
+            DPinfo = new DpIncomingInformation();
+            ClassDpCommunication = new ClassDpCommunication(Properties.Settings.Default.dpComPort, 115200, DPinfo);
+
+
+
+            // Temp controller protocol init
+            tempControllerInstanse = new TempControllerProtocol(Properties.Settings.Default.TempControllerComPort, 9600);
+
 
             // Calibration class init           
-            classCalibrationInfo = info;
+            classCalibrationInfo = new ClassCalibrationInfo(tempControllerInstanse, ClassDpCommunication, classMultiplexing, ClassDeltaProtocol);
         }
 
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            UpdateDeviceTable();
+            //UpdateDeviceTable();
+
+
         }
 
         private void bt_writePressureTableToPlc_Click(object sender, EventArgs e)
@@ -146,6 +156,15 @@ namespace DP_dashboard
         {
             //rtbLog.Lines = PLCinfo.listDebugInfo.ToArray();
 
+
+            if (classCalibrationInfo.EndDetectEvent)
+            {
+                classCalibrationInfo.EndDetectEvent = false;
+
+                UpdateDeviceTable();
+
+            }
+
             if (classCalibrationInfo.DoCalibration)
             {
                 UpdateRealTimeData();
@@ -204,7 +223,7 @@ namespace DP_dashboard
 
         private void bt_disconnect_Click(object sender, EventArgs e)
         {
-            MultiplexingProtocolInstanse.DisConnectAllDp();
+            classMultiplexing.DisConnectAllDp();
         }
 
         private bool FlashDpDevice( string fileName )
@@ -231,10 +250,10 @@ namespace DP_dashboard
         }
 
         private void bt_writePressursToDP_Click(object sender, EventArgs e)
-        {         
-           // DpProtocolInstanse.SendDpSerialNumber(System.Text.Encoding.ASCII.GetBytes(tb_dpSerialNumber.Text));
+        {
+            // DpProtocolInstanse.SendDpSerialNumber(System.Text.Encoding.ASCII.GetBytes(tb_dpSerialNumber.Text));
 
-            DpProtocolInstanse.SendPressuresTableToDP();
+            ClassDpCommunication.SendPressuresTableToDP();
         }
 
         private void bt_exportPressursTableToCSVfile_Click(object sender, EventArgs e)
@@ -251,12 +270,12 @@ namespace DP_dashboard
 
         private void bt_getDPinfo_Click(object sender, EventArgs e)
         {
-            DpProtocolInstanse.DPgetDpInfo();
+            ClassDpCommunication.DPgetDpInfo();
         }
 
         private void bt_configuration_Click(object sender, EventArgs e)
         {
-            ConfigForm configForm = new ConfigForm(DpProtocolInstanse);
+            ConfigForm configForm = new ConfigForm(ClassDpCommunication,this);
             this.Hide();
             configForm.Show();
         }
@@ -278,7 +297,8 @@ namespace DP_dashboard
         }
 
         private void UpdateDeviceTable()
-        {          
+        {
+            dgv_devicesQueue.Rows.Clear();
             for (int i = 0; i< classCalibrationInfo.DpCountAxist; i++)
             {
                 dgv_devicesQueue.Rows.Add(i.ToString(), classCalibrationInfo.classDevices[i].DeviceName.ToString(), classCalibrationInfo.classDevices[i].DeviceSerialNumber.ToString());
@@ -297,34 +317,23 @@ namespace DP_dashboard
                 }             
             }
 
-            
+            int deviceIndex = i;
+                       
             if (ExistDevice)
             {
                 dgv_deviceData.Rows.Clear();
                 ExistDevice = false;
-                for (int j = 0; j < MAX_PRESSURE_POINT; j++)
+                string [] dataRow = new string [classCalibrationInfo.TempUnderTestList.Count * 2 +1] ;
+
+                for ( i = 0; i < classCalibrationInfo.PressureUnderTestList.Count ; i++)
                 {
-                    dgv_deviceData.Rows.Add(
-                                                classCalibrationInfo.classDevices[i].CalibrationData[0, j].extA2dPressureValue.ToString(),
-
-                                                classCalibrationInfo.classDevices[i].CalibrationData[0, j].a2dPressureValue1.ToString(),
-                                                classCalibrationInfo.classDevices[i].CalibrationData[0, j].a2dPressureValue2.ToString(),
-
-                                                classCalibrationInfo.classDevices[i].CalibrationData[1, j].a2dPressureValue1.ToString(),
-                                                classCalibrationInfo.classDevices[i].CalibrationData[1, j].a2dPressureValue2.ToString(),
-
-                                                classCalibrationInfo.classDevices[i].CalibrationData[2, j].a2dPressureValue1.ToString(),
-                                                classCalibrationInfo.classDevices[i].CalibrationData[2, j].a2dPressureValue2.ToString(),
-
-                                                classCalibrationInfo.classDevices[i].CalibrationData[3, j].a2dPressureValue1.ToString(),
-                                                classCalibrationInfo.classDevices[i].CalibrationData[3, j].a2dPressureValue2.ToString(),
-
-                                                classCalibrationInfo.classDevices[i].CalibrationData[4, j].a2dPressureValue1.ToString(),
-                                                classCalibrationInfo.classDevices[i].CalibrationData[4, j].a2dPressureValue2.ToString(),
-
-                                                classCalibrationInfo.classDevices[i].deviceStatus.ToString()
-                                            );
-
+                    dataRow[0] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[0, i].extA2dPressureValue.ToString() + ",";
+                    for (int j = 0; j < classCalibrationInfo.TempUnderTestList.Count; j++)
+                    {
+                        dataRow[j  * 2 + 1] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].a2dPressureValue1.ToString();
+                        dataRow[j  * 2 + 2] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].a2dPressureValue2.ToString();
+                    }
+                    dgv_deviceData.Rows.Add(dataRow);
                 }
             }
 
@@ -344,12 +353,12 @@ namespace DP_dashboard
         {
             //temp controller
             tb_currentTemperature.Text = classCalibrationInfo.CurrentTemp.ToString();
-            tb_targetTemperature.Text = classCalibrationInfo.CurrentCalibDevice.CalibrationData[classCalibrationInfo.CurrentCalibTempIndex, classCalibrationInfo.CurrentCalibPressureIndex].tempUnderTest.ToString();
+            tb_targetTemperature.Text = classCalibrationInfo.classDevices[0].CalibrationData[classCalibrationInfo.CurrentCalibTempIndex, classCalibrationInfo.CurrentCalibPressureIndex].tempUnderTest.ToString();
 
 
             //pressure
             tb_pressCurrentPressure.Text = classCalibrationInfo.CurrentPressure.ToString();
-            tb_pressTargetPressure.Text = classCalibrationInfo.PlcBar2Adc(classCalibrationInfo.CurrentCalibDevice.CalibrationData[classCalibrationInfo.CurrentCalibTempIndex, classCalibrationInfo.CurrentCalibPressureIndex].pressureUnderTest).ToString();
+            tb_pressTargetPressure.Text = classCalibrationInfo.PlcBar2Adc(classCalibrationInfo.classDevices[0].CalibrationData[classCalibrationInfo.CurrentCalibTempIndex, classCalibrationInfo.CurrentCalibPressureIndex].pressureUnderTest).ToString();
 
             if (classCalibrationInfo.PressureStableFlag)
             {
@@ -375,7 +384,6 @@ namespace DP_dashboard
 
 
             //TEST
-            classCalibrationInfo.classMultiplexingInstanse.ConnectDpDevice(2);
             classCalibrationInfo.classDpCommunicationInstanse.DPgetDpInfo();
 
         }
@@ -426,6 +434,22 @@ namespace DP_dashboard
 
         private void pnl_calibrationPanel_Paint(object sender, PaintEventArgs e)
         {
+
+        }
+
+        private void bt_settings_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            if (ConfigFormInstanse == null)
+            {
+                ConfigFormInstanse = new ConfigForm(ClassDpCommunication, this);
+            }
+            ConfigFormInstanse.Show();
+        }
+
+        private void bt_detectDp_Click(object sender, EventArgs e)
+        {
+            classCalibrationInfo.DetectFlag = true;
 
         }
     }

@@ -9,7 +9,7 @@
       <Value Profile="(Default)">COM1</Value>
     </Setting>
     <Setting Name="dpComPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">COM13</Value>
+      <Value Profile="(Default)">COM4</Value>
     </Setting>
     <Setting Name="StationType" Type="System.String" Scope="User">
       <Value Profile="(Default)">CalibrationStation</Value>
@@ -60,7 +60,7 @@
       <Value Profile="(Default)">1.2852</Value>
     </Setting>
     <Setting Name="TempUnderTest1" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">19</Value>
+      <Value Profile="(Default)">23</Value>
     </Setting>
     <Setting Name="TempUnderTest2" Type="System.Single" Scope="User">
       <Value Profile="(Default)">19.5</Value>

@@ -15,6 +15,7 @@ namespace DpCommunication
         private const byte SERIAL_NUMBER_LENGTH = 0x0A;
 
         public string  DeviseMacAddress;
+        public string DeviceSerialNumber;
         public byte    CurrentTemp;
         public float   S1Pressure;
         public float   S2Pressure;              

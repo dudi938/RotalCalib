@@ -128,6 +128,8 @@ namespace DP_dashboard
 
         private void bt_loadDefoult_Click(object sender, EventArgs e)
         {
+
+
             dgv_calibTempPointsTable.Rows.Clear();
 
             dgv_calibTempPointsTable.Rows.Add(true, Properties.Settings.Default.TempUnderTest1.ToString());

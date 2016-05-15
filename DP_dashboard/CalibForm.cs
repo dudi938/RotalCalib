@@ -88,6 +88,7 @@ namespace DP_dashboard
         private void Form1_Load(object sender, EventArgs e)
         {
             //UpdateDeviceTable();
+            LoadDefoultCalibPointToList();
 
 
         }
@@ -156,6 +157,15 @@ namespace DP_dashboard
         {
             //rtbLog.Lines = PLCinfo.listDebugInfo.ToArray();
 
+            CalibrationButtonHandele();
+
+
+            if(classCalibrationInfo.FinishCalibrationEvent)
+            {
+                classCalibrationInfo.FinishCalibrationEvent = false;
+                UpdateColorStatus();
+            }
+
 
             if (classCalibrationInfo.EndDetectEvent)
             {
@@ -179,7 +189,7 @@ namespace DP_dashboard
             if (classCalibrationInfo.IncermentCalibPointStep)
             {
                 classCalibrationInfo.IncermentCalibPointStep = false;
-                string Message = string.Format("Calibration in process : Device number:{0}. Temp index:{1}. Pressure index:{2}. Current device status:{3}", classCalibrationInfo.CurrentCalibDeviceIndex.ToString(), classCalibrationInfo.CurrentCalibTempIndex.ToString(), classCalibrationInfo.CurrentCalibPressureIndex.ToString(), classCalibrationInfo.CurrentCalibDevice.deviceStatus.ToString());
+                string Message = string.Format("Calibration in process : Temp index:{0}. Pressure index:{1}", classCalibrationInfo.CurrentCalibTempIndex.ToString(), classCalibrationInfo.CurrentCalibPressureIndex.ToString());
                 rtb_info.Text += Message + "\r\n";
             }
 
@@ -293,6 +303,9 @@ namespace DP_dashboard
         private void bt_startCalibration_Click(object sender, EventArgs e)
         {
             classCalibrationInfo.DoCalibration = true;
+
+            classCalibrationInfo.InitCalibTread();
+
             classCalibrationInfo.CreateLogFiles();
         }
 
@@ -327,7 +340,7 @@ namespace DP_dashboard
 
                 for ( i = 0; i < classCalibrationInfo.PressureUnderTestList.Count ; i++)
                 {
-                    dataRow[0] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[0, i].extA2dPressureValue.ToString() + ",";
+                    dataRow[0] = classCalibrationInfo.PressureUnderTestList[i].ToString();
                     for (int j = 0; j < classCalibrationInfo.TempUnderTestList.Count; j++)
                     {
                         dataRow[j  * 2 + 1] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].a2dPressureValue1.ToString();
@@ -353,12 +366,12 @@ namespace DP_dashboard
         {
             //temp controller
             tb_currentTemperature.Text = classCalibrationInfo.CurrentTemp.ToString();
-            tb_targetTemperature.Text = classCalibrationInfo.classDevices[0].CalibrationData[classCalibrationInfo.CurrentCalibTempIndex, classCalibrationInfo.CurrentCalibPressureIndex].tempUnderTest.ToString();
+            tb_targetTemperature.Text = classCalibrationInfo.TempUnderTestList[classCalibrationInfo.CurrentCalibTempIndex].ToString();
 
 
             //pressure
             tb_pressCurrentPressure.Text = classCalibrationInfo.CurrentPressure.ToString();
-            tb_pressTargetPressure.Text = classCalibrationInfo.PlcBar2Adc(classCalibrationInfo.classDevices[0].CalibrationData[classCalibrationInfo.CurrentCalibTempIndex, classCalibrationInfo.CurrentCalibPressureIndex].pressureUnderTest).ToString();
+            tb_pressTargetPressure.Text = classCalibrationInfo.PlcBar2Adc(classCalibrationInfo.PressureUnderTestList[classCalibrationInfo.CurrentCalibPressureIndex]).ToString();
 
             if (classCalibrationInfo.PressureStableFlag)
             {
@@ -450,7 +463,135 @@ namespace DP_dashboard
         private void bt_detectDp_Click(object sender, EventArgs e)
         {
             classCalibrationInfo.DetectFlag = true;
+            classCalibrationInfo.InitDetectTread();
+        }
 
+        public void LoadDefoultCalibPointToList()
+        {
+
+            classCalibrationInfo.TempUnderTestList.Clear();
+            classCalibrationInfo.PressureUnderTestList.Clear();
+
+
+            classCalibrationInfo.TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest1);
+            classCalibrationInfo.TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest2);
+            classCalibrationInfo.TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest3);
+            classCalibrationInfo.TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest4);
+            classCalibrationInfo.TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest5);
+
+
+            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest1);
+            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest2);
+            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest3);
+            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest4);
+            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest5);
+            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest6);
+            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest7);
+            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest8);
+            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest9);
+            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest10);
+            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest11);
+            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest12);
+            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest13);
+            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest14);
+            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest15);
+        }
+
+        private void DGVSetCellColor(DataGridView dgv, int col, int row, Color color)
+        {
+            DataGridViewCellStyle style = new DataGridViewCellStyle();
+            style.BackColor = color;
+            dgv_devicesQueue[col, row].Style = style;
+        }
+
+
+        private void UpdateColorStatus()
+        {
+            for (int i = 0; i < dgv_devicesQueue.Rows.Count - 1; i++)
+            {
+                int j = 0;
+                while (j < classCalibrationInfo.DpCountAxist)
+                {
+                    if (dgv_devicesQueue.Rows[i].Cells[2].Value.ToString().Equals(classCalibrationInfo.classDevices[j].DeviceSerialNumber.ToString()))
+                    {
+                        DGVSetCellColor(dgv_devicesQueue, 1, i, classCalibrationInfo.classDevices[j].deviceStatus == DeviceStatus.Pass ? Color.Green : Color.Red);
+                        break;
+                    }
+                    j++;
+                }
+            }
+        }
+
+        private void CalibForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            classCalibrationInfo.DoCalibration  = false;
+            classCalibrationInfo.DetectFlag = false;
+        }
+
+        private void CalibrationButtonHandele()
+        {
+
+            if(classCalibrationInfo.DoCalibration == true)
+            {
+                bt_startCalibration.Enabled = false;
+
+                if (!classCalibrationInfo.ConnectingToDP)
+                {
+                    if (classCalibrationInfo.CalibrationPaused)
+                    {
+                        bt_pauseStartCalib.Text = "Start";
+                    }
+                    else
+                    {
+                        bt_pauseStartCalib.Text = "Stop";
+                    }
+                    bt_pauseStartCalib.Enabled = true;
+
+                    bt_stopCalibration.Enabled = true;
+                }
+                else
+                {
+                    if (classCalibrationInfo.CalibrationPaused)
+                    {
+                        bt_startCalibration.Enabled = false;
+                    }
+
+                    bt_pauseStartCalib.Text = "Stop";
+                    bt_pauseStartCalib.Enabled = false;
+
+                    bt_stopCalibration.Enabled = false;
+                }
+
+            }
+            else
+            {
+                bt_startCalibration.Enabled = true;
+
+                bt_pauseStartCalib.Text = "Stop";
+                bt_pauseStartCalib.Enabled = false;
+
+                bt_stopCalibration.Enabled = false;
+            }
+
+        }
+
+        private void bt_pauseStartCalib_Click(object sender, EventArgs e)
+        {
+            classCalibrationInfo.CalibrationPaused = !classCalibrationInfo.CalibrationPaused;
+
+            if (classCalibrationInfo.CalibrationPaused == false)
+            {
+                byte tempIndex;
+                if (tb_tempIndexAfterPause.Text.ToString() != ""  )
+                {
+                    tempIndex = byte.Parse(tb_tempIndexAfterPause.Text.ToString());
+                }
+                else
+                {
+                    tempIndex = 0;
+                }
+                classCalibrationInfo.StateMachineResetAfterPause(tempIndex);
+            }
         }
     }
 }

@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pnl_calibrationPanel = new System.Windows.Forms.Panel();
+            this.bt_pauseStartCalib = new System.Windows.Forms.Button();
             this.bt_clear = new System.Windows.Forms.Button();
             this.rtb_info = new System.Windows.Forms.RichTextBox();
             this.bt_stopCalibration = new System.Windows.Forms.Button();
@@ -76,6 +77,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.bt_detectDp = new System.Windows.Forms.Button();
             this.bt_settings = new System.Windows.Forms.Button();
+            this.tb_tempIndexAfterPause = new System.Windows.Forms.TextBox();
             this.pnl_calibrationPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_deviceData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_devicesQueue)).BeginInit();
@@ -91,6 +93,8 @@
             // 
             // pnl_calibrationPanel
             // 
+            this.pnl_calibrationPanel.Controls.Add(this.tb_tempIndexAfterPause);
+            this.pnl_calibrationPanel.Controls.Add(this.bt_pauseStartCalib);
             this.pnl_calibrationPanel.Controls.Add(this.bt_clear);
             this.pnl_calibrationPanel.Controls.Add(this.rtb_info);
             this.pnl_calibrationPanel.Controls.Add(this.bt_stopCalibration);
@@ -103,6 +107,19 @@
             this.pnl_calibrationPanel.Size = new System.Drawing.Size(1278, 810);
             this.pnl_calibrationPanel.TabIndex = 15;
             this.pnl_calibrationPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl_calibrationPanel_Paint);
+            // 
+            // bt_pauseStartCalib
+            // 
+            this.bt_pauseStartCalib.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_pauseStartCalib.ForeColor = System.Drawing.Color.Black;
+            this.bt_pauseStartCalib.Location = new System.Drawing.Point(1000, 694);
+            this.bt_pauseStartCalib.Margin = new System.Windows.Forms.Padding(4);
+            this.bt_pauseStartCalib.Name = "bt_pauseStartCalib";
+            this.bt_pauseStartCalib.Size = new System.Drawing.Size(106, 60);
+            this.bt_pauseStartCalib.TabIndex = 8;
+            this.bt_pauseStartCalib.Text = "Pause";
+            this.bt_pauseStartCalib.UseVisualStyleBackColor = true;
+            this.bt_pauseStartCalib.Click += new System.EventHandler(this.bt_pauseStartCalib_Click);
             // 
             // bt_clear
             // 
@@ -127,10 +144,10 @@
             // 
             this.bt_stopCalibration.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_stopCalibration.ForeColor = System.Drawing.Color.Black;
-            this.bt_stopCalibration.Location = new System.Drawing.Point(1034, 634);
+            this.bt_stopCalibration.Location = new System.Drawing.Point(1000, 603);
             this.bt_stopCalibration.Margin = new System.Windows.Forms.Padding(4);
             this.bt_stopCalibration.Name = "bt_stopCalibration";
-            this.bt_stopCalibration.Size = new System.Drawing.Size(237, 60);
+            this.bt_stopCalibration.Size = new System.Drawing.Size(106, 60);
             this.bt_stopCalibration.TabIndex = 5;
             this.bt_stopCalibration.Text = "Stop Calibration";
             this.bt_stopCalibration.UseVisualStyleBackColor = true;
@@ -140,10 +157,10 @@
             // 
             this.bt_startCalibration.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_startCalibration.ForeColor = System.Drawing.Color.Black;
-            this.bt_startCalibration.Location = new System.Drawing.Point(1034, 714);
+            this.bt_startCalibration.Location = new System.Drawing.Point(1136, 603);
             this.bt_startCalibration.Margin = new System.Windows.Forms.Padding(4);
             this.bt_startCalibration.Name = "bt_startCalibration";
-            this.bt_startCalibration.Size = new System.Drawing.Size(237, 60);
+            this.bt_startCalibration.Size = new System.Drawing.Size(114, 60);
             this.bt_startCalibration.TabIndex = 3;
             this.bt_startCalibration.Text = "Start Calibration";
             this.bt_startCalibration.UseVisualStyleBackColor = true;
@@ -586,6 +603,14 @@
             this.bt_settings.UseVisualStyleBackColor = false;
             this.bt_settings.Click += new System.EventHandler(this.bt_settings_Click);
             // 
+            // tb_tempIndexAfterPause
+            // 
+            this.tb_tempIndexAfterPause.Location = new System.Drawing.Point(1136, 714);
+            this.tb_tempIndexAfterPause.Name = "tb_tempIndexAfterPause";
+            this.tb_tempIndexAfterPause.Size = new System.Drawing.Size(100, 22);
+            this.tb_tempIndexAfterPause.TabIndex = 9;
+            this.tb_tempIndexAfterPause.Text = "0";
+            // 
             // CalibForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -601,8 +626,10 @@
             this.Name = "CalibForm";
             this.Text = " ";
             this.TransparencyKey = System.Drawing.Color.Lime;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CalibForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.pnl_calibrationPanel.ResumeLayout(false);
+            this.pnl_calibrationPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_deviceData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_devicesQueue)).EndInit();
             this.pnl_TempData.ResumeLayout(false);
@@ -662,6 +689,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button bt_detectDp;
         private System.Windows.Forms.Button bt_settings;
+        private System.Windows.Forms.Button bt_pauseStartCalib;
+        private System.Windows.Forms.TextBox tb_tempIndexAfterPause;
     }
 }
 

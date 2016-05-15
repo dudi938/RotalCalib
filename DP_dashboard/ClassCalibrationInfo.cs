@@ -59,8 +59,8 @@ namespace DP_dashboard
 
 
 
-        private Thread CalibrationTaskHandlerThread;
-        private Thread DetectDevicesTaskHandlerThread;
+        public  Thread CalibrationTaskHandlerThread;
+        public Thread DetectDevicesTaskHandlerThread;
         public ClassDevice[] classDevices = new ClassDevice[MAX_DP_DEVICES];
         public int DpCountAxist = 0;
         DateTime TimeFromSetPointRequest;
@@ -69,17 +69,19 @@ namespace DP_dashboard
         public byte CurrentCalibTempIndex = 0;
         public byte CurrentCalibPressureIndex = 0;
         public bool DoCalibration = false;
+        public bool FinishCalibrationEvent = false;
         public bool ChengeStateEvent = false;
         public float CurrentTemp;
         public Int16 CurrentPressure;
         public bool PressureStableFlag = false;
         public bool IncermentCalibPointStep = false;
+        public bool ConnectingToDP = false;
         public DateTime LastPressureSample = DateTime.Now;
         private classLog log = new classLog();
         public bool DetectFlag = false;
-        public int JigConfiguration;
+        public int JigConfiguration = 8;
         public bool EndDetectEvent = false;
-
+        public bool CalibrationPaused = false;
         public List<float> PressureUnderTestList = new List<float>();
         public List<float> TempUnderTestList = new List<float>();
 
@@ -104,12 +106,13 @@ namespace DP_dashboard
 
         public ClassCalibrationInfo(TempControllerProtocol tempControllerInstanse, ClassDpCommunication ClassDpCommunication, classMultiplexing ClassMultiplexing, classDeltaProtocol classDeltaIncomingInformation)
         {
-            CalibrationTaskHandlerThread = new Thread(CalibrationTask);
-            CalibrationTaskHandlerThread.Start();
+            //CalibrationTaskHandlerThread = new Thread(CalibrationTask);
+            //CalibrationTaskHandlerThread.Start();
+            //InitCalibTread();
 
-            DetectDevicesTaskHandlerThread = new Thread(DetectDevicesTask);
-            DetectDevicesTaskHandlerThread.Start();
 
+            //DetectDevicesTaskHandlerThread = new Thread(DetectDevicesTask);
+            //DetectDevicesTaskHandlerThread.Start();
 
             // DP TempController
             ClassTempControllerInstanse = tempControllerInstanse;
@@ -143,9 +146,9 @@ namespace DP_dashboard
         }
         private void CalibrationTask()
         {
-            while (true)
+            while (DoCalibration)
             {
-                while (DoCalibration)
+                while (!CalibrationPaused)
                 {
                     UpdateRealTimeData();
 
@@ -155,13 +158,15 @@ namespace DP_dashboard
                             {
                                 CurrentCalibDevice = classDevices[CurrentCalibDeviceIndex];
                                 StateChangeState(StateSendTempSetPoints);
+                                CurrentCalibPressureIndex = 0;
+                                CurrentCalibTempIndex = 0;
                             }
                             break;
 
                         case StateSendPressureSetPoints:
                             {
                                 List<Int16> SetPointPressure = new List<short>();
-                                SetPointPressure.Add(PlcBar2Adc(CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].pressureUnderTest));
+                                SetPointPressure.Add(PlcBar2Adc(PressureUnderTestList[CurrentCalibPressureIndex]));
                                 classDeltaProtocolInstanse.classDeltaWriteSetpoint(SetPointPressure);
 
                                 TimeFromSetPointRequest = DateTime.Now;
@@ -174,7 +179,7 @@ namespace DP_dashboard
                         case StateSendTempSetPoints:
                             {
                                 //WritePressureSetPoint(CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].pressureUnderTest);
-                                WriteTempSetPoint(TEMP_SET_POINT_1_REGISTER_ADDRESSS, CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempUnderTest);
+                                WriteTempSetPoint(TEMP_SET_POINT_1_REGISTER_ADDRESSS, TempUnderTestList[CurrentCalibTempIndex]);
                                 SelectSetPoint(TEMP_SELECT_SET_POINT_REGISTER_ADDRESSS, 0);
                                 TimeFromSetPointRequest = DateTime.Now;
 
@@ -202,7 +207,7 @@ namespace DP_dashboard
                                 {
                                     StateChangeState(StateError);
                                 }
-                                else if (CurrentTemp == CurrentCalibDevice.CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempUnderTest)
+                                else if (CurrentTemp == TempUnderTestList[CurrentCalibTempIndex])
                                 {
                                     StateChangeState(StateSendPressureSetPoints);
                                 }
@@ -210,7 +215,10 @@ namespace DP_dashboard
                             break;
                         case StateRunOfAllDp:
                             {
+                                ConnectingToDP = true;
                                 WriteReadInfoFromDp();//loop of all dp's
+                                ConnectingToDP = false;
+
                                 StateChangeState(StateEndOneCalibPoint);
                             }
                             break;
@@ -220,7 +228,7 @@ namespace DP_dashboard
 
                                 WriteOneLineToFile();//write line to csv file
 
-                                if (CurrentCalibTempIndex < (MAX_TEMP_CALIB_POINT - 1))
+                                if (CurrentCalibTempIndex < TempUnderTestList.Count - 1)
                                 {
                                     CurrentCalibTempIndex++;
                                     StateChangeState(StateSendTempSetPoints);
@@ -234,7 +242,7 @@ namespace DP_dashboard
                         case StateEndOneCalibPoint:
                             {
                                 PressureStableFlag = false;
-                                if (CurrentCalibPressureIndex < (MAX_PRESSURE_CALIB_POINT - 1))
+                                if (CurrentCalibPressureIndex < PressureUnderTestList.Count - 1)
                                 {
                                     CurrentCalibPressureIndex++;
                                     StateChangeState(StateSendPressureSetPoints);
@@ -247,15 +255,8 @@ namespace DP_dashboard
                             break;
                         case StateFinishAllCalibPoint:
                             {
-                                if (CurrentCalibDevice.deviceStatus != DeviceStatus.Fail)
-                                {
-                                    CurrentCalibDevice.deviceStatus = DeviceStatus.Pass;
-                                }
-
                                 DoCalibration = false;
-
-
-
+                                FinishCalibrationEvent = true;
                                 StateChangeState(StateStartCalib);
                             }
                             break;
@@ -265,7 +266,9 @@ namespace DP_dashboard
                             }
                             break;
                     }
+
                 }
+                CalibrationTaskHandlerThread = null;
             }
         }
 
@@ -280,7 +283,16 @@ namespace DP_dashboard
         public void StateMachineReset()
         {
             PreviousState = StateStartCalib;
+            CurrentState = StateStartCalib;
             ChengeStateEvent = false;
+        }
+
+        public void StateMachineResetAfterPause(byte tempIndex)
+        {
+            CurrentState = StateSendTempSetPoints;
+            ChengeStateEvent = false;
+            CurrentCalibTempIndex = tempIndex;
+            CurrentCalibPressureIndex = 0;
         }
 
         private float ReadPressureFromPlc()
@@ -393,11 +405,20 @@ namespace DP_dashboard
                     classDpCommunicationInstanse.NewDpInfoEvent = false;
                     //classDpCommunicationInstanse.DPgetDpInfo();
 
-                    if (CurrentCalibPressureIndex == MAX_PRESSURE_CALIB_POINT && CurrentCalibTempIndex == MAX_TEMP_CALIB_POINT)
+                    if (CurrentCalibPressureIndex == (PressureUnderTestList.Count - 1) && (CurrentCalibTempIndex == TempUnderTestList.Count - 1))
                     {
                         //send end calibration CMD
                         classDpCommunicationInstanse.SendEndCalibration();
+                        if(classDevices[i].deviceStatus == DeviceStatus.Wait)
+                        {
+                            classDevices[i].deviceStatus = DeviceStatus.Pass;
+                        }                        
                     }
+
+                }
+                else
+                {
+                    classDevices[i].deviceStatus = DeviceStatus.Fail;
 
                 }
             }
@@ -427,7 +448,7 @@ namespace DP_dashboard
         {
             for (int i = 0; i < DpCountAxist; i++)
             {
-                log.PrintLogRecordToFile(classDevices[i], Properties.Settings.Default.LogPath, CurrentCalibTempIndex);
+                log.PrintLogRecordToFile(classDevices[i],PressureUnderTestList, Properties.Settings.Default.LogPath, CurrentCalibTempIndex);
             }
 
         }
@@ -472,7 +493,7 @@ namespace DP_dashboard
             for (int i = 0; i < DpCountAxist; i++)
             {
 
-                log.OpenFileForLogging(Properties.Settings.Default.LogPath, classDevices[i]);
+                log.OpenFileForLogging(PressureUnderTestList,Properties.Settings.Default.LogPath, classDevices[i]);
                 log.CloseFileForLogging();
             }
 
@@ -496,9 +517,7 @@ namespace DP_dashboard
 
         void DetectDevicesTask()
         {
-            while (true)
-            {
-                if (DetectFlag)
+                while (DetectFlag)
                 {
                     DpCountAxist = 0;
                     for (int i = 0; i < JigConfiguration; i++)
@@ -531,9 +550,7 @@ namespace DP_dashboard
                     DetectFlag = false;
                     EndDetectEvent = true;
                 }
-            }
-
-
+            DetectDevicesTaskHandlerThread = null;
         }
 
 
@@ -544,13 +561,28 @@ namespace DP_dashboard
                 for (int j = 0; j < PressureUnderTestList.Count; j++)
                 {
                     DpCalibPointData newPoint = new DpCalibPointData();
-                    newPoint.pressureUnderTest = PressureUnderTestList[j];
-                    newPoint.tempUnderTest = TempUnderTestList[i];
+                    //newPoint.pressureUnderTest = PressureUnderTestList[j];
+                    //newPoint.tempUnderTest = TempUnderTestList[i];
 
                     deviceToUpdate.CalibrationData[i, j] = newPoint;
                 }
             }
         }
+
+        public void InitCalibTread()
+        {
+           CalibrationTaskHandlerThread = new Thread(CalibrationTask);
+           CalibrationTaskHandlerThread.Start();
+        }
+        
+
+         public void InitDetectTread()
+        {
+            DetectDevicesTaskHandlerThread = new Thread(DetectDevicesTask);
+            DetectDevicesTaskHandlerThread.Start();
+        }
+        
+
     }
 }
 

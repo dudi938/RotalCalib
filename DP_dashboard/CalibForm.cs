@@ -39,7 +39,7 @@ namespace DP_dashboard
         // end   
 
         // DP protocol instance  
-        private ClassDpCommunication ClassDpCommunication;
+        private ClassDpCommunication classDpCommunication;
         private DpIncomingInformation DPinfo;
         // end  
 
@@ -72,8 +72,7 @@ namespace DP_dashboard
             // DP protocol init
 
             DPinfo = new DpIncomingInformation();
-            ClassDpCommunication = new ClassDpCommunication(Properties.Settings.Default.dpComPort, 115200, DPinfo);
-
+            classDpCommunication = new ClassDpCommunication(Properties.Settings.Default.dpComPort, 115200, DPinfo);
 
 
             // Temp controller protocol init
@@ -81,7 +80,7 @@ namespace DP_dashboard
 
 
             // Calibration class init           
-            classCalibrationInfo = new ClassCalibrationInfo(tempControllerInstanse, ClassDpCommunication, classMultiplexing, ClassDeltaProtocol);
+            classCalibrationInfo = new ClassCalibrationInfo(tempControllerInstanse, classDpCommunication, classMultiplexing, ClassDeltaProtocol);
         }
 
 
@@ -263,7 +262,7 @@ namespace DP_dashboard
         {
             // DpProtocolInstanse.SendDpSerialNumber(System.Text.Encoding.ASCII.GetBytes(tb_dpSerialNumber.Text));
 
-            ClassDpCommunication.SendPressuresTableToDP();
+            classDpCommunication.SendPressuresTableToDP();
         }
 
         private void bt_exportPressursTableToCSVfile_Click(object sender, EventArgs e)
@@ -280,12 +279,12 @@ namespace DP_dashboard
 
         private void bt_getDPinfo_Click(object sender, EventArgs e)
         {
-            ClassDpCommunication.DPgetDpInfo();
+            classDpCommunication.DPgetDpInfo();
         }
 
         private void bt_configuration_Click(object sender, EventArgs e)
         {
-            ConfigForm configForm = new ConfigForm(ClassDpCommunication,this);
+            ConfigForm configForm = new ConfigForm(classDpCommunication, this);
             this.Hide();
             configForm.Show();
         }
@@ -302,11 +301,14 @@ namespace DP_dashboard
 
         private void bt_startCalibration_Click(object sender, EventArgs e)
         {
+            classDpCommunication.SendStartCalibration();
+
             classCalibrationInfo.DoCalibration = true;
 
             classCalibrationInfo.InitCalibTread();
 
             classCalibrationInfo.CreateLogFiles();
+            ClearColorIndication();
         }
 
         private void UpdateDeviceTable()
@@ -396,8 +398,7 @@ namespace DP_dashboard
             classCalibrationInfo.StateMachineReset();
 
 
-            //TEST
-            classCalibrationInfo.classDpCommunicationInstanse.DPgetDpInfo();
+
 
         }
 
@@ -455,7 +456,7 @@ namespace DP_dashboard
             this.Hide();
             if (ConfigFormInstanse == null)
             {
-                ConfigFormInstanse = new ConfigForm(ClassDpCommunication, this);
+                ConfigFormInstanse = new ConfigForm(classDpCommunication, this);
             }
             ConfigFormInstanse.Show();
         }
@@ -504,8 +505,17 @@ namespace DP_dashboard
             dgv_devicesQueue[col, row].Style = style;
         }
 
+        private void ClearColorIndication()
+        {
+            for(int i =0; i < dgv_devicesQueue.Rows.Count; i ++)
+            {
+                DGVSetCellColor(dgv_devicesQueue,1,i,Color.White);
+            }
 
-        private void UpdateColorStatus()
+        }
+    
+
+    private void UpdateColorStatus()
         {
             for (int i = 0; i < dgv_devicesQueue.Rows.Count - 1; i++)
             {
@@ -593,5 +603,22 @@ namespace DP_dashboard
                 classCalibrationInfo.StateMachineResetAfterPause(tempIndex);
             }
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            string CutSn = tb_tempIndexAfterPause.Text.Substring(4);
+
+            byte [] SN = System.Text.Encoding.ASCII.GetBytes(CutSn);
+            classDpCommunication.SendDpSerialNumber(SN);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //TEST
+            classCalibrationInfo.classDpCommunicationInstanse.DPgetDpInfo();
+        }
+
+
+
     }
 }

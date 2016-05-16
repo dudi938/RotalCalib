@@ -113,12 +113,12 @@
     <File name="cmsis_usb/src/usbd_cdc_vcp.c" path="USB-CDC/src/usbd_cdc_vcp.c" type="1"/>
     <File name="cmsis_lib/source/stm32f0xx_i2c.c" path="cmsis_lib/source/stm32f0xx_i2c.c" type="1"/>
     <File name="cmsis_usb/usb_driver/inc/usb_regs.h" path="USB-CDC/STM32_USB_Device_Driver/inc/usb_regs.h" type="1"/>
-    <File name="cmsis_lib/include/stm32f0xx_dma.h" path="cmsis_lib/include/stm32f0xx_dma.h" type="1"/>
     <File name="cmsis_usb/src/usb_bsp.c" path="USB-CDC/src/usb_bsp.c" type="1"/>
+    <File name="cmsis_lib/include/stm32f0xx_dma.h" path="cmsis_lib/include/stm32f0xx_dma.h" type="1"/>
     <File name="cmsis_lib/source/stm32f0xx_adc.c" path="cmsis_lib/source/stm32f0xx_adc.c" type="1"/>
-    <File name="cmsis_lib/source/stm32f0xx_crs.c" path="cmsis_lib/source/stm32f0xx_crs.c" type="1"/>
-    <File name="cmsis_usb/usb_library/src/usbd_cdc_core.c" path="USB-CDC/STM32_USB_Device_Library/Class/cdc/src/usbd_cdc_core.c" type="1"/>
     <File name="cmsis_usb/usb_library/inc/usbd_ioreq.h" path="USB-CDC/STM32_USB_Device_Library/Core/inc/usbd_ioreq.h" type="1"/>
+    <File name="cmsis_usb/usb_library/src/usbd_cdc_core.c" path="USB-CDC/STM32_USB_Device_Library/Class/cdc/src/usbd_cdc_core.c" type="1"/>
+    <File name="cmsis_lib/source/stm32f0xx_crs.c" path="cmsis_lib/source/stm32f0xx_crs.c" type="1"/>
     <File name="cmsis_usb/usb_driver/src/usb_dcd.c" path="USB-CDC/STM32_USB_Device_Driver/src/usb_dcd.c" type="1"/>
     <File name="cmsis_boot/startup/startup_stm32f0xx.s" path="cmsis_boot/startup/startup_stm32f0xx.s" type="1"/>
     <File name="cmsis_core/core_cmFunc.h" path="cmsis_core/core_cmFunc.h" type="1"/>
@@ -126,8 +126,8 @@
     <File name="cmsis_usb/usb_driver/inc/usb_bsp.h" path="USB-CDC/STM32_USB_Device_Driver/inc/usb_bsp.h" type="1"/>
     <File name="cmsis_lib/source/stm32f0xx_comp.c" path="cmsis_lib/source/stm32f0xx_comp.c" type="1"/>
     <File name="cmsis_lib/include/stm32f0xx_usart.h" path="cmsis_lib/include/stm32f0xx_usart.h" type="1"/>
-    <File name="cmsis_lib/include/stm32f0xx_flash.h" path="cmsis_lib/include/stm32f0xx_flash.h" type="1"/>
     <File name="cmsis_lib/source/stm32f0xx_misc.c" path="cmsis_lib/source/stm32f0xx_misc.c" type="1"/>
+    <File name="cmsis_lib/include/stm32f0xx_flash.h" path="cmsis_lib/include/stm32f0xx_flash.h" type="1"/>
     <File name="cmsis_usb/src/usbd_desc.c" path="USB-CDC/src/usbd_desc.c" type="1"/>
     <File name="cmsis_lib/source/stm32f0xx_gpio.c" path="cmsis_lib/source/stm32f0xx_gpio.c" type="1"/>
     <File name="cmsis_lib" path="" type="2"/>
@@ -162,8 +162,8 @@
     <File name="cmsis_lib/source" path="" type="2"/>
     <File name="cmsis_usb/inc/usbd_cdc_vcp.h" path="USB-CDC/inc/usbd_cdc_vcp.h" type="1"/>
     <File name="cmsis_lib/source/stm32f0xx_pwr.c" path="cmsis_lib/source/stm32f0xx_pwr.c" type="1"/>
-    <File name="cmsis_usb/usb_driver/src/usb_dcd_int.c" path="USB-CDC/STM32_USB_Device_Driver/src/usb_dcd_int.c" type="1"/>
     <File name="cmsis_lib/source/stm32f0xx_dma.c" path="cmsis_lib/source/stm32f0xx_dma.c" type="1"/>
+    <File name="cmsis_usb/usb_driver/src/usb_dcd_int.c" path="USB-CDC/STM32_USB_Device_Driver/src/usb_dcd_int.c" type="1"/>
     <File name="cmsis_usb/inc/usbd_conf.h" path="USB-CDC/inc/usbd_conf.h" type="1"/>
     <File name="include_all_headers.h" path="include_all_headers.h" type="1"/>
     <File name="cmsis_lib/include/stm32f0xx_dac.h" path="cmsis_lib/include/stm32f0xx_dac.h" type="1"/>
@@ -172,9 +172,9 @@
     <File name="cmsis_usb/usb_library/inc/usbd_req.h" path="USB-CDC/STM32_USB_Device_Library/Core/inc/usbd_req.h" type="1"/>
     <File name="cmsis_usb/usb_driver/inc/usb_core.h" path="USB-CDC/STM32_USB_Device_Driver/inc/usb_core.h" type="1"/>
     <File name="cmsis_boot/stm32f0xx_conf.h" path="cmsis_boot/stm32f0xx_conf.h" type="1"/>
-    <File name="cmsis_boot/system_stm32f0xx.c" path="cmsis_boot/system_stm32f0xx.c" type="1"/>
-    <File name="CoX/CoX_Driver/nRF24L01" path="" type="2"/>
     <File name="cmsis_lib/source/stm32f0xx_rtc.c" path="cmsis_lib/source/stm32f0xx_rtc.c" type="1"/>
+    <File name="CoX/CoX_Driver/nRF24L01" path="" type="2"/>
+    <File name="cmsis_boot/system_stm32f0xx.c" path="cmsis_boot/system_stm32f0xx.c" type="1"/>
     <File name="cmsis_usb/usb_library/src/usbd_ioreq.c" path="USB-CDC/STM32_USB_Device_Library/Core/src/usbd_ioreq.c" type="1"/>
     <File name="cmsis_usb/usb_driver/src" path="" type="2"/>
     <File name="cmsis_usb/usb_library/src" path="" type="2"/>
@@ -194,9 +194,9 @@
     <File name="cmsis_usb/src/usbd_usr.c" path="USB-CDC/src/usbd_usr.c" type="1"/>
     <File name="cmsis_lib/include/stm32f0xx_pwr.h" path="cmsis_lib/include/stm32f0xx_pwr.h" type="1"/>
     <File name="cmsis_lib/include" path="" type="2"/>
+    <File name="cmsis_usb/inc/stm32f0xx_conf.h" path="USB-CDC/inc/stm32f0xx_conf.h" type="1"/>
     <File name="cmsis_lib/source/stm32f0xx_flash.c" path="cmsis_lib/source/stm32f0xx_flash.c" type="1"/>
     <File name="cmsis_lib/include/stm32f0xx_syscfg.h" path="cmsis_lib/include/stm32f0xx_syscfg.h" type="1"/>
-    <File name="cmsis_usb/inc/stm32f0xx_conf.h" path="USB-CDC/inc/stm32f0xx_conf.h" type="1"/>
     <File name="cmsis_lib/include/stm32f0xx_comp.h" path="cmsis_lib/include/stm32f0xx_comp.h" type="1"/>
   </Files>
 </Project>

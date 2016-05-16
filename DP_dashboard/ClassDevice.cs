@@ -32,13 +32,13 @@ namespace DP_dashboard
         public DeviceStatus deviceStatus = DeviceStatus.Pass;
         public DpCalibPointData[,] CalibrationData = new DpCalibPointData[MAX_TEMP_CALIB_POINT, MAX_PRESSURE_CALIB_POINT];
         public string CSVFileName;
-        
+        Random Rand = new Random();
 
         //c'tor
         public ClassDevice()
         {
             DeviceName = "Default";
-            DeviceSerialNumber = "000000";
+            DeviceSerialNumber = Rand.Next(100000, 1000000).ToString() ;
             DeviceMacAddress = "111111";
             deviceStatus = (byte)DeviceStatus.Wait;
         }

@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pnl_calibrationPanel = new System.Windows.Forms.Panel();
+            this.tb_tempIndexAfterPause = new System.Windows.Forms.TextBox();
             this.bt_pauseStartCalib = new System.Windows.Forms.Button();
             this.bt_clear = new System.Windows.Forms.Button();
             this.rtb_info = new System.Windows.Forms.RichTextBox();
@@ -77,7 +78,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.bt_detectDp = new System.Windows.Forms.Button();
             this.bt_settings = new System.Windows.Forms.Button();
-            this.tb_tempIndexAfterPause = new System.Windows.Forms.TextBox();
             this.pnl_calibrationPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_deviceData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_devicesQueue)).BeginInit();
@@ -107,6 +107,14 @@
             this.pnl_calibrationPanel.Size = new System.Drawing.Size(1278, 810);
             this.pnl_calibrationPanel.TabIndex = 15;
             this.pnl_calibrationPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl_calibrationPanel_Paint);
+            // 
+            // tb_tempIndexAfterPause
+            // 
+            this.tb_tempIndexAfterPause.Location = new System.Drawing.Point(1136, 714);
+            this.tb_tempIndexAfterPause.Name = "tb_tempIndexAfterPause";
+            this.tb_tempIndexAfterPause.Size = new System.Drawing.Size(100, 22);
+            this.tb_tempIndexAfterPause.TabIndex = 9;
+            this.tb_tempIndexAfterPause.Text = "0";
             // 
             // bt_pauseStartCalib
             // 
@@ -602,14 +610,6 @@
             this.bt_settings.Text = "Settings";
             this.bt_settings.UseVisualStyleBackColor = false;
             this.bt_settings.Click += new System.EventHandler(this.bt_settings_Click);
-            // 
-            // tb_tempIndexAfterPause
-            // 
-            this.tb_tempIndexAfterPause.Location = new System.Drawing.Point(1136, 714);
-            this.tb_tempIndexAfterPause.Name = "tb_tempIndexAfterPause";
-            this.tb_tempIndexAfterPause.Size = new System.Drawing.Size(100, 22);
-            this.tb_tempIndexAfterPause.TabIndex = 9;
-            this.tb_tempIndexAfterPause.Text = "0";
             // 
             // CalibForm
             // 

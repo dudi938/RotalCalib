@@ -35,24 +35,7 @@ namespace DP_dashboard
 
         public string OpenFileForLogging(List<float> pressuresUnderTeat,string path,ClassDevice dpDevice)
         {
-            //string title1 = string.Format(",P_1 = {0},P_2 = {1},P_3 = {2},P_4 = {3},P_5 = {4},P_6 = {5},P_7 = {6},P_8 = {7},P_9 = {8},P_10 = {9},P_11 = {10},P_12 = {11},P_13 = {12},P_14 = {13},P_15 = {14},DP_MAC_Address,DP_SN,DP_Name,",
-            //dpDevice.CalibrationData[0, 0].pressureUnderTest.ToString(),
-            //dpDevice.CalibrationData[0, 1].pressureUnderTest.ToString(),
-            //dpDevice.CalibrationData[0, 2].pressureUnderTest.ToString(),
-            //dpDevice.CalibrationData[0, 3].pressureUnderTest.ToString(),
-            //dpDevice.CalibrationData[0, 4].pressureUnderTest.ToString(),
-            //dpDevice.CalibrationData[0, 5].pressureUnderTest.ToString(),
-            //dpDevice.CalibrationData[0, 6].pressureUnderTest.ToString(),
-            //dpDevice.CalibrationData[0, 7].pressureUnderTest.ToString(),
-            //dpDevice.CalibrationData[0, 8].pressureUnderTest.ToString(),
-            //dpDevice.CalibrationData[0, 9].pressureUnderTest.ToString(),
-            //dpDevice.CalibrationData[0, 10].pressureUnderTest.ToString(),
-            //dpDevice.CalibrationData[0, 11].pressureUnderTest.ToString(),
-            //dpDevice.CalibrationData[0, 12].pressureUnderTest.ToString(),
-            //dpDevice.CalibrationData[0, 13].pressureUnderTest.ToString(),
-            //dpDevice.CalibrationData[0, 14].pressureUnderTest.ToString()
-            //);
-            string title1 = "";
+            string title1 = ",";
             for(int i = 0; i< pressuresUnderTeat.Count; i++)
             {
                 title1 += "P = " + pressuresUnderTeat[i].ToString() + "[Bar]" + ",";

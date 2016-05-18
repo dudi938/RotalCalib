@@ -31,7 +31,7 @@ namespace DP_dashboard
 
         private void ConfigForm_Load(object sender, EventArgs e)
         {
-
+            UpdateComPortList();
         }
 
         private void bt_Cancel_Click(object sender, EventArgs e)
@@ -44,8 +44,8 @@ namespace DP_dashboard
 
         private void bt_saveCalibPoint_Click(object sender, EventArgs e)
         {
-            calibForm.classCalibrationInfo.TempUnderTestList.Clear();
-            calibForm.classCalibrationInfo.PressureUnderTestList.Clear();
+            calibForm.classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Clear();
+            calibForm.classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Clear();
 
             MessageBox.Show("You go to delete the old configuration points");
 
@@ -60,7 +60,7 @@ namespace DP_dashboard
                     if ((bool)(dgv_calibTempPointsTable.Rows[i].Cells[0].Value))
                     {
 
-                        calibForm.classCalibrationInfo.TempUnderTestList.Add(float.Parse(dgv_calibTempPointsTable.Rows[i].Cells[1].Value.ToString()));
+                        calibForm.classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Add(float.Parse(dgv_calibTempPointsTable.Rows[i].Cells[1].Value.ToString()));
                     }
                 }
             }
@@ -76,7 +76,7 @@ namespace DP_dashboard
                 {
                     if ((bool)(dgv_calibPressuresPointsTable.Rows[i].Cells[0].Value))
                     {
-                        calibForm.classCalibrationInfo.PressureUnderTestList.Add(float.Parse(dgv_calibPressuresPointsTable.Rows[i].Cells[1].Value.ToString()));
+                        calibForm.classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add(float.Parse(dgv_calibPressuresPointsTable.Rows[i].Cells[1].Value.ToString()));
                     }
                 }
 
@@ -88,16 +88,16 @@ namespace DP_dashboard
 
                 if (cmb_jigConfiguration.SelectedItem.ToString() != "")
                 {
-                    calibForm.classCalibrationInfo.JigConfiguration = int.Parse(cmb_jigConfiguration.SelectedItem.ToString());
+                    calibForm.classCalibrationInfo.classCalibrationSettings.JigConfiguration = int.Parse(cmb_jigConfiguration.SelectedItem.ToString());
                 }
                 else
                 {
-                    calibForm.classCalibrationInfo.JigConfiguration = 8;
+                    calibForm.classCalibrationInfo.classCalibrationSettings.JigConfiguration = 8;
                 }
             }
             else
             {
-                calibForm.classCalibrationInfo.JigConfiguration = 8;
+                calibForm.classCalibrationInfo.classCalibrationSettings.JigConfiguration = 8;
             }
 
             this.Hide();
@@ -112,8 +112,29 @@ namespace DP_dashboard
                 {
                     dgv_calibTempPointsTable.Rows[e.RowIndex].Cells[0].Value = true;
                 }
+                else
+                {
+                    dgv_calibTempPointsTable.Rows[e.RowIndex].Cells[0].Value = false;
+                }
             }
+            else
+            {
+                dgv_calibTempPointsTable.Rows[e.RowIndex].Cells[0].Value = false;
+            }
+
         }
+
+
+        void UpdateComPortList()
+        {
+            string [] ComPortArray = System.IO.Ports.SerialPort.GetPortNames();
+
+            cmb_DPComPort.DataSource = ComPortArray;            
+            cmb_multiplexerComPort.DataSource = ComPortArray;
+            cmb_PLCComPort.DataSource = ComPortArray;
+            cmb_tempControllerComPort.DataSource = ComPortArray;
+        }
+
 
         private void dgv_calibPressuresPointsTable_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
@@ -123,7 +144,16 @@ namespace DP_dashboard
                 {
                     dgv_calibPressuresPointsTable.Rows[e.RowIndex].Cells[0].Value = true;
                 }
+                else
+                {
+                    dgv_calibPressuresPointsTable.Rows[e.RowIndex].Cells[0].Value = false;
+                }
             }
+            else
+            {
+                dgv_calibPressuresPointsTable.Rows[e.RowIndex].Cells[0].Value = false;
+            }
+
         }
 
         private void bt_loadDefoult_Click(object sender, EventArgs e)
@@ -139,6 +169,7 @@ namespace DP_dashboard
             dgv_calibTempPointsTable.Rows.Add(true, Properties.Settings.Default.TempUnderTest5.ToString());
 
 
+            dgv_calibPressuresPointsTable.Rows.Clear();
             dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest1.ToString());
             dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest2.ToString());
             dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest3.ToString());

@@ -56,7 +56,6 @@ namespace DP_dashboard
         public CalibForm()
         {
             InitializeComponent();
-            System.Windows.Forms.DataGridView[] dgvDeviceResultTable = new System.Windows.Forms.DataGridView[16];
             currentForm = this;
 
 
@@ -155,6 +154,13 @@ namespace DP_dashboard
         private void timer1_Tick(object sender, EventArgs e)
         {
             //rtbLog.Lines = PLCinfo.listDebugInfo.ToArray();
+
+
+
+            //debug only
+           //classDpCommunication.DPgetDpInfo();
+
+
 
             CalibrationButtonHandele();
 
@@ -301,14 +307,34 @@ namespace DP_dashboard
 
         private void bt_startCalibration_Click(object sender, EventArgs e)
         {
-            classDpCommunication.SendStartCalibration();
+            classCalibrationInfo.DetectFlag = true;
+            classCalibrationInfo.InitDetectTread();
 
-            classCalibrationInfo.DoCalibration = true;
+            //wait to finish the detect.
+            while (!classCalibrationInfo.EndDetectEvent) ;
 
-            classCalibrationInfo.InitCalibTread();
 
-            classCalibrationInfo.CreateLogFiles();
-            ClearColorIndication();
+            if (classCalibrationInfo.DpCountAxist > 0)
+            {
+                classCalibrationInfo.EndDetectEvent = false;
+                classCalibrationInfo.EndDetectEvent = false;
+                UpdateDeviceTable();
+
+
+                classDpCommunication.SendStartCalibration();
+
+                classCalibrationInfo.ResetStateMachine();
+                classCalibrationInfo.DoCalibration = true;
+                classCalibrationInfo.CalibrationPaused = false;
+                classCalibrationInfo.InitCalibTread();
+                classCalibrationInfo.CreateLogFiles();
+                ClearColorIndication();
+            }
+            else
+            {
+                MessageBox.Show("No exist dp devices!");
+            }
+            
         }
 
         private void UpdateDeviceTable()
@@ -338,15 +364,15 @@ namespace DP_dashboard
             {
                 dgv_deviceData.Rows.Clear();
                 ExistDevice = false;
-                string [] dataRow = new string [classCalibrationInfo.TempUnderTestList.Count * 2 +1] ;
+                string [] dataRow = new string [classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count * 2 +1] ;
 
-                for ( i = 0; i < classCalibrationInfo.PressureUnderTestList.Count ; i++)
+                for ( i = 0; i < classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count ; i++)
                 {
-                    dataRow[0] = classCalibrationInfo.PressureUnderTestList[i].ToString();
-                    for (int j = 0; j < classCalibrationInfo.TempUnderTestList.Count; j++)
+                    dataRow[0] = classCalibrationInfo.classCalibrationSettings.PressureUnderTestList[i].ToString();
+                    for (int j = 0; j < classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count; j++)
                     {
-                        dataRow[j  * 2 + 1] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].a2dPressureValue1.ToString();
-                        dataRow[j  * 2 + 2] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].a2dPressureValue2.ToString();
+                        dataRow[j  * 2 + 1] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].PressureValue1.ToString();
+                        dataRow[j  * 2 + 2] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].PressureValue2.ToString();
                     }
                     dgv_deviceData.Rows.Add(dataRow);
                 }
@@ -368,12 +394,12 @@ namespace DP_dashboard
         {
             //temp controller
             tb_currentTemperature.Text = classCalibrationInfo.CurrentTemp.ToString();
-            tb_targetTemperature.Text = classCalibrationInfo.TempUnderTestList[classCalibrationInfo.CurrentCalibTempIndex].ToString();
+            tb_targetTemperature.Text = classCalibrationInfo.classCalibrationSettings.TempUnderTestList[classCalibrationInfo.CurrentCalibTempIndex].ToString();
 
 
             //pressure
             tb_pressCurrentPressure.Text = classCalibrationInfo.CurrentPressure.ToString();
-            tb_pressTargetPressure.Text = classCalibrationInfo.PlcBar2Adc(classCalibrationInfo.PressureUnderTestList[classCalibrationInfo.CurrentCalibPressureIndex]).ToString();
+            tb_pressTargetPressure.Text = classCalibrationInfo.PlcBar2Adc(classCalibrationInfo.classCalibrationSettings.PressureUnderTestList[classCalibrationInfo.CurrentCalibPressureIndex]).ToString();
 
             if (classCalibrationInfo.PressureStableFlag)
             {
@@ -425,9 +451,12 @@ namespace DP_dashboard
         private void bt_clear_Click(object sender, EventArgs e)
         {
             rtb_info.Text = "";
-            //classCalibrationInfo.classDpCommunicationInstanse.DpWritePressurePointToDevice(45.2f,3,56.9f,2);
 
-            //DpWritePressurePointToDevice(float tempUnderTest, byte TempN, float extPressure, byte PreesureN);
+
+            //string CutSn = tb_tempIndexAfterPause.Text.Substring(4);
+
+            //byte[] SN = System.Text.Encoding.ASCII.GetBytes(CutSn);
+            //classDpCommunication.SendDpSerialNumber(SN);
         }
 
         private void bt_connectDP_Click(object sender, EventArgs e)
@@ -470,32 +499,32 @@ namespace DP_dashboard
         public void LoadDefoultCalibPointToList()
         {
 
-            classCalibrationInfo.TempUnderTestList.Clear();
-            classCalibrationInfo.PressureUnderTestList.Clear();
+            classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Clear();
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Clear();
 
 
-            classCalibrationInfo.TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest1);
-            classCalibrationInfo.TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest2);
-            classCalibrationInfo.TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest3);
-            classCalibrationInfo.TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest4);
-            classCalibrationInfo.TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest5);
+            classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest1);
+            classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest2);
+            classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest3);
+            classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest4);
+            classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest5);
 
 
-            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest1);
-            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest2);
-            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest3);
-            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest4);
-            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest5);
-            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest6);
-            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest7);
-            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest8);
-            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest9);
-            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest10);
-            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest11);
-            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest12);
-            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest13);
-            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest14);
-            classCalibrationInfo.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest15);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest1);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest2);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest3);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest4);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest5);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest6);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest7);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest8);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest9);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest10);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest11);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest12);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest13);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest14);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest15);
         }
 
         private void DGVSetCellColor(DataGridView dgv, int col, int row, Color color)

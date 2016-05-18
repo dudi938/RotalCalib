@@ -11,8 +11,8 @@ namespace DP_dashboard
         public float tempUnderTest         {get;set;}           // temperature of the current temp value
         public float pressureUnderTest     {get;set;}           // Physical pressure of the current a2d pressure value
         public float extA2dPressureValue   {get;set;}           // value from extenal pressure sensor(from Shalom)
-        public float a2dPressureValue1     {get;set;}           // A2D value 1 from DP 
-        public float a2dPressureValue2     {get;set;}           // A2D value 2 from DP 
+        public float PressureValue1        {get;set;}           // calculate pressure value 1 from DP 
+        public float PressureValue2        {get;set; }          // calculate pressure value 2 from DP 
         public float tempOnDevice          {get;set;}           // temperature on device.
     }
 

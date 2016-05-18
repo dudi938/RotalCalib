@@ -18,7 +18,9 @@ namespace DpCommunication
         public string  DeviceSerialNumber;
         public byte    CurrentTemp;
         public float   S1Pressure;
-        public float   S2Pressure;              
+        public float   S2Pressure;
+        public UInt16   A2D1;
+        public UInt16   A2D2;
         public byte    Calibrated;         
     }
 
@@ -65,11 +67,14 @@ namespace DpCommunication
         private const byte SERIAL_NUMBER_LENGTH                   = 0x08;
 
         private const byte DEVICE_INFO_MAC_ADDRESS_NUMBER_OFFSET = 0x03;
-        private const byte DEVICE_INFO_CURRENT_TEMP_OFFSET  = DEVICE_INFO_MAC_ADDRESS_NUMBER_OFFSET + MAC_ADDRESSS_NUMBER_LENGTH;
-        private const byte DEVICE_INFO_S1_PRESSURE_OFFSET   = DEVICE_INFO_CURRENT_TEMP_OFFSET  + 0x01;
-        private const byte DEVICE_INFO_S2_PRESSURE_OFFSET   = DEVICE_INFO_S1_PRESSURE_OFFSET   + 0x04;
-        private const byte DEVICE_INFO_CALIBRATED_OFFSET    = DEVICE_INFO_S2_PRESSURE_OFFSET   + 0x04;
-        private const byte DEVICE_INFO_SERIAL_NUMBER_OFFSET = DEVICE_INFO_CALIBRATED_OFFSET    + 0x01;
+        private const byte DEVICE_INFO_CURRENT_TEMP_OFFSET       = DEVICE_INFO_MAC_ADDRESS_NUMBER_OFFSET     + MAC_ADDRESSS_NUMBER_LENGTH;
+        private const byte DEVICE_INFO_S1_PRESSURE_OFFSET        = DEVICE_INFO_CURRENT_TEMP_OFFSET           + 0x01;
+        private const byte DEVICE_INFO_S2_PRESSURE_OFFSET        = DEVICE_INFO_S1_PRESSURE_OFFSET            + 0x04;
+        private const byte DEVICE_INFO_CALIBRATED_OFFSET         = DEVICE_INFO_S2_PRESSURE_OFFSET            + 0x04;
+        private const byte DEVICE_INFO_SERIAL_NUMBER_OFFSET      = DEVICE_INFO_CALIBRATED_OFFSET             + 0x01;
+        private const byte DEVICE_INFO_A2D1_OFFSET               = DEVICE_INFO_SERIAL_NUMBER_OFFSET          + SERIAL_NUMBER_LENGTH;
+        private const byte DEVICE_INFO_A2D2_OFFSET               = DEVICE_INFO_A2D1_OFFSET                   + 0x02;
+
         //end DP info Offset 
 
 
@@ -210,6 +215,9 @@ namespace DpCommunication
                             dpInfo.S2Pressure = System.BitConverter.ToSingle(incomingData, DEVICE_INFO_S2_PRESSURE_OFFSET);
                             dpInfo.Calibrated = incomingData[DEVICE_INFO_CALIBRATED_OFFSET];
                             dpInfo.DeviceSerialNumber = System.Text.Encoding.UTF8.GetString(incomingData, DEVICE_INFO_SERIAL_NUMBER_OFFSET, 8);
+
+                            dpInfo.A2D1 = BitConverter.ToUInt16(incomingData, DEVICE_INFO_A2D1_OFFSET);
+                            dpInfo.A2D2 = BitConverter.ToUInt16(incomingData, DEVICE_INFO_A2D2_OFFSET);
                             NewDpInfoEvent = true;
                         }
                         break;

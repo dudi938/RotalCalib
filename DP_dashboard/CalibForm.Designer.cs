@@ -38,18 +38,6 @@
             this.bt_stopCalibration = new System.Windows.Forms.Button();
             this.bt_startCalibration = new System.Windows.Forms.Button();
             this.dgv_deviceData = new System.Windows.Forms.DataGridView();
-            this.col_extPressure = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Temp1_1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Temp1_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_temp2_p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Temp2_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_temp3_p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Temp3_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_temp4_p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Temp4_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_temp5_p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Temp5_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgv_devicesQueue = new System.Windows.Forms.DataGridView();
             this.col_no = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_deviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,6 +66,19 @@
             this.label3 = new System.Windows.Forms.Label();
             this.bt_detectDp = new System.Windows.Forms.Button();
             this.bt_settings = new System.Windows.Forms.Button();
+            this.col_extPressure = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Temp1_1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Temp1_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_temp2_p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Temp2_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_temp3_p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Temp3_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_temp4_p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Temp4_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_temp5_p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Temp5_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tb_temperatureOnDP = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.pnl_calibrationPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_deviceData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_devicesQueue)).BeginInit();
@@ -104,7 +105,7 @@
             this.pnl_calibrationPanel.Location = new System.Drawing.Point(40, 38);
             this.pnl_calibrationPanel.Margin = new System.Windows.Forms.Padding(4);
             this.pnl_calibrationPanel.Name = "pnl_calibrationPanel";
-            this.pnl_calibrationPanel.Size = new System.Drawing.Size(1278, 810);
+            this.pnl_calibrationPanel.Size = new System.Drawing.Size(1402, 810);
             this.pnl_calibrationPanel.TabIndex = 15;
             this.pnl_calibrationPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl_calibrationPanel_Paint);
             // 
@@ -188,97 +189,13 @@
             this.col_temp4_p1,
             this.col_Temp4_2,
             this.col_temp5_p1,
-            this.col_Temp5_2,
-            this.col_status});
+            this.col_Temp5_2});
             this.dgv_deviceData.Location = new System.Drawing.Point(551, 53);
             this.dgv_deviceData.Margin = new System.Windows.Forms.Padding(4);
             this.dgv_deviceData.Name = "dgv_deviceData";
-            this.dgv_deviceData.Size = new System.Drawing.Size(720, 529);
+            this.dgv_deviceData.Size = new System.Drawing.Size(847, 529);
             this.dgv_deviceData.TabIndex = 1;
             this.dgv_deviceData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_deviceData_CellContentClick);
-            // 
-            // col_extPressure
-            // 
-            this.col_extPressure.HeaderText = "Ext P";
-            this.col_extPressure.Name = "col_extPressure";
-            this.col_extPressure.ReadOnly = true;
-            this.col_extPressure.Width = 50;
-            // 
-            // col_Temp1_1
-            // 
-            this.col_Temp1_1.HeaderText = "Temp1 p1";
-            this.col_Temp1_1.Name = "col_Temp1_1";
-            this.col_Temp1_1.ReadOnly = true;
-            this.col_Temp1_1.Width = 50;
-            // 
-            // col_Temp1_2
-            // 
-            this.col_Temp1_2.HeaderText = "Temp1 p2";
-            this.col_Temp1_2.Name = "col_Temp1_2";
-            this.col_Temp1_2.ReadOnly = true;
-            this.col_Temp1_2.Width = 50;
-            // 
-            // col_temp2_p1
-            // 
-            this.col_temp2_p1.HeaderText = "Temp2 p1";
-            this.col_temp2_p1.Name = "col_temp2_p1";
-            this.col_temp2_p1.ReadOnly = true;
-            this.col_temp2_p1.Width = 50;
-            // 
-            // col_Temp2_2
-            // 
-            this.col_Temp2_2.HeaderText = "Temp2 p2";
-            this.col_Temp2_2.Name = "col_Temp2_2";
-            this.col_Temp2_2.ReadOnly = true;
-            this.col_Temp2_2.Width = 50;
-            // 
-            // col_temp3_p1
-            // 
-            this.col_temp3_p1.HeaderText = "Temp3 p1";
-            this.col_temp3_p1.Name = "col_temp3_p1";
-            this.col_temp3_p1.ReadOnly = true;
-            this.col_temp3_p1.Width = 50;
-            // 
-            // col_Temp3_2
-            // 
-            this.col_Temp3_2.HeaderText = "Temp3 p2";
-            this.col_Temp3_2.Name = "col_Temp3_2";
-            this.col_Temp3_2.ReadOnly = true;
-            this.col_Temp3_2.Width = 50;
-            // 
-            // col_temp4_p1
-            // 
-            this.col_temp4_p1.HeaderText = "Temp4 p1";
-            this.col_temp4_p1.Name = "col_temp4_p1";
-            this.col_temp4_p1.ReadOnly = true;
-            this.col_temp4_p1.Width = 50;
-            // 
-            // col_Temp4_2
-            // 
-            this.col_Temp4_2.HeaderText = "Temp4 p2";
-            this.col_Temp4_2.Name = "col_Temp4_2";
-            this.col_Temp4_2.ReadOnly = true;
-            this.col_Temp4_2.Width = 50;
-            // 
-            // col_temp5_p1
-            // 
-            this.col_temp5_p1.HeaderText = "Temp5 p1";
-            this.col_temp5_p1.Name = "col_temp5_p1";
-            this.col_temp5_p1.ReadOnly = true;
-            this.col_temp5_p1.Width = 50;
-            // 
-            // col_Temp5_2
-            // 
-            this.col_Temp5_2.HeaderText = "Temp5 p2";
-            this.col_Temp5_2.Name = "col_Temp5_2";
-            this.col_Temp5_2.ReadOnly = true;
-            this.col_Temp5_2.Width = 50;
-            // 
-            // col_status
-            // 
-            this.col_status.HeaderText = "Status";
-            this.col_status.Name = "col_status";
-            this.col_status.ReadOnly = true;
             // 
             // dgv_devicesQueue
             // 
@@ -292,6 +209,7 @@
             this.dgv_devicesQueue.Name = "dgv_devicesQueue";
             this.dgv_devicesQueue.Size = new System.Drawing.Size(375, 529);
             this.dgv_devicesQueue.TabIndex = 0;
+            this.dgv_devicesQueue.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_devicesQueue_CellClick);
             this.dgv_devicesQueue.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_devicesQueue_CellContentClick);
             this.dgv_devicesQueue.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_devicesQueue_CellEnter);
             // 
@@ -317,6 +235,8 @@
             // pnl_TempData
             // 
             this.pnl_TempData.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnl_TempData.Controls.Add(this.tb_temperatureOnDP);
+            this.pnl_TempData.Controls.Add(this.label10);
             this.pnl_TempData.Controls.Add(this.label8);
             this.pnl_TempData.Controls.Add(this.tb_targetTemperature);
             this.pnl_TempData.Controls.Add(this.tb_currentTemperature);
@@ -324,28 +244,28 @@
             this.pnl_TempData.Controls.Add(this.label7);
             this.pnl_TempData.Controls.Add(this.label6);
             this.pnl_TempData.Controls.Add(this.label5);
-            this.pnl_TempData.Location = new System.Drawing.Point(1495, 48);
+            this.pnl_TempData.Location = new System.Drawing.Point(1460, 38);
             this.pnl_TempData.Margin = new System.Windows.Forms.Padding(4);
             this.pnl_TempData.Name = "pnl_TempData";
-            this.pnl_TempData.Size = new System.Drawing.Size(391, 190);
+            this.pnl_TempData.Size = new System.Drawing.Size(426, 211);
             this.pnl_TempData.TabIndex = 16;
             this.pnl_TempData.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl_TempData_Paint);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label8.Location = new System.Drawing.Point(84, 18);
+            this.label8.Location = new System.Drawing.Point(103, 12);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(177, 25);
+            this.label8.Size = new System.Drawing.Size(152, 20);
             this.label8.TabIndex = 6;
             this.label8.Text = "Temperature Info";
             // 
             // tb_targetTemperature
             // 
-            this.tb_targetTemperature.Location = new System.Drawing.Point(259, 146);
+            this.tb_targetTemperature.Location = new System.Drawing.Point(295, 173);
             this.tb_targetTemperature.Margin = new System.Windows.Forms.Padding(4);
             this.tb_targetTemperature.Name = "tb_targetTemperature";
             this.tb_targetTemperature.ReadOnly = true;
@@ -354,7 +274,7 @@
             // 
             // tb_currentTemperature
             // 
-            this.tb_currentTemperature.Location = new System.Drawing.Point(259, 103);
+            this.tb_currentTemperature.Location = new System.Drawing.Point(295, 85);
             this.tb_currentTemperature.Margin = new System.Windows.Forms.Padding(4);
             this.tb_currentTemperature.Name = "tb_currentTemperature";
             this.tb_currentTemperature.ReadOnly = true;
@@ -363,7 +283,7 @@
             // 
             // tb_connectionStatus
             // 
-            this.tb_connectionStatus.Location = new System.Drawing.Point(259, 65);
+            this.tb_connectionStatus.Location = new System.Drawing.Point(295, 47);
             this.tb_connectionStatus.Margin = new System.Windows.Forms.Padding(4);
             this.tb_connectionStatus.Name = "tb_connectionStatus";
             this.tb_connectionStatus.ReadOnly = true;
@@ -373,12 +293,12 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label7.Location = new System.Drawing.Point(19, 105);
+            this.label7.Location = new System.Drawing.Point(19, 87);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(193, 25);
+            this.label7.Size = new System.Drawing.Size(169, 20);
             this.label7.TabIndex = 2;
             this.label7.Text = "Current temperture";
             this.label7.Click += new System.EventHandler(this.label7_Click);
@@ -386,12 +306,12 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label6.Location = new System.Drawing.Point(21, 146);
+            this.label6.Location = new System.Drawing.Point(21, 173);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(186, 25);
+            this.label6.Size = new System.Drawing.Size(159, 20);
             this.label6.TabIndex = 1;
             this.label6.Text = "TargetTemperture";
             this.label6.Click += new System.EventHandler(this.label6_Click);
@@ -399,12 +319,12 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label5.Location = new System.Drawing.Point(23, 67);
+            this.label5.Location = new System.Drawing.Point(23, 49);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(186, 25);
+            this.label5.Size = new System.Drawing.Size(161, 20);
             this.label5.TabIndex = 0;
             this.label5.Text = "Connection status";
             this.label5.Click += new System.EventHandler(this.label5_Click);
@@ -480,15 +400,15 @@
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Location = new System.Drawing.Point(1495, 257);
+            this.panel2.Location = new System.Drawing.Point(1460, 257);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(391, 239);
+            this.panel2.Size = new System.Drawing.Size(426, 239);
             this.panel2.TabIndex = 17;
             // 
             // tb_preeStable
             // 
-            this.tb_preeStable.Location = new System.Drawing.Point(271, 189);
+            this.tb_preeStable.Location = new System.Drawing.Point(307, 189);
             this.tb_preeStable.Margin = new System.Windows.Forms.Padding(4);
             this.tb_preeStable.Name = "tb_preeStable";
             this.tb_preeStable.ReadOnly = true;
@@ -499,30 +419,30 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label9.Location = new System.Drawing.Point(23, 189);
+            this.label9.Location = new System.Drawing.Point(20, 189);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(74, 25);
+            this.label9.Size = new System.Drawing.Size(62, 20);
             this.label9.TabIndex = 7;
             this.label9.Text = "Stable";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label4.Location = new System.Drawing.Point(103, 14);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(139, 25);
+            this.label4.Size = new System.Drawing.Size(122, 20);
             this.label4.TabIndex = 6;
             this.label4.Text = "Pressure info";
             // 
             // tb_pressTargetPressure
             // 
-            this.tb_pressTargetPressure.Location = new System.Drawing.Point(270, 143);
+            this.tb_pressTargetPressure.Location = new System.Drawing.Point(306, 143);
             this.tb_pressTargetPressure.Margin = new System.Windows.Forms.Padding(4);
             this.tb_pressTargetPressure.Name = "tb_pressTargetPressure";
             this.tb_pressTargetPressure.ReadOnly = true;
@@ -531,7 +451,7 @@
             // 
             // tb_pressCurrentPressure
             // 
-            this.tb_pressCurrentPressure.Location = new System.Drawing.Point(267, 100);
+            this.tb_pressCurrentPressure.Location = new System.Drawing.Point(303, 100);
             this.tb_pressCurrentPressure.Margin = new System.Windows.Forms.Padding(4);
             this.tb_pressCurrentPressure.Name = "tb_pressCurrentPressure";
             this.tb_pressCurrentPressure.ReadOnly = true;
@@ -540,7 +460,7 @@
             // 
             // tb_presConnectionStatus
             // 
-            this.tb_presConnectionStatus.Location = new System.Drawing.Point(267, 62);
+            this.tb_presConnectionStatus.Location = new System.Drawing.Point(303, 62);
             this.tb_presConnectionStatus.Margin = new System.Windows.Forms.Padding(4);
             this.tb_presConnectionStatus.Name = "tb_presConnectionStatus";
             this.tb_presConnectionStatus.ReadOnly = true;
@@ -550,36 +470,36 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label1.Location = new System.Drawing.Point(15, 102);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(180, 25);
+            this.label1.Size = new System.Drawing.Size(158, 20);
             this.label1.TabIndex = 2;
             this.label1.Text = "Current  pressure";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label2.Location = new System.Drawing.Point(17, 144);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(165, 25);
+            this.label2.Size = new System.Drawing.Size(143, 20);
             this.label2.TabIndex = 1;
             this.label2.Text = "Target pressure";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label3.Location = new System.Drawing.Point(14, 64);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(186, 25);
+            this.label3.Size = new System.Drawing.Size(161, 20);
             this.label3.TabIndex = 0;
             this.label3.Text = "Connection status";
             // 
@@ -611,11 +531,109 @@
             this.bt_settings.UseVisualStyleBackColor = false;
             this.bt_settings.Click += new System.EventHandler(this.bt_settings_Click);
             // 
+            // col_extPressure
+            // 
+            this.col_extPressure.HeaderText = "Ext P";
+            this.col_extPressure.Name = "col_extPressure";
+            this.col_extPressure.ReadOnly = true;
+            this.col_extPressure.Width = 50;
+            // 
+            // col_Temp1_1
+            // 
+            this.col_Temp1_1.HeaderText = "Temp1 A2D1";
+            this.col_Temp1_1.Name = "col_Temp1_1";
+            this.col_Temp1_1.ReadOnly = true;
+            this.col_Temp1_1.Width = 50;
+            // 
+            // col_Temp1_2
+            // 
+            this.col_Temp1_2.HeaderText = "Temp1 A2D2";
+            this.col_Temp1_2.Name = "col_Temp1_2";
+            this.col_Temp1_2.ReadOnly = true;
+            this.col_Temp1_2.Width = 50;
+            // 
+            // col_temp2_p1
+            // 
+            this.col_temp2_p1.HeaderText = "Temp2 A2D1";
+            this.col_temp2_p1.Name = "col_temp2_p1";
+            this.col_temp2_p1.ReadOnly = true;
+            this.col_temp2_p1.Width = 50;
+            // 
+            // col_Temp2_2
+            // 
+            this.col_Temp2_2.HeaderText = "Temp2 A2D2";
+            this.col_Temp2_2.Name = "col_Temp2_2";
+            this.col_Temp2_2.ReadOnly = true;
+            this.col_Temp2_2.Width = 50;
+            // 
+            // col_temp3_p1
+            // 
+            this.col_temp3_p1.HeaderText = "Temp3 A2D1";
+            this.col_temp3_p1.Name = "col_temp3_p1";
+            this.col_temp3_p1.ReadOnly = true;
+            this.col_temp3_p1.Width = 50;
+            // 
+            // col_Temp3_2
+            // 
+            this.col_Temp3_2.HeaderText = "Temp3 A2D2";
+            this.col_Temp3_2.Name = "col_Temp3_2";
+            this.col_Temp3_2.ReadOnly = true;
+            this.col_Temp3_2.Width = 50;
+            // 
+            // col_temp4_p1
+            // 
+            this.col_temp4_p1.HeaderText = "Temp4 A2D1";
+            this.col_temp4_p1.Name = "col_temp4_p1";
+            this.col_temp4_p1.ReadOnly = true;
+            this.col_temp4_p1.Width = 50;
+            // 
+            // col_Temp4_2
+            // 
+            this.col_Temp4_2.HeaderText = "Temp4 A2D2";
+            this.col_Temp4_2.Name = "col_Temp4_2";
+            this.col_Temp4_2.ReadOnly = true;
+            this.col_Temp4_2.Width = 50;
+            // 
+            // col_temp5_p1
+            // 
+            this.col_temp5_p1.HeaderText = "Temp5 A2D1";
+            this.col_temp5_p1.Name = "col_temp5_p1";
+            this.col_temp5_p1.ReadOnly = true;
+            this.col_temp5_p1.Width = 50;
+            // 
+            // col_Temp5_2
+            // 
+            this.col_Temp5_2.HeaderText = "Temp5 A2D2";
+            this.col_Temp5_2.Name = "col_Temp5_2";
+            this.col_Temp5_2.ReadOnly = true;
+            this.col_Temp5_2.Width = 50;
+            // 
+            // tb_temperatureOnDP
+            // 
+            this.tb_temperatureOnDP.Location = new System.Drawing.Point(295, 134);
+            this.tb_temperatureOnDP.Margin = new System.Windows.Forms.Padding(4);
+            this.tb_temperatureOnDP.Name = "tb_temperatureOnDP";
+            this.tb_temperatureOnDP.ReadOnly = true;
+            this.tb_temperatureOnDP.Size = new System.Drawing.Size(99, 22);
+            this.tb_temperatureOnDP.TabIndex = 8;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label10.Location = new System.Drawing.Point(21, 134);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(227, 20);
+            this.label10.TabIndex = 7;
+            this.label10.Text = "Current temperture on DP";
+            // 
             // CalibForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1914, 837);
+            this.ClientSize = new System.Drawing.Size(1906, 837);
             this.Controls.Add(this.bt_settings);
             this.Controls.Add(this.bt_detectDp);
             this.Controls.Add(this.panel2);
@@ -648,18 +666,6 @@
         private System.Windows.Forms.Button bt_startCalibration;
         private System.Windows.Forms.DataGridView dgv_deviceData;
         private System.Windows.Forms.DataGridView dgv_devicesQueue;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_extPressure;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Temp1_1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Temp1_2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_temp2_p1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Temp2_2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_temp3_p1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Temp3_2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_temp4_p1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Temp4_2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_temp5_p1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Temp5_2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_status;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_no;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_deviceName;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_serialNumber;
@@ -691,6 +697,19 @@
         private System.Windows.Forms.Button bt_settings;
         private System.Windows.Forms.Button bt_pauseStartCalib;
         private System.Windows.Forms.TextBox tb_tempIndexAfterPause;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_extPressure;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Temp1_1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Temp1_2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_temp2_p1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Temp2_2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_temp3_p1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Temp3_2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_temp4_p1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Temp4_2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_temp5_p1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Temp5_2;
+        private System.Windows.Forms.TextBox tb_temperatureOnDP;
+        private System.Windows.Forms.Label label10;
     }
 }
 

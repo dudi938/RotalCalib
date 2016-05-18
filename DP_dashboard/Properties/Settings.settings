@@ -9,7 +9,7 @@
       <Value Profile="(Default)">COM1</Value>
     </Setting>
     <Setting Name="dpComPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">COM4</Value>
+      <Value Profile="(Default)">COM19</Value>
     </Setting>
     <Setting Name="StationType" Type="System.String" Scope="User">
       <Value Profile="(Default)">CalibrationStation</Value>
@@ -78,7 +78,7 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="TempControllerComPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">COM6</Value>
+      <Value Profile="(Default)">COM3</Value>
     </Setting>
     <Setting Name="LogPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\Logs</Value>

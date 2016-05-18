@@ -33,43 +33,46 @@ namespace DP_dashboard
         public byte NextState = 0x00;
         public byte PreviousState = 0x00;
 
-        private const byte StateStartCalib = 0x01;
-        private const byte StateSendPressureSetPoints = 0x02;
-        private const byte StateSendTempSetPoints = 0x03;
-        private const byte StateWaitToSetPressureStable = 0x04;
-        private const byte StateWaitToSetTempStable = 0x05;
-        private const byte StateRunOfAllDp = 0x06;
-        private const byte StateSaveValues = 0x07;
-        private const byte StateSendValusToDP = 0x08;
-        private const byte StateEndOneCalibPoint = 0x09;
-        private const byte StateEndOneCalibTemp = 0x0a;
-        private const byte StateFinishAllCalibPoint = 0x0b;
-        private const byte StateError = 0x0c;
+        private const byte StateStartCalib                              = 0x01;
+        private const byte StateSendPressureSetPoints                   = 0x02;
+        private const byte StateSendTempSetPoints                       = 0x03;
+        private const byte StateWaitToSetPressureStable                 = 0x04;
+        private const byte StateWaitToSetTempStable                     = 0x05;
+        private const byte StateRunOfAllDp                              = 0x06;
+        private const byte StateSaveValues                              = 0x07;
+        private const byte StateSendValusToDP                           = 0x08;
+        private const byte StateEndOneCalibPoint                        = 0x09;
+        private const byte StateEndOneCalibTemp                         = 0x0a;
+        private const byte StateFinishAllCalibPoint                     = 0x0b;
+        private const byte StatePressureStableError                     = 0x0c;
+        private const byte StateTempStableError                         = 0x0d;
 
 
         //timing parameters
-        private const byte MAX_TIME_WAIT_TO_PRESSURE_SET_POINT = 180;      //30 sec'
-        private const int MAX_TIME_WAIT_TO_TEMP_SET_POINT = 600;     // 10 min
-        private const int GET_DP_INFO_TIMOUT = 1;       // 1 sec
-        private const int READ_PRESSURE_INTERVAL = 1;
+        private const byte MAX_TIME_WAIT_TO_PRESSURE_SET_POINT          = 180;       //30 sec'
+        private const int MAX_TIME_WAIT_TO_TEMP_SET_POINT               = 1800;     // 30 min 1800
+        private const int GET_DP_INFO_TIMOUT                            = 1;       // 1 sec
+        private const int READ_PRESSURE_INTERVAL                        = 1;
 
 
         //constant parameters
-        private const byte MAX_DP_DEVICES = 0x10;      //16
-        private const byte MAX_PRESSURE_CALIB_POINT = 0x0f;      // 15
-        private const byte MAX_TEMP_CALIB_POINT = 0x05;      // 5
-        private const byte TEMP_SELECT_SET_POINT_REGISTER_ADDRESSS = 15;
-        private const byte TEMP_SET_POINT_1_REGISTER_ADDRESSS = 24;
-        private const byte TEMP_SET_POINT_2_REGISTER_ADDRESSS = 25;
-        private const byte TEMP_PRESENT_VALUE_REGISTER_ADDRESSS = 1;
-        private const byte PRESSURE_STABLE_BIT_INDEX_FLAG = 0;
-        private const int PLC_FLAG_STATUS_REGISTER_ADDRESS = 300;
-        private const int PLC_PRESENT_VALUE_REGISTER_ADDRESS = 301;
+        private const byte MAX_DP_DEVICES                               = 0x10;      //16
+        private const byte MAX_PRESSURE_CALIB_POINT                     = 0x0f;      // 15
+        private const byte MAX_TEMP_CALIB_POINT                         = 0x05;      // 5
+        private const byte TEMP_SELECT_SET_POINT_REGISTER_ADDRESSS      = 15;
+        private const byte TEMP_SET_POINT_1_REGISTER_ADDRESSS           = 24;
+        private const byte TEMP_SET_POINT_2_REGISTER_ADDRESSS           = 25;
+        private const byte TEMP_PRESENT_VALUE_REGISTER_ADDRESSS         = 1;
+        private const byte PRESSURE_STABLE_BIT_INDEX_FLAG               = 0;
+        private const int PLC_FLAG_STATUS_REGISTER_ADDRESS              = 300;
+        private const int PLC_PRESENT_VALUE_REGISTER_ADDRESS            = 301;
+        private const int MAX_ALLOW_SEND_GET_INFO_CMD                   = 3;
+        private const int TEMP_TEMP_TOLERANCE                           = 2;
 
         //Convert A2D to BAR constant
-        private const int PLC_A2D_START_POINT = 6378;
-        private const float PLC_A2D_A = 0.07856f;
-        private const float PLC_A2D_B = 500f;
+        private const int PLC_A2D_START_POINT                           = 6378;
+        private const float PLC_A2D_A                                   = 0.07856f;
+        private const float PLC_A2D_B                                   = 500f;
 
 
 
@@ -86,7 +89,8 @@ namespace DP_dashboard
         public bool DoCalibration = false;
         public bool FinishCalibrationEvent = false;
         public bool ChengeStateEvent = false;
-        public float CurrentTemp;
+        public float CurrentTempControllerValue;
+        public float CurrentTempOnDP;
         public Int16 CurrentPressure;
         public bool PressureStableFlag = false;
         public bool IncermentCalibPointStep = false;
@@ -155,7 +159,7 @@ namespace DP_dashboard
 
         private void UpdateRealTimeData()
         {
-            CurrentTemp = TempControllerReadTemp();
+            CurrentTempControllerValue = TempControllerReadTemp();
 
             ReadPressureFromPlc();
         }
@@ -207,7 +211,7 @@ namespace DP_dashboard
                             {
                                 if (CheckTimout(TimeFromSetPointRequest, MAX_TIME_WAIT_TO_PRESSURE_SET_POINT))
                                 {
-                                    StateChangeState(StateError);
+                                    StateChangeState(StatePressureStableError);
                                 }
                                 //else if (PressureStableFlag)
                                 //{
@@ -220,14 +224,30 @@ namespace DP_dashboard
                             {
                                 if (CheckTimout(TimeFromSetPointRequest, MAX_TIME_WAIT_TO_TEMP_SET_POINT))
                                 {
-                                    StateChangeState(StateError);
+                                    StateChangeState(StateTempStableError);
                                 }
-                                //else if (CurrentTemp == TempUnderTestList[CurrentCalibTempIndex])
-                                // {
-                                StateChangeState(StateSendPressureSetPoints);
-                                // }
+                                //else if (CurrentTempControllerValue == classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex])
+                                //{
+                                //    StateChangeState(StateSendPressureSetPoints);
+                                //}
+                                else if (CheckTempStableOnOneDp(TEMP_TEMP_TOLERANCE))
+                                {
+                                    StateChangeState(StateSendPressureSetPoints);
+                                }
+                                else
+                                {
+                                    Thread.Sleep(1000);
+                                }
+                                
                             }
                             break;
+
+                        case StateTempStableError:
+                            {
+                                StateChangeState(StateEndOneCalibTemp);
+                            }
+                            break;
+                            
                         case StateRunOfAllDp:
                             {
                                 ConnectingToDP = true;
@@ -275,7 +295,7 @@ namespace DP_dashboard
                                 StateChangeState(StateStartCalib);
                             }
                             break;
-                        case StateError:
+                        case StatePressureStableError:
                             {
                                 StateChangeState(StateEndOneCalibPoint);
                             }
@@ -298,6 +318,9 @@ namespace DP_dashboard
         {
             PreviousState = StateStartCalib;
             CurrentState = StateStartCalib;
+
+            CurrentCalibPressureIndex = 0;
+            CurrentCalibTempIndex = 0;
             ChengeStateEvent = true;
         }
 
@@ -399,47 +422,56 @@ namespace DP_dashboard
                     //classDpCommunicationInstanse.DpWritePressurePointToDevice(classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex], CurrentCalibTempIndex, PlcAdc2Bar(CurrentPressure), CurrentCalibPressureIndex);
                     Thread.Sleep(1000);
 
+                    int SendGetInfoCMDCount = 0;
 
-                    classDpCommunicationInstanse.NewDpInfoEvent = false;
-                    classDpCommunicationInstanse.DPgetDpInfo();
-                    Thread.Sleep(1000);
-
-                    /*
-                    it's fo debug
-                    */
-                    //classDpCommunicationInstanse.NewDpInfoEvent = true;
-
-
-
-
-                    if (classDpCommunicationInstanse.NewDpInfoEvent) // check if recieve data from DP
+                    for (SendGetInfoCMDCount = 0; SendGetInfoCMDCount < MAX_ALLOW_SEND_GET_INFO_CMD; SendGetInfoCMDCount++)
                     {
-                        //save the data on the current device and current calibpoint..
-                        classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].PressureValue1 = classDpCommunicationInstanse.dpInfo.S1Pressure;
-                        classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].PressureValue2 = classDpCommunicationInstanse.dpInfo.S2Pressure;
-                        classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempOnDevice = classDpCommunicationInstanse.dpInfo.CurrentTemp;
-                        classDevices[DpPtr].DeviceMacAddress = classDpCommunicationInstanse.dpInfo.DeviseMacAddress;
-
-                        classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].extA2dPressureValue = PlcAdc2Bar(CurrentPressure);
-
                         classDpCommunicationInstanse.NewDpInfoEvent = false;
-                        //classDpCommunicationInstanse.DPgetDpInfo();
+                        classDpCommunicationInstanse.DPgetDpInfo();
+                        Thread.Sleep(1000);
 
-                        if (CurrentCalibPressureIndex == (classCalibrationSettings.PressureUnderTestList.Count - 1) && (CurrentCalibTempIndex == classCalibrationSettings.TempUnderTestList.Count - 1))
+                        /*
+                        it's fo debug
+                        */
+                        //classDpCommunicationInstanse.NewDpInfoEvent = true;
+
+
+
+
+                        if (classDpCommunicationInstanse.NewDpInfoEvent) // check if recieve data from DP
                         {
-                            //send end calibration CMD
-                            classDpCommunicationInstanse.SendEndCalibration();
-                            if (classDevices[DpPtr].deviceStatus == DeviceStatus.Wait)
+                            //save the data on the current device and current calibpoint..
+                            classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].PressureValue1 = classDpCommunicationInstanse.dpInfo.S1Pressure;
+                            classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].PressureValue2 = classDpCommunicationInstanse.dpInfo.S2Pressure;
+                            classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempOnDevice = classDpCommunicationInstanse.dpInfo.CurrentTemp;
+                            classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].A2DValue1 = classDpCommunicationInstanse.dpInfo.A2D1;
+                            classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].A2DValue2 = classDpCommunicationInstanse.dpInfo.A2D2;
+                            classDevices[DpPtr].DeviceMacAddress = classDpCommunicationInstanse.dpInfo.DeviseMacAddress;
+
+                            classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].extA2dPressureValue = PlcAdc2Bar(CurrentPressure);
+
+                            classDpCommunicationInstanse.NewDpInfoEvent = false;
+                            //classDpCommunicationInstanse.DPgetDpInfo();
+
+                            if (CurrentCalibPressureIndex == (classCalibrationSettings.PressureUnderTestList.Count - 1) && (CurrentCalibTempIndex == classCalibrationSettings.TempUnderTestList.Count - 1))
                             {
-                                classDevices[DpPtr].deviceStatus = DeviceStatus.Pass;
+                                //send end calibration CMD
+                                classDpCommunicationInstanse.SendEndCalibration();
+                                if (classDevices[DpPtr].deviceStatus == DeviceStatus.Wait)
+                                {
+                                    classDevices[DpPtr].deviceStatus = DeviceStatus.Pass;
+                                }
                             }
+                            break;
                         }
-
-                    }
-                    else
-                    {
-                        classDevices[DpPtr].deviceStatus = DeviceStatus.Fail;
-
+                        else
+                        {
+                            if (SendGetInfoCMDCount == MAX_ALLOW_SEND_GET_INFO_CMD)
+                            {
+                                classDevices[DpPtr].deviceStatus = DeviceStatus.Fail;
+                            }
+                            Thread.Sleep(100);
+                        }
                     }
                     DpPtr++;
                 }
@@ -652,7 +684,7 @@ namespace DP_dashboard
 
         }
 
-        private bool TempStableOnOneDp()
+        private bool CheckTempStableOnOneDp(float Tollerance)
         {
             for (byte i = 0; i < classCalibrationSettings.JigConfiguration; i++)
             {
@@ -668,10 +700,10 @@ namespace DP_dashboard
                     if (classDpCommunicationInstanse.NewDpInfoEvent)
                     {
                         classDpCommunicationInstanse.NewDpInfoEvent = false;
-
-                        int HigeLimit = Convert.ToInt32((classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex] + 1));
-                        int LoweLimit = Convert.ToInt32((classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex] - 1));
-                        if (Enumerable.Range(HigeLimit, LoweLimit).Contains(classDpCommunicationInstanse.dpInfo.CurrentTemp))
+                        CurrentTempOnDP = classDpCommunicationInstanse.dpInfo.CurrentTemp;
+                        int HigeLimit = Convert.ToInt32((classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex] + Tollerance));
+                        int LoweLimit = Convert.ToInt32((classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex] - Tollerance));
+                        if (CurrentTempOnDP >= LoweLimit  && CurrentTempOnDP <= HigeLimit)
                         {
                             return true;
                         }

@@ -100,6 +100,15 @@ namespace DP_dashboard
                 calibForm.classCalibrationInfo.classCalibrationSettings.JigConfiguration = 8;
             }
 
+
+
+            //update comport nam's
+            calibForm.classCalibrationInfo.classCalibrationSettings.MultiPlexerComPortName       = cmb_multiplexerComPort.SelectedItem.ToString();
+            calibForm.classCalibrationInfo.classCalibrationSettings.TempControllerComPortName    = cmb_tempControllerComPort.SelectedItem.ToString();
+            calibForm.classCalibrationInfo.classCalibrationSettings.PlcComPortName               = cmb_PLCComPort.SelectedItem.ToString();
+            calibForm.classCalibrationInfo.classCalibrationSettings.DpComPortName                = cmb_DPComPort.SelectedItem.ToString();
+
+
             this.Hide();
             calibForm.Show();
         }

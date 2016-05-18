@@ -53,6 +53,9 @@ namespace DP_dashboard
         ConfigForm ConfigFormInstanse;
 
 
+
+
+
         public CalibForm()
         {
             InitializeComponent();
@@ -169,6 +172,7 @@ namespace DP_dashboard
             {
                 classCalibrationInfo.FinishCalibrationEvent = false;
                 UpdateColorStatus();
+                UpdateDataTable(CurrentSnDeviceIsFocus);
             }
 
 
@@ -196,6 +200,8 @@ namespace DP_dashboard
                 classCalibrationInfo.IncermentCalibPointStep = false;
                 string Message = string.Format("Calibration in process : Temp index:{0}. Pressure index:{1}", classCalibrationInfo.CurrentCalibTempIndex.ToString(), classCalibrationInfo.CurrentCalibPressureIndex.ToString());
                 rtb_info.Text += Message + "\r\n";
+
+                UpdateDataTable(CurrentSnDeviceIsFocus);
             }
 
             if (classCalibrationInfo.ChengeStateEvent)
@@ -300,11 +306,6 @@ namespace DP_dashboard
 
         }
 
-        private void dgv_prressureTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void bt_startCalibration_Click(object sender, EventArgs e)
         {
             classCalibrationInfo.DetectFlag = true;
@@ -371,8 +372,8 @@ namespace DP_dashboard
                     dataRow[0] = classCalibrationInfo.classCalibrationSettings.PressureUnderTestList[i].ToString();
                     for (int j = 0; j < classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count; j++)
                     {
-                        dataRow[j  * 2 + 1] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].PressureValue1.ToString();
-                        dataRow[j  * 2 + 2] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].PressureValue2.ToString();
+                        dataRow[j  * 2 + 1] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].A2DValue1.ToString();
+                        dataRow[j  * 2 + 2] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].A2DValue2.ToString();
                     }
                     dgv_deviceData.Rows.Add(dataRow);
                 }
@@ -382,20 +383,22 @@ namespace DP_dashboard
 
         private void dgv_devicesQueue_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgv_devicesQueue.Rows[e.RowIndex].Cells[1].Value != null)
+            if (dgv_devicesQueue.Rows[e.RowIndex].Cells[2].Value != null)
             {
                 CurrentSnDeviceIsFocus = dgv_devicesQueue.Rows[e.RowIndex].Cells[2].Value.ToString();
-                UpdateDataTable(CurrentSnDeviceIsFocus);
             }
+
+            UpdateDataTable(CurrentSnDeviceIsFocus);
+            
         }
 
 
         void UpdateRealTimeData()
         {
             //temp controller
-            tb_currentTemperature.Text = classCalibrationInfo.CurrentTemp.ToString();
+            tb_currentTemperature.Text = classCalibrationInfo.CurrentTempControllerValue.ToString();
             tb_targetTemperature.Text = classCalibrationInfo.classCalibrationSettings.TempUnderTestList[classCalibrationInfo.CurrentCalibTempIndex].ToString();
-
+            tb_temperatureOnDP.Text = classCalibrationInfo.CurrentTempOnDP.ToString();
 
             //pressure
             tb_pressCurrentPressure.Text = classCalibrationInfo.CurrentPressure.ToString();
@@ -647,7 +650,9 @@ namespace DP_dashboard
             classCalibrationInfo.classDpCommunicationInstanse.DPgetDpInfo();
         }
 
+        private void dgv_devicesQueue_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
 
-
+        }
     }
 }

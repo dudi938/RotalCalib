@@ -123,12 +123,6 @@ namespace DP_dashboard
                     NewExistDevice.DeviceSerialNumber = dgv_registerDpPacket.Rows[i].Cells[2].Value.ToString();
                 }
 
-
-                if (dgv_registerDpPacket.Rows[i].Cells[3].Value != null)
-                {
-                    NewExistDevice.DeviceName = dgv_registerDpPacket.Rows[i].Cells[3].Value.ToString();
-                }
-
                 classCalibrationInfo.classDevices[i] = NewExistDevice;
             }
 

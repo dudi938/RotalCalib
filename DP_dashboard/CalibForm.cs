@@ -343,8 +343,12 @@ namespace DP_dashboard
             dgv_devicesQueue.Rows.Clear();
             for (int i = 0; i< classCalibrationInfo.DpCountAxist; i++)
             {
-                dgv_devicesQueue.Rows.Add(i.ToString(), classCalibrationInfo.classDevices[i].DeviceName.ToString(), classCalibrationInfo.classDevices[i].DeviceSerialNumber.ToString());
-            }
+                dgv_devicesQueue.Rows.Add(i.ToString(),
+                    classCalibrationInfo.classDevices[i].DeviceMacAddress.ToString(),
+                    classCalibrationInfo.classDevices[i].DeviceSerialNumber.ToString(),
+                    classCalibrationInfo.classDevices[i].PositionOnBoard.ToString(),
+                    classCalibrationInfo.classDevices[i].BoardNumber.ToString());
+        }
         }
         private void UpdateDataTable(string serialNumber)
         {
@@ -372,8 +376,8 @@ namespace DP_dashboard
                     dataRow[0] = classCalibrationInfo.classCalibrationSettings.PressureUnderTestList[i].ToString();
                     for (int j = 0; j < classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count; j++)
                     {
-                        dataRow[j  * 2 + 1] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].A2DValue1.ToString();
-                        dataRow[j  * 2 + 2] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].A2DValue2.ToString();
+                        dataRow[j  * 2 + 1] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].LeftA2DValue.ToString();
+                        dataRow[j  * 2 + 2] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].RightA2DValue.ToString();
                     }
                     dgv_deviceData.Rows.Add(dataRow);
                 }
@@ -460,6 +464,8 @@ namespace DP_dashboard
 
             //byte[] SN = System.Text.Encoding.ASCII.GetBytes(CutSn);
             //classDpCommunication.SendDpSerialNumber(SN);
+
+            //classDpCommunication.DPgetDpInfo();
         }
 
         private void bt_connectDP_Click(object sender, EventArgs e)
@@ -651,6 +657,11 @@ namespace DP_dashboard
         }
 
         private void dgv_devicesQueue_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
 
         }

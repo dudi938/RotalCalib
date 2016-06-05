@@ -22,6 +22,12 @@ namespace DP_dashboard
         public string MultiPlexerComPortName = Properties.Settings.Default.multiplexingComPort;
         public string DpComPortName = Properties.Settings.Default.dpComPort;
         public string TempControllerComPortName = Properties.Settings.Default.TempControllerComPort;
+
+        public int TempSkipTime = 600;         // 10 min
+        public int TempSampleInterval = 300;   // 5 min
+        public float TempDeltaRange = 0.5f;    // 0.5
+        public int TempMaxWaitTime = 2700;     // 45 min
+        public int TempSampleAmount = 3;
     }
 
 
@@ -53,7 +59,7 @@ namespace DP_dashboard
         private const int MAX_TIME_WAIT_TO_TEMP_SET_POINT               = 1800;     // 30 min 1800
         private const int GET_DP_INFO_TIMOUT                            = 1;       // 1 sec
         private const int READ_PRESSURE_INTERVAL                        = 1;
-
+        private const int TEMP_WAIT_BETWEEN_TOW_SMPLINGS                = 300; // 5 min
 
         //constant parameters
         private const byte MAX_DP_DEVICES                               = 0x10;      //16
@@ -222,21 +228,20 @@ namespace DP_dashboard
 
                         case StateWaitToSetTempStable:
                             {
-                                if (CheckTimout(TimeFromSetPointRequest, MAX_TIME_WAIT_TO_TEMP_SET_POINT))
+                                if (CheckTimout(TimeFromSetPointRequest,classCalibrationSettings.TempMaxWaitTime))
                                 {
                                     StateChangeState(StateTempStableError);
                                 }
-                                //else if (CurrentTempControllerValue == classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex])
-                                //{
-                                //    StateChangeState(StateSendPressureSetPoints);
-                                //}
-                                else if (CheckTempStableOnOneDp(TEMP_TEMP_TOLERANCE))
+                                else if (CheckTimout(TimeFromSetPointRequest, classCalibrationSettings.TempSkipTime))
                                 {
-                                    StateChangeState(StateSendPressureSetPoints);
-                                }
-                                else
-                                {
-                                    Thread.Sleep(1000);
+                                    if (CheckTempStableOnOneDp(classCalibrationSettings.TempDeltaRange))
+                                    {
+                                        StateChangeState(StateSendPressureSetPoints);
+                                    }
+                                    else
+                                    {
+                                        Thread.Sleep(TEMP_WAIT_BETWEEN_TOW_SMPLINGS * 1000);
+                                    }
                                 }
                                 
                             }
@@ -444,8 +449,8 @@ namespace DP_dashboard
                             classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].PressureValue1 = classDpCommunicationInstanse.dpInfo.S1Pressure;
                             classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].PressureValue2 = classDpCommunicationInstanse.dpInfo.S2Pressure;
                             classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempOnDevice = classDpCommunicationInstanse.dpInfo.CurrentTemp;
-                            classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].A2DValue1 = classDpCommunicationInstanse.dpInfo.A2D1;
-                            classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].A2DValue2 = classDpCommunicationInstanse.dpInfo.A2D2;
+                            classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].LeftA2DValue = classDpCommunicationInstanse.dpInfo.LeftA2D;
+                            classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].RightA2DValue = classDpCommunicationInstanse.dpInfo.RightA2D;
                             classDevices[DpPtr].DeviceMacAddress = classDpCommunicationInstanse.dpInfo.DeviseMacAddress;
 
                             classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].extA2dPressureValue = PlcAdc2Bar(CurrentPressure);
@@ -596,6 +601,8 @@ namespace DP_dashboard
 
                         ClassDevice newDeviceExist = new ClassDevice();
 
+                        newDeviceExist.PositionOnBoard = i;
+                        newDeviceExist.BoardNumber = (i >= 0 && i < 8) ? 1 : 2;
 
                         newDeviceExist.DeviceMacAddress = classDpCommunicationInstanse.dpInfo.DeviseMacAddress;
                         newDeviceExist.DeviceSerialNumber = classDpCommunicationInstanse.dpInfo.DeviceSerialNumber;
@@ -649,71 +656,44 @@ namespace DP_dashboard
             DetectDevicesTaskHandlerThread.Start();
         }
 
-        int Count = 0;
-        void DUMY()
-        {
-            classMultiplexingInstanse.ConnectDpDevice(0);
-            Thread.Sleep(1000);
-
-            //classDpCommunicationInstanse.DpWritePressurePointToDevice(classDevices[0].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempUnderTest, CurrentCalibTempIndex, CurrentPressure, CurrentCalibPressureIndex);
-            classDpCommunicationInstanse.NewDpInfoEvent = false;
-            classDpCommunicationInstanse.DPgetDpInfo();
-            Thread.Sleep(1000);
-
-            if (classDpCommunicationInstanse.NewDpInfoEvent)
-            {
-                classDpCommunicationInstanse.DpWritePressurePointToDevice(classDevices[0].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempUnderTest, CurrentCalibTempIndex, CurrentPressure, CurrentCalibPressureIndex);
-                Count++;
-            }
-
-
-            classMultiplexingInstanse.ConnectDpDevice(1);
-            Thread.Sleep(1000);
-
-
-
-            classDpCommunicationInstanse.NewDpInfoEvent = false;
-            classDpCommunicationInstanse.DPgetDpInfo();
-            Thread.Sleep(1000);
-
-            if (classDpCommunicationInstanse.NewDpInfoEvent)
-            {
-                classDpCommunicationInstanse.DpWritePressurePointToDevice(classDevices[1].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempUnderTest, CurrentCalibTempIndex, CurrentPressure, CurrentCalibPressureIndex);
-                Count++;
-            }
-
-        }
 
         private bool CheckTempStableOnOneDp(float Tollerance)
         {
-            for (byte i = 0; i < classCalibrationSettings.JigConfiguration; i++)
+            List<float> DpTempSamples = new List<float>();
+
+            classMultiplexingInstanse.ConnectDpDevice((byte)classDevices[0].PositionOnBoard);
+            Thread.Sleep(250);
+            for (int i = 0; i < classCalibrationSettings.TempSampleAmount; i++)
             {
-                if (classCalibrationSettings.ConnectedChanels[i])
+
+                UpdateRealTimeData();
+
+                classDpCommunicationInstanse.NewDpInfoEvent = false;
+                classDpCommunicationInstanse.DPgetDpInfo();
+                Thread.Sleep(500);
+
+                if (classDpCommunicationInstanse.NewDpInfoEvent)
                 {
-                    classMultiplexingInstanse.ConnectDpDevice(i);
-                    Thread.Sleep(250);
-
                     classDpCommunicationInstanse.NewDpInfoEvent = false;
-                    classDpCommunicationInstanse.DPgetDpInfo();
-                    Thread.Sleep(500);
-
-                    if (classDpCommunicationInstanse.NewDpInfoEvent)
-                    {
-                        classDpCommunicationInstanse.NewDpInfoEvent = false;
-                        CurrentTempOnDP = classDpCommunicationInstanse.dpInfo.CurrentTemp;
-                        int HigeLimit = Convert.ToInt32((classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex] + Tollerance));
-                        int LoweLimit = Convert.ToInt32((classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex] - Tollerance));
-                        if (CurrentTempOnDP >= LoweLimit  && CurrentTempOnDP <= HigeLimit)
-                        {
-                            return true;
-                        }
-                    }
-
+                    CurrentTempOnDP = classDpCommunicationInstanse.dpInfo.CurrentTemp;
+                    DpTempSamples.Add(CurrentTempOnDP);
                 }
+                Thread.Sleep(classCalibrationSettings.TempSampleInterval * 1000);
+            }
 
+
+            float x = Math.Abs(DpTempSamples[DpTempSamples.Count - 1] - DpTempSamples[0]);
+            float y = Math.Abs(DpTempSamples.Average() - DpTempSamples[DpTempSamples.Count - 1]);
+
+
+            if (Math.Abs(DpTempSamples[DpTempSamples.Count - 1] - DpTempSamples[0]) < classCalibrationSettings.TempDeltaRange &&
+                Math.Abs(DpTempSamples.Average() - DpTempSamples[DpTempSamples.Count - 1]) < classCalibrationSettings.TempDeltaRange)
+            {
+                return true;
             }
             return false;
-        }
+
+        } 
     }
 }
 

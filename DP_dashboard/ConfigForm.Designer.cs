@@ -32,6 +32,7 @@
             this.Enable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Temperture = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.bt_loadDefoult = new System.Windows.Forms.Button();
             this.dgv_calibPressuresPointsTable = new System.Windows.Forms.DataGridView();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Pressure = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,11 +51,23 @@
             this.lbl_jigConfiguration = new System.Windows.Forms.Label();
             this.cmb_tempControllerComPort = new System.Windows.Forms.ComboBox();
             this.cmb_jigConfiguration = new System.Windows.Forms.ComboBox();
-            this.bt_loadDefoult = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tb_tempSkipTime = new System.Windows.Forms.TextBox();
+            this.tb_temSpampleInterval = new System.Windows.Forms.TextBox();
+            this.tb_tempDeltaRange = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tb_tempMaxWaitTime = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tb_tempSampleNum = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calibTempPointsTable)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calibPressuresPointsTable)).BeginInit();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgv_calibTempPointsTable
@@ -85,17 +98,30 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.bt_loadDefoult);
+            this.panel1.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.panel1.Controls.Add(this.dgv_calibPressuresPointsTable);
-            this.panel1.Controls.Add(this.bt_Cancel);
-            this.panel1.Controls.Add(this.bt_saveCalibPoint);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.dgv_calibTempPointsTable);
             this.panel1.Location = new System.Drawing.Point(31, 42);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(688, 615);
+            this.panel1.Size = new System.Drawing.Size(688, 502);
             this.panel1.TabIndex = 1;
+            // 
+            // bt_loadDefoult
+            // 
+            this.bt_loadDefoult.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.bt_loadDefoult.CausesValidation = false;
+            this.bt_loadDefoult.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_loadDefoult.ForeColor = System.Drawing.Color.Blue;
+            this.bt_loadDefoult.Location = new System.Drawing.Point(988, 695);
+            this.bt_loadDefoult.Margin = new System.Windows.Forms.Padding(4);
+            this.bt_loadDefoult.Name = "bt_loadDefoult";
+            this.bt_loadDefoult.Size = new System.Drawing.Size(154, 71);
+            this.bt_loadDefoult.TabIndex = 6;
+            this.bt_loadDefoult.Text = "Load defoult ";
+            this.bt_loadDefoult.UseVisualStyleBackColor = false;
+            this.bt_loadDefoult.Click += new System.EventHandler(this.bt_loadDefoult_Click);
             // 
             // dgv_calibPressuresPointsTable
             // 
@@ -125,11 +151,11 @@
             // 
             // bt_Cancel
             // 
-            this.bt_Cancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.bt_Cancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.bt_Cancel.CausesValidation = false;
             this.bt_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_Cancel.ForeColor = System.Drawing.Color.Blue;
-            this.bt_Cancel.Location = new System.Drawing.Point(424, 520);
+            this.bt_Cancel.Location = new System.Drawing.Point(1186, 695);
             this.bt_Cancel.Margin = new System.Windows.Forms.Padding(4);
             this.bt_Cancel.Name = "bt_Cancel";
             this.bt_Cancel.Size = new System.Drawing.Size(153, 71);
@@ -140,11 +166,11 @@
             // 
             // bt_saveCalibPoint
             // 
-            this.bt_saveCalibPoint.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.bt_saveCalibPoint.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.bt_saveCalibPoint.CausesValidation = false;
             this.bt_saveCalibPoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_saveCalibPoint.ForeColor = System.Drawing.Color.Blue;
-            this.bt_saveCalibPoint.Location = new System.Drawing.Point(45, 520);
+            this.bt_saveCalibPoint.Location = new System.Drawing.Point(794, 695);
             this.bt_saveCalibPoint.Margin = new System.Windows.Forms.Padding(4);
             this.bt_saveCalibPoint.Name = "bt_saveCalibPoint";
             this.bt_saveCalibPoint.Size = new System.Drawing.Size(152, 71);
@@ -168,6 +194,7 @@
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.cmb_PLCComPort);
@@ -182,7 +209,7 @@
             this.panel2.Location = new System.Drawing.Point(727, 42);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(579, 615);
+            this.panel2.Size = new System.Drawing.Size(579, 502);
             this.panel2.TabIndex = 6;
             // 
             // label5
@@ -286,27 +313,134 @@
             this.cmb_jigConfiguration.Size = new System.Drawing.Size(121, 24);
             this.cmb_jigConfiguration.TabIndex = 5;
             // 
-            // bt_loadDefoult
+            // panel3
             // 
-            this.bt_loadDefoult.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.bt_loadDefoult.CausesValidation = false;
-            this.bt_loadDefoult.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_loadDefoult.ForeColor = System.Drawing.Color.Blue;
-            this.bt_loadDefoult.Location = new System.Drawing.Point(235, 520);
-            this.bt_loadDefoult.Margin = new System.Windows.Forms.Padding(4);
-            this.bt_loadDefoult.Name = "bt_loadDefoult";
-            this.bt_loadDefoult.Size = new System.Drawing.Size(154, 71);
-            this.bt_loadDefoult.TabIndex = 6;
-            this.bt_loadDefoult.Text = "Load defoult ";
-            this.bt_loadDefoult.UseVisualStyleBackColor = false;
-            this.bt_loadDefoult.Click += new System.EventHandler(this.bt_loadDefoult_Click);
+            this.panel3.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel3.Controls.Add(this.label11);
+            this.panel3.Controls.Add(this.tb_tempSampleNum);
+            this.panel3.Controls.Add(this.label10);
+            this.panel3.Controls.Add(this.tb_tempMaxWaitTime);
+            this.panel3.Controls.Add(this.label9);
+            this.panel3.Controls.Add(this.label8);
+            this.panel3.Controls.Add(this.label7);
+            this.panel3.Controls.Add(this.tb_tempDeltaRange);
+            this.panel3.Controls.Add(this.tb_temSpampleInterval);
+            this.panel3.Controls.Add(this.tb_tempSkipTime);
+            this.panel3.Controls.Add(this.label6);
+            this.panel3.Location = new System.Drawing.Point(31, 604);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(688, 262);
+            this.panel3.TabIndex = 7;
+            // 
+            // label6
+            // 
+            this.label6.AutoEllipsis = true;
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.label6.Location = new System.Drawing.Point(115, 14);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(340, 29);
+            this.label6.TabIndex = 18;
+            this.label6.Text = "Temperature stable settings";
+            // 
+            // tb_tempSkipTime
+            // 
+            this.tb_tempSkipTime.Location = new System.Drawing.Point(243, 72);
+            this.tb_tempSkipTime.Name = "tb_tempSkipTime";
+            this.tb_tempSkipTime.Size = new System.Drawing.Size(100, 22);
+            this.tb_tempSkipTime.TabIndex = 19;
+            this.tb_tempSkipTime.Text = "5";
+            // 
+            // tb_temSpampleInterval
+            // 
+            this.tb_temSpampleInterval.Location = new System.Drawing.Point(243, 126);
+            this.tb_temSpampleInterval.Name = "tb_temSpampleInterval";
+            this.tb_temSpampleInterval.Size = new System.Drawing.Size(100, 22);
+            this.tb_temSpampleInterval.TabIndex = 20;
+            this.tb_temSpampleInterval.Text = "1";
+            // 
+            // tb_tempDeltaRange
+            // 
+            this.tb_tempDeltaRange.Location = new System.Drawing.Point(243, 177);
+            this.tb_tempDeltaRange.Name = "tb_tempDeltaRange";
+            this.tb_tempDeltaRange.Size = new System.Drawing.Size(100, 22);
+            this.tb_tempDeltaRange.TabIndex = 21;
+            this.tb_tempDeltaRange.Text = "0.5";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(27, 74);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(122, 17);
+            this.label7.TabIndex = 22;
+            this.label7.Text = "Skip time[minutes]";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(27, 180);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(97, 17);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "Delta range[c]";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(27, 129);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(162, 17);
+            this.label9.TabIndex = 24;
+            this.label9.Text = "Sample interval[minutes]";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(27, 228);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(148, 17);
+            this.label10.TabIndex = 26;
+            this.label10.Text = "Max wait time[minutes]";
+            // 
+            // tb_tempMaxWaitTime
+            // 
+            this.tb_tempMaxWaitTime.Location = new System.Drawing.Point(243, 225);
+            this.tb_tempMaxWaitTime.Name = "tb_tempMaxWaitTime";
+            this.tb_tempMaxWaitTime.Size = new System.Drawing.Size(100, 22);
+            this.tb_tempMaxWaitTime.TabIndex = 25;
+            this.tb_tempMaxWaitTime.Text = "45";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(419, 80);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(86, 17);
+            this.label11.TabIndex = 28;
+            this.label11.Text = "Sample num";
+            // 
+            // tb_tempSampleNum
+            // 
+            this.tb_tempSampleNum.Location = new System.Drawing.Point(539, 77);
+            this.tb_tempSampleNum.Name = "tb_tempSampleNum";
+            this.tb_tempSampleNum.Size = new System.Drawing.Size(100, 22);
+            this.tb_tempSampleNum.TabIndex = 27;
+            this.tb_tempSampleNum.Text = "10";
             // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1717, 878);
+            this.Controls.Add(this.bt_loadDefoult);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.bt_Cancel);
             this.Controls.Add(this.panel2);
+            this.Controls.Add(this.bt_saveCalibPoint);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ConfigForm";
@@ -318,6 +452,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calibPressuresPointsTable)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -347,5 +483,17 @@
         private System.Windows.Forms.ComboBox cmb_tempControllerComPort;
         private System.Windows.Forms.ComboBox cmb_jigConfiguration;
         private System.Windows.Forms.Button bt_loadDefoult;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox tb_tempDeltaRange;
+        private System.Windows.Forms.TextBox tb_temSpampleInterval;
+        private System.Windows.Forms.TextBox tb_tempSkipTime;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox tb_tempMaxWaitTime;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox tb_tempSampleNum;
     }
 }

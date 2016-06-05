@@ -81,7 +81,7 @@ namespace DP_dashboard
                 {
                     line += pressuresUnderTeat[i].ToString() + ",";
                 }
-                line += string.Format("{0},{1},{2},", device.DeviceMacAddress, device.DeviceSerialNumber, device.DeviceName);
+                line += string.Format("{0},{1},", device.DeviceMacAddress, device.DeviceSerialNumber);
                 file.WriteLine(line);
 
                 //write dp A2D1
@@ -89,9 +89,9 @@ namespace DP_dashboard
                 line = string.Format("Temp#{0}-DP_A2D_1,", tempIndex);
                 for (int i = 0; i < pressuresUnderTeat.Count; i++)
                 {
-                    line += device.CalibrationData[tempIndex, i].A2DValue1.ToString() + ",";
+                    line += device.CalibrationData[tempIndex, i].LeftA2DValue.ToString() + ",";
                 }
-                line += string.Format("{0},{1},{2},", device.DeviceMacAddress, device.DeviceSerialNumber, device.DeviceName);
+                line += string.Format("{0},{1},", device.DeviceMacAddress, device.DeviceSerialNumber);
                 file.WriteLine(line);
 
                 //write dp A2D2
@@ -99,9 +99,9 @@ namespace DP_dashboard
                 line = string.Format("Temp#{0}-DP_A2D_2,", tempIndex);
                 for (int i = 0; i < pressuresUnderTeat.Count; i++)
                 {
-                    line += device.CalibrationData[tempIndex, i].A2DValue2.ToString() + ",";
+                    line += device.CalibrationData[tempIndex, i].RightA2DValue.ToString() + ",";
                 }
-                line += string.Format("{0},{1},{2},", device.DeviceMacAddress, device.DeviceSerialNumber, device.DeviceName);
+                line += string.Format("{0},{1},", device.DeviceMacAddress, device.DeviceSerialNumber);
                 file.WriteLine(line);
 
 
@@ -112,7 +112,7 @@ namespace DP_dashboard
                 {
                     line += device.CalibrationData[tempIndex, i].tempOnDevice.ToString() + ",";
                 }
-                line += string.Format("{0},{1},{2},", device.DeviceMacAddress, device.DeviceSerialNumber, device.DeviceName);
+                line += string.Format("{0},{1},", device.DeviceMacAddress, device.DeviceSerialNumber);
                 file.WriteLine(line);
 
                 file.Close();

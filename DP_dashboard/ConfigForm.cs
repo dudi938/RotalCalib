@@ -47,8 +47,6 @@ namespace DP_dashboard
             calibForm.classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Clear();
             calibForm.classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Clear();
 
-            MessageBox.Show("You go to delete the old configuration points");
-
             //save temp points
             for (int i = 0; i < dgv_calibTempPointsTable.Rows.Count; i++)
             {
@@ -82,6 +80,7 @@ namespace DP_dashboard
 
             }
 
+
             // update jig configuration
             if (cmb_jigConfiguration.SelectedItem != null)
             {
@@ -108,6 +107,14 @@ namespace DP_dashboard
             calibForm.classCalibrationInfo.classCalibrationSettings.PlcComPortName               = cmb_PLCComPort.SelectedItem.ToString();
             calibForm.classCalibrationInfo.classCalibrationSettings.DpComPortName                = cmb_DPComPort.SelectedItem.ToString();
 
+
+
+            // update temp sample settings
+            calibForm.classCalibrationInfo.classCalibrationSettings.TempSkipTime = Convert.ToInt32(tb_tempSkipTime.Text) * 60;
+            calibForm.classCalibrationInfo.classCalibrationSettings.TempSampleInterval = Convert.ToInt32(tb_temSpampleInterval.Text) * 60;
+            calibForm.classCalibrationInfo.classCalibrationSettings.TempDeltaRange = float.Parse(tb_tempDeltaRange.Text);
+            calibForm.classCalibrationInfo.classCalibrationSettings.TempMaxWaitTime = Convert.ToInt32(tb_tempMaxWaitTime.Text) * 60;      
+            calibForm.classCalibrationInfo.classCalibrationSettings.TempSampleAmount = Convert.ToInt32(tb_tempSampleNum.Text);
 
             this.Hide();
             calibForm.Show();

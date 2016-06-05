@@ -19,8 +19,8 @@ namespace DpCommunication
         public byte    CurrentTemp;
         public float   S1Pressure;
         public float   S2Pressure;
-        public UInt16   A2D1;
-        public UInt16   A2D2;
+        public UInt16  LeftA2D;
+        public UInt16  RightA2D;
         public byte    Calibrated;         
     }
 
@@ -216,8 +216,8 @@ namespace DpCommunication
                             dpInfo.Calibrated = incomingData[DEVICE_INFO_CALIBRATED_OFFSET];
                             dpInfo.DeviceSerialNumber = System.Text.Encoding.UTF8.GetString(incomingData, DEVICE_INFO_SERIAL_NUMBER_OFFSET, 8);
 
-                            dpInfo.A2D1 = BitConverter.ToUInt16(incomingData, DEVICE_INFO_A2D1_OFFSET);
-                            dpInfo.A2D2 = BitConverter.ToUInt16(incomingData, DEVICE_INFO_A2D2_OFFSET);
+                            dpInfo.LeftA2D = BitConverter.ToUInt16(incomingData, DEVICE_INFO_A2D1_OFFSET);
+                            dpInfo.RightA2D = BitConverter.ToUInt16(incomingData, DEVICE_INFO_A2D2_OFFSET);
                             NewDpInfoEvent = true;
                         }
                         break;

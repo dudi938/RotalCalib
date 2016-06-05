@@ -63,7 +63,7 @@ namespace DP_dashboard
             dgv_dpTableInfo.Rows.Clear();
             for (int i = 0; i < classCalibrationInfo.DpCountAxist ;  i++)
             {
-                dgv_dpTableInfo.Rows.Add(i.ToString(),true,classCalibrationInfo.classDevices[i].DeviceSerialNumber,classCalibrationInfo.classDevices[i].DeviceName);
+                dgv_dpTableInfo.Rows.Add(i.ToString(),true,classCalibrationInfo.classDevices[i].DeviceSerialNumber);
             }
         }
 
@@ -92,7 +92,7 @@ namespace DP_dashboard
                 // need implamnt wait to insure that the device are connected
 
 
-                string RealTimeData = string.Format("Start Program DP Number {0}. Serial number:{1}. Name: {2}.",i.ToString(), classCalibrationInfo.classDevices[i].DeviceSerialNumber.ToString(), classCalibrationInfo.classDevices[i].DeviceName.ToString());
+                string RealTimeData = string.Format("Start Program DP Number {0}. Serial number:{1}.",i.ToString(), classCalibrationInfo.classDevices[i].DeviceSerialNumber.ToString());
                 lbl_info.Text = RealTimeData; 
 
                 bool res = FlashDpDevice(@"C:\Users\dudi9\Desktop\DPT.hex");

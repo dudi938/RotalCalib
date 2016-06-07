@@ -174,6 +174,17 @@ namespace TempController_dll
         }
         #endregion
 
+
+
+        public void CloseComPort()
+        {
+            if (sp.IsOpen)
+            {
+                sp.Close();
+            }
+        }
+
+
         #region Function 16 - Write Multiple Registers
         public bool SendFc16(byte address, ushort start, ushort registers, short[] values)
         {

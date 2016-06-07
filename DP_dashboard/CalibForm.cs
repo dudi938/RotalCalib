@@ -460,12 +460,12 @@ namespace DP_dashboard
             rtb_info.Text = "";
 
 
-            //string CutSn = tb_tempIndexAfterPause.Text.Substring(4);
+            string CutSn = tb_tempIndexAfterPause.Text.Substring(4);
 
-            //byte[] SN = System.Text.Encoding.ASCII.GetBytes(CutSn);
-            //classDpCommunication.SendDpSerialNumber(SN);
+            byte[] SN = System.Text.Encoding.ASCII.GetBytes(CutSn);
+            classDpCommunication.SendDpSerialNumber(SN);
 
-            //classDpCommunication.DPgetDpInfo();
+            classDpCommunication.DPgetDpInfo();
         }
 
         private void bt_connectDP_Click(object sender, EventArgs e)
@@ -574,6 +574,12 @@ namespace DP_dashboard
         {
             classCalibrationInfo.DoCalibration  = false;
             classCalibrationInfo.DetectFlag = false;
+
+            ClassDeltaProtocol.CloseComPort();
+            classDpCommunication.CloseComPort();
+            classMultiplexing.CloseComPort();
+            tempControllerInstanse.CloseComPort();
+
         }
 
         private void CalibrationButtonHandele()
@@ -591,7 +597,7 @@ namespace DP_dashboard
                     }
                     else
                     {
-                        bt_pauseStartCalib.Text = "Stop";
+                        bt_pauseStartCalib.Text = "Pause";
                     }
                     bt_pauseStartCalib.Enabled = true;
 
@@ -604,7 +610,7 @@ namespace DP_dashboard
                         bt_startCalibration.Enabled = false;
                     }
 
-                    bt_pauseStartCalib.Text = "Stop";
+                    bt_pauseStartCalib.Text = "Pause";
                     bt_pauseStartCalib.Enabled = false;
 
                     bt_stopCalibration.Enabled = false;
@@ -615,7 +621,7 @@ namespace DP_dashboard
             {
                 bt_startCalibration.Enabled = true;
 
-                bt_pauseStartCalib.Text = "Stop";
+                bt_pauseStartCalib.Text = "Pause";
                 bt_pauseStartCalib.Enabled = false;
 
                 bt_stopCalibration.Enabled = false;

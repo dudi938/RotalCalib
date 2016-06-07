@@ -61,7 +61,13 @@ namespace multiplexing_dll
             return dt.Second.ToString();
         }
 
-
+        public void CloseComPort()
+        {
+            if (SerialPortInstanse.port.IsOpen)
+            {
+                SerialPortInstanse.port.Close();
+            }
+        }
 
         private void ApiTask()
         {

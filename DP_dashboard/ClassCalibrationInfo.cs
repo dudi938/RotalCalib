@@ -228,7 +228,7 @@ namespace DP_dashboard
 
                         case StateWaitToSetTempStable:
                             {
-                                if (CheckTimout(TimeFromSetPointRequest,classCalibrationSettings.TempMaxWaitTime))
+                                if (CheckTimout(TimeFromSetPointRequest, classCalibrationSettings.TempMaxWaitTime))
                                 {
                                     StateChangeState(StateTempStableError);
                                 }
@@ -243,7 +243,9 @@ namespace DP_dashboard
                                         Thread.Sleep(TEMP_WAIT_BETWEEN_TOW_SMPLINGS * 1000);
                                     }
                                 }
-                                
+
+                                //StateChangeState(StateSendPressureSetPoints);
+
                             }
                             break;
 
@@ -407,41 +409,24 @@ namespace DP_dashboard
 
 
         }
+
+
+
         private void WriteReadInfoFromDp()
         {
-#if false
-            DUMY();
-
-#else
             int DpPtr = 0;
             for (byte i = 0; i < classCalibrationSettings.JigConfiguration; i++)
             {
                 if (classCalibrationSettings.ConnectedChanels[i] == true)
                 {
-                    classMultiplexingInstanse.ConnectDpDevice(i);
-                    Thread.Sleep(250);
-
-                    //write preaaure value to DP
-
-                    classDpCommunicationInstanse.DpWritePressurePointToDevice(classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex], CurrentCalibTempIndex, classCalibrationSettings.PressureUnderTestList[CurrentCalibPressureIndex], CurrentCalibPressureIndex);
-                    //classDpCommunicationInstanse.DpWritePressurePointToDevice(classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex], CurrentCalibTempIndex, PlcAdc2Bar(CurrentPressure), CurrentCalibPressureIndex);
-                    Thread.Sleep(1000);
-
-                    int SendGetInfoCMDCount = 0;
-
-                    for (SendGetInfoCMDCount = 0; SendGetInfoCMDCount < MAX_ALLOW_SEND_GET_INFO_CMD; SendGetInfoCMDCount++)
+                    for (int j = 0; j < MAX_ALLOW_SEND_GET_INFO_CMD; j++)
                     {
-                        classDpCommunicationInstanse.NewDpInfoEvent = false;
-                        classDpCommunicationInstanse.DPgetDpInfo();
-                        Thread.Sleep(1000);
+                        classMultiplexingInstanse.ConnectDpDevice(i);
+                        Thread.Sleep(250);
 
-                        /*
-                        it's fo debug
-                        */
-                        //classDpCommunicationInstanse.NewDpInfoEvent = true;
-
-
-
+                        classDpCommunicationInstanse.DpWritePressurePointToDevice(classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex], CurrentCalibTempIndex, classCalibrationSettings.PressureUnderTestList[CurrentCalibPressureIndex], CurrentCalibPressureIndex);
+                        //classDpCommunicationInstanse.DpWritePressurePointToDevice(classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex], CurrentCalibTempIndex, PlcAdc2Bar(CurrentPressure), CurrentCalibPressureIndex);
+                        Thread.Sleep(2000);
 
                         if (classDpCommunicationInstanse.NewDpInfoEvent) // check if recieve data from DP
                         {
@@ -467,22 +452,94 @@ namespace DP_dashboard
                                     classDevices[DpPtr].deviceStatus = DeviceStatus.Pass;
                                 }
                             }
-                            break;
                         }
                         else
                         {
-                            if (SendGetInfoCMDCount == MAX_ALLOW_SEND_GET_INFO_CMD)
+                            if (j == MAX_ALLOW_SEND_GET_INFO_CMD)
                             {
                                 classDevices[DpPtr].deviceStatus = DeviceStatus.Fail;
                             }
-                            Thread.Sleep(100);
                         }
                     }
                     DpPtr++;
                 }
             }
-#endif
         }
+
+
+        //       private void WriteReadInfoFromDp()
+        //       {
+        //           int DpPtr = 0;
+        //           for (byte i = 0; i < classCalibrationSettings.JigConfiguration; i++)
+        //           {
+        //               if (classCalibrationSettings.ConnectedChanels[i] == true)
+        //               {
+        //                   classMultiplexingInstanse.ConnectDpDevice(i);
+        //                   Thread.Sleep(250);
+
+        //                   //write preaaure value to DP
+
+        //                   classDpCommunicationInstanse.DpWritePressurePointToDevice(classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex], CurrentCalibTempIndex, classCalibrationSettings.PressureUnderTestList[CurrentCalibPressureIndex], CurrentCalibPressureIndex);
+        //                   //classDpCommunicationInstanse.DpWritePressurePointToDevice(classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex], CurrentCalibTempIndex, PlcAdc2Bar(CurrentPressure), CurrentCalibPressureIndex);
+        //                   Thread.Sleep(2000);
+
+        //                   //int SendGetInfoCMDCount = 0;
+
+        //                   //for (SendGetInfoCMDCount = 0; SendGetInfoCMDCount < MAX_ALLOW_SEND_GET_INFO_CMD; SendGetInfoCMDCount++)
+        //                   //{
+        //                   //    classDpCommunicationInstanse.NewDpInfoEvent = false;
+        //                   //    classDpCommunicationInstanse.DPgetDpInfo();
+        //                   //    Thread.Sleep(1000);
+
+        //                       /*
+        //                       it's fo debug
+        //                       */
+        //                       //classDpCommunicationInstanse.NewDpInfoEvent = true;
+
+
+
+
+        //                       if (classDpCommunicationInstanse.NewDpInfoEvent) // check if recieve data from DP
+        //                       {
+        //                           //save the data on the current device and current calibpoint..
+        //                           classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].PressureValue1 = classDpCommunicationInstanse.dpInfo.S1Pressure;
+        //                           classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].PressureValue2 = classDpCommunicationInstanse.dpInfo.S2Pressure;
+        //                           classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].tempOnDevice = classDpCommunicationInstanse.dpInfo.CurrentTemp;
+        //                           classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].LeftA2DValue = classDpCommunicationInstanse.dpInfo.LeftA2D;
+        //                           classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].RightA2DValue = classDpCommunicationInstanse.dpInfo.RightA2D;
+        //                           classDevices[DpPtr].DeviceMacAddress = classDpCommunicationInstanse.dpInfo.DeviseMacAddress;
+
+        //                           classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].extA2dPressureValue = PlcAdc2Bar(CurrentPressure);
+
+        //                           classDpCommunicationInstanse.NewDpInfoEvent = false;
+        //                           //classDpCommunicationInstanse.DPgetDpInfo();
+
+        //                           if (CurrentCalibPressureIndex == (classCalibrationSettings.PressureUnderTestList.Count - 1) && (CurrentCalibTempIndex == classCalibrationSettings.TempUnderTestList.Count - 1))
+        //                           {
+        //                               //send end calibration CMD
+        //                               classDpCommunicationInstanse.SendEndCalibration();
+        //                               if (classDevices[DpPtr].deviceStatus == DeviceStatus.Wait)
+        //                               {
+        //                                   classDevices[DpPtr].deviceStatus = DeviceStatus.Pass;
+        //                               }
+        //                           }
+        //                           break;
+        //                       }
+        //                       else
+        //                       {
+        //                           //if (SendGetInfoCMDCount == MAX_ALLOW_SEND_GET_INFO_CMD)
+        //                           //{
+        //                               classDevices[DpPtr].deviceStatus = DeviceStatus.Fail;
+        //                       //}
+        //                       //Thread.Sleep(100);
+
+        //                       //DpPtr++;
+        //                   }
+        ////                   }
+        //                   DpPtr++;
+        //               }
+        //           }
+        //       }
 
 
 
@@ -697,4 +754,5 @@ namespace DP_dashboard
     }
 }
 
-                   
+
+

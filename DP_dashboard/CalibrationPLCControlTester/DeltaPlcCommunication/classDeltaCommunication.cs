@@ -73,6 +73,13 @@ namespace DeltaPlcCommunication
             return serial.IsComOpen();
         }
 
+        public void CloseComPort()
+        {
+            if (serial.port.IsOpen)
+            {
+                serial.port.Close();
+            }
+        }
 
         public DeltaReturnedData SendNewMessage(DeltaMsgType bCommand, DeltaMemType bType, int iAddress, byte bSize,List<Int16> oDataArrayToWrite = null)
         {

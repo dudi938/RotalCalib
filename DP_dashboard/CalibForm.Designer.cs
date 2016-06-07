@@ -38,7 +38,23 @@
             this.bt_stopCalibration = new System.Windows.Forms.Button();
             this.bt_startCalibration = new System.Windows.Forms.Button();
             this.dgv_deviceData = new System.Windows.Forms.DataGridView();
+            this.col_extPressure = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Temp1_1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Temp1_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_temp2_p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Temp2_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_temp3_p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Temp3_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_temp4_p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Temp4_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_temp5_p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Temp5_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgv_devicesQueue = new System.Windows.Forms.DataGridView();
+            this.col_no = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_deviceMacAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_serialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DevicePositionOnBoard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BoardNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnl_TempData = new System.Windows.Forms.Panel();
             this.tb_temperatureOnDP = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -66,22 +82,6 @@
             this.bt_detectDp = new System.Windows.Forms.Button();
             this.bt_settings = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.col_no = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_deviceMacAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_serialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DevicePositionOnBoard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BoardNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_extPressure = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Temp1_1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Temp1_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_temp2_p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Temp2_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_temp3_p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Temp3_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_temp4_p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Temp4_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_temp5_p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Temp5_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnl_calibrationPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_deviceData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_devicesQueue)).BeginInit();
@@ -200,6 +200,83 @@
             this.dgv_deviceData.TabIndex = 1;
             this.dgv_deviceData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_deviceData_CellContentClick);
             // 
+            // col_extPressure
+            // 
+            this.col_extPressure.HeaderText = "Ext P";
+            this.col_extPressure.Name = "col_extPressure";
+            this.col_extPressure.ReadOnly = true;
+            this.col_extPressure.Width = 50;
+            // 
+            // col_Temp1_1
+            // 
+            this.col_Temp1_1.HeaderText = "Temp1  Left A2D";
+            this.col_Temp1_1.Name = "col_Temp1_1";
+            this.col_Temp1_1.ReadOnly = true;
+            this.col_Temp1_1.Width = 50;
+            // 
+            // col_Temp1_2
+            // 
+            this.col_Temp1_2.HeaderText = "Temp1 Right A2D";
+            this.col_Temp1_2.Name = "col_Temp1_2";
+            this.col_Temp1_2.ReadOnly = true;
+            this.col_Temp1_2.Width = 50;
+            // 
+            // col_temp2_p1
+            // 
+            this.col_temp2_p1.HeaderText = "Temp2 Left A2D";
+            this.col_temp2_p1.Name = "col_temp2_p1";
+            this.col_temp2_p1.ReadOnly = true;
+            this.col_temp2_p1.Width = 50;
+            // 
+            // col_Temp2_2
+            // 
+            this.col_Temp2_2.HeaderText = "Temp2 Right A2D";
+            this.col_Temp2_2.Name = "col_Temp2_2";
+            this.col_Temp2_2.ReadOnly = true;
+            this.col_Temp2_2.Width = 50;
+            // 
+            // col_temp3_p1
+            // 
+            this.col_temp3_p1.HeaderText = "Temp3 Left A2D";
+            this.col_temp3_p1.Name = "col_temp3_p1";
+            this.col_temp3_p1.ReadOnly = true;
+            this.col_temp3_p1.Width = 50;
+            // 
+            // col_Temp3_2
+            // 
+            this.col_Temp3_2.HeaderText = "Temp3 Right A2D";
+            this.col_Temp3_2.Name = "col_Temp3_2";
+            this.col_Temp3_2.ReadOnly = true;
+            this.col_Temp3_2.Width = 50;
+            // 
+            // col_temp4_p1
+            // 
+            this.col_temp4_p1.HeaderText = "Temp4 Left Right A2D";
+            this.col_temp4_p1.Name = "col_temp4_p1";
+            this.col_temp4_p1.ReadOnly = true;
+            this.col_temp4_p1.Width = 50;
+            // 
+            // col_Temp4_2
+            // 
+            this.col_Temp4_2.HeaderText = "Temp4 Right A2D";
+            this.col_Temp4_2.Name = "col_Temp4_2";
+            this.col_Temp4_2.ReadOnly = true;
+            this.col_Temp4_2.Width = 50;
+            // 
+            // col_temp5_p1
+            // 
+            this.col_temp5_p1.HeaderText = "Temp5 Left A2D";
+            this.col_temp5_p1.Name = "col_temp5_p1";
+            this.col_temp5_p1.ReadOnly = true;
+            this.col_temp5_p1.Width = 50;
+            // 
+            // col_Temp5_2
+            // 
+            this.col_Temp5_2.HeaderText = "Temp5 Right A2D";
+            this.col_Temp5_2.Name = "col_Temp5_2";
+            this.col_Temp5_2.ReadOnly = true;
+            this.col_Temp5_2.Width = 50;
+            // 
             // dgv_devicesQueue
             // 
             this.dgv_devicesQueue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -217,6 +294,37 @@
             this.dgv_devicesQueue.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_devicesQueue_CellClick);
             this.dgv_devicesQueue.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_devicesQueue_CellContentClick);
             this.dgv_devicesQueue.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_devicesQueue_CellEnter);
+            // 
+            // col_no
+            // 
+            this.col_no.HeaderText = "NO";
+            this.col_no.Name = "col_no";
+            this.col_no.ReadOnly = true;
+            this.col_no.Width = 40;
+            // 
+            // col_deviceMacAddress
+            // 
+            this.col_deviceMacAddress.HeaderText = "Mac address";
+            this.col_deviceMacAddress.Name = "col_deviceMacAddress";
+            this.col_deviceMacAddress.ReadOnly = true;
+            // 
+            // col_serialNumber
+            // 
+            this.col_serialNumber.HeaderText = "Serial Number ";
+            this.col_serialNumber.Name = "col_serialNumber";
+            this.col_serialNumber.ReadOnly = true;
+            // 
+            // DevicePositionOnBoard
+            // 
+            this.DevicePositionOnBoard.HeaderText = "Board position ";
+            this.DevicePositionOnBoard.Name = "DevicePositionOnBoard";
+            this.DevicePositionOnBoard.ReadOnly = true;
+            // 
+            // BoardNumber
+            // 
+            this.BoardNumber.HeaderText = "Board number";
+            this.BoardNumber.Name = "BoardNumber";
+            this.BoardNumber.ReadOnly = true;
             // 
             // pnl_TempData
             // 
@@ -305,9 +413,9 @@
             this.label7.Location = new System.Drawing.Point(19, 87);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(169, 20);
+            this.label7.Size = new System.Drawing.Size(215, 20);
             this.label7.TabIndex = 2;
-            this.label7.Text = "Current temperture";
+            this.label7.Text = "Oven current temperture";
             this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label6
@@ -541,114 +649,6 @@
             // backgroundWorker1
             // 
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            // 
-            // col_no
-            // 
-            this.col_no.HeaderText = "NO";
-            this.col_no.Name = "col_no";
-            this.col_no.ReadOnly = true;
-            this.col_no.Width = 40;
-            // 
-            // col_deviceMacAddress
-            // 
-            this.col_deviceMacAddress.HeaderText = "Mac address";
-            this.col_deviceMacAddress.Name = "col_deviceMacAddress";
-            this.col_deviceMacAddress.ReadOnly = true;
-            // 
-            // col_serialNumber
-            // 
-            this.col_serialNumber.HeaderText = "Serial Number ";
-            this.col_serialNumber.Name = "col_serialNumber";
-            this.col_serialNumber.ReadOnly = true;
-            // 
-            // DevicePositionOnBoard
-            // 
-            this.DevicePositionOnBoard.HeaderText = "Board position ";
-            this.DevicePositionOnBoard.Name = "DevicePositionOnBoard";
-            this.DevicePositionOnBoard.ReadOnly = true;
-            // 
-            // BoardNumber
-            // 
-            this.BoardNumber.HeaderText = "Board number";
-            this.BoardNumber.Name = "BoardNumber";
-            this.BoardNumber.ReadOnly = true;
-            // 
-            // col_extPressure
-            // 
-            this.col_extPressure.HeaderText = "Ext P";
-            this.col_extPressure.Name = "col_extPressure";
-            this.col_extPressure.ReadOnly = true;
-            this.col_extPressure.Width = 50;
-            // 
-            // col_Temp1_1
-            // 
-            this.col_Temp1_1.HeaderText = "Temp1  Left A2D";
-            this.col_Temp1_1.Name = "col_Temp1_1";
-            this.col_Temp1_1.ReadOnly = true;
-            this.col_Temp1_1.Width = 50;
-            // 
-            // col_Temp1_2
-            // 
-            this.col_Temp1_2.HeaderText = "Temp1 Right A2D";
-            this.col_Temp1_2.Name = "col_Temp1_2";
-            this.col_Temp1_2.ReadOnly = true;
-            this.col_Temp1_2.Width = 50;
-            // 
-            // col_temp2_p1
-            // 
-            this.col_temp2_p1.HeaderText = "Temp2 Left A2D";
-            this.col_temp2_p1.Name = "col_temp2_p1";
-            this.col_temp2_p1.ReadOnly = true;
-            this.col_temp2_p1.Width = 50;
-            // 
-            // col_Temp2_2
-            // 
-            this.col_Temp2_2.HeaderText = "Temp2 Right A2D";
-            this.col_Temp2_2.Name = "col_Temp2_2";
-            this.col_Temp2_2.ReadOnly = true;
-            this.col_Temp2_2.Width = 50;
-            // 
-            // col_temp3_p1
-            // 
-            this.col_temp3_p1.HeaderText = "Temp3 Left A2D";
-            this.col_temp3_p1.Name = "col_temp3_p1";
-            this.col_temp3_p1.ReadOnly = true;
-            this.col_temp3_p1.Width = 50;
-            // 
-            // col_Temp3_2
-            // 
-            this.col_Temp3_2.HeaderText = "Temp3 Right A2D";
-            this.col_Temp3_2.Name = "col_Temp3_2";
-            this.col_Temp3_2.ReadOnly = true;
-            this.col_Temp3_2.Width = 50;
-            // 
-            // col_temp4_p1
-            // 
-            this.col_temp4_p1.HeaderText = "Temp4 Left Right A2D";
-            this.col_temp4_p1.Name = "col_temp4_p1";
-            this.col_temp4_p1.ReadOnly = true;
-            this.col_temp4_p1.Width = 50;
-            // 
-            // col_Temp4_2
-            // 
-            this.col_Temp4_2.HeaderText = "Temp4 Right A2D";
-            this.col_Temp4_2.Name = "col_Temp4_2";
-            this.col_Temp4_2.ReadOnly = true;
-            this.col_Temp4_2.Width = 50;
-            // 
-            // col_temp5_p1
-            // 
-            this.col_temp5_p1.HeaderText = "Temp5 Left A2D";
-            this.col_temp5_p1.Name = "col_temp5_p1";
-            this.col_temp5_p1.ReadOnly = true;
-            this.col_temp5_p1.Width = 50;
-            // 
-            // col_Temp5_2
-            // 
-            this.col_Temp5_2.HeaderText = "Temp5 Right A2D";
-            this.col_Temp5_2.Name = "col_Temp5_2";
-            this.col_Temp5_2.ReadOnly = true;
-            this.col_Temp5_2.Width = 50;
             // 
             // CalibForm
             // 

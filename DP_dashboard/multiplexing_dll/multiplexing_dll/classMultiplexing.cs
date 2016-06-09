@@ -8,6 +8,7 @@ using System.Threading;
 namespace multiplexing_dll
 {
 
+   public enum ChaneleNum { chanel_0, chanel_1, chanel_2, chanel_3, chanel_4, chanel_5, chanel_6, chanel_7, chanel_8, chanel_9, chanel_10, chanel_11, chanel_12, chanel_13, chanel_14, chanel_15,all_disconnected};
 
     public class MultiplexingIncomingInformation
     {
@@ -47,6 +48,11 @@ namespace multiplexing_dll
         private MultiplexingIncomingInformation incomingInfo;
         private classSerial SerialPortInstanse;
         private Thread IncomingCommunicationBufferHandlerThread;
+
+       public ChaneleNum ConnectedChanel = ChaneleNum.all_disconnected;
+
+
+
 
         public classMultiplexing(string portName, int baud, MultiplexingIncomingInformation info)
         {
@@ -178,6 +184,8 @@ namespace multiplexing_dll
             data[data.Count() - 1] = CheckCum(data, data.Count());
 
             SerialPortInstanse.Send(data, data.Count());
+
+            ConnectedChanel = (ChaneleNum)DpId;
         }
 
 
@@ -191,6 +199,8 @@ namespace multiplexing_dll
             data[data.Count() - 1] = CheckCum(data, data.Count());
 
             SerialPortInstanse.Send(data, data.Count());
+
+            ConnectedChanel = ChaneleNum.all_disconnected;
         }
 
         private byte CheckCum(byte[] data, int length)

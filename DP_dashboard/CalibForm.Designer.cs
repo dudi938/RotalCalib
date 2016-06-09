@@ -82,6 +82,7 @@
             this.bt_detectDp = new System.Windows.Forms.Button();
             this.bt_settings = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.chb_pressureAutoMode = new System.Windows.Forms.CheckBox();
             this.pnl_calibrationPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_deviceData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_devicesQueue)).BeginInit();
@@ -180,6 +181,7 @@
             // 
             // dgv_deviceData
             // 
+            this.dgv_deviceData.BackgroundColor = System.Drawing.Color.Silver;
             this.dgv_deviceData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_deviceData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_extPressure,
@@ -279,6 +281,7 @@
             // 
             // dgv_devicesQueue
             // 
+            this.dgv_devicesQueue.BackgroundColor = System.Drawing.Color.Silver;
             this.dgv_devicesQueue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_devicesQueue.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_no,
@@ -506,6 +509,7 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.chb_pressureAutoMode);
             this.panel2.Controls.Add(this.tb_preeStable);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.label4);
@@ -518,7 +522,7 @@
             this.panel2.Location = new System.Drawing.Point(1460, 257);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(426, 239);
+            this.panel2.Size = new System.Drawing.Size(426, 267);
             this.panel2.TabIndex = 17;
             // 
             // tb_preeStable
@@ -650,6 +654,19 @@
             // 
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             // 
+            // chb_pressureAutoMode
+            // 
+            this.chb_pressureAutoMode.AutoSize = true;
+            this.chb_pressureAutoMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold);
+            this.chb_pressureAutoMode.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.chb_pressureAutoMode.Location = new System.Drawing.Point(24, 227);
+            this.chb_pressureAutoMode.Name = "chb_pressureAutoMode";
+            this.chb_pressureAutoMode.Size = new System.Drawing.Size(200, 24);
+            this.chb_pressureAutoMode.TabIndex = 9;
+            this.chb_pressureAutoMode.Text = "Pressure auto mode";
+            this.chb_pressureAutoMode.UseVisualStyleBackColor = true;
+            this.chb_pressureAutoMode.CheckedChanged += new System.EventHandler(this.chb_pressureAutoMode_CheckedChanged);
+            // 
             // CalibForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -734,6 +751,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_Temp4_2;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_temp5_p1;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_Temp5_2;
+        private System.Windows.Forms.CheckBox chb_pressureAutoMode;
     }
 }
 

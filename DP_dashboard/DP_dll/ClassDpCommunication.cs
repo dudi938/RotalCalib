@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using SerialPort_dll;
 
+
+
 namespace DpCommunication
 {
 

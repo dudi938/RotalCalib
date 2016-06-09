@@ -23,7 +23,7 @@ namespace DP_dashboard
     public partial class CalibForm : Form
     {
         public static CalibForm currentForm;
-         
+
         //cosntants
         private const int MAX_PRESSURE_POINT = 0x0f;
 
@@ -161,20 +161,31 @@ namespace DP_dashboard
 
 
             //debug only
-           //classDpCommunication.DPgetDpInfo();
+            //classDpCommunication.DPgetDpInfo();
 
 
 
             CalibrationButtonHandele();
 
+            MarkConnectedDevice();
 
-            if(classCalibrationInfo.FinishCalibrationEvent)
+            if (classCalibrationInfo.FinishCalibrationEvent)
             {
                 classCalibrationInfo.FinishCalibrationEvent = false;
                 UpdateColorStatus();
                 UpdateDataTable(CurrentSnDeviceIsFocus);
+                MessageBox.Show("Calibration done!");
             }
 
+            if(classCalibrationInfo.classCalibrationSettings.AlertToTechnican)
+            {
+                classCalibrationInfo.classCalibrationSettings.AlertToTechnican = false;
+                DialogResult result = MessageBox.Show("Pressure stable. the system wait to tachnicatan approve.", "Pressure info", MessageBoxButtons.OK);
+                if(result ==  DialogResult.OK)
+                {
+                    classCalibrationInfo.classCalibrationSettings.TechnicianApproveGoNext = true;   
+                }
+            }
 
             if (classCalibrationInfo.EndDetectEvent)
             {
@@ -189,7 +200,7 @@ namespace DP_dashboard
                 UpdateRealTimeData();
             }
 
-            if(classCalibrationInfo.ErrorEvent)
+            if (classCalibrationInfo.ErrorEvent)
             {
                 classCalibrationInfo.ErrorEvent = false;
                 rtb_info.Text += "Error:   " + classCalibrationInfo.ErrorMessage + "\r\n";
@@ -206,9 +217,9 @@ namespace DP_dashboard
 
             if (classCalibrationInfo.ChengeStateEvent)
             {
-               // classCalibrationInfo.ChengeStateEvent = false;
-               // string Message = string.Format("state change: from {0}  ->   {1}", classCalibrationInfo.PreviousState.);
-               // rtb_info.Text += Message + "\r\n";
+                // classCalibrationInfo.ChengeStateEvent = false;
+                // string Message = string.Format("state change: from {0}  ->   {1}", classCalibrationInfo.PreviousState.);
+                // rtb_info.Text += Message + "\r\n";
             }
             if (classCalibrationInfo.ClassTempControllerInstanse.TempControllerConnectionEvent)
             {
@@ -247,24 +258,24 @@ namespace DP_dashboard
             classMultiplexing.DisConnectAllDp();
         }
 
-        private bool FlashDpDevice( string fileName )
+        private bool FlashDpDevice(string fileName)
         {
             string path = @"C:\Program Files (x86)\Texas Instruments\SmartRF Tools\Flash Programmer\bin\SmartRFProgConsole.exe";
-            string args = string.Format("S() EPV F={0}",fileName);
+            string args = string.Format("S() EPV F={0}", fileName);
             Process burn = new Process();
             burn.StartInfo.FileName = path;
             burn.StartInfo.Arguments = args;
             burn.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
             burn.Start();
             burn.WaitForExit();
-            return burn.ExitCode==0;
+            return burn.ExitCode == 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             bool res = FlashDpDevice(@"C:\work\grow_me\projects\BLE-CC254x-1.4.0\Projects\ble\grow_me\CC2541DB\CC2541\Exe\SimpleBLEPeripheral.hex");
 
-            if( !res)
+            if (!res)
             {
                 MessageBox.Show("burn fail");
             }
@@ -335,20 +346,20 @@ namespace DP_dashboard
             {
                 MessageBox.Show("No exist dp devices!");
             }
-            
+
         }
 
         private void UpdateDeviceTable()
         {
             dgv_devicesQueue.Rows.Clear();
-            for (int i = 0; i< classCalibrationInfo.DpCountAxist; i++)
+            for (int i = 0; i < classCalibrationInfo.DpCountAxist; i++)
             {
                 dgv_devicesQueue.Rows.Add(i.ToString(),
                     classCalibrationInfo.classDevices[i].DeviceMacAddress.ToString(),
                     classCalibrationInfo.classDevices[i].DeviceSerialNumber.ToString(),
                     classCalibrationInfo.classDevices[i].PositionOnBoard.ToString(),
                     classCalibrationInfo.classDevices[i].BoardNumber.ToString());
-        }
+            }
         }
         private void UpdateDataTable(string serialNumber)
         {
@@ -360,24 +371,24 @@ namespace DP_dashboard
                 {
                     ExistDevice = true;
                     break;
-                }             
+                }
             }
 
             int deviceIndex = i;
-                       
+
             if (ExistDevice)
             {
                 dgv_deviceData.Rows.Clear();
                 ExistDevice = false;
-                string [] dataRow = new string [classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count * 2 +1] ;
+                string[] dataRow = new string[classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count * 2 + 1];
 
-                for ( i = 0; i < classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count ; i++)
+                for (i = 0; i < classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count; i++)
                 {
                     dataRow[0] = classCalibrationInfo.classCalibrationSettings.PressureUnderTestList[i].ToString();
                     for (int j = 0; j < classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count; j++)
                     {
-                        dataRow[j  * 2 + 1] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].LeftA2DValue.ToString();
-                        dataRow[j  * 2 + 2] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].RightA2DValue.ToString();
+                        dataRow[j * 2 + 1] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].LeftA2DValue.ToString();
+                        dataRow[j * 2 + 2] = classCalibrationInfo.classDevices[deviceIndex].CalibrationData[j, i].RightA2DValue.ToString();
                     }
                     dgv_deviceData.Rows.Add(dataRow);
                 }
@@ -393,7 +404,7 @@ namespace DP_dashboard
             }
 
             UpdateDataTable(CurrentSnDeviceIsFocus);
-            
+
         }
 
 
@@ -460,12 +471,12 @@ namespace DP_dashboard
             rtb_info.Text = "";
 
 
-            string CutSn = tb_tempIndexAfterPause.Text.Substring(4);
+            //string CutSn = tb_tempIndexAfterPause.Text.Substring(4);
 
-            byte[] SN = System.Text.Encoding.ASCII.GetBytes(CutSn);
-            classDpCommunication.SendDpSerialNumber(SN);
+            //byte[] SN = System.Text.Encoding.ASCII.GetBytes(CutSn);
+            //classDpCommunication.SendDpSerialNumber(SN);
 
-            classDpCommunication.DPgetDpInfo();
+            //classDpCommunication.DPgetDpInfo();
         }
 
         private void bt_connectDP_Click(object sender, EventArgs e)
@@ -519,21 +530,21 @@ namespace DP_dashboard
             classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Add(Properties.Settings.Default.TempUnderTest5);
 
 
-            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest1);
-            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest2);
-            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest3);
-            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest4);
-            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest5);
-            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest6);
-            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest7);
-            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest8);
-            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest9);
-            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest10);
-            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest11);
-            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest12);
-            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest13);
-            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest14);
-            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add( Properties.Settings.Default.PressureUnderTest15);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest1);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest2);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest3);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest4);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest5);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest6);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest7);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest8);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest9);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest10);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest11);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest12);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest13);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest14);
+            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Add(Properties.Settings.Default.PressureUnderTest15);
         }
 
         private void DGVSetCellColor(DataGridView dgv, int col, int row, Color color)
@@ -545,15 +556,15 @@ namespace DP_dashboard
 
         private void ClearColorIndication()
         {
-            for(int i =0; i < dgv_devicesQueue.Rows.Count; i ++)
+            for (int i = 0; i < dgv_devicesQueue.Rows.Count; i++)
             {
-                DGVSetCellColor(dgv_devicesQueue,1,i,Color.White);
+                DGVSetCellColor(dgv_devicesQueue, 1, i, Color.White);
             }
 
         }
-    
 
-    private void UpdateColorStatus()
+
+        private void UpdateColorStatus()
         {
             for (int i = 0; i < dgv_devicesQueue.Rows.Count - 1; i++)
             {
@@ -572,7 +583,7 @@ namespace DP_dashboard
 
         private void CalibForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            classCalibrationInfo.DoCalibration  = false;
+            classCalibrationInfo.DoCalibration = false;
             classCalibrationInfo.DetectFlag = false;
 
             ClassDeltaProtocol.CloseComPort();
@@ -585,7 +596,7 @@ namespace DP_dashboard
         private void CalibrationButtonHandele()
         {
 
-            if(classCalibrationInfo.DoCalibration == true)
+            if (classCalibrationInfo.DoCalibration == true)
             {
                 bt_startCalibration.Enabled = false;
 
@@ -636,7 +647,7 @@ namespace DP_dashboard
             if (classCalibrationInfo.CalibrationPaused == false)
             {
                 byte tempIndex;
-                if (tb_tempIndexAfterPause.Text.ToString() != ""  )
+                if (tb_tempIndexAfterPause.Text.ToString() != "")
                 {
                     tempIndex = byte.Parse(tb_tempIndexAfterPause.Text.ToString());
                 }
@@ -652,7 +663,7 @@ namespace DP_dashboard
         {
             string CutSn = tb_tempIndexAfterPause.Text.Substring(4);
 
-            byte [] SN = System.Text.Encoding.ASCII.GetBytes(CutSn);
+            byte[] SN = System.Text.Encoding.ASCII.GetBytes(CutSn);
             classDpCommunication.SendDpSerialNumber(SN);
         }
 
@@ -671,5 +682,38 @@ namespace DP_dashboard
         {
 
         }
+
+        public void MarkConnectedDevice()
+        {
+            try
+            {
+                DataGridViewCellStyle spatialStyle = new DataGridViewCellStyle();
+                DataGridViewCellStyle normalStyle = new DataGridViewCellStyle();
+                spatialStyle.BackColor = Color.Yellow;
+                normalStyle.BackColor = Color.White;
+
+                for (int RowCount = 0; RowCount < dgv_devicesQueue.Rows.Count; RowCount++)
+                {
+                    foreach (DataGridViewCell cell in dgv_devicesQueue.Rows[RowCount].Cells)
+                    {
+                        if(RowCount == Convert.ToInt32(classMultiplexing.ConnectedChanel))
+                        {
+                            cell.Style = spatialStyle;
+                        }
+                        else
+                        {
+                            cell.Style = normalStyle;
+                        }
+                    }
+                }                   
+            }
+            catch(Exception ex)
+            { }
+          }
+
+        private void chb_pressureAutoMode_CheckedChanged(object sender, EventArgs e)
+        {
+            classCalibrationInfo.classCalibrationSettings.PressureAutoMode = chb_pressureAutoMode.Checked;
+        }
     }
-}
+}           

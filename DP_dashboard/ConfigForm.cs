@@ -8,14 +8,39 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DpCommunication;
+using System.Data.OleDb;
+using System.IO;
+
 
 namespace DP_dashboard
 {
     public partial class ConfigForm : Form
     {
+
+       // Config file parameters offset
+        private const byte CF_PRESSURE_COLUME_INDEX                                       = 0x06;
+        private const byte CF_TEMPERATURE_COLUME_INDEX                                    = CF_PRESSURE_COLUME_INDEX + 1;
+
+
+        private const byte CF_TEMPERATURE_SKIP_TIME_COLUME_INDEX                         = CF_TEMPERATURE_COLUME_INDEX + 3;
+        private const byte CF_TEMPERATURE_SKIP_TIME_ROW_INDEX                            = 7;
+                            
+        private const byte CF_TEMPERATURE_SAMPLES_AMOUNT_COLUME_INDEX                    = CF_TEMPERATURE_COLUME_INDEX + 3;
+        private const byte CF_TEMPERATURE_SAMPLES_AMOUNT_ROW_INDEX                       = CF_TEMPERATURE_SKIP_TIME_ROW_INDEX + 1;
+                            
+        private const byte CF_TEMPERATURE_SAMPLE_INTERVAL_COLUME_INDEX                   = CF_TEMPERATURE_COLUME_INDEX + 3;
+        private const byte CF_TEMPERATURE_SAMPLE_INTERVAL_ROW_INDEX                      = CF_TEMPERATURE_SAMPLES_AMOUNT_ROW_INDEX + 1;
+                            
+        private const byte CF_TEMPERATURE_DELTA_COLUME_INDEX                             = CF_TEMPERATURE_COLUME_INDEX + 3;
+        private const byte CF_TEMPERATURE_DELTA_TIME_ROW_INDEX                           = CF_TEMPERATURE_SAMPLE_INTERVAL_ROW_INDEX + 1;
+                            
+        private const byte CF_TEMPERATURE_MAX_WAIT_TO_TEMP_STABLE_TIME_COLUME_INDEX      = CF_TEMPERATURE_COLUME_INDEX + 3;
+        private const byte CF_TEMPERATURE_MAX_WAIT_TO_TEMP_STABLE_TIME_ROW_INDEX         = CF_TEMPERATURE_DELTA_TIME_ROW_INDEX + 1;
+
+// END 
+
         public static CalibForm calibForm;
         ClassDpCommunication DpProtocolInstanse;
-
 
         public ConfigForm(ClassDpCommunication dpProtocolInstanse, CalibForm calibFormcaller)
         {
@@ -102,10 +127,10 @@ namespace DP_dashboard
 
 
             //update comport nam's
-            calibForm.classCalibrationInfo.classCalibrationSettings.MultiPlexerComPortName       = cmb_multiplexerComPort.SelectedItem.ToString();
-            calibForm.classCalibrationInfo.classCalibrationSettings.TempControllerComPortName    = cmb_tempControllerComPort.SelectedItem.ToString();
-            calibForm.classCalibrationInfo.classCalibrationSettings.PlcComPortName               = cmb_PLCComPort.SelectedItem.ToString();
-            calibForm.classCalibrationInfo.classCalibrationSettings.DpComPortName                = cmb_DPComPort.SelectedItem.ToString();
+            calibForm.classCalibrationInfo.classCalibrationSettings.MultiPlexerComPortName = cmb_multiplexerComPort.SelectedItem.ToString();
+            calibForm.classCalibrationInfo.classCalibrationSettings.TempControllerComPortName = cmb_tempControllerComPort.SelectedItem.ToString();
+            calibForm.classCalibrationInfo.classCalibrationSettings.PlcComPortName = cmb_PLCComPort.SelectedItem.ToString();
+            calibForm.classCalibrationInfo.classCalibrationSettings.DpComPortName = cmb_DPComPort.SelectedItem.ToString();
 
 
 
@@ -113,7 +138,7 @@ namespace DP_dashboard
             calibForm.classCalibrationInfo.classCalibrationSettings.TempSkipTime = Convert.ToInt32(tb_tempSkipTime.Text) * 60;
             calibForm.classCalibrationInfo.classCalibrationSettings.TempSampleInterval = Convert.ToInt32(tb_temSpampleInterval.Text) * 60;
             calibForm.classCalibrationInfo.classCalibrationSettings.TempDeltaRange = float.Parse(tb_tempDeltaRange.Text);
-            calibForm.classCalibrationInfo.classCalibrationSettings.TempMaxWaitTime = Convert.ToInt32(tb_tempMaxWaitTime.Text) * 60;      
+            calibForm.classCalibrationInfo.classCalibrationSettings.TempMaxWaitTime = Convert.ToInt32(tb_tempMaxWaitTime.Text) * 60;
             calibForm.classCalibrationInfo.classCalibrationSettings.TempSampleAmount = Convert.ToInt32(tb_tempSampleNum.Text);
 
             this.Hide();
@@ -143,9 +168,9 @@ namespace DP_dashboard
 
         void UpdateComPortList()
         {
-            string [] ComPortArray = System.IO.Ports.SerialPort.GetPortNames();
+            string[] ComPortArray = System.IO.Ports.SerialPort.GetPortNames();
 
-            cmb_DPComPort.DataSource = ComPortArray;            
+            cmb_DPComPort.DataSource = ComPortArray;
             cmb_multiplexerComPort.DataSource = ComPortArray;
             cmb_PLCComPort.DataSource = ComPortArray;
             cmb_tempControllerComPort.DataSource = ComPortArray;
@@ -202,8 +227,118 @@ namespace DP_dashboard
             dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest14.ToString());
             dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest15.ToString());
         }
+
+        private void bt_loadConfigFile_Click(object sender, EventArgs e)
+        {
+            string filePath = string.Empty;
+            string fileExt = string.Empty;
+            OpenFileDialog file = new OpenFileDialog(); //open dialog to choose file  
+            if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK) //if there is a file choosen by the user  
+            {
+                filePath = file.FileName; //get the path of the file  
+                fileExt = Path.GetExtension(filePath); //get the file extension  
+                if (fileExt.CompareTo(".xls") == 0 || fileExt.CompareTo(".xlsx") == 0)
+                {
+                    try
+                    {
+                        DataTable dtExcel = new DataTable();
+                        dtExcel = ReadExcel(filePath, fileExt); //read excel file  
+
+                        dgv_calibPressuresPointsTable.Visible = true;
+                       // dgv_calibPressuresPointsTable.DataSource = dtExcel;
+
+                        BindConfigParameters(dtExcel);
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please choose .xls or .xlsx file only.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error); //custom messageBox to show error  
+                }
+            }
+        }
+
+        public void BindConfigParameters(DataTable dataSource)
+        {
+            dgv_calibPressuresPointsTable.Rows.Clear();
+            foreach (DataRow dr in dataSource.Rows)
+            {
+                if (dr[6].ToString() != "" && dr[6].ToString() != null)
+                {
+                    dgv_calibPressuresPointsTable.Rows.Add(true, dr[6].ToString());
+                }
+            }
+
+
+            dgv_calibTempPointsTable.Rows.Clear();
+            foreach (DataRow dr in dataSource.Rows)
+            {
+                if (dr[7].ToString() != ""  && dr[7].ToString() != null)
+                {
+                    dgv_calibTempPointsTable.Rows.Add(true, dr[7].ToString());
+                }
+            }
+
+
+            if(dataSource.Rows[CF_TEMPERATURE_SKIP_TIME_ROW_INDEX][CF_TEMPERATURE_SKIP_TIME_COLUME_INDEX].ToString() != "" && dataSource.Rows[CF_TEMPERATURE_SKIP_TIME_ROW_INDEX][CF_TEMPERATURE_SKIP_TIME_COLUME_INDEX].ToString() != null)
+            {
+                tb_tempSkipTime.Text = dataSource.Rows[CF_TEMPERATURE_SKIP_TIME_ROW_INDEX][CF_TEMPERATURE_SKIP_TIME_COLUME_INDEX].ToString();
+            }
+
+            if (dataSource.Rows[CF_TEMPERATURE_SAMPLES_AMOUNT_ROW_INDEX][CF_TEMPERATURE_SAMPLES_AMOUNT_COLUME_INDEX].ToString() != "" && dataSource.Rows[CF_TEMPERATURE_SAMPLES_AMOUNT_ROW_INDEX][CF_TEMPERATURE_SAMPLES_AMOUNT_COLUME_INDEX].ToString() != null)
+            {
+                tb_tempSampleNum.Text = dataSource.Rows[CF_TEMPERATURE_SAMPLES_AMOUNT_ROW_INDEX][CF_TEMPERATURE_SAMPLES_AMOUNT_COLUME_INDEX].ToString();
+            }
+
+            if (dataSource.Rows[CF_TEMPERATURE_SAMPLE_INTERVAL_ROW_INDEX][CF_TEMPERATURE_SAMPLE_INTERVAL_COLUME_INDEX].ToString() != "" && dataSource.Rows[CF_TEMPERATURE_SAMPLE_INTERVAL_ROW_INDEX][CF_TEMPERATURE_SAMPLE_INTERVAL_COLUME_INDEX].ToString() != null)
+            {
+                tb_temSpampleInterval.Text = dataSource.Rows[CF_TEMPERATURE_SAMPLE_INTERVAL_ROW_INDEX][CF_TEMPERATURE_SAMPLE_INTERVAL_COLUME_INDEX].ToString();
+            }
+
+            if (dataSource.Rows[CF_TEMPERATURE_DELTA_TIME_ROW_INDEX][CF_TEMPERATURE_DELTA_COLUME_INDEX].ToString() != "" && dataSource.Rows[CF_TEMPERATURE_DELTA_TIME_ROW_INDEX][CF_TEMPERATURE_DELTA_COLUME_INDEX].ToString() != null)
+            {
+                tb_tempDeltaRange.Text = dataSource.Rows[CF_TEMPERATURE_DELTA_TIME_ROW_INDEX][CF_TEMPERATURE_DELTA_COLUME_INDEX].ToString();
+            }
+
+            if (dataSource.Rows[CF_TEMPERATURE_MAX_WAIT_TO_TEMP_STABLE_TIME_ROW_INDEX][CF_TEMPERATURE_MAX_WAIT_TO_TEMP_STABLE_TIME_COLUME_INDEX].ToString() != "" && dataSource.Rows[CF_TEMPERATURE_MAX_WAIT_TO_TEMP_STABLE_TIME_ROW_INDEX][CF_TEMPERATURE_MAX_WAIT_TO_TEMP_STABLE_TIME_COLUME_INDEX].ToString() != null)
+            {
+                tb_tempMaxWaitTime.Text = dataSource.Rows[CF_TEMPERATURE_MAX_WAIT_TO_TEMP_STABLE_TIME_ROW_INDEX][CF_TEMPERATURE_MAX_WAIT_TO_TEMP_STABLE_TIME_COLUME_INDEX].ToString();
+            }
+
+        }
+
+        public DataTable ReadExcel(string fileName, string fileExt)
+        {
+
+            string conn = string.Empty;
+            DataTable dtexcel = new DataTable();
+            if (fileExt.CompareTo(".xls") == 0)
+                conn = @"provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + fileName + ";Extended Properties='Excel 8.0;HRD=Yes;IMEX=1';"; //for below excel 2007  
+            else
+                conn = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileName + ";Extended Properties='Excel 12.0;HDR=NO';"; //for above excel 2007  
+            using (OleDbConnection con = new OleDbConnection(conn))
+            {
+                try
+                {
+                    OleDbDataAdapter oleAdpt = new OleDbDataAdapter("select * from [Sheet1$]", con); //here we read data from sheet1  
+                    oleAdpt.Fill(dtexcel); //fill excel data into dataTable  
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+            return dtexcel;
+
+        }
     }
 }
+
 
         
 

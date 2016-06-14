@@ -259,22 +259,22 @@ namespace DP_dashboard
 
                         case StateWaitToSetTempStable:
                             {
-
-                                if (CheckTimout(TimeFromSetPointRequest, classCalibrationSettings.TempMaxWaitTime))
-                                {
-                                    StateChangeState(StateTempStableError);
-                                }
-                                else if (CheckTimout(TimeFromSetPointRequest, classCalibrationSettings.TempSkipTime))
-                                {
-                                    if (CheckTempStableOnOneDp(classCalibrationSettings.TempDeltaRange))
-                                    {
-                                        StateChangeState(StateSendPressureSetPoints);
-                                    }
-                                    else
-                                    {
-                                        Thread.Sleep(TEMP_WAIT_BETWEEN_TOW_SMPLINGS * 1000);
-                                    }
-                                }
+                                StateChangeState(StateSendPressureSetPoints);
+                                //if (CheckTimout(TimeFromSetPointRequest, classCalibrationSettings.TempMaxWaitTime))
+                                //{
+                                //    StateChangeState(StateTempStableError);
+                                //}
+                                //else if (CheckTimout(TimeFromSetPointRequest, classCalibrationSettings.TempSkipTime))
+                                //{
+                                //    if (CheckTempStableOnOneDp(classCalibrationSettings.TempDeltaRange))
+                                //    {
+                                //        StateChangeState(StateSendPressureSetPoints);
+                                //    }
+                                //    else
+                                //    {
+                                //        Thread.Sleep(TEMP_WAIT_BETWEEN_TOW_SMPLINGS * 1000);
+                                //    }
+                                //}
 
                                 //StateChangeState(StateSendPressureSetPoints);
 

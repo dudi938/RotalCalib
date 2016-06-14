@@ -36,13 +36,6 @@ namespace DP_dashboard
         public string OpenFileForLogging(List<float> pressuresUnderTeat,string path,ClassDevice dpDevice)
         {
             string title1 = ",";
-            for(int i = 0; i< pressuresUnderTeat.Count; i++)
-            {
-                title1 += "P = " + pressuresUnderTeat[i].ToString() + "[Bar]" + ",";
-            }
-            title1 += "DP_MAC_Address,DP_SN,DP_Name,";
-
-
             DateTime now = DateTime.Now;
 
             sizeWrittenToFile = 0;
@@ -55,18 +48,36 @@ namespace DP_dashboard
 
             try
             {
-                file = new StreamWriter(path + @"\" +  logFileName,false);
-                file.WriteLine(title1);     
+                file = new StreamWriter(path + @"\" + logFileName, false);
+                file.WriteLine("");
 
+
+
+                title1 = string.Format("DP Name(SN),{0}", dpDevice.DeviceSerialNumber);
+                file.WriteLine(title1);
+
+                title1 = string.Format("MAC address,{0}", dpDevice.DeviceMacAddress);
+                file.WriteLine(title1);
+
+                title1 = string.Format("Calibration date,{0}", now);
+                file.WriteLine(title1);
+
+                file.WriteLine("");
+                file.WriteLine("");
             }
-            catch( Exception ex )
+
+
+
+
+
+            catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
             return logFileName;
         }
 
-        public void PrintLogRecordToFile(ClassDevice device, List<float> pressuresUnderTeat, string path, byte tempIndex)
+        public void PrintLogRecordToFile(ClassDevice device, List<float> pressuresUnderTest, string path, byte tempIndex)
         {
             string path1 = path + @"\" + device.CSVFileName;
             file = new StreamWriter(path1, true);
@@ -74,49 +85,28 @@ namespace DP_dashboard
 
             if (file != null)
             {
-
-                //write ext pressure
-                string line = string.Format("Temp#{0}-PLC_pressure," , tempIndex);
-                for(int i = 0; i < pressuresUnderTeat.Count; i++ )
-                {
-                    line += pressuresUnderTeat[i].ToString() + ",";
-                }
-                line += string.Format("{0},{1},", device.DeviceMacAddress, device.DeviceSerialNumber);
+                //write temp header
+                string line = string.Format(",,,Temp#{0},", tempIndex);
                 file.WriteLine(line);
 
-                //write dp A2D1
-                line = string.Empty;
-                line = string.Format("Temp#{0}-DP_A2D_1,", tempIndex);
-                for (int i = 0; i < pressuresUnderTeat.Count; i++)
-                {
-                    line += device.CalibrationData[tempIndex, i].LeftA2DValue.ToString() + ",";
-                }
-                line += string.Format("{0},{1},", device.DeviceMacAddress, device.DeviceSerialNumber);
-                file.WriteLine(line);
-
-                //write dp A2D2
-                line = string.Empty;
-                line = string.Format("Temp#{0}-DP_A2D_2,", tempIndex);
-                for (int i = 0; i < pressuresUnderTeat.Count; i++)
-                {
-                    line += device.CalibrationData[tempIndex, i].RightA2DValue.ToString() + ",";
-                }
-                line += string.Format("{0},{1},", device.DeviceMacAddress, device.DeviceSerialNumber);
+                line = ",A2D_Right,A2D_Left,A2D Delta,Temp on DP,";
                 file.WriteLine(line);
 
 
-                //write  dp temp
-                line = string.Empty;
-                line = string.Format("Temp#{0}-DP_Temp,", tempIndex);
-                for (int i = 0; i < pressuresUnderTeat.Count; i++)
+                for (int i = 0; i < pressuresUnderTest.Count; i++)
                 {
-                    line += device.CalibrationData[tempIndex, i].tempOnDevice.ToString() + ",";
-                }
-                line += string.Format("{0},{1},", device.DeviceMacAddress, device.DeviceSerialNumber);
-                file.WriteLine(line);
+                    line = string.Format("Pressure {0} = {1}[bar]", i,pressuresUnderTest[i]);
+                    line += "," + device.CalibrationData[tempIndex,i].RightA2DValue;
+                    line += "," + device.CalibrationData[tempIndex, i].LeftA2DValue;
+                    line += "," + Math.Abs(device.CalibrationData[tempIndex, i].RightA2DValue - device.CalibrationData[tempIndex, i].LeftA2DValue);
+                    line += "," + device.CalibrationData[tempIndex, i].tempOnDevice;
 
+
+                    file.WriteLine(line);
+                }
+                file.WriteLine("");
+                file.WriteLine("");
                 file.Close();
-
             }
         }
 

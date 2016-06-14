@@ -215,12 +215,6 @@ namespace DP_dashboard
                 UpdateDataTable(CurrentSnDeviceIsFocus);
             }
 
-            if (classCalibrationInfo.ChengeStateEvent)
-            {
-                // classCalibrationInfo.ChengeStateEvent = false;
-                // string Message = string.Format("state change: from {0}  ->   {1}", classCalibrationInfo.PreviousState.);
-                // rtb_info.Text += Message + "\r\n";
-            }
             if (classCalibrationInfo.ClassTempControllerInstanse.TempControllerConnectionEvent)
             {
                 classCalibrationInfo.ClassTempControllerInstanse.TempControllerConnectionEvent = false;
@@ -689,23 +683,24 @@ namespace DP_dashboard
             {
                 DataGridViewCellStyle spatialStyle = new DataGridViewCellStyle();
                 DataGridViewCellStyle normalStyle = new DataGridViewCellStyle();
-                spatialStyle.BackColor = Color.Yellow;
-                normalStyle.BackColor = Color.White;
+                spatialStyle.ForeColor = Color.Yellow;
+                normalStyle.ForeColor = Color.Black;
+
 
                 for (int RowCount = 0; RowCount < dgv_devicesQueue.Rows.Count; RowCount++)
                 {
                     foreach (DataGridViewCell cell in dgv_devicesQueue.Rows[RowCount].Cells)
                     {
-                        if(RowCount == Convert.ToInt32(classMultiplexing.ConnectedChanel))
+                        if (RowCount == Convert.ToInt32(classMultiplexing.ConnectedChanel))
                         {
-                            cell.Style = spatialStyle;
+                            cell.Style.ForeColor = spatialStyle.ForeColor;
                         }
                         else
                         {
-                            cell.Style = normalStyle;
+                            cell.Style.ForeColor = normalStyle.ForeColor;
                         }
                     }
-                }                   
+                }
             }
             catch(Exception ex)
             { }

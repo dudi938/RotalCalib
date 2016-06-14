@@ -347,7 +347,7 @@ namespace DpCommunication
                     foreach (DpCalibPoint currentPoint in currentTempLine.oneTempLine)
                     {
                         //public void DpWritePressurePointToDevice(byte PreesureN, float extPressure, byte TempN, float tempUnderTest)
-                       // DpWritePressurePointToDevice(currentPoint.a2dPressureValue, TempCount, PressureInTempCount);
+                        //DpWritePressurePointToDevice(currentPoint.a2dPressureValue, TempCount, PressureInTempCount);
                         PressureInTempCount++;
                     }
                     TempCount++;

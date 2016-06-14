@@ -195,7 +195,7 @@
             this.col_Temp4_2,
             this.col_temp5_p1,
             this.col_Temp5_2});
-            this.dgv_deviceData.Location = new System.Drawing.Point(551, 53);
+            this.dgv_deviceData.Location = new System.Drawing.Point(551, 2);
             this.dgv_deviceData.Margin = new System.Windows.Forms.Padding(4);
             this.dgv_deviceData.Name = "dgv_deviceData";
             this.dgv_deviceData.Size = new System.Drawing.Size(847, 529);
@@ -289,7 +289,7 @@
             this.col_serialNumber,
             this.DevicePositionOnBoard,
             this.BoardNumber});
-            this.dgv_devicesQueue.Location = new System.Drawing.Point(29, 53);
+            this.dgv_devicesQueue.Location = new System.Drawing.Point(29, 1);
             this.dgv_devicesQueue.Margin = new System.Windows.Forms.Padding(4);
             this.dgv_devicesQueue.Name = "dgv_devicesQueue";
             this.dgv_devicesQueue.Size = new System.Drawing.Size(491, 529);

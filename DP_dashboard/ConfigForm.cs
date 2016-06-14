@@ -232,7 +232,7 @@ namespace DP_dashboard
         {
             string filePath = string.Empty;
             string fileExt = string.Empty;
-            OpenFileDialog file = new OpenFileDialog(); //open dialog to choose file  
+            OpenFileDialog file = new OpenFileDialog(); //open dialog to choose file 
             if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK) //if there is a file choosen by the user  
             {
                 filePath = file.FileName; //get the path of the file  

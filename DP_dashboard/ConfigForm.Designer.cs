@@ -30,8 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgv_calibTempPointsTable = new System.Windows.Forms.DataGridView();
+            this.Enable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Temperture = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.bt_loadCustomerConfigFile = new System.Windows.Forms.Button();
             this.dgv_calibPressuresPointsTable = new System.Windows.Forms.DataGridView();
+            this.prs_Enable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.txb_pressure = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.bt_loadDefoult = new System.Windows.Forms.Button();
             this.bt_Cancel = new System.Windows.Forms.Button();
@@ -60,11 +65,6 @@
             this.tb_temSpampleInterval = new System.Windows.Forms.TextBox();
             this.tb_tempSkipTime = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.bt_loadCustomerConfigFile = new System.Windows.Forms.Button();
-            this.prs_Enable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.txb_pressure = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Enable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Temperture = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calibTempPointsTable)).BeginInit();
             this.panel1.SuspendLayout();
@@ -87,6 +87,19 @@
             this.dgv_calibTempPointsTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_calibPressuresPointsTable_CellEndEdit);
             this.dgv_calibTempPointsTable.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_calibTempPointsTable_CellEndEdit);
             // 
+            // Enable
+            // 
+            this.Enable.HeaderText = "Enable";
+            this.Enable.Name = "Enable";
+            this.Enable.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Enable.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Enable.Width = 50;
+            // 
+            // Temperture
+            // 
+            this.Temperture.HeaderText = "Temperture[c]";
+            this.Temperture.Name = "Temperture";
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -99,6 +112,19 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(750, 502);
             this.panel1.TabIndex = 1;
+            // 
+            // bt_loadCustomerConfigFile
+            // 
+            this.bt_loadCustomerConfigFile.AutoEllipsis = true;
+            this.bt_loadCustomerConfigFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.bt_loadCustomerConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_loadCustomerConfigFile.Location = new System.Drawing.Point(541, 102);
+            this.bt_loadCustomerConfigFile.Name = "bt_loadCustomerConfigFile";
+            this.bt_loadCustomerConfigFile.Size = new System.Drawing.Size(182, 70);
+            this.bt_loadCustomerConfigFile.TabIndex = 6;
+            this.bt_loadCustomerConfigFile.Text = "Load customer configuration";
+            this.bt_loadCustomerConfigFile.UseVisualStyleBackColor = false;
+            this.bt_loadCustomerConfigFile.Click += new System.EventHandler(this.bt_loadConfigFile_Click);
             // 
             // dgv_calibPressuresPointsTable
             // 
@@ -113,6 +139,17 @@
             this.dgv_calibPressuresPointsTable.Size = new System.Drawing.Size(244, 391);
             this.dgv_calibPressuresPointsTable.TabIndex = 5;
             this.dgv_calibPressuresPointsTable.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_calibPressuresPointsTable_CellEndEdit);
+            // 
+            // prs_Enable
+            // 
+            this.prs_Enable.HeaderText = "Enable";
+            this.prs_Enable.Name = "prs_Enable";
+            this.prs_Enable.Width = 50;
+            // 
+            // txb_pressure
+            // 
+            this.txb_pressure.HeaderText = "Pressure[bar]";
+            this.txb_pressure.Name = "txb_pressure";
             // 
             // label1
             // 
@@ -292,6 +329,7 @@
             this.cmb_jigConfiguration.Name = "cmb_jigConfiguration";
             this.cmb_jigConfiguration.Size = new System.Drawing.Size(121, 24);
             this.cmb_jigConfiguration.TabIndex = 5;
+            this.cmb_jigConfiguration.Text = "16";
             // 
             // panel3
             // 
@@ -410,43 +448,6 @@
             this.label6.Size = new System.Drawing.Size(340, 29);
             this.label6.TabIndex = 18;
             this.label6.Text = "Temperature stable settings";
-            // 
-            // bt_loadCustomerConfigFile
-            // 
-            this.bt_loadCustomerConfigFile.AutoEllipsis = true;
-            this.bt_loadCustomerConfigFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.bt_loadCustomerConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_loadCustomerConfigFile.Location = new System.Drawing.Point(541, 102);
-            this.bt_loadCustomerConfigFile.Name = "bt_loadCustomerConfigFile";
-            this.bt_loadCustomerConfigFile.Size = new System.Drawing.Size(182, 70);
-            this.bt_loadCustomerConfigFile.TabIndex = 6;
-            this.bt_loadCustomerConfigFile.Text = "Load customer configuration";
-            this.bt_loadCustomerConfigFile.UseVisualStyleBackColor = false;
-            this.bt_loadCustomerConfigFile.Click += new System.EventHandler(this.bt_loadConfigFile_Click);
-            // 
-            // prs_Enable
-            // 
-            this.prs_Enable.HeaderText = "Enable";
-            this.prs_Enable.Name = "prs_Enable";
-            this.prs_Enable.Width = 50;
-            // 
-            // txb_pressure
-            // 
-            this.txb_pressure.HeaderText = "Pressure[bar]";
-            this.txb_pressure.Name = "txb_pressure";
-            // 
-            // Enable
-            // 
-            this.Enable.HeaderText = "Enable";
-            this.Enable.Name = "Enable";
-            this.Enable.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Enable.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Enable.Width = 50;
-            // 
-            // Temperture
-            // 
-            this.Temperture.HeaderText = "Temperture[c]";
-            this.Temperture.Name = "Temperture";
             // 
             // contextMenuStrip1
             // 

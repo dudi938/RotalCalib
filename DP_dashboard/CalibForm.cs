@@ -463,14 +463,6 @@ namespace DP_dashboard
         private void bt_clear_Click(object sender, EventArgs e)
         {
             rtb_info.Text = "";
-
-
-            //string CutSn = tb_tempIndexAfterPause.Text.Substring(4);
-
-            //byte[] SN = System.Text.Encoding.ASCII.GetBytes(CutSn);
-            //classDpCommunication.SendDpSerialNumber(SN);
-
-            //classDpCommunication.DPgetDpInfo();
         }
 
         private void bt_connectDP_Click(object sender, EventArgs e)
@@ -709,6 +701,30 @@ namespace DP_dashboard
         private void chb_pressureAutoMode_CheckedChanged(object sender, EventArgs e)
         {
             classCalibrationInfo.classCalibrationSettings.PressureAutoMode = chb_pressureAutoMode.Checked;
+        }
+
+        private void bt_writeSN_Click(object sender, EventArgs e)
+        {
+            string CutSn = tb_dpSN.Text.Substring(4);
+
+            byte[] SN = System.Text.Encoding.ASCII.GetBytes(CutSn);
+            classDpCommunication.SendDpSerialNumber(SN);
+
+            classDpCommunication.DPgetDpInfo();
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            float pressure = classCalibrationInfo.ReadPressureFromPlc();
+            tb_testReadPressure.Text =   pressure.ToString();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            List<short> l = new List<short>();
+            l.Clear();
+            l.Add(Convert.ToInt16(tb_newsetPresssure.Text));
+            classCalibrationInfo.classDeltaProtocolInstanse.classDeltaWriteSetpoint(l);
         }
     }
 }           

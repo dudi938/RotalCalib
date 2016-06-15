@@ -11,7 +11,7 @@ namespace SerialPort_dll
         public class classSerial
         {
             public SerialPort port;
-
+            public bool ComPortListener = false;
             public object MessageBox { get; private set; }
 
             public bool IsComOpen()
@@ -33,12 +33,14 @@ namespace SerialPort_dll
                     if (!port.IsOpen)
                     {
                         port.Open();
-                    }
+                        ComPortListener = true;
+                }
                 }
                 catch (Exception ex)
                 {
-                    //MessageBox.Show(ex.Message);
-                }
+                //MessageBox.Show(ex.Message);
+                ComPortListener = false;
+            }
 
             }
 

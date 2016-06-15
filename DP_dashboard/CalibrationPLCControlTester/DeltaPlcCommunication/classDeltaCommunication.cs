@@ -251,6 +251,12 @@ namespace DeltaPlcCommunication
             stSendBuf = stSendBuf.ToUpper();
 
             RxMsg = SendAndRecieveData(stSendBuf);
+
+#if  DELTA_14SS
+#else       //DELTA_12SA2
+            RxMsg = ":0" + RxMsg;
+#endif
+
             if (RxMsg == "")
             {
                 incomingInfo.listDebugInfo.Add("No Response From unit -Check The Connection");

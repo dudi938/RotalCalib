@@ -20,7 +20,9 @@ namespace DeltaPlcCommunication
         {
             port = new SerialPort(name, baud,Parity.Even,7,StopBits.One);
             port.Handshake = Handshake.None;
-            port.ReadTimeout = 1000;
+
+            port.ReadTimeout = 3000;
+           // source port.ReadTimeout = 1000;
             if (handler != null)
             {
                 port.DataReceived += handler;

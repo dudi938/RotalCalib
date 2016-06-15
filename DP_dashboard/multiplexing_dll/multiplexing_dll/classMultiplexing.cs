@@ -82,6 +82,11 @@ namespace multiplexing_dll
 
             while (true)
             {
+                if (!SerialPortInstanse.port.IsOpen)
+                {
+                    System.Diagnostics.Trace.WriteLine(string.Format("{0} is not open",SerialPortInstanse.port.PortName));
+                    break;
+                }
                 try
                 {
                     while (SerialPortInstanse.port.BytesToRead > 0)

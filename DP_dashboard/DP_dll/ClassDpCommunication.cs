@@ -122,11 +122,14 @@ namespace DpCommunication
         private classSerial SerialPortInstanse;
         private Thread IncomingCommunicationBufferHandlerThread;
 
+
+
         public ClassDpCommunication(string portName, int baud, DpIncomingInformation info)
         {
             IncomingCommunicationBufferHandlerThread = new Thread(ApiTask);
             SerialPortInstanse = new classSerial(portName, 115200, null);
             incomingInfo = info;
+
             IncomingCommunicationBufferHandlerThread.Start();
         }
         public string GetCurrentTime()
@@ -171,7 +174,7 @@ namespace DpCommunication
                     }
                 }
                 catch (Exception ex)
-                {
+                {                 
                     SerialPortInstanse.port.DiscardInBuffer();
                     Array.Clear(incomingCommunicationBuffer, 0, incomingCommunicationBuffer.Length);
                 }

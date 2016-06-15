@@ -230,8 +230,8 @@ namespace DP_dashboard
                                     StateChangeState(StatePressureStableError);
                                 }
 
-                                //else if (PressureStableFlag)
-                                //{
+                                else if (PressureStableFlag)
+                                {
                                     if (classCalibrationSettings.PressureAutoMode)
                                     {
                                         StateChangeState(StateRunOfAllDp);
@@ -242,7 +242,7 @@ namespace DP_dashboard
                                         classCalibrationSettings.AlertToTechnican = true;
                                         StateChangeState(StateWaitToTechnicanApprovePressure);
                                 }
-                                //}                             
+                                }                             
                             }
                             break;
                             
@@ -259,22 +259,21 @@ namespace DP_dashboard
 
                         case StateWaitToSetTempStable:
                             {
-                                StateChangeState(StateSendPressureSetPoints);
-                                //if (CheckTimout(TimeFromSetPointRequest, classCalibrationSettings.TempMaxWaitTime))
-                                //{
-                                //    StateChangeState(StateTempStableError);
-                                //}
-                                //else if (CheckTimout(TimeFromSetPointRequest, classCalibrationSettings.TempSkipTime))
-                                //{
-                                //    if (CheckTempStableOnOneDp(classCalibrationSettings.TempDeltaRange))
-                                //    {
-                                //        StateChangeState(StateSendPressureSetPoints);
-                                //    }
-                                //    else
-                                //    {
-                                //        Thread.Sleep(TEMP_WAIT_BETWEEN_TOW_SMPLINGS * 1000);
-                                //    }
-                                //}
+                                if (CheckTimout(TimeFromSetPointRequest, classCalibrationSettings.TempMaxWaitTime))
+                                {
+                                    StateChangeState(StateTempStableError);
+                                }
+                                else if (CheckTimout(TimeFromSetPointRequest, classCalibrationSettings.TempSkipTime))
+                                {
+                                    if (CheckTempStableOnOneDp(classCalibrationSettings.TempDeltaRange))
+                                    {
+                                        StateChangeState(StateSendPressureSetPoints);
+                                    }
+                                    else
+                                    {
+                                        Thread.Sleep(TEMP_WAIT_BETWEEN_TOW_SMPLINGS * 1000);
+                                    }
+                                }
 
                                 //StateChangeState(StateSendPressureSetPoints);
 
@@ -378,7 +377,7 @@ namespace DP_dashboard
             CurrentCalibPressureIndex = 0;
         }
 
-        private float ReadPressureFromPlc()
+        public float ReadPressureFromPlc()
         {
             if (CheckTimout(LastPressureSample, READ_PRESSURE_INTERVAL))
             {

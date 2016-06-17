@@ -390,9 +390,9 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(27, 129);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(162, 17);
+            this.label9.Size = new System.Drawing.Size(135, 17);
             this.label9.TabIndex = 24;
-            this.label9.Text = "Sample interval[minutes]";
+            this.label9.Text = "Sample interval[sec]";
             // 
             // label8
             // 
@@ -453,7 +453,7 @@
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(67, 4);
             // 
             // ConfigForm
             // 

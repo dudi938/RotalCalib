@@ -136,7 +136,7 @@ namespace DP_dashboard
 
             // update temp sample settings
             calibForm.classCalibrationInfo.classCalibrationSettings.TempSkipTime = Convert.ToInt32(tb_tempSkipTime.Text) * 60;
-            calibForm.classCalibrationInfo.classCalibrationSettings.TempSampleInterval = Convert.ToInt32(tb_temSpampleInterval.Text) * 60;
+            calibForm.classCalibrationInfo.classCalibrationSettings.TempSampleInterval = Convert.ToInt32(tb_temSpampleInterval.Text);
             calibForm.classCalibrationInfo.classCalibrationSettings.TempDeltaRange = float.Parse(tb_tempDeltaRange.Text);
             calibForm.classCalibrationInfo.classCalibrationSettings.TempMaxWaitTime = Convert.ToInt32(tb_tempMaxWaitTime.Text) * 60;
             calibForm.classCalibrationInfo.classCalibrationSettings.TempSampleAmount = Convert.ToInt32(tb_tempSampleNum.Text);

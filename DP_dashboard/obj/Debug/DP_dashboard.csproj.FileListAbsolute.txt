@@ -65,3 +65,8 @@ C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard
 C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.csproj.GenerateResource.Cache
 C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.exe
 C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.pdb
+C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\DP_dashboard.exe.manifest
+C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\DP_dashboard.application
+C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.TrustInfo.xml
+C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.exe.manifest
+C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.application

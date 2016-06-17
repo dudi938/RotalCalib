@@ -174,7 +174,8 @@ namespace DpCommunication
                     }
                 }
                 catch (Exception ex)
-                {                 
+                {
+
                     SerialPortInstanse.port.DiscardInBuffer();
                     Array.Clear(incomingCommunicationBuffer, 0, incomingCommunicationBuffer.Length);
                 }

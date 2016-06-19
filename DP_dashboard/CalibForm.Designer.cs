@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pnl_calibrationPanel = new System.Windows.Forms.Panel();
+            this.bt_settings = new System.Windows.Forms.Button();
             this.tb_tempIndexAfterPause = new System.Windows.Forms.TextBox();
             this.bt_pauseStartCalib = new System.Windows.Forms.Button();
             this.bt_clear = new System.Windows.Forms.Button();
@@ -55,6 +56,10 @@
             this.col_serialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DevicePositionOnBoard = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BoardNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tb_newsetPresssure = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.tb_testReadPressure = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.pnl_TempData = new System.Windows.Forms.Panel();
             this.tb_temperatureOnDP = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -66,7 +71,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tb_dpSN = new System.Windows.Forms.TextBox();
             this.cmb_dpList = new System.Windows.Forms.ComboBox();
+            this.bt_writeSN = new System.Windows.Forms.Button();
             this.bt_disConnectDP = new System.Windows.Forms.Button();
             this.bt_connectDP = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -80,14 +87,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.bt_settings = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.bt_writeSN = new System.Windows.Forms.Button();
-            this.tb_dpSN = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.tb_testReadPressure = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.tb_newsetPresssure = new System.Windows.Forms.TextBox();
             this.pnl_calibrationPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_deviceData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_devicesQueue)).BeginInit();
@@ -103,10 +103,8 @@
             // 
             // pnl_calibrationPanel
             // 
-            this.pnl_calibrationPanel.Controls.Add(this.tb_newsetPresssure);
-            this.pnl_calibrationPanel.Controls.Add(this.button2);
-            this.pnl_calibrationPanel.Controls.Add(this.tb_testReadPressure);
-            this.pnl_calibrationPanel.Controls.Add(this.button1);
+            this.pnl_calibrationPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnl_calibrationPanel.Controls.Add(this.bt_settings);
             this.pnl_calibrationPanel.Controls.Add(this.tb_tempIndexAfterPause);
             this.pnl_calibrationPanel.Controls.Add(this.bt_pauseStartCalib);
             this.pnl_calibrationPanel.Controls.Add(this.bt_clear);
@@ -121,6 +119,20 @@
             this.pnl_calibrationPanel.Size = new System.Drawing.Size(1402, 810);
             this.pnl_calibrationPanel.TabIndex = 15;
             this.pnl_calibrationPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl_calibrationPanel_Paint);
+            // 
+            // bt_settings
+            // 
+            this.bt_settings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.bt_settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_settings.ForeColor = System.Drawing.Color.Black;
+            this.bt_settings.Location = new System.Drawing.Point(1263, 605);
+            this.bt_settings.Margin = new System.Windows.Forms.Padding(4);
+            this.bt_settings.Name = "bt_settings";
+            this.bt_settings.Size = new System.Drawing.Size(114, 60);
+            this.bt_settings.TabIndex = 19;
+            this.bt_settings.Text = "Settings";
+            this.bt_settings.UseVisualStyleBackColor = false;
+            this.bt_settings.Click += new System.EventHandler(this.bt_settings_Click);
             // 
             // tb_tempIndexAfterPause
             // 
@@ -179,7 +191,7 @@
             // 
             this.bt_startCalibration.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_startCalibration.ForeColor = System.Drawing.Color.Black;
-            this.bt_startCalibration.Location = new System.Drawing.Point(1136, 603);
+            this.bt_startCalibration.Location = new System.Drawing.Point(1131, 605);
             this.bt_startCalibration.Margin = new System.Windows.Forms.Padding(4);
             this.bt_startCalibration.Name = "bt_startCalibration";
             this.bt_startCalibration.Size = new System.Drawing.Size(114, 60);
@@ -338,6 +350,48 @@
             this.BoardNumber.Name = "BoardNumber";
             this.BoardNumber.ReadOnly = true;
             // 
+            // tb_newsetPresssure
+            // 
+            this.tb_newsetPresssure.Location = new System.Drawing.Point(183, 246);
+            this.tb_newsetPresssure.Name = "tb_newsetPresssure";
+            this.tb_newsetPresssure.Size = new System.Drawing.Size(100, 22);
+            this.tb_newsetPresssure.TabIndex = 13;
+            this.tb_newsetPresssure.Text = "0";
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
+            this.button2.ForeColor = System.Drawing.Color.Black;
+            this.button2.Location = new System.Drawing.Point(28, 236);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(132, 42);
+            this.button2.TabIndex = 12;
+            this.button2.Text = "Write pressure";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // tb_testReadPressure
+            // 
+            this.tb_testReadPressure.Location = new System.Drawing.Point(183, 169);
+            this.tb_testReadPressure.Name = "tb_testReadPressure";
+            this.tb_testReadPressure.Size = new System.Drawing.Size(100, 22);
+            this.tb_testReadPressure.TabIndex = 11;
+            this.tb_testReadPressure.Text = "0";
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
+            this.button1.ForeColor = System.Drawing.Color.Black;
+            this.button1.Location = new System.Drawing.Point(28, 159);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(132, 42);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "read pressure";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_2);
+            // 
             // pnl_TempData
             // 
             this.pnl_TempData.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -458,14 +512,29 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.tb_dpSN);
+            this.panel1.Controls.Add(this.tb_newsetPresssure);
             this.panel1.Controls.Add(this.cmb_dpList);
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.bt_writeSN);
+            this.panel1.Controls.Add(this.tb_testReadPressure);
             this.panel1.Controls.Add(this.bt_disConnectDP);
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.bt_connectDP);
             this.panel1.Location = new System.Drawing.Point(1460, 532);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(426, 147);
+            this.panel1.Size = new System.Drawing.Size(426, 292);
             this.panel1.TabIndex = 13;
+            // 
+            // tb_dpSN
+            // 
+            this.tb_dpSN.Location = new System.Drawing.Point(183, 101);
+            this.tb_dpSN.Name = "tb_dpSN";
+            this.tb_dpSN.Size = new System.Drawing.Size(100, 22);
+            this.tb_dpSN.TabIndex = 10;
             // 
             // cmb_dpList
             // 
@@ -488,14 +557,25 @@
             "13",
             "14",
             "15"});
-            this.cmb_dpList.Location = new System.Drawing.Point(223, 36);
+            this.cmb_dpList.Location = new System.Drawing.Point(334, 28);
             this.cmb_dpList.Name = "cmb_dpList";
             this.cmb_dpList.Size = new System.Drawing.Size(77, 24);
             this.cmb_dpList.TabIndex = 11;
             // 
+            // bt_writeSN
+            // 
+            this.bt_writeSN.Location = new System.Drawing.Point(25, 91);
+            this.bt_writeSN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.bt_writeSN.Name = "bt_writeSN";
+            this.bt_writeSN.Size = new System.Drawing.Size(132, 42);
+            this.bt_writeSN.TabIndex = 20;
+            this.bt_writeSN.Text = "Write SN(Name)";
+            this.bt_writeSN.UseVisualStyleBackColor = true;
+            this.bt_writeSN.Click += new System.EventHandler(this.bt_writeSN_Click);
+            // 
             // bt_disConnectDP
             // 
-            this.bt_disConnectDP.Location = new System.Drawing.Point(37, 89);
+            this.bt_disConnectDP.Location = new System.Drawing.Point(25, 18);
             this.bt_disConnectDP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bt_disConnectDP.Name = "bt_disConnectDP";
             this.bt_disConnectDP.Size = new System.Drawing.Size(132, 42);
@@ -506,7 +586,7 @@
             // 
             // bt_connectDP
             // 
-            this.bt_connectDP.Location = new System.Drawing.Point(37, 27);
+            this.bt_connectDP.Location = new System.Drawing.Point(183, 18);
             this.bt_connectDP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bt_connectDP.Name = "bt_connectDP";
             this.bt_connectDP.Size = new System.Drawing.Size(132, 42);
@@ -537,6 +617,8 @@
             // chb_pressureAutoMode
             // 
             this.chb_pressureAutoMode.AutoSize = true;
+            this.chb_pressureAutoMode.Checked = true;
+            this.chb_pressureAutoMode.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chb_pressureAutoMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold);
             this.chb_pressureAutoMode.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.chb_pressureAutoMode.Location = new System.Drawing.Point(24, 227);
@@ -644,99 +726,22 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Connection status";
             // 
-            // bt_settings
-            // 
-            this.bt_settings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.bt_settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_settings.ForeColor = System.Drawing.Color.Black;
-            this.bt_settings.Location = new System.Drawing.Point(1460, 713);
-            this.bt_settings.Margin = new System.Windows.Forms.Padding(4);
-            this.bt_settings.Name = "bt_settings";
-            this.bt_settings.Size = new System.Drawing.Size(147, 99);
-            this.bt_settings.TabIndex = 19;
-            this.bt_settings.Text = "Settings";
-            this.bt_settings.UseVisualStyleBackColor = false;
-            this.bt_settings.Click += new System.EventHandler(this.bt_settings_Click);
-            // 
             // backgroundWorker1
             // 
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            // 
-            // bt_writeSN
-            // 
-            this.bt_writeSN.Location = new System.Drawing.Point(1663, 713);
-            this.bt_writeSN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.bt_writeSN.Name = "bt_writeSN";
-            this.bt_writeSN.Size = new System.Drawing.Size(132, 42);
-            this.bt_writeSN.TabIndex = 20;
-            this.bt_writeSN.Text = "Write SN(Name)";
-            this.bt_writeSN.UseVisualStyleBackColor = true;
-            this.bt_writeSN.Click += new System.EventHandler(this.bt_writeSN_Click);
-            // 
-            // tb_dpSN
-            // 
-            this.tb_dpSN.Location = new System.Drawing.Point(1683, 790);
-            this.tb_dpSN.Name = "tb_dpSN";
-            this.tb_dpSN.Size = new System.Drawing.Size(100, 22);
-            this.tb_dpSN.TabIndex = 10;
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(197, 655);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(106, 60);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "read pressure";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_2);
-            // 
-            // tb_testReadPressure
-            // 
-            this.tb_testReadPressure.Location = new System.Drawing.Point(372, 675);
-            this.tb_testReadPressure.Name = "tb_testReadPressure";
-            this.tb_testReadPressure.Size = new System.Drawing.Size(100, 22);
-            this.tb_testReadPressure.TabIndex = 11;
-            this.tb_testReadPressure.Text = "0";
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.Black;
-            this.button2.Location = new System.Drawing.Point(197, 732);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(106, 60);
-            this.button2.TabIndex = 12;
-            this.button2.Text = "Write pressure";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
-            // tb_newsetPresssure
-            // 
-            this.tb_newsetPresssure.Location = new System.Drawing.Point(355, 752);
-            this.tb_newsetPresssure.Name = "tb_newsetPresssure";
-            this.tb_newsetPresssure.Size = new System.Drawing.Size(100, 22);
-            this.tb_newsetPresssure.TabIndex = 13;
-            this.tb_newsetPresssure.Text = "0";
             // 
             // CalibForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1906, 837);
-            this.Controls.Add(this.tb_dpSN);
-            this.Controls.Add(this.bt_writeSN);
-            this.Controls.Add(this.bt_settings);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnl_TempData);
             this.Controls.Add(this.pnl_calibrationPanel);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CalibForm";
-            this.Text = " ";
+            this.Text = " Calibration tool";
             this.TransparencyKey = System.Drawing.Color.Lime;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CalibForm_FormClosing);
@@ -748,10 +753,10 @@
             this.pnl_TempData.ResumeLayout(false);
             this.pnl_TempData.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

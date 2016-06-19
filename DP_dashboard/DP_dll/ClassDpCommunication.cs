@@ -119,7 +119,7 @@ namespace DpCommunication
         private const byte SIZE_OF_FLOAT = 0x04;
 
         private DpIncomingInformation incomingInfo;
-        private classSerial SerialPortInstanse;
+        public classSerial SerialPortInstanse;
         private Thread IncomingCommunicationBufferHandlerThread;
 
 
@@ -143,6 +143,7 @@ namespace DpCommunication
             if (SerialPortInstanse.port.IsOpen)
             {
                 SerialPortInstanse.port.Close();
+                SerialPortInstanse.ComPortOk = false;
             }
         }
 
@@ -151,7 +152,7 @@ namespace DpCommunication
 
             byte[] incomingCommunicationBuffer = new byte[API_RECEIVE_MSG_MAX_SIZE]; //incoming communication buffer
 
-            while (true)
+            while (SerialPortInstanse.ComPortOk)
             {
                 try
                 {
@@ -176,8 +177,11 @@ namespace DpCommunication
                 catch (Exception ex)
                 {
 
-                    SerialPortInstanse.port.DiscardInBuffer();
-                    Array.Clear(incomingCommunicationBuffer, 0, incomingCommunicationBuffer.Length);
+                    //SerialPortInstanse.port.DiscardInBuffer();
+                    //Array.Clear(incomingCommunicationBuffer, 0, incomingCommunicationBuffer.Length);
+
+                    SerialPortInstanse.ComPortOk = false;
+                    SerialPortInstanse.ComPortErrorMessage = string.Format("Error: COM name - {0}. COM function - DP comunication.", SerialPortInstanse.port.PortName);
                 }
             }
 

@@ -54,8 +54,10 @@ namespace DeltaPlcCommunication
         public const int D_OFFSET = 0x1000; //~14FF
         public const byte MAX_16BIT_SIZE = 18;
         public const byte MAX_32BIT_SIZE = 9;
-        private classSerial serial;
+        public classSerial serial;
         private DeltaIncomingInformation incomingInfo;
+
+
 
 
         public bool newPressureTableReceive = false;
@@ -78,6 +80,7 @@ namespace DeltaPlcCommunication
             if (serial.port.IsOpen)
             {
                 serial.port.Close();
+                serial.ComPortOk = false;
             }
         }
 

@@ -46,7 +46,7 @@ namespace multiplexing_dll
 
 
         private MultiplexingIncomingInformation incomingInfo;
-        private classSerial SerialPortInstanse;
+        public classSerial SerialPortInstanse;
         private Thread IncomingCommunicationBufferHandlerThread;
 
        public ChaneleNum ConnectedChanel = ChaneleNum.all_disconnected;
@@ -72,6 +72,7 @@ namespace multiplexing_dll
             if (SerialPortInstanse.port.IsOpen)
             {
                 SerialPortInstanse.port.Close();
+                SerialPortInstanse.ComPortOk = false;
             }
         }
 
@@ -80,7 +81,7 @@ namespace multiplexing_dll
 
             byte[] incomingCommunicationBuffer = new byte[API_RECEIVE_MSG_MAX_SIZE]; //incoming communication buffer
 
-            while (true)
+            while (SerialPortInstanse.ComPortOk)
             {
                 if (!SerialPortInstanse.port.IsOpen)
                 {
@@ -111,6 +112,9 @@ namespace multiplexing_dll
                 {
                     SerialPortInstanse.port.DiscardInBuffer();
                     Array.Clear(incomingCommunicationBuffer, 0, incomingCommunicationBuffer.Length);
+
+                    SerialPortInstanse.ComPortErrorMessage = string.Format("Error: COM name - {0}. COM function - DP Multiplexer.", SerialPortInstanse.port.PortName);
+                    SerialPortInstanse.ComPortOk = false;
                 }
             }
 

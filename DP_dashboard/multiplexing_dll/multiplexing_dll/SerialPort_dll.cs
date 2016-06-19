@@ -12,8 +12,8 @@ namespace SerialPort_dll
         {
             public SerialPort port;
 
-            public object MessageBox { get; private set; }
-
+            public bool ComPortOk = true;
+            public string ComPortErrorMessage = "";
             public bool IsComOpen()
             {
                 return port.IsOpen;
@@ -37,8 +37,9 @@ namespace SerialPort_dll
                 }
                 catch (Exception ex)
                 {
-                    //MessageBox.Show(ex.Message);
-                }
+                    ComPortErrorMessage = string.Format("Error: COM name - {0} not exist. COM function - DP Multiplexer.", name);
+                    ComPortOk = false;
+            }
 
             }
 

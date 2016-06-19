@@ -156,14 +156,7 @@ namespace DP_dashboard
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //rtbLog.Lines = PLCinfo.listDebugInfo.ToArray();
-
-
-
-            //debug only
-            //classDpCommunication.DPgetDpInfo();
-
-
+            CheckComPorts();
 
             CalibrationButtonHandele();
 
@@ -434,10 +427,6 @@ namespace DP_dashboard
         {
             classCalibrationInfo.DoCalibration = false;
             classCalibrationInfo.StateMachineReset();
-
-
-
-
         }
 
         private void pnl_TempData_Paint(object sender, PaintEventArgs e)
@@ -675,7 +664,7 @@ namespace DP_dashboard
             {
                 DataGridViewCellStyle spatialStyle = new DataGridViewCellStyle();
                 DataGridViewCellStyle normalStyle = new DataGridViewCellStyle();
-                spatialStyle.ForeColor = Color.Yellow;
+                spatialStyle.ForeColor = Color.Blue;
                 normalStyle.ForeColor = Color.Black;
 
 
@@ -683,7 +672,16 @@ namespace DP_dashboard
                 {
                     foreach (DataGridViewCell cell in dgv_devicesQueue.Rows[RowCount].Cells)
                     {
-                        if (RowCount == Convert.ToInt32(classMultiplexing.ConnectedChanel))
+                        //if (RowCount == Convert.ToInt32(classMultiplexing.ConnectedChanel))
+                        //{
+                        //    cell.Style.ForeColor = spatialStyle.ForeColor;
+                        //}
+                        //else
+                        //{
+                        //    cell.Style.ForeColor = normalStyle.ForeColor;
+                        //}
+
+                        if(classCalibrationInfo.classDevices[RowCount].PositionOnBoard == Convert.ToInt32(classMultiplexing.ConnectedChanel))
                         {
                             cell.Style.ForeColor = spatialStyle.ForeColor;
                         }
@@ -691,7 +689,7 @@ namespace DP_dashboard
                         {
                             cell.Style.ForeColor = normalStyle.ForeColor;
                         }
-                    }
+                    }                  
                 }
             }
             catch(Exception ex)
@@ -705,12 +703,23 @@ namespace DP_dashboard
 
         private void bt_writeSN_Click(object sender, EventArgs e)
         {
-            string CutSn = tb_dpSN.Text.Substring(4);
+            try
+            {
+                string CutSn = tb_dpSN.Text.Substring(4);
 
-            byte[] SN = System.Text.Encoding.ASCII.GetBytes(CutSn);
-            classDpCommunication.SendDpSerialNumber(SN);
+                byte[] SN = System.Text.Encoding.ASCII.GetBytes(CutSn);
+                classDpCommunication.SendDpSerialNumber(SN);
 
-            classDpCommunication.DPgetDpInfo();
+                classDpCommunication.DPgetDpInfo();
+            }
+            catch(Exception ex)
+            {
+                if (tb_dpSN.Text.Length < 1)
+                {
+                    MessageBox.Show("Please enter valid SN.");
+                }
+
+            }
         }
 
         private void button1_Click_2(object sender, EventArgs e)
@@ -725,6 +734,50 @@ namespace DP_dashboard
             l.Clear();
             l.Add(Convert.ToInt16(tb_newsetPresssure.Text));
             classCalibrationInfo.classDeltaProtocolInstanse.classDeltaWriteSetpoint(l);
+        }
+
+        public void CheckComPorts()
+        {
+            //DP
+            if (!classCalibrationInfo.classDpCommunicationInstanse.SerialPortInstanse.ComPortOk  && classCalibrationInfo.classDpCommunicationInstanse.SerialPortInstanse.ComPortErrorMessage != string.Empty)
+            {
+                string Message = string.Copy(classCalibrationInfo.classDpCommunicationInstanse.SerialPortInstanse.ComPortErrorMessage);
+                classCalibrationInfo.classDpCommunicationInstanse.SerialPortInstanse.ComPortErrorMessage = "";
+
+                MessageBox.Show(Message);
+
+            }
+
+            //MultiPlexer
+        //    if (!classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortOk && classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortErrorMessage != string.Empty)
+        //    {
+        //        string Message = string.Copy(classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortErrorMessage);
+        //        classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortErrorMessage = "";
+
+        //        MessageBox.Show(Message);
+
+        //    }
+
+        //    //PLC-Delta
+        //    if (!classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortOk && classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortErrorMessage != string.Empty)
+        //    {
+        //        string Message = string.Copy(classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortErrorMessage);
+        //        classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortErrorMessage = "";
+
+        //        MessageBox.Show(Message);
+
+        //    }
+
+        //    //MultiPlexer
+        //    if (!classCalibrationInfo.ClassTempControllerInstanse.ComPortOk && classCalibrationInfo.ClassTempControllerInstanse.ComPortErrorMessage != string.Empty)
+        //    {
+        //        string Message = string.Copy(classCalibrationInfo.ClassTempControllerInstanse.ComPortErrorMessage);
+        //        classCalibrationInfo.ClassTempControllerInstanse.ComPortErrorMessage = "";
+
+        //        MessageBox.Show(Message);
+
+        //    }
+
         }
     }
 }           

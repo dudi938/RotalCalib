@@ -325,7 +325,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("COM3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM7")]
         public string TempControllerComPort {
             get {
                 return ((string)(this["TempControllerComPort"]));
@@ -337,7 +337,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\work\\Rotal calibration\\project\\RotalCalib\\DP_dashboard\\bin\\Debug\\Logs")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\work\\Rotal\\Rotal calibration\\project\\RotalCalib\\DP_dashboard\\bin\\Debug\\Logs")]
         public string LogPath {
             get {
                 return ((string)(this["LogPath"]));

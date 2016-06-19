@@ -11,7 +11,8 @@ namespace SerialPort_dll
         public class classSerial
         {
             public SerialPort port;
-            public bool ComPortListener = false;
+            public bool ComPortOk = true;
+            public string ComPortErrorMessage = "";
             public object MessageBox { get; private set; }
 
             public bool IsComOpen()
@@ -32,15 +33,16 @@ namespace SerialPort_dll
                 {
                     if (!port.IsOpen)
                     {
-                        port.Open();
-                        ComPortListener = true;
-                }
+                        port.Open();                   
+                        ComPortOk = true;
+                    }
                 }
                 catch (Exception ex)
                 {
-                //MessageBox.Show(ex.Message);
-                ComPortListener = false;
-            }
+                       //MessageBox.Show(ex.Message);
+                       ComPortOk = false;
+                       ComPortErrorMessage = string.Format("Error: COM name - {0} not exist. COM function - DP comunication.",name);
+                }
 
             }
 

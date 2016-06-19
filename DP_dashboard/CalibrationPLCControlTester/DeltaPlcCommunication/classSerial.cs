@@ -10,6 +10,9 @@ namespace DeltaPlcCommunication
     public class classSerial
     {
         public SerialPort port;
+        public bool ComPortOk = true;
+        public string ComPortErrorMessage = "";
+
 
         public bool IsComOpen()
         {
@@ -37,6 +40,8 @@ namespace DeltaPlcCommunication
             catch (Exception ex)
             {
                 //throw new System.ArgumentException(ex.Message);
+                ComPortOk = false;
+                ComPortErrorMessage = string.Format("Error: COM name - {0} not exist. COM function - DELTA(PLC).", port.PortName);
             }
 
         }

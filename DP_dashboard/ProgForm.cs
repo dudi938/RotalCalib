@@ -78,9 +78,11 @@ namespace DP_dashboard
 
         private void bt_back_Click(object sender, EventArgs e)
         {
-            EnableProgram = false;
-            this.Hide();
-            startForm.Show();
+            //EnableProgram = false;
+            //this.Hide();
+            //startForm.Show();
+
+            classCalibrationInfo.classDpCommunicationInstanse.DPgetDpInfo();
         }
 
         private void bt_startProgram_Click(object sender, EventArgs e)

@@ -138,7 +138,7 @@
             this.bt_back.Name = "bt_back";
             this.bt_back.Size = new System.Drawing.Size(321, 122);
             this.bt_back.TabIndex = 4;
-            this.bt_back.Text = "Back";
+            this.bt_back.Text = "Test";
             this.bt_back.UseVisualStyleBackColor = false;
             this.bt_back.Click += new System.EventHandler(this.bt_back_Click);
             // 

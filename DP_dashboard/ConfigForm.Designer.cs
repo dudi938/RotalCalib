@@ -453,7 +453,7 @@
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(67, 4);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // ConfigForm
             // 
@@ -469,6 +469,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ConfigForm";
             this.Text = "ConfigForm";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.ConfigForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calibTempPointsTable)).EndInit();
             this.panel1.ResumeLayout(false);

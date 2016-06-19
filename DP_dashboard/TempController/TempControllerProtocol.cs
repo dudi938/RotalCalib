@@ -7,7 +7,10 @@ namespace TempController_dll
 {
     public class TempControllerProtocol
     {
-        private SerialPort sp = new SerialPort();
+        public SerialPort sp = new SerialPort();
+        public bool ComPortOk = true;
+        public string ComPortErrorMessage = "";
+
         public string modbusStatus;
         public bool TempControllerConnectionStatus = false;
         public bool TempControllerConnectionEvent = false;
@@ -30,6 +33,11 @@ namespace TempController_dll
             {
                 TempControllerConnectionStatus = true;
                 TempControllerConnectionEvent = true;
+            }
+            else
+            {
+                ComPortOk = false;
+                ComPortErrorMessage = string.Format("Error: COM name - {0} not exist. COM function - Temp conttroller.", sp.PortName); ;
             }
 
         }

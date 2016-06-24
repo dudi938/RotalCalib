@@ -29,17 +29,17 @@ namespace DP_dashboard
 
         // mult plexing protocol instance
         private MultiplexingIncomingInformation MultiplexingInfo;
-        private classMultiplexing classMultiplexing;
+        public classMultiplexing classMultiplexing;
         // end
 
         // plc protocol instance
-        private classDeltaProtocol ClassDeltaProtocol;
+        public classDeltaProtocol ClassDeltaProtocol;
         private DeltaIncomingInformation PLCinfo;
         private DeltaReturnedData IncumingParametersFromPLC;
         // end   
 
         // DP protocol instance  
-        private ClassDpCommunication classDpCommunication;
+        public ClassDpCommunication classDpCommunication;
         private DpIncomingInformation DPinfo;
         // end  
 
@@ -48,10 +48,10 @@ namespace DP_dashboard
         private string CurrentSnDeviceIsFocus = "";
 
         // temp controller protocol instance
-        TempControllerProtocol tempControllerInstanse;
+        public TempControllerProtocol tempControllerInstanse;
 
         ConfigForm ConfigFormInstanse;
-
+        DateTime UpdateTempTime = new DateTime();
 
 
 
@@ -83,15 +83,21 @@ namespace DP_dashboard
 
             // Calibration class init           
             classCalibrationInfo = new ClassCalibrationInfo(tempControllerInstanse, classDpCommunication, classMultiplexing, ClassDeltaProtocol);
+
+
+
+            UpdateTempTime = DateTime.Now;
         }
 
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //UpdateDeviceTable();
+
             LoadDefoultCalibPointToList();
 
+            tb_logsPath.Text = Properties.Settings.Default.LogPath;
 
+            //ClassMail.SendCalibrationDone();
         }
 
         private void bt_writePressureTableToPlc_Click(object sender, EventArgs e)
@@ -158,6 +164,23 @@ namespace DP_dashboard
         {
             CheckComPorts();
 
+            
+            if(!classCalibrationInfo.CriticalStates)
+            {
+                if (CheckTimout(UpdateTempTime, 1))
+                {
+                    classCalibrationInfo.classDpCommunicationInstanse.DPgetDpInfo();
+                    classCalibrationInfo.classDpCommunicationInstanse.NewDpInfoEvent = false;
+
+                    tb_temperatureOnDP.Text = classCalibrationInfo.classDpCommunicationInstanse.dpInfo.CurrentTemp.ToString();
+
+                    UpdateTempTime = DateTime.Now;
+                }
+            }
+
+            UpdateProgressBar();
+            
+
             CalibrationButtonHandele();
 
             MarkConnectedDevice();
@@ -190,7 +213,7 @@ namespace DP_dashboard
 
             if (classCalibrationInfo.DoCalibration)
             {
-                UpdateRealTimeData();
+                UpdateCalibrationGUI();
             }
 
             if (classCalibrationInfo.ErrorEvent)
@@ -227,6 +250,24 @@ namespace DP_dashboard
 
             }
 
+        }
+
+        private void UpdateProgressBar()
+        {
+            if (classCalibrationInfo.DoCalibration)
+            {
+                pb_calibProgressBar.Visible = true;
+
+                int TotalCalibPoints = classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count * classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count;
+                int FinishCalibPoints = classCalibrationInfo.CurrentCalibTempIndex * classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count + classCalibrationInfo.CurrentCalibPressureIndex;
+
+                pb_calibProgressBar.Value = (FinishCalibPoints / TotalCalibPoints) * 100;
+            }
+            else
+            {
+                pb_calibProgressBar.Visible = false;
+                pb_calibProgressBar.Value = 0;
+            }
         }
 
         private void pnl_plcControl_Paint(object sender, PaintEventArgs e)
@@ -316,7 +357,7 @@ namespace DP_dashboard
             if (classCalibrationInfo.DpCountAxist > 0)
             {
                 classCalibrationInfo.EndDetectEvent = false;
-                classCalibrationInfo.EndDetectEvent = false;
+
                 UpdateDeviceTable();
 
 
@@ -395,12 +436,12 @@ namespace DP_dashboard
         }
 
 
-        void UpdateRealTimeData()
+        void UpdateCalibrationGUI()
         {
             //temp controller
             tb_currentTemperature.Text = classCalibrationInfo.CurrentTempControllerValue.ToString();
             tb_targetTemperature.Text = classCalibrationInfo.classCalibrationSettings.TempUnderTestList[classCalibrationInfo.CurrentCalibTempIndex].ToString();
-            tb_temperatureOnDP.Text = classCalibrationInfo.CurrentTempOnDP.ToString();
+            //tb_temperatureOnDP.Text = classCalibrationInfo.CurrentTempOnDP.ToString();
 
             //pressure
             tb_pressCurrentPressure.Text = classCalibrationInfo.CurrentPressure.ToString();
@@ -409,10 +450,13 @@ namespace DP_dashboard
             if (classCalibrationInfo.PressureStableFlag)
             {
                 tb_preeStable.Text = "Yes";
+                tb_preeStable.BackColor = Color.Green;
+
             }
             else
             {
                 tb_preeStable.Text = "No";
+                tb_preeStable.BackColor = Color.White;
             }
 
         }
@@ -420,7 +464,7 @@ namespace DP_dashboard
 
         private void dgv_deviceData_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+           
         }
 
         private void bt_stopCalibration_Click(object sender, EventArgs e)
@@ -452,6 +496,16 @@ namespace DP_dashboard
         private void bt_clear_Click(object sender, EventArgs e)
         {
             rtb_info.Text = "";
+        }
+
+
+        private bool CheckTimout(DateTime startTime, int timeout)
+        {
+            if (DateTime.Now.Subtract(startTime).TotalSeconds > timeout)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void bt_connectDP_Click(object sender, EventArgs e)
@@ -749,34 +803,49 @@ namespace DP_dashboard
             }
 
             //MultiPlexer
-        //    if (!classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortOk && classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortErrorMessage != string.Empty)
-        //    {
-        //        string Message = string.Copy(classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortErrorMessage);
-        //        classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortErrorMessage = "";
+            if (!classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortOk && classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortErrorMessage != string.Empty)
+            {
+                string Message = string.Copy(classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortErrorMessage);
+                classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortErrorMessage = "";
 
-        //        MessageBox.Show(Message);
+                MessageBox.Show(Message);
 
-        //    }
+            }
 
-        //    //PLC-Delta
-        //    if (!classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortOk && classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortErrorMessage != string.Empty)
-        //    {
-        //        string Message = string.Copy(classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortErrorMessage);
-        //        classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortErrorMessage = "";
+            //PLC-Delta
+            if (!classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortOk && classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortErrorMessage != string.Empty)
+            {
+                string Message = string.Copy(classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortErrorMessage);
+                classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortErrorMessage = "";
 
-        //        MessageBox.Show(Message);
+                MessageBox.Show(Message);
 
-        //    }
+            }
 
-        //    //MultiPlexer
-        //    if (!classCalibrationInfo.ClassTempControllerInstanse.ComPortOk && classCalibrationInfo.ClassTempControllerInstanse.ComPortErrorMessage != string.Empty)
-        //    {
-        //        string Message = string.Copy(classCalibrationInfo.ClassTempControllerInstanse.ComPortErrorMessage);
-        //        classCalibrationInfo.ClassTempControllerInstanse.ComPortErrorMessage = "";
+            //temp controller
+            if (!classCalibrationInfo.ClassTempControllerInstanse.ComPortOk && classCalibrationInfo.ClassTempControllerInstanse.ComPortErrorMessage != string.Empty)
+            {
+                string Message = string.Copy(classCalibrationInfo.ClassTempControllerInstanse.ComPortErrorMessage);
+                classCalibrationInfo.ClassTempControllerInstanse.ComPortErrorMessage = "";
 
-        //        MessageBox.Show(Message);
+                MessageBox.Show(Message);
 
-        //    }
+            }
+
+        }
+
+        private void tb_logsPath_TextChanged(object sender, EventArgs e)
+        {
+            //System.Diagnostics.Process.Start(Properties.Settings.Default.LogPath);
+        }
+
+        private void tb_logsPath_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Properties.Settings.Default.LogPath);
+        }
+
+        private void panel1_Paint_1(object sender, PaintEventArgs e)
+        {
 
         }
     }

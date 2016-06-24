@@ -94,10 +94,11 @@ namespace DP_dashboard
                 // need implamnt wait to insure that the device are connected
 
 
-                string RealTimeData = string.Format("Start Program DP Number {0}. Serial number:{1}.",i.ToString(), classCalibrationInfo.classDevices[i].DeviceSerialNumber.ToString());
+                //string RealTimeData = string.Format("Start Program DP Number {0}. Serial number:{1}.",i.ToString(), classCalibrationInfo.classDevices[i].DeviceSerialNumber.ToString());
+                string RealTimeData = string.Format(Properties.Settings.Default.FlashProgrammerToolPath);
                 lbl_info.Text = RealTimeData; 
 
-                bool res = FlashDpDevice(@"C:\Users\dudi9\Desktop\DPT.hex");
+                bool res = FlashDpDevice(Properties.Settings.Default.HexFilePath);
 
                 DGVSetCellColor(dgv_dpTableInfo, 1, i, res ? Color.Green: Color.Red);
               

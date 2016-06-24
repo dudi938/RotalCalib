@@ -125,7 +125,7 @@ namespace DP_dashboard
         public ClassCalibrationSettings classCalibrationSettings = new ClassCalibrationSettings();
         public string ErrorMessage = "";
         public bool ErrorEvent = false;
-
+        public bool CriticalStates = false;
 
 
         DateTime GetDpInforequestTime;
@@ -144,13 +144,6 @@ namespace DP_dashboard
 
         public ClassCalibrationInfo(TempControllerProtocol tempControllerInstanse, ClassDpCommunication ClassDpCommunication, classMultiplexing ClassMultiplexing, classDeltaProtocol classDeltaIncomingInformation)
         {
-            //CalibrationTaskHandlerThread = new Thread(CalibrationTask);
-            //CalibrationTaskHandlerThread.Start();
-            //InitCalibTread();
-
-
-            //DetectDevicesTaskHandlerThread = new Thread(DetectDevicesTask);
-            //DetectDevicesTaskHandlerThread.Start();
 
             // DP TempController
             ClassTempControllerInstanse = tempControllerInstanse;
@@ -197,12 +190,16 @@ namespace DP_dashboard
                                 CurrentCalibDevice = classDevices[CurrentCalibDeviceIndex];
                                 StateChangeState(StateSendTempSetPoints);
                                 CurrentCalibPressureIndex = 0;
-                                CurrentCalibTempIndex = 0;                              
+                                CurrentCalibTempIndex = 0;
+
+                                CriticalStates = true;
                             }
                             break;
 
                         case StateSendPressureSetPoints:
                             {
+                                CriticalStates = true;
+
                                 if (CurrentCalibPressureIndex > 0)
                                 {
                                     List<Int16> SetPointPressure = new List<short>();
@@ -235,8 +232,10 @@ namespace DP_dashboard
                                 SelectSetPoint(TEMP_SELECT_SET_POINT_REGISTER_ADDRESSS, 0);
                                 TimeFromSetPointRequest = DateTime.Now;
 
+                                CriticalStates = false;
+
                                 StateChangeState(StateWaitToSetTempStable);
-                                //IncermentCalibPointStep = true;
+
                             }
                             break;
 
@@ -373,6 +372,7 @@ namespace DP_dashboard
                 }
                 CalibrationTaskHandlerThread = null;
             }
+            CriticalStates = false;
         }
 
         public void StateChangeState(byte nextState)
@@ -449,11 +449,12 @@ namespace DP_dashboard
             //Read registers and display data in desired format:
             try
             {
-                while (!ClassTempControllerInstanse.SendFc3(Convert.ToByte(Properties.Settings.Default.TempControllerSlaveAddress), pollStart, pollLength, ref values)) ;
+               ClassTempControllerInstanse.SendFc3(Convert.ToByte(Properties.Settings.Default.TempControllerSlaveAddress), pollStart, pollLength, ref values);            
             }
             catch (Exception err)
             {
-
+                ClassTempControllerInstanse.ComPortOk = false;
+                ClassTempControllerInstanse.ComPortErrorMessage = string.Format("Error: {0} connection error. function - Temp controller.", ClassTempControllerInstanse.sp.PortName);
             }
 
             float value = float.Parse(values[0].ToString()) / 10;

@@ -105,7 +105,7 @@
             this.bt_startProgram.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.bt_startProgram.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold);
             this.bt_startProgram.ForeColor = System.Drawing.Color.Blue;
-            this.bt_startProgram.Location = new System.Drawing.Point(677, 208);
+            this.bt_startProgram.Location = new System.Drawing.Point(517, 121);
             this.bt_startProgram.Margin = new System.Windows.Forms.Padding(4);
             this.bt_startProgram.Name = "bt_startProgram";
             this.bt_startProgram.Size = new System.Drawing.Size(321, 122);
@@ -119,7 +119,7 @@
             this.bt_stopProgram.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.bt_stopProgram.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold);
             this.bt_stopProgram.ForeColor = System.Drawing.Color.Blue;
-            this.bt_stopProgram.Location = new System.Drawing.Point(677, 377);
+            this.bt_stopProgram.Location = new System.Drawing.Point(517, 290);
             this.bt_stopProgram.Margin = new System.Windows.Forms.Padding(4);
             this.bt_stopProgram.Name = "bt_stopProgram";
             this.bt_stopProgram.Size = new System.Drawing.Size(321, 122);
@@ -133,7 +133,7 @@
             this.bt_back.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.bt_back.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_back.ForeColor = System.Drawing.Color.Blue;
-            this.bt_back.Location = new System.Drawing.Point(677, 546);
+            this.bt_back.Location = new System.Drawing.Point(517, 459);
             this.bt_back.Margin = new System.Windows.Forms.Padding(4);
             this.bt_back.Name = "bt_back";
             this.bt_back.Size = new System.Drawing.Size(321, 122);
@@ -164,7 +164,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1057, 239);
+            this.button1.Location = new System.Drawing.Point(873, 138);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(193, 74);
             this.button1.TabIndex = 6;
@@ -174,7 +174,7 @@
             // 
             // tb_connectdp
             // 
-            this.tb_connectdp.Location = new System.Drawing.Point(1293, 268);
+            this.tb_connectdp.Location = new System.Drawing.Point(1084, 164);
             this.tb_connectdp.Name = "tb_connectdp";
             this.tb_connectdp.Size = new System.Drawing.Size(100, 22);
             this.tb_connectdp.TabIndex = 7;
@@ -183,7 +183,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1744, 742);
+            this.ClientSize = new System.Drawing.Size(1262, 1045);
             this.Controls.Add(this.tb_connectdp);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lbl_info);

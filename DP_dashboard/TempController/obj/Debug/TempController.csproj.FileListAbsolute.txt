@@ -3,7 +3,3 @@ C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\TempController\bin\Deb
 C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\TempController\obj\Debug\TempController.csprojResolveAssemblyReference.cache
 C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\TempController\obj\Debug\TempController.dll
 C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\TempController\obj\Debug\TempController.pdb
-C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\TempController\bin\Debug\TempController.dll
-C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\TempController\bin\Debug\TempController.pdb
-C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\TempController\obj\Debug\TempController.dll
-C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\TempController\obj\Debug\TempController.pdb

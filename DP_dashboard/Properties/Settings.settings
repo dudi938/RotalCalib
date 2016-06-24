@@ -9,7 +9,7 @@
       <Value Profile="(Default)">COM1</Value>
     </Setting>
     <Setting Name="dpComPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">COM19</Value>
+      <Value Profile="(Default)">COM4</Value>
     </Setting>
     <Setting Name="StationType" Type="System.String" Scope="User">
       <Value Profile="(Default)">CalibrationStation</Value>
@@ -78,10 +78,16 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="TempControllerComPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">COM7</Value>
+      <Value Profile="(Default)">COM6</Value>
     </Setting>
     <Setting Name="LogPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\Logs</Value>
+    </Setting>
+    <Setting Name="HexFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\dudi9\Desktop\DPT.hex</Value>
+    </Setting>
+    <Setting Name="FlashProgrammerToolPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files (x86)\Texas Instruments\SmartRF Tools\Flash Programmer\bin\SmartRFProgConsole.exe</Value>
     </Setting>
   </Settings>
 </SettingsFile>

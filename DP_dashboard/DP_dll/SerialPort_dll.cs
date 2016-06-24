@@ -8,87 +8,101 @@ using System.Threading.Tasks;
 
 namespace SerialPort_dll
 {
-        public class classSerial
+    public class classSerial
+    {
+        public SerialPort port;
+        public bool ComPortOk = true;
+        public string ComPortErrorMessage = "";
+        public object MessageBox { get; private set; }
+
+        public bool IsComOpen()
         {
-            public SerialPort port;
-            public bool ComPortOk = true;
-            public string ComPortErrorMessage = "";
-            public object MessageBox { get; private set; }
+            return port.IsOpen;
+        }
 
-            public bool IsComOpen()
+        public classSerial(string name, int baud, SerialDataReceivedEventHandler handler)
+        {
+            port = new SerialPort(name, baud);
+            port.Handshake = Handshake.None;
+            port.ReadTimeout = 1000;
+            if (handler != null)
             {
-                return port.IsOpen;
+                port.DataReceived += handler;
             }
-
-            public classSerial(string name, int baud, SerialDataReceivedEventHandler handler)
+            try
             {
-                port = new SerialPort(name, baud);
-                port.Handshake = Handshake.None;
-                port.ReadTimeout = 1000;
-                if (handler != null)
+                if (!port.IsOpen)
                 {
-                    port.DataReceived += handler;
-                }
-                try
-                {
-                    if (!port.IsOpen)
-                    {
-                        port.Open();                   
-                        ComPortOk = true;
-                    }
-                }
-                catch (Exception ex)
-                {
-                       //MessageBox.Show(ex.Message);
-                       ComPortOk = false;
-                       ComPortErrorMessage = string.Format("Error: COM name - {0} not exist. COM function - DP comunication.",name);
-                }
+                    port.Open();
+                    ComPortOk = true;
 
-            }
-
-            public void Send(byte[] data, int size)
-            {
-                try
-                {
-                    if (port.IsOpen)
-                    {
-                        port.Write(data, 0, size);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
+                    FixComunicationProblem();
                 }
             }
-
-            public int Recieve(byte[] data, int size, int timeoutMili = 100)
+            catch (Exception ex)
             {
-                DateTime start = DateTime.Now;
-                TimeSpan delta;
-                try
+                //MessageBox.Show(ex.Message);
+                ComPortOk = false;
+                ComPortErrorMessage = string.Format("Error:{0} not exist. COM function - DP comunication.", name);
+            }
+
+        }
+
+        public void Send(byte[] data, int size)
+        {
+            try
+            {
+                if (port.IsOpen)
                 {
-                    if (port.IsOpen)
+                    port.Write(data, 0, size);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+        public int Recieve(byte[] data, int size, int timeoutMili = 100)
+        {
+            DateTime start = DateTime.Now;
+            TimeSpan delta;
+            try
+            {
+                if (port.IsOpen)
+                {
+                    while (port.BytesToRead < size)
                     {
-                        while (port.BytesToRead < size)
+                        delta = DateTime.Now - start;
+                        if (delta.TotalMilliseconds > timeoutMili)
                         {
-                            delta = DateTime.Now - start;
-                            if (delta.TotalMilliseconds > timeoutMili)
-                            {
-                                return 0;
-                            }
+                            return 0;
                         }
-                        port.Read(data, 0, size);
                     }
-                    return size;
+                    port.Read(data, 0, size);
                 }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                    return 0;
-                }
+                return size;
             }
-        } 
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return 0;
+            }
+        }
+
+        private void FixComunicationProblem()
+        {
+            while (port.BytesToRead > 0)
+            {
+                int temp;
+                temp = port.ReadByte();
+            }
+
+        }
+
+    }
 }
+
 
 
 

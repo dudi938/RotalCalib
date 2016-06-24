@@ -110,10 +110,10 @@ namespace multiplexing_dll
                 }
                 catch (Exception ex)
                 {
-                    SerialPortInstanse.port.DiscardInBuffer();
-                    Array.Clear(incomingCommunicationBuffer, 0, incomingCommunicationBuffer.Length);
+                    //SerialPortInstanse.port.DiscardInBuffer();
+                    //Array.Clear(incomingCommunicationBuffer, 0, incomingCommunicationBuffer.Length);
 
-                    SerialPortInstanse.ComPortErrorMessage = string.Format("Error: COM name - {0}. COM function - DP Multiplexer.", SerialPortInstanse.port.PortName);
+                    SerialPortInstanse.ComPortErrorMessage = string.Format("Error: {0} connection error. function - DP Multiplexer.", SerialPortInstanse.port.PortName);                                                            
                     SerialPortInstanse.ComPortOk = false;
                 }
             }

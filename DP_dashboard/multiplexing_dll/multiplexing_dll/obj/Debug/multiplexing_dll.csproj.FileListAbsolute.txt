@@ -16,9 +16,3 @@ C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\multiplexing_dll\multi
 C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\obj\Debug\multiplexing_dll.csprojResolveAssemblyReference.cache
 C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\obj\Debug\multiplexing_dll.dll
 C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\obj\Debug\multiplexing_dll.pdb
-C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\bin\Debug\multiplexing_dll.dll
-C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\bin\Debug\multiplexing_dll.pdb
-C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\bin\Debug\SerialPort_dll.dll
-C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\bin\Debug\SerialPort_dll.pdb
-C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\obj\Debug\multiplexing_dll.dll
-C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\obj\Debug\multiplexing_dll.pdb

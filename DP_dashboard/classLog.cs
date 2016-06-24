@@ -111,7 +111,7 @@ namespace DP_dashboard
         }
 
         public void CloseFileForLogging()
-        {
+        {          
             file.Close();
             file = null;
         }

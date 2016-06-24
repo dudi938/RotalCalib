@@ -83,6 +83,7 @@
     <Compile Include="ClassCalibrationInfo.cs" />
     <Compile Include="ClassDevice.cs" />
     <Compile Include="classLog.cs" />
+    <Compile Include="ClassMail.cs" />
     <Compile Include="ConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>

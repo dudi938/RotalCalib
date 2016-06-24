@@ -37,7 +37,7 @@ namespace TempController_dll
             else
             {
                 ComPortOk = false;
-                ComPortErrorMessage = string.Format("Error: COM name - {0} not exist. COM function - Temp conttroller.", sp.PortName); ;
+                ComPortErrorMessage = string.Format("Error:{0} not exist. COM function - Temp conttroller.", sp.PortName); ;
             }
 
         }

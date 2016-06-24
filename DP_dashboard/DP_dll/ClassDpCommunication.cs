@@ -180,9 +180,9 @@ namespace DpCommunication
                     //SerialPortInstanse.port.DiscardInBuffer();
                     //Array.Clear(incomingCommunicationBuffer, 0, incomingCommunicationBuffer.Length);
 
-                    SerialPortInstanse.ComPortOk = false;
-                    SerialPortInstanse.ComPortErrorMessage = string.Format("Error: COM name - {0}. COM function - DP comunication.", SerialPortInstanse.port.PortName);
-                }
+                    //SerialPortInstanse.ComPortOk = false;
+                    //SerialPortInstanse.ComPortErrorMessage = string.Format("Error: {0} connection error. function - DP comunication.", SerialPortInstanse.port.PortName);
+                }                        
             }
 
         }
@@ -234,7 +234,7 @@ namespace DpCommunication
 
                             dpInfo.LeftA2D = BitConverter.ToUInt16(incomingData, DEVICE_INFO_A2D1_OFFSET);
                             dpInfo.RightA2D = BitConverter.ToUInt16(incomingData, DEVICE_INFO_A2D2_OFFSET);
-                            NewDpInfoEvent = true;
+                            NewDpInfoEvent = true; 
                         }
                         break;
                     default:

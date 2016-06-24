@@ -47,7 +47,7 @@
             this.col_SerialNumber,
             this.col_dpName});
             this.dgv_registerDpPacket.GridColor = System.Drawing.Color.LightGray;
-            this.dgv_registerDpPacket.Location = new System.Drawing.Point(508, 119);
+            this.dgv_registerDpPacket.Location = new System.Drawing.Point(21, 82);
             this.dgv_registerDpPacket.Margin = new System.Windows.Forms.Padding(4);
             this.dgv_registerDpPacket.Name = "dgv_registerDpPacket";
             this.dgv_registerDpPacket.Size = new System.Drawing.Size(452, 507);
@@ -90,7 +90,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label1.Location = new System.Drawing.Point(512, 46);
+            this.label1.Location = new System.Drawing.Point(25, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(438, 38);
@@ -102,7 +102,7 @@
             this.bt_next.BackColor = System.Drawing.Color.Silver;
             this.bt_next.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_next.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.bt_next.Location = new System.Drawing.Point(508, 661);
+            this.bt_next.Location = new System.Drawing.Point(21, 624);
             this.bt_next.Margin = new System.Windows.Forms.Padding(4);
             this.bt_next.Name = "bt_next";
             this.bt_next.Size = new System.Drawing.Size(452, 94);
@@ -115,7 +115,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1769, 898);
+            this.ClientSize = new System.Drawing.Size(1262, 1045);
             this.Controls.Add(this.bt_next);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgv_registerDpPacket);

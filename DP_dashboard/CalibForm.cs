@@ -178,12 +178,9 @@ namespace DP_dashboard
                 }
             }
 
-            UpdateProgressBar();
-            
 
-            CalibrationButtonHandele();
+            UpdateGUI();
 
-            MarkConnectedDevice();
 
             if (classCalibrationInfo.FinishCalibrationEvent)
             {
@@ -193,7 +190,30 @@ namespace DP_dashboard
                 MessageBox.Show("Calibration done!");
             }
 
-            if(classCalibrationInfo.classCalibrationSettings.AlertToTechnican)
+            if(classCalibrationInfo.TempTimoutErrorEvent)
+            {
+                classCalibrationInfo.TempTimoutErrorEvent = false;
+
+                DialogResult result = MessageBox.Show("Fail to set temperature!","Error", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    classCalibrationInfo.NextAfterTempTimoutErrorEvent = true;
+                }
+            }
+
+            if (classCalibrationInfo.PressureTimoutErrorEvent)
+            {
+                classCalibrationInfo.PressureTimoutErrorEvent = false;
+
+                DialogResult result = MessageBox.Show("Fail to set pressure!", "Error", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    classCalibrationInfo.NextAfterPressureTimoutErrorEvent = true;
+                }
+            }
+
+
+            if (classCalibrationInfo.classCalibrationSettings.AlertToTechnican)
             {
                 classCalibrationInfo.classCalibrationSettings.AlertToTechnican = false;
                 DialogResult result = MessageBox.Show("Pressure stable. the system wait to tachnicatan approve.", "Pressure info", MessageBoxButtons.OK);
@@ -219,13 +239,13 @@ namespace DP_dashboard
             if (classCalibrationInfo.ErrorEvent)
             {
                 classCalibrationInfo.ErrorEvent = false;
-                rtb_info.Text += "Error:   " + classCalibrationInfo.ErrorMessage + "\r\n";
+                rtb_info.Text += "Error:   " + classCalibrationInfo.ErrorMessage + DateTime.Now.ToString() +  "\r\n";
             }
 
             if (classCalibrationInfo.IncermentCalibPointStep)
             {
                 classCalibrationInfo.IncermentCalibPointStep = false;
-                string Message = string.Format("Calibration in process : Temp index:{0}. Pressure index:{1}", classCalibrationInfo.CurrentCalibTempIndex.ToString(), classCalibrationInfo.CurrentCalibPressureIndex.ToString());
+                string Message = string.Format("Calibration in process : Temp index:{0}. Pressure index:{1}  {1}", classCalibrationInfo.CurrentCalibTempIndex.ToString(), classCalibrationInfo.CurrentCalibPressureIndex.ToString(),DateTime.Now.ToString());
                 rtb_info.Text += Message + "\r\n";
 
                 UpdateDataTable(CurrentSnDeviceIsFocus);
@@ -252,6 +272,20 @@ namespace DP_dashboard
 
         }
 
+        private void UpdateGUI()
+        {
+            if (classCalibrationInfo.DoCalibration)
+            {
+                tb_timeFromSendPressure.Text = DateTime.Now.Subtract(classCalibrationInfo.TimeFromSetPressurePointRequest).ToString(); 
+                tb_timeFromSendTemp.Text = DateTime.Now.Subtract(classCalibrationInfo.TimeFromSetTempPointRequest).ToString(); 
+            }
+
+
+            UpdateProgressBar();
+            CalibrationButtonHandele();
+            MarkConnectedDevice();
+        }
+
         private void UpdateProgressBar()
         {
             if (classCalibrationInfo.DoCalibration)
@@ -261,7 +295,8 @@ namespace DP_dashboard
                 int TotalCalibPoints = classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count * classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count;
                 int FinishCalibPoints = classCalibrationInfo.CurrentCalibTempIndex * classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count + classCalibrationInfo.CurrentCalibPressureIndex;
 
-                pb_calibProgressBar.Value = (FinishCalibPoints / TotalCalibPoints) * 100;
+                float Precent = (FinishCalibPoints / TotalCalibPoints) * 100;
+                pb_calibProgressBar.Value = Convert.ToInt16(Precent);
             }
             else
             {

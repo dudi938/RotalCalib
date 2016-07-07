@@ -12,3 +12,5 @@ C:\Users\dudi9\Desktop\Modbus Poll CS\Modbus Poll CS\obj\Debug\Modbus Poll CS.ex
 C:\Users\dudi9\Desktop\Modbus Poll CS\Modbus Poll CS\obj\Debug\Modbus Poll CS.pdb
 C:\work\Rotal calibration\project\Modbus Poll CS\Modbus Poll CS\obj\Debug\Modbus Poll CS.exe
 C:\work\Rotal calibration\project\Modbus Poll CS\Modbus Poll CS\obj\Debug\Modbus Poll CS.pdb
+C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\Modbus Poll CS\Modbus Poll CS\obj\Debug\Modbus Poll CS.exe
+C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\Modbus Poll CS\Modbus Poll CS\obj\Debug\Modbus Poll CS.pdb

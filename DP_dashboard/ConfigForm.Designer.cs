@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigForm));
             this.dgv_calibTempPointsTable = new System.Windows.Forms.DataGridView();
             this.Enable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Temperture = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -440,7 +441,7 @@
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(67, 4);
             // 
             // ConfigForm
             // 
@@ -454,6 +455,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.bt_saveCalibPoint);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ConfigForm";
             this.Text = "ConfigForm";

@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mail;
-
+using System.Net;
 
 namespace DP_dashboard
 {
     static public class ClassMail
     {
-        static MailMessage mail = new MailMessage();
-        static SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
 
 
         static public bool SendCalibrationDone()
@@ -28,32 +27,38 @@ namespace DP_dashboard
 
         static public bool SendMessage(string Sub, string Body)
         {
-            try
+            var fromAddress = new MailAddress("dotnet4918@gmail.com", "David");
+            var toAddress = new MailAddress("dudi938@gmail.com", "Amir");
+            const string fromPassword = "49184918dot";
+            string subject = Sub;
+            string body = Body;
+
+            var smtp = new SmtpClient
             {
-
-                //new System.Net.NetworkCredential("dotnet4918", "49184918dot");
-                //mail.From = new MailAddress("dotnet4918@gmail.com");
-
-                new System.Net.NetworkCredential("dudi938", "Dudi0542151661");
-                mail.From = new MailAddress("dudi938@gmail.com");
-
-
-                mail.To.Add("dudi938@gmail.com");
-                mail.Subject = Sub;
-                mail.Body = Body;
-
-                SmtpServer.Port = 587;
-                SmtpServer.EnableSsl = true;
-
-                SmtpServer.Send(mail);
-                return true;
-
-            }
-            catch (Exception ex)
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+            using (var message = new MailMessage(fromAddress, toAddress)
             {
-                return false;
+                Subject = subject,
+                Body = body
+            })
+            {
+                try
+                {
+                    smtp.Send(message);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
             }
-        }
+        }                       
     }
 }
 

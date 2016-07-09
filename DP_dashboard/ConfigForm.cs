@@ -20,21 +20,21 @@ namespace DP_dashboard
        // Config file parameters offset
         private const byte CF_PRESSURE_COLUME_INDEX                                       = 0x06;
         private const byte CF_TEMPERATURE_COLUME_INDEX                                    = CF_PRESSURE_COLUME_INDEX + 1;
+        private const byte CF_TEMPERATURE_TIMOUT_COLUME_INDEX                             = CF_TEMPERATURE_COLUME_INDEX + 1;
 
-
-        private const byte CF_TEMPERATURE_SKIP_TIME_COLUME_INDEX                         = CF_TEMPERATURE_COLUME_INDEX + 3;
+        private const byte CF_TEMPERATURE_SKIP_TIME_COLUME_INDEX                         = CF_TEMPERATURE_TIMOUT_COLUME_INDEX + 3;
         private const byte CF_TEMPERATURE_SKIP_TIME_ROW_INDEX                            = 7;
                             
-        private const byte CF_TEMPERATURE_SAMPLES_AMOUNT_COLUME_INDEX                    = CF_TEMPERATURE_COLUME_INDEX + 3;
+        private const byte CF_TEMPERATURE_SAMPLES_AMOUNT_COLUME_INDEX                    = CF_TEMPERATURE_TIMOUT_COLUME_INDEX + 3;
         private const byte CF_TEMPERATURE_SAMPLES_AMOUNT_ROW_INDEX                       = CF_TEMPERATURE_SKIP_TIME_ROW_INDEX + 1;
                             
-        private const byte CF_TEMPERATURE_SAMPLE_INTERVAL_COLUME_INDEX                   = CF_TEMPERATURE_COLUME_INDEX + 3;
+        private const byte CF_TEMPERATURE_SAMPLE_INTERVAL_COLUME_INDEX                   = CF_TEMPERATURE_TIMOUT_COLUME_INDEX + 3;
         private const byte CF_TEMPERATURE_SAMPLE_INTERVAL_ROW_INDEX                      = CF_TEMPERATURE_SAMPLES_AMOUNT_ROW_INDEX + 1;
                             
-        private const byte CF_TEMPERATURE_DELTA_COLUME_INDEX                             = CF_TEMPERATURE_COLUME_INDEX + 3;
+        private const byte CF_TEMPERATURE_DELTA_COLUME_INDEX                             = CF_TEMPERATURE_TIMOUT_COLUME_INDEX + 3;
         private const byte CF_TEMPERATURE_DELTA_TIME_ROW_INDEX                           = CF_TEMPERATURE_SAMPLE_INTERVAL_ROW_INDEX + 1;
                             
-        private const byte CF_TEMPERATURE_MAX_WAIT_TO_TEMP_STABLE_TIME_COLUME_INDEX      = CF_TEMPERATURE_COLUME_INDEX + 3;
+        private const byte CF_TEMPERATURE_MAX_WAIT_TO_TEMP_STABLE_TIME_COLUME_INDEX      = CF_TEMPERATURE_TIMOUT_COLUME_INDEX + 3;
         private const byte CF_TEMPERATURE_MAX_WAIT_TO_TEMP_STABLE_TIME_ROW_INDEX         = CF_TEMPERATURE_DELTA_TIME_ROW_INDEX + 1;
 
 // END 
@@ -71,6 +71,8 @@ namespace DP_dashboard
         {
             calibForm.classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Clear();
             calibForm.classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Clear();
+            calibForm.classCalibrationInfo.classCalibrationSettings.TempMaxTimeToStable.Clear();
+
 
             //save temp points
             for (int i = 0; i < dgv_calibTempPointsTable.Rows.Count; i++)
@@ -82,8 +84,8 @@ namespace DP_dashboard
                 {
                     if ((bool)(dgv_calibTempPointsTable.Rows[i].Cells[0].Value))
                     {
-
                         calibForm.classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Add(float.Parse(dgv_calibTempPointsTable.Rows[i].Cells[1].Value.ToString()));
+                        calibForm.classCalibrationInfo.classCalibrationSettings.TempMaxTimeToStable.Add(Int32.Parse(dgv_calibTempPointsTable.Rows[i].Cells[2].Value.ToString()) * 60);
                     }
                 }
             }
@@ -127,10 +129,10 @@ namespace DP_dashboard
 
 
             //update comport nam's
-            calibForm.classCalibrationInfo.classCalibrationSettings.MultiPlexerComPortName = cmb_multiplexerComPort.SelectedItem.ToString();
-            calibForm.classCalibrationInfo.classCalibrationSettings.TempControllerComPortName = cmb_tempControllerComPort.SelectedItem.ToString();
-            calibForm.classCalibrationInfo.classCalibrationSettings.PlcComPortName = cmb_PLCComPort.SelectedItem.ToString();
-            calibForm.classCalibrationInfo.classCalibrationSettings.DpComPortName = cmb_DPComPort.SelectedItem.ToString();
+           //calibForm.classCalibrationInfo.classCalibrationSettings.MultiPlexerComPortName = cmb_multiplexerComPort.SelectedItem.ToString();
+           //calibForm.classCalibrationInfo.classCalibrationSettings.TempControllerComPortName = cmb_tempControllerComPort.SelectedItem.ToString();
+           //calibForm.classCalibrationInfo.classCalibrationSettings.PlcComPortName = cmb_PLCComPort.SelectedItem.ToString();
+           //calibForm.classCalibrationInfo.classCalibrationSettings.DpComPortName = cmb_DPComPort.SelectedItem.ToString();
 
 
 
@@ -138,7 +140,7 @@ namespace DP_dashboard
             calibForm.classCalibrationInfo.classCalibrationSettings.TempSkipTime = Convert.ToInt32(tb_tempSkipTime.Text) * 60;
             calibForm.classCalibrationInfo.classCalibrationSettings.TempSampleInterval = Convert.ToInt32(tb_temSpampleInterval.Text);
             calibForm.classCalibrationInfo.classCalibrationSettings.TempDeltaRange = float.Parse(tb_tempDeltaRange.Text);
-            calibForm.classCalibrationInfo.classCalibrationSettings.TempMaxWaitTime = Convert.ToInt32(tb_tempMaxWaitTime.Text) * 60;
+            //calibForm.classCalibrationInfo.classCalibrationSettings.TempMaxWaitTime = Convert.ToInt32(tb_tempMaxWaitTime.Text) * 60;
             calibForm.classCalibrationInfo.classCalibrationSettings.TempSampleAmount = Convert.ToInt32(tb_tempSampleNum.Text);
 
             this.Hide();
@@ -201,31 +203,7 @@ namespace DP_dashboard
         {
 
 
-            dgv_calibTempPointsTable.Rows.Clear();
-
-            dgv_calibTempPointsTable.Rows.Add(true, Properties.Settings.Default.TempUnderTest1.ToString());
-            dgv_calibTempPointsTable.Rows.Add(true, Properties.Settings.Default.TempUnderTest2.ToString());
-            dgv_calibTempPointsTable.Rows.Add(true, Properties.Settings.Default.TempUnderTest3.ToString());
-            dgv_calibTempPointsTable.Rows.Add(true, Properties.Settings.Default.TempUnderTest4.ToString());
-            dgv_calibTempPointsTable.Rows.Add(true, Properties.Settings.Default.TempUnderTest5.ToString());
-
-
-            dgv_calibPressuresPointsTable.Rows.Clear();
-            dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest1.ToString());
-            dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest2.ToString());
-            dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest3.ToString());
-            dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest4.ToString());
-            dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest5.ToString());
-            dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest6.ToString());
-            dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest7.ToString());
-            dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest8.ToString());
-            dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest9.ToString());
-            dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest10.ToString());
-            dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest11.ToString());
-            dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest12.ToString());
-            dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest13.ToString());
-            dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest14.ToString());
-            dgv_calibPressuresPointsTable.Rows.Add(true, Properties.Settings.Default.PressureUnderTest15.ToString());
+           
         }
 
         private void bt_loadConfigFile_Click(object sender, EventArgs e)
@@ -263,8 +241,11 @@ namespace DP_dashboard
             }
         }
 
+
         public void BindConfigParameters(DataTable dataSource)
         {
+
+            //pressure
             dgv_calibPressuresPointsTable.Rows.Clear();
             foreach (DataRow dr in dataSource.Rows)
             {
@@ -274,18 +255,24 @@ namespace DP_dashboard
                 }
             }
 
-
+            //temp
             dgv_calibTempPointsTable.Rows.Clear();
             foreach (DataRow dr in dataSource.Rows)
             {
                 if (dr[7].ToString() != ""  && dr[7].ToString() != null)
                 {
-                    dgv_calibTempPointsTable.Rows.Add(true, dr[7].ToString());
+                    if (dr[8].ToString() != "" && dr[8].ToString() != null)
+                    {
+                        dgv_calibTempPointsTable.Rows.Add(true, dr[7].ToString(), dr[8].ToString());
+                    }
+                    else
+                    {
+                        dgv_calibTempPointsTable.Rows.Add(true, dr[7].ToString(),"60");
+                    }
                 }
             }
 
-
-            if(dataSource.Rows[CF_TEMPERATURE_SKIP_TIME_ROW_INDEX][CF_TEMPERATURE_SKIP_TIME_COLUME_INDEX].ToString() != "" && dataSource.Rows[CF_TEMPERATURE_SKIP_TIME_ROW_INDEX][CF_TEMPERATURE_SKIP_TIME_COLUME_INDEX].ToString() != null)
+            if (dataSource.Rows[CF_TEMPERATURE_SKIP_TIME_ROW_INDEX][CF_TEMPERATURE_SKIP_TIME_COLUME_INDEX].ToString() != "" && dataSource.Rows[CF_TEMPERATURE_SKIP_TIME_ROW_INDEX][CF_TEMPERATURE_SKIP_TIME_COLUME_INDEX].ToString() != null)
             {
                 tb_tempSkipTime.Text = dataSource.Rows[CF_TEMPERATURE_SKIP_TIME_ROW_INDEX][CF_TEMPERATURE_SKIP_TIME_COLUME_INDEX].ToString();
             }

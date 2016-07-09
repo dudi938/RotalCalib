@@ -20,6 +20,8 @@ namespace DP_dashboard
     {
         public List<float> PressureUnderTestList = new List<float>();
         public List<float> TempUnderTestList = new List<float>();
+        public List<int> TempMaxTimeToStable = new List<int>();
+
         public int JigConfiguration = 16;
         public List<bool> ConnectedChanels = new List<bool>();
 
@@ -31,7 +33,7 @@ namespace DP_dashboard
         public int TempSkipTime = 600;         // 10 min
         public int TempSampleInterval = 300;   // 5 min
         public float TempDeltaRange = 0.5f;    // 0.5
-        public int TempMaxWaitTime = 2700;     // 45 min
+        //public int TempMaxWaitTime = 2700;     // 45 min
         public int TempSampleAmount = 3;
 
         public bool PressureAutoMode = true;
@@ -284,7 +286,7 @@ namespace DP_dashboard
 
                         case StateWaitToSetTempStable:
                             {
-                                if (CheckTimout(TimeFromSetTempPointRequest, classCalibrationSettings.TempMaxWaitTime))
+                                if (CheckTimout(TimeFromSetTempPointRequest, classCalibrationSettings.TempMaxTimeToStable[CurrentCalibTempIndex]))
                                 {
                                     StateChangeState(StateTempStableError);
                                     TempTimoutErrorEvent = true;
@@ -373,7 +375,7 @@ namespace DP_dashboard
                                 if (NextAfterPressureTimoutErrorEvent)
                                 {
                                     StateChangeState(StateSendPressureSetPoints);
-                                    NextAfterTempTimoutErrorEvent = false;
+                                    NextAfterPressureTimoutErrorEvent = false;
                                 }
                             }
                             break;
@@ -504,6 +506,9 @@ namespace DP_dashboard
                     {
                         classMultiplexingInstanse.ConnectDpDevice(i);
                         Thread.Sleep(250);
+
+                        //read current pressure from plc...
+                        ReadPressureFromPlc();
 
                         //classDpCommunicationInstanse.DpWritePressurePointToDevice(classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex], CurrentCalibTempIndex, classCalibrationSettings.PressureUnderTestList[CurrentCalibPressureIndex], CurrentCalibPressureIndex);
                         classDpCommunicationInstanse.DpWritePressurePointToDevice(classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex], CurrentCalibTempIndex, PlcAdc2Bar(CurrentPressure), CurrentCalibPressureIndex);

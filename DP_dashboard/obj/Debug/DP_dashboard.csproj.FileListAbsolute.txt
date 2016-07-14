@@ -71,7 +71,6 @@ C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard
 C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.exe.manifest
 C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.application
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\DP_dashboard.exe.config
-C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.csproj.ResolveComReference.cache
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\DP_dashboard.exe.manifest
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\DP_dashboard.application
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\DP_dashboard.exe
@@ -85,6 +84,7 @@ C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\DP_dll
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\multiplexing_dll.pdb
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\TempController.pdb
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.csprojResolveAssemblyReference.cache
+C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.csproj.ResolveComReference.cache
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.ConfigForm.resources
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.CalibForm.resources
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.ProgForm.resources

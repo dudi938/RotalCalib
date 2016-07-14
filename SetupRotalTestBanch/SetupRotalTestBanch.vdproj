@@ -45,12 +45,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_486494D027F747CA8C4394096BB56FFB"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_5D8116FE1A9A6F2B3EF4D64A9B0F52DB"
         "OwnerKey" = "8:_D0D27CC57FF04963B70FCA8A44BED844"
         "MsmSig" = "8:_UNDEFINED"
@@ -59,6 +53,12 @@
         {
         "MsmKey" = "8:_90D82B7A6B65ABC7233FAE22869510F5"
         "OwnerKey" = "8:_D0D27CC57FF04963B70FCA8A44BED844"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AFC08D37D0794750AAD84C3EC90CADA5"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -199,6 +199,11 @@
             "AssemblyAsmDisplayName" = "8:TempController, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_1F2F5F592C2A0034BBC7A2C75E812FFE"
+                    {
+                    "Name" = "8:TempController.DLL"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:TempController.DLL"
             "TargetName" = "8:"
@@ -245,6 +250,11 @@
             "AssemblyAsmDisplayName" = "8:multiplexing_dll, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_365B124E23C1BA5FAF2A472F53DAA049"
+                    {
+                    "Name" = "8:multiplexing_dll.DLL"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:multiplexing_dll.DLL"
             "TargetName" = "8:"
@@ -304,26 +314,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_486494D027F747CA8C4394096BB56FFB"
-            {
-            "SourcePath" = "8:..\\config_tamplate.xlsx"
-            "TargetName" = "8:config_tamplate.xlsx"
-            "Tag" = "8:"
-            "Folder" = "8:_02573634A9C444098A07C00D0D72D0DF"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5D8116FE1A9A6F2B3EF4D64A9B0F52DB"
             {
             "AssemblyRegister" = "3:1"
@@ -331,6 +321,11 @@
             "AssemblyAsmDisplayName" = "8:DP_dll, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_5D8116FE1A9A6F2B3EF4D64A9B0F52DB"
+                    {
+                    "Name" = "8:DP_dll.DLL"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:DP_dll.DLL"
             "TargetName" = "8:"
@@ -357,6 +352,11 @@
             "AssemblyAsmDisplayName" = "8:DeltaPlcCommunication, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_90D82B7A6B65ABC7233FAE22869510F5"
+                    {
+                    "Name" = "8:DeltaPlcCommunication.DLL"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:DeltaPlcCommunication.DLL"
             "TargetName" = "8:"
@@ -376,6 +376,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AFC08D37D0794750AAD84C3EC90CADA5"
+            {
+            "SourcePath" = "8:..\\test1_config.xlsx"
+            "TargetName" = "8:test1_config.xlsx"
+            "Tag" = "8:"
+            "Folder" = "8:_02573634A9C444098A07C00D0D72D0DF"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D0D27CC57FF04963B70FCA8A44BED844"
             {
             "AssemblyRegister" = "3:1"
@@ -383,6 +403,11 @@
             "AssemblyAsmDisplayName" = "8:DP_dashboard, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_D0D27CC57FF04963B70FCA8A44BED844"
+                    {
+                    "Name" = "8:DP_dashboard.exe"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\DP_dashboard\\bin\\Debug\\DP_dashboard.exe"
             "TargetName" = "8:"
@@ -470,7 +495,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DP_Calibration"
         "ProductCode" = "8:{8B2B995F-EA52-4808-A947-CEC0967FA058}"
-        "PackageCode" = "8:{AA1CCA1E-0537-4D99-82BD-B726F1027989}"
+        "PackageCode" = "8:{1F26BD82-545F-4232-AA3A-9BFCC7F60CA7}"
         "UpgradeCode" = "8:{85094E0A-DECB-4EA9-803E-323AD706FB7D}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

@@ -231,7 +231,11 @@ namespace DP_dashboard
 
                         case StateSendTempSetPoints:
                             {
-                                ResetPressureAndTemp();
+                                // send 0[bar] to PLC comtroller
+                                VentToRead0Bar(); // vent system after finish calib.
+
+                                WriteTempSetPoint(TEMP_SET_POINT_1_REGISTER_ADDRESSS, classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex]);
+                                SelectSetPoint(TEMP_SELECT_SET_POINT_REGISTER_ADDRESSS, 0);
 
                                 TimeFromSetTempPointRequest = DateTime.Now;
 
@@ -247,6 +251,9 @@ namespace DP_dashboard
                                 if (CheckTimout(TimeFromSetPressurePointRequest, MAX_TIME_WAIT_TO_PRESSURE_SET_POINT))
                                 {
                                     PressureTimoutErrorEvent = true;
+
+                                    ResetPressureAndTemp();
+
                                     StateChangeState(StatePressureStableError);
                                 }
 
@@ -289,6 +296,9 @@ namespace DP_dashboard
                                 if (CheckTimout(TimeFromSetTempPointRequest, classCalibrationSettings.TempMaxTimeToStable[CurrentCalibTempIndex]))
                                 {
                                     StateChangeState(StateTempStableError);
+
+                                    ResetPressureAndTemp();
+
                                     TempTimoutErrorEvent = true;
                                 }
                                 else

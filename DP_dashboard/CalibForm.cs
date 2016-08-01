@@ -481,6 +481,8 @@ namespace DP_dashboard
             //pressure
             tb_pressCurrentPressure.Text = classCalibrationInfo.CurrentPressure.ToString();
             tb_pressTargetPressure.Text = classCalibrationInfo.PlcBar2Adc(classCalibrationInfo.classCalibrationSettings.PressureUnderTestList[classCalibrationInfo.CurrentCalibPressureIndex]).ToString();
+            tb_currentSkipTime.Text = classCalibrationInfo.classCalibrationSettings.TempSkipStartTime[classCalibrationInfo.CurrentCalibTempIndex].ToString();
+
 
             if (classCalibrationInfo.PressureStableFlag)
             {

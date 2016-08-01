@@ -71,7 +71,7 @@ namespace DP_dashboard
         {
             calibForm.classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Clear();
             calibForm.classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Clear();
-            calibForm.classCalibrationInfo.classCalibrationSettings.TempMaxTimeToStable.Clear();
+            calibForm.classCalibrationInfo.classCalibrationSettings.TempSkipStartTime.Clear();
 
 
             //save temp points
@@ -85,7 +85,7 @@ namespace DP_dashboard
                     if ((bool)(dgv_calibTempPointsTable.Rows[i].Cells[0].Value))
                     {
                         calibForm.classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Add(float.Parse(dgv_calibTempPointsTable.Rows[i].Cells[1].Value.ToString()));
-                        calibForm.classCalibrationInfo.classCalibrationSettings.TempMaxTimeToStable.Add(Int32.Parse(dgv_calibTempPointsTable.Rows[i].Cells[2].Value.ToString()) * 60);
+                        calibForm.classCalibrationInfo.classCalibrationSettings.TempSkipStartTime.Add(Int32.Parse(dgv_calibTempPointsTable.Rows[i].Cells[2].Value.ToString()) * 60);
                     }
                 }
             }
@@ -140,7 +140,7 @@ namespace DP_dashboard
             calibForm.classCalibrationInfo.classCalibrationSettings.TempSkipTime = Convert.ToInt32(tb_tempSkipTime.Text) * 60;
             calibForm.classCalibrationInfo.classCalibrationSettings.TempSampleInterval = Convert.ToInt32(tb_temSpampleInterval.Text);
             calibForm.classCalibrationInfo.classCalibrationSettings.TempDeltaRange = float.Parse(tb_tempDeltaRange.Text);
-            //calibForm.classCalibrationInfo.classCalibrationSettings.TempMaxWaitTime = Convert.ToInt32(tb_tempMaxWaitTime.Text) * 60;
+            calibForm.classCalibrationInfo.classCalibrationSettings.MaxTimeWaitToTemp = Convert.ToInt32(tb_tempMaxWaitTime.Text) * 60;
             calibForm.classCalibrationInfo.classCalibrationSettings.TempSampleAmount = Convert.ToInt32(tb_tempSampleNum.Text);
 
             this.Hide();

@@ -20,7 +20,7 @@ namespace DP_dashboard
     {
         public List<float> PressureUnderTestList = new List<float>();
         public List<float> TempUnderTestList = new List<float>();
-        public List<int> TempMaxTimeToStable = new List<int>();
+        public List<int> TempSkipStartTime = new List<int>();
 
         public int JigConfiguration = 16;
         public List<bool> ConnectedChanels = new List<bool>();
@@ -33,7 +33,7 @@ namespace DP_dashboard
         public int TempSkipTime = 600;         // 10 min
         public int TempSampleInterval = 300;   // 5 min
         public float TempDeltaRange = 0.5f;    // 0.5
-        //public int TempMaxWaitTime = 2700;     // 45 min
+        public int MaxTimeWaitToTemp = 2700;     // 45 min
         public int TempSampleAmount = 3;
 
         public bool PressureAutoMode = true;
@@ -71,7 +71,7 @@ namespace DP_dashboard
         private const int MAX_TIME_WAIT_TO_TEMP_SET_POINT               = 1800;     // 30 min 1800
         private const int GET_DP_INFO_TIMOUT                            = 1;       // 1 sec
         private const int READ_PRESSURE_INTERVAL                        = 1;
-        private const int TEMP_WAIT_BETWEEN_TOW_SMPLINGS                = 300; // 5 min
+        private const int TEMP_WAIT_BETWEEN_TOW_SMPLINGS_CYCLE                = 300; // 5 min
 
         //constant parameters
         private const byte MAX_DP_DEVICES                               = 0x10;      //16
@@ -102,6 +102,7 @@ namespace DP_dashboard
         public int DpCountAxist = 0;
         public DateTime TimeFromSetPressurePointRequest;
         public DateTime TimeFromSetTempPointRequest;
+        public DateTime TimeFromTempEndSkipTime;
         public ClassDevice CurrentCalibDevice = new ClassDevice();
         public byte CurrentCalibDeviceIndex = 0;
         public byte CurrentCalibTempIndex = 0;
@@ -241,6 +242,9 @@ namespace DP_dashboard
 
                                 CriticalStates = false;
 
+                                ////TIME TO TEMP STABLE ERROR = CURRENT SKIP TIME + ERROR TIMEOUT
+                                //classCalibrationSettings.TempToTimoutError +=  
+
                                 StateChangeState(StateWaitToSetTempStable);
 
                             }
@@ -293,7 +297,9 @@ namespace DP_dashboard
 
                         case StateWaitToSetTempStable:
                             {
-                                if (CheckTimout(TimeFromSetTempPointRequest, classCalibrationSettings.TempMaxTimeToStable[CurrentCalibTempIndex]))
+
+                                // timout error -> current skip time  + max time wait to temp
+                                if (CheckTimout(TimeFromSetTempPointRequest, classCalibrationSettings.MaxTimeWaitToTemp + classCalibrationSettings.TempSkipStartTime[CurrentCalibTempIndex]))
                                 {
                                     StateChangeState(StateTempStableError);
 
@@ -302,7 +308,7 @@ namespace DP_dashboard
                                     TempTimoutErrorEvent = true;
                                 }
                                 else
-                                if (CheckTimout(TimeFromSetTempPointRequest, classCalibrationSettings.TempSkipTime))
+                                if (CheckTimout(TimeFromSetTempPointRequest, classCalibrationSettings.TempSkipStartTime[CurrentCalibTempIndex]))
                                 {
 
                                         if (CheckTempStableOnOneDp(classCalibrationSettings.TempDeltaRange))
@@ -311,7 +317,7 @@ namespace DP_dashboard
                                         }
                                         else
                                         {
-                                            Thread.Sleep(TEMP_WAIT_BETWEEN_TOW_SMPLINGS * 1000);
+                                            Thread.Sleep(TEMP_WAIT_BETWEEN_TOW_SMPLINGS_CYCLE * 1000);
                                         }                                   
                                 }
 

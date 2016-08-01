@@ -156,7 +156,7 @@ namespace DpCommunication
             {
                 try
                 {
-                    while (SerialPortInstanse.port.BytesToRead > 0)
+                    if (SerialPortInstanse.port.BytesToRead > 0)
                     {
                         do
                         {
@@ -172,6 +172,11 @@ namespace DpCommunication
 
                         analyzeIncomingCommunicationPacket(incomingCommunicationBuffer);
                         Array.Clear(incomingCommunicationBuffer, 0, incomingCommunicationBuffer.Length);
+                    }
+
+                    else
+                    {
+                        Thread.Sleep(10);
                     }
                 }
                 catch (Exception ex)

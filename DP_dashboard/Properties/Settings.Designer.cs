@@ -325,7 +325,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("COM6")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM18")]
         public string TempControllerComPort {
             get {
                 return ((string)(this["TempControllerComPort"]));

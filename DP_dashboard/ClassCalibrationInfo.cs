@@ -178,8 +178,8 @@ namespace DP_dashboard
 
         private void UpdateRealTimeData()
         {
-            CurrentTempControllerValue = TempControllerReadTemp();
-
+            //CurrentTempControllerValue = TempControllerReadTemp(); cancel becouse is stuck the proccess
+            CurrentTempControllerValue = 0;
             ReadPressureFromPlc();
         }
         private void CalibrationTask()
@@ -308,6 +308,7 @@ namespace DP_dashboard
                                     TempTimoutErrorEvent = true;
                                 }
                                 else
+                                    //if (CheckTimout(TimeFromSetTempPointRequest, 1))//debug mode
                                 if (CheckTimout(TimeFromSetTempPointRequest, classCalibrationSettings.TempSkipStartTime[CurrentCalibTempIndex]))
                                 {
 
@@ -671,6 +672,7 @@ namespace DP_dashboard
                     classMultiplexingInstanse.ConnectDpDevice((byte)i);
                     Thread.Sleep(250);
 
+                    classDpCommunicationInstanse.NewDpInfoEvent = false;
                     classDpCommunicationInstanse.DPgetDpInfo();
                     Thread.Sleep(300);
 
@@ -679,6 +681,12 @@ namespace DP_dashboard
                     if (classDpCommunicationInstanse.NewDpInfoEvent) // check if recieve data from DP
                     {
                         classDpCommunicationInstanse.NewDpInfoEvent = false;
+
+
+                        if (classDpCommunicationInstanse.dpInfo.DeviceSerialNumber == "" || classDpCommunicationInstanse.dpInfo.DeviceSerialNumber.StartsWith("\0"))
+                        {
+                            continue;
+                        }
 
                         ClassDevice newDeviceExist = new ClassDevice();
 
@@ -762,15 +770,14 @@ namespace DP_dashboard
                 Thread.Sleep(classCalibrationSettings.TempSampleInterval * 1000);
             }
 
-
-            float x = Math.Abs(DpTempSamples[DpTempSamples.Count - 1] - DpTempSamples[0]);
-            float y = Math.Abs(DpTempSamples.Average() - DpTempSamples[DpTempSamples.Count - 1]);
-
-
-            if (Math.Abs(DpTempSamples[DpTempSamples.Count - 1] - DpTempSamples[0]) < classCalibrationSettings.TempDeltaRange &&
-                Math.Abs(DpTempSamples.Average() - DpTempSamples[DpTempSamples.Count - 1]) < classCalibrationSettings.TempDeltaRange)
+            if (DpTempSamples.Count > 2)
             {
-                return true;
+                if (Math.Abs(DpTempSamples[DpTempSamples.Count - 1] - DpTempSamples[0]) < classCalibrationSettings.TempDeltaRange &&
+                    Math.Abs(DpTempSamples.Average() - DpTempSamples[DpTempSamples.Count - 1]) < classCalibrationSettings.TempDeltaRange)
+                {
+                    return true;
+                }
+                return false;
             }
             return false;
 

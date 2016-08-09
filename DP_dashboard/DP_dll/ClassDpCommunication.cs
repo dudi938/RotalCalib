@@ -230,6 +230,8 @@ namespace DpCommunication
                         break;
                     case API_MSG_DP_GET_DP_INFO:
                         {
+                            dpInfo.DeviceSerialNumber = "";
+
                             dpInfo.DeviseMacAddress = System.Text.Encoding.UTF8.GetString(incomingData, DEVICE_INFO_MAC_ADDRESS_NUMBER_OFFSET, 10);
                             dpInfo.CurrentTemp = incomingData[DEVICE_INFO_CURRENT_TEMP_OFFSET];
                             dpInfo.S1Pressure = System.BitConverter.ToSingle(incomingData, DEVICE_INFO_S1_PRESSURE_OFFSET);

@@ -78,7 +78,7 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="TempControllerComPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">COM6</Value>
+      <Value Profile="(Default)">COM18</Value>
     </Setting>
     <Setting Name="LogPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\Logs</Value>

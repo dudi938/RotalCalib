@@ -64,44 +64,38 @@
             this.tb_testReadPressure = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.pnl_TempData = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
             this.tb_timeFromSendTemp = new System.Windows.Forms.TextBox();
+            this.tb_currentSkipTime = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.tb_temperatureOnDP = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.tb_targetTemperature = new System.Windows.Forms.TextBox();
             this.tb_currentTemperature = new System.Windows.Forms.TextBox();
-            this.tb_connectionStatus = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnl_dpSelection = new System.Windows.Forms.Panel();
             this.tb_dpSN = new System.Windows.Forms.TextBox();
             this.cmb_dpList = new System.Windows.Forms.ComboBox();
             this.bt_writeSN = new System.Windows.Forms.Button();
             this.bt_disConnectDP = new System.Windows.Forms.Button();
             this.bt_connectDP = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.tb_timeFromSendPressure = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.chb_pressureAutoMode = new System.Windows.Forms.CheckBox();
             this.tb_preeStable = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tb_pressTargetPressure = new System.Windows.Forms.TextBox();
             this.tb_pressCurrentPressure = new System.Windows.Forms.TextBox();
-            this.tb_presConnectionStatus = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.tb_currentSkipTime = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.pnl_calibrationPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_deviceData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_devicesQueue)).BeginInit();
             this.pnl_TempData.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.pnl_dpSelection.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -124,7 +118,7 @@
             this.pnl_calibrationPanel.Controls.Add(this.dgv_deviceData);
             this.pnl_calibrationPanel.Controls.Add(this.dgv_devicesQueue);
             this.pnl_calibrationPanel.Location = new System.Drawing.Point(40, 39);
-            this.pnl_calibrationPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnl_calibrationPanel.Margin = new System.Windows.Forms.Padding(4);
             this.pnl_calibrationPanel.Name = "pnl_calibrationPanel";
             this.pnl_calibrationPanel.Size = new System.Drawing.Size(991, 710);
             this.pnl_calibrationPanel.TabIndex = 15;
@@ -166,7 +160,7 @@
             this.bt_pauseStartCalib.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_pauseStartCalib.ForeColor = System.Drawing.Color.Black;
             this.bt_pauseStartCalib.Location = new System.Drawing.Point(701, 596);
-            this.bt_pauseStartCalib.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.bt_pauseStartCalib.Margin = new System.Windows.Forms.Padding(4);
             this.bt_pauseStartCalib.Name = "bt_pauseStartCalib";
             this.bt_pauseStartCalib.Size = new System.Drawing.Size(96, 41);
             this.bt_pauseStartCalib.TabIndex = 8;
@@ -189,7 +183,7 @@
             // 
             this.rtb_info.AcceptsTab = true;
             this.rtb_info.Location = new System.Drawing.Point(81, 538);
-            this.rtb_info.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rtb_info.Margin = new System.Windows.Forms.Padding(4);
             this.rtb_info.Name = "rtb_info";
             this.rtb_info.Size = new System.Drawing.Size(612, 131);
             this.rtb_info.TabIndex = 6;
@@ -200,7 +194,7 @@
             this.bt_stopCalibration.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_stopCalibration.ForeColor = System.Drawing.Color.Black;
             this.bt_stopCalibration.Location = new System.Drawing.Point(701, 538);
-            this.bt_stopCalibration.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.bt_stopCalibration.Margin = new System.Windows.Forms.Padding(4);
             this.bt_stopCalibration.Name = "bt_stopCalibration";
             this.bt_stopCalibration.Size = new System.Drawing.Size(96, 38);
             this.bt_stopCalibration.TabIndex = 5;
@@ -213,7 +207,7 @@
             this.bt_startCalibration.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_startCalibration.ForeColor = System.Drawing.Color.Black;
             this.bt_startCalibration.Location = new System.Drawing.Point(819, 538);
-            this.bt_startCalibration.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.bt_startCalibration.Margin = new System.Windows.Forms.Padding(4);
             this.bt_startCalibration.Name = "bt_startCalibration";
             this.bt_startCalibration.Size = new System.Drawing.Size(99, 38);
             this.bt_startCalibration.TabIndex = 3;
@@ -238,9 +232,9 @@
             this.col_temp5_p1,
             this.col_Temp5_2});
             this.dgv_deviceData.Location = new System.Drawing.Point(357, 1);
-            this.dgv_deviceData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgv_deviceData.Margin = new System.Windows.Forms.Padding(4);
             this.dgv_deviceData.Name = "dgv_deviceData";
-            this.dgv_deviceData.Size = new System.Drawing.Size(623, 529);
+            this.dgv_deviceData.Size = new System.Drawing.Size(623, 512);
             this.dgv_deviceData.TabIndex = 1;
             this.dgv_deviceData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_deviceData_CellContentClick);
             // 
@@ -331,10 +325,10 @@
             this.col_serialNumber,
             this.DevicePositionOnBoard,
             this.BoardNumber});
-            this.dgv_devicesQueue.Location = new System.Drawing.Point(29, 1);
-            this.dgv_devicesQueue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgv_devicesQueue.Location = new System.Drawing.Point(15, 1);
+            this.dgv_devicesQueue.Margin = new System.Windows.Forms.Padding(4);
             this.dgv_devicesQueue.Name = "dgv_devicesQueue";
-            this.dgv_devicesQueue.Size = new System.Drawing.Size(321, 529);
+            this.dgv_devicesQueue.Size = new System.Drawing.Size(334, 512);
             this.dgv_devicesQueue.TabIndex = 0;
             this.dgv_devicesQueue.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_devicesQueue_CellClick);
             this.dgv_devicesQueue.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_devicesQueue_CellContentClick);
@@ -381,7 +375,7 @@
             this.bt_settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_settings.ForeColor = System.Drawing.Color.Black;
             this.bt_settings.Location = new System.Drawing.Point(13, 181);
-            this.bt_settings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.bt_settings.Margin = new System.Windows.Forms.Padding(4);
             this.bt_settings.Name = "bt_settings";
             this.bt_settings.Size = new System.Drawing.Size(128, 27);
             this.bt_settings.TabIndex = 19;
@@ -403,7 +397,7 @@
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
             this.button2.ForeColor = System.Drawing.Color.Black;
             this.button2.Location = new System.Drawing.Point(11, 99);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(131, 27);
             this.button2.TabIndex = 12;
@@ -425,60 +419,81 @@
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Location = new System.Drawing.Point(11, 61);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(131, 27);
             this.button1.TabIndex = 10;
-            this.button1.Text = "read pressure";
+            this.button1.Text = "Read pressure";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_2);
             // 
             // pnl_TempData
             // 
             this.pnl_TempData.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnl_TempData.Controls.Add(this.label13);
             this.pnl_TempData.Controls.Add(this.tb_timeFromSendTemp);
+            this.pnl_TempData.Controls.Add(this.tb_currentSkipTime);
             this.pnl_TempData.Controls.Add(this.label12);
             this.pnl_TempData.Controls.Add(this.tb_temperatureOnDP);
             this.pnl_TempData.Controls.Add(this.label10);
             this.pnl_TempData.Controls.Add(this.label8);
             this.pnl_TempData.Controls.Add(this.tb_targetTemperature);
             this.pnl_TempData.Controls.Add(this.tb_currentTemperature);
-            this.pnl_TempData.Controls.Add(this.tb_connectionStatus);
             this.pnl_TempData.Controls.Add(this.label7);
             this.pnl_TempData.Controls.Add(this.label6);
-            this.pnl_TempData.Controls.Add(this.label5);
             this.pnl_TempData.Location = new System.Drawing.Point(1039, 42);
-            this.pnl_TempData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnl_TempData.Margin = new System.Windows.Forms.Padding(4);
             this.pnl_TempData.Name = "pnl_TempData";
-            this.pnl_TempData.Size = new System.Drawing.Size(280, 187);
+            this.pnl_TempData.Size = new System.Drawing.Size(280, 201);
             this.pnl_TempData.TabIndex = 16;
             this.pnl_TempData.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl_TempData_Paint);
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label13.Location = new System.Drawing.Point(6, 166);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(164, 17);
+            this.label13.TabIndex = 13;
+            this.label13.Text = "Setpoint temp timer[min] ";
+            // 
             // tb_timeFromSendTemp
             // 
-            this.tb_timeFromSendTemp.Location = new System.Drawing.Point(159, 154);
-            this.tb_timeFromSendTemp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tb_timeFromSendTemp.Location = new System.Drawing.Point(171, 136);
+            this.tb_timeFromSendTemp.Margin = new System.Windows.Forms.Padding(4);
             this.tb_timeFromSendTemp.Name = "tb_timeFromSendTemp";
             this.tb_timeFromSendTemp.ReadOnly = true;
             this.tb_timeFromSendTemp.Size = new System.Drawing.Size(99, 22);
             this.tb_timeFromSendTemp.TabIndex = 10;
+            // 
+            // tb_currentSkipTime
+            // 
+            this.tb_currentSkipTime.Location = new System.Drawing.Point(172, 166);
+            this.tb_currentSkipTime.Margin = new System.Windows.Forms.Padding(4);
+            this.tb_currentSkipTime.Name = "tb_currentSkipTime";
+            this.tb_currentSkipTime.ReadOnly = true;
+            this.tb_currentSkipTime.Size = new System.Drawing.Size(97, 22);
+            this.tb_currentSkipTime.TabIndex = 12;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label12.Location = new System.Drawing.Point(5, 154);
+            this.label12.Location = new System.Drawing.Point(5, 136);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(106, 17);
+            this.label12.Size = new System.Drawing.Size(157, 17);
             this.label12.TabIndex = 9;
-            this.label12.Text = "Time from send";
+            this.label12.Text = "Wait for temp timer[min]";
             // 
             // tb_temperatureOnDP
             // 
-            this.tb_temperatureOnDP.Location = new System.Drawing.Point(159, 90);
-            this.tb_temperatureOnDP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tb_temperatureOnDP.Location = new System.Drawing.Point(171, 72);
+            this.tb_temperatureOnDP.Margin = new System.Windows.Forms.Padding(4);
             this.tb_temperatureOnDP.Name = "tb_temperatureOnDP";
             this.tb_temperatureOnDP.ReadOnly = true;
             this.tb_temperatureOnDP.Size = new System.Drawing.Size(99, 22);
@@ -489,12 +504,12 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label10.Location = new System.Drawing.Point(3, 94);
+            this.label10.Location = new System.Drawing.Point(3, 76);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(120, 17);
+            this.label10.Size = new System.Drawing.Size(125, 17);
             this.label10.TabIndex = 7;
-            this.label10.Text = "temperture on DP";
+            this.label10.Text = "Temperture on DP";
             // 
             // label8
             // 
@@ -510,8 +525,8 @@
             // 
             // tb_targetTemperature
             // 
-            this.tb_targetTemperature.Location = new System.Drawing.Point(159, 122);
-            this.tb_targetTemperature.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tb_targetTemperature.Location = new System.Drawing.Point(171, 104);
+            this.tb_targetTemperature.Margin = new System.Windows.Forms.Padding(4);
             this.tb_targetTemperature.Name = "tb_targetTemperature";
             this.tb_targetTemperature.ReadOnly = true;
             this.tb_targetTemperature.Size = new System.Drawing.Size(99, 22);
@@ -519,28 +534,19 @@
             // 
             // tb_currentTemperature
             // 
-            this.tb_currentTemperature.Location = new System.Drawing.Point(159, 57);
-            this.tb_currentTemperature.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tb_currentTemperature.Location = new System.Drawing.Point(171, 39);
+            this.tb_currentTemperature.Margin = new System.Windows.Forms.Padding(4);
             this.tb_currentTemperature.Name = "tb_currentTemperature";
             this.tb_currentTemperature.ReadOnly = true;
             this.tb_currentTemperature.Size = new System.Drawing.Size(99, 22);
             this.tb_currentTemperature.TabIndex = 4;
-            // 
-            // tb_connectionStatus
-            // 
-            this.tb_connectionStatus.Location = new System.Drawing.Point(159, 26);
-            this.tb_connectionStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tb_connectionStatus.Name = "tb_connectionStatus";
-            this.tb_connectionStatus.ReadOnly = true;
-            this.tb_connectionStatus.Size = new System.Drawing.Size(99, 22);
-            this.tb_connectionStatus.TabIndex = 3;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label7.Location = new System.Drawing.Point(1, 60);
+            this.label7.Location = new System.Drawing.Point(1, 42);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(115, 17);
@@ -553,7 +559,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label6.Location = new System.Drawing.Point(3, 122);
+            this.label6.Location = new System.Drawing.Point(3, 104);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(50, 17);
@@ -561,39 +567,26 @@
             this.label6.Text = "Target";
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
-            // label5
+            // pnl_dpSelection
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label5.Location = new System.Drawing.Point(1, 31);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(79, 17);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Connection";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.tb_dpSN);
-            this.panel1.Controls.Add(this.tb_newsetPresssure);
-            this.panel1.Controls.Add(this.cmb_dpList);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.bt_writeSN);
-            this.panel1.Controls.Add(this.bt_settings);
-            this.panel1.Controls.Add(this.tb_testReadPressure);
-            this.panel1.Controls.Add(this.bt_disConnectDP);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.bt_connectDP);
-            this.panel1.Location = new System.Drawing.Point(1039, 496);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(280, 223);
-            this.panel1.TabIndex = 13;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint_1);
+            this.pnl_dpSelection.BackColor = System.Drawing.SystemColors.Control;
+            this.pnl_dpSelection.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnl_dpSelection.Controls.Add(this.tb_dpSN);
+            this.pnl_dpSelection.Controls.Add(this.tb_newsetPresssure);
+            this.pnl_dpSelection.Controls.Add(this.cmb_dpList);
+            this.pnl_dpSelection.Controls.Add(this.button2);
+            this.pnl_dpSelection.Controls.Add(this.bt_writeSN);
+            this.pnl_dpSelection.Controls.Add(this.bt_settings);
+            this.pnl_dpSelection.Controls.Add(this.tb_testReadPressure);
+            this.pnl_dpSelection.Controls.Add(this.bt_disConnectDP);
+            this.pnl_dpSelection.Controls.Add(this.button1);
+            this.pnl_dpSelection.Controls.Add(this.bt_connectDP);
+            this.pnl_dpSelection.Location = new System.Drawing.Point(1039, 496);
+            this.pnl_dpSelection.Margin = new System.Windows.Forms.Padding(4);
+            this.pnl_dpSelection.Name = "pnl_dpSelection";
+            this.pnl_dpSelection.Size = new System.Drawing.Size(280, 223);
+            this.pnl_dpSelection.TabIndex = 13;
+            this.pnl_dpSelection.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint_1);
             // 
             // tb_dpSN
             // 
@@ -667,46 +660,19 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.label13);
-            this.panel2.Controls.Add(this.tb_currentSkipTime);
-            this.panel2.Controls.Add(this.tb_timeFromSendPressure);
-            this.panel2.Controls.Add(this.label11);
             this.panel2.Controls.Add(this.chb_pressureAutoMode);
             this.panel2.Controls.Add(this.tb_preeStable);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.tb_pressTargetPressure);
             this.panel2.Controls.Add(this.tb_pressCurrentPressure);
-            this.panel2.Controls.Add(this.tb_presConnectionStatus);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Location = new System.Drawing.Point(1037, 236);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Location = new System.Drawing.Point(1038, 280);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(281, 250);
+            this.panel2.Size = new System.Drawing.Size(281, 194);
             this.panel2.TabIndex = 17;
-            // 
-            // tb_timeFromSendPressure
-            // 
-            this.tb_timeFromSendPressure.Location = new System.Drawing.Point(161, 167);
-            this.tb_timeFromSendPressure.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tb_timeFromSendPressure.Name = "tb_timeFromSendPressure";
-            this.tb_timeFromSendPressure.ReadOnly = true;
-            this.tb_timeFromSendPressure.Size = new System.Drawing.Size(97, 22);
-            this.tb_timeFromSendPressure.TabIndex = 11;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label11.Location = new System.Drawing.Point(8, 167);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(106, 17);
-            this.label11.TabIndex = 10;
-            this.label11.Text = "Time from send";
             // 
             // chb_pressureAutoMode
             // 
@@ -715,7 +681,7 @@
             this.chb_pressureAutoMode.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chb_pressureAutoMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chb_pressureAutoMode.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.chb_pressureAutoMode.Location = new System.Drawing.Point(3, 225);
+            this.chb_pressureAutoMode.Location = new System.Drawing.Point(8, 162);
             this.chb_pressureAutoMode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chb_pressureAutoMode.Name = "chb_pressureAutoMode";
             this.chb_pressureAutoMode.Size = new System.Drawing.Size(158, 21);
@@ -726,8 +692,8 @@
             // 
             // tb_preeStable
             // 
-            this.tb_preeStable.Location = new System.Drawing.Point(161, 135);
-            this.tb_preeStable.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tb_preeStable.Location = new System.Drawing.Point(162, 123);
+            this.tb_preeStable.Margin = new System.Windows.Forms.Padding(4);
             this.tb_preeStable.Name = "tb_preeStable";
             this.tb_preeStable.ReadOnly = true;
             this.tb_preeStable.Size = new System.Drawing.Size(97, 22);
@@ -739,7 +705,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label9.Location = new System.Drawing.Point(8, 135);
+            this.label9.Location = new System.Drawing.Point(9, 123);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(48, 17);
@@ -751,7 +717,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label4.Location = new System.Drawing.Point(103, 7);
+            this.label4.Location = new System.Drawing.Point(96, 14);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(92, 17);
@@ -760,8 +726,8 @@
             // 
             // tb_pressTargetPressure
             // 
-            this.tb_pressTargetPressure.Location = new System.Drawing.Point(161, 96);
-            this.tb_pressTargetPressure.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tb_pressTargetPressure.Location = new System.Drawing.Point(162, 84);
+            this.tb_pressTargetPressure.Margin = new System.Windows.Forms.Padding(4);
             this.tb_pressTargetPressure.Name = "tb_pressTargetPressure";
             this.tb_pressTargetPressure.ReadOnly = true;
             this.tb_pressTargetPressure.Size = new System.Drawing.Size(97, 22);
@@ -769,28 +735,19 @@
             // 
             // tb_pressCurrentPressure
             // 
-            this.tb_pressCurrentPressure.Location = new System.Drawing.Point(161, 63);
-            this.tb_pressCurrentPressure.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tb_pressCurrentPressure.Location = new System.Drawing.Point(162, 51);
+            this.tb_pressCurrentPressure.Margin = new System.Windows.Forms.Padding(4);
             this.tb_pressCurrentPressure.Name = "tb_pressCurrentPressure";
             this.tb_pressCurrentPressure.ReadOnly = true;
             this.tb_pressCurrentPressure.Size = new System.Drawing.Size(97, 22);
             this.tb_pressCurrentPressure.TabIndex = 4;
-            // 
-            // tb_presConnectionStatus
-            // 
-            this.tb_presConnectionStatus.Location = new System.Drawing.Point(161, 31);
-            this.tb_presConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tb_presConnectionStatus.Name = "tb_presConnectionStatus";
-            this.tb_presConnectionStatus.ReadOnly = true;
-            this.tb_presConnectionStatus.Size = new System.Drawing.Size(97, 22);
-            this.tb_presConnectionStatus.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(5, 64);
+            this.label1.Location = new System.Drawing.Point(6, 52);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(119, 17);
@@ -802,49 +759,16 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(5, 98);
+            this.label2.Location = new System.Drawing.Point(6, 86);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 17);
             this.label2.TabIndex = 1;
             this.label2.Text = "Target pressure";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label3.Location = new System.Drawing.Point(5, 32);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(121, 17);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Connection status";
-            // 
             // backgroundWorker1
             // 
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            // 
-            // tb_currentSkipTime
-            // 
-            this.tb_currentSkipTime.Location = new System.Drawing.Point(161, 198);
-            this.tb_currentSkipTime.Margin = new System.Windows.Forms.Padding(4);
-            this.tb_currentSkipTime.Name = "tb_currentSkipTime";
-            this.tb_currentSkipTime.ReadOnly = true;
-            this.tb_currentSkipTime.Size = new System.Drawing.Size(97, 22);
-            this.tb_currentSkipTime.TabIndex = 12;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label13.Location = new System.Drawing.Point(7, 198);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(117, 17);
-            this.label13.TabIndex = 13;
-            this.label13.Text = "Cuurent skip time";
             // 
             // CalibForm
             // 
@@ -852,13 +776,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1332, 753);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnl_dpSelection);
             this.Controls.Add(this.pnl_calibrationPanel);
             this.Controls.Add(this.pnl_TempData);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CalibForm";
-            this.Text = " Calibration tool 01/08/2016";
+            this.Text = " Calibration tool 08/08/2016";
             this.TransparencyKey = System.Drawing.Color.Lime;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CalibForm_FormClosing);
@@ -869,8 +793,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_devicesQueue)).EndInit();
             this.pnl_TempData.ResumeLayout(false);
             this.pnl_TempData.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pnl_dpSelection.ResumeLayout(false);
+            this.pnl_dpSelection.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
@@ -891,7 +815,7 @@
         private System.Windows.Forms.TextBox tb_targetTemperature;
         private System.Windows.Forms.TextBox tb_currentTemperature;
         private System.Windows.Forms.Button bt_clear;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnl_dpSelection;
         private System.Windows.Forms.ComboBox cmb_dpList;
         private System.Windows.Forms.Button bt_disConnectDP;
         private System.Windows.Forms.Button bt_connectDP;
@@ -904,10 +828,6 @@
         private System.Windows.Forms.TextBox tb_pressCurrentPressure;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox tb_connectionStatus;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox tb_presConnectionStatus;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button bt_settings;
         private System.Windows.Forms.Button bt_pauseStartCalib;
         private System.Windows.Forms.TextBox tb_tempIndexAfterPause;
@@ -941,8 +861,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn BoardNumber;
         private System.Windows.Forms.TextBox tb_timeFromSendTemp;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox tb_timeFromSendPressure;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox tb_currentSkipTime;
     }

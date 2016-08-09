@@ -50,19 +50,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>M84pW+Pvd1KiY6p56inrOm09DWSZmisz4HanKhxsquI=</dsig:DigestValue>
+        <dsig:DigestValue>h0Mgfq49lj1nCLstWNvUEyUyuWx2N5RUc9Jq3bo5Guk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DP_dashboard.exe" size="560608">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DP_dashboard.exe" size="559584">
       <assemblyIdentity name="DP_dashboard" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>jSJdc26NfXoCUegFB46GHiRXaM2uYUqY3Yy6R/RlyCE=</dsig:DigestValue>
+        <dsig:DigestValue>JFGQz3jwVCy7Eny0lyoUqFnwaFp8u7Fog8QFLhwsbSQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -74,7 +74,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>cyJe4Wxs9FrnEaq38Gsl95qLabG31EjTmlBRBItX//A=</dsig:DigestValue>
+        <dsig:DigestValue>GDfsC60X5l6taBmqdllMrLG/pDsj2wdP8Nq4ktX0jRU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -86,7 +86,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>lEkqjUyT0vnmd4w1GIxwExI1sEwr4O89AcZjwPlFNu4=</dsig:DigestValue>
+        <dsig:DigestValue>H6ijRwVmlsbcVvh/A1fasiyJ8b0Zn9L47ZBDOzie5hw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -98,7 +98,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>oturUDqKPvFVVzo4BXM3Gm007W0HQd8+9xphBWK+b8Y=</dsig:DigestValue>
+        <dsig:DigestValue>4MKRiB+qiDNjHjuxwlxF7KQtrscijLBdyi6TqGXaMZ8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -111,13 +111,13 @@
       <dsig:DigestValue>LnYErjhfMo1avCTx+NpSDwfYDRjVRW9Qg5zOUy/xURs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="DP_dashboard.exe.config" size="4781">
+  <file name="DP_dashboard.exe.config" size="4782">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>X2Qj7cv0gy4iQ2EM1ShHg2n7i5TPi6CzGcfjZO8l4cg=</dsig:DigestValue>
+      <dsig:DigestValue>LCFtfkW8FUBBZlSeKc5eqb5FMBp51mdal5ZiP+Eh0Ts=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigForm));
             this.dgv_calibTempPointsTable = new System.Windows.Forms.DataGridView();
+            this.Enable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Temperture = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TempStartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgv_calibPressuresPointsTable = new System.Windows.Forms.DataGridView();
             this.prs_Enable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -63,9 +66,6 @@
             this.tb_tempSkipTime = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.Enable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Temperture = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TempStartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calibTempPointsTable)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calibPressuresPointsTable)).BeginInit();
@@ -88,6 +88,24 @@
             this.dgv_calibTempPointsTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_calibPressuresPointsTable_CellEndEdit);
             this.dgv_calibTempPointsTable.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_calibTempPointsTable_CellEndEdit);
             // 
+            // Enable
+            // 
+            this.Enable.HeaderText = "Enable";
+            this.Enable.Name = "Enable";
+            this.Enable.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Enable.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Enable.Width = 50;
+            // 
+            // Temperture
+            // 
+            this.Temperture.HeaderText = "Temperture[c]";
+            this.Temperture.Name = "Temperture";
+            // 
+            // TempStartTime
+            // 
+            this.TempStartTime.HeaderText = "Temp skip start time[Min]";
+            this.TempStartTime.Name = "TempStartTime";
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -98,7 +116,7 @@
             this.panel1.Location = new System.Drawing.Point(31, 42);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(683, 502);
+            this.panel1.Size = new System.Drawing.Size(805, 502);
             this.panel1.TabIndex = 1;
             // 
             // dgv_calibPressuresPointsTable
@@ -111,7 +129,7 @@
             this.dgv_calibPressuresPointsTable.Location = new System.Drawing.Point(399, 110);
             this.dgv_calibPressuresPointsTable.Margin = new System.Windows.Forms.Padding(4);
             this.dgv_calibPressuresPointsTable.Name = "dgv_calibPressuresPointsTable";
-            this.dgv_calibPressuresPointsTable.Size = new System.Drawing.Size(244, 391);
+            this.dgv_calibPressuresPointsTable.Size = new System.Drawing.Size(349, 391);
             this.dgv_calibPressuresPointsTable.TabIndex = 5;
             this.dgv_calibPressuresPointsTable.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_calibPressuresPointsTable_CellEndEdit);
             // 
@@ -198,7 +216,7 @@
             this.panel2.Controls.Add(this.lbl_jigConfiguration);
             this.panel2.Controls.Add(this.cmb_tempControllerComPort);
             this.panel2.Controls.Add(this.cmb_jigConfiguration);
-            this.panel2.Location = new System.Drawing.Point(723, 42);
+            this.panel2.Location = new System.Drawing.Point(996, 42);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(373, 219);
@@ -314,7 +332,7 @@
             this.panel3.Controls.Add(this.tb_temSpampleInterval);
             this.panel3.Controls.Add(this.tb_tempSkipTime);
             this.panel3.Controls.Add(this.label6);
-            this.panel3.Location = new System.Drawing.Point(721, 282);
+            this.panel3.Location = new System.Drawing.Point(882, 276);
             this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(487, 262);
@@ -431,29 +449,11 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // Enable
-            // 
-            this.Enable.HeaderText = "Enable";
-            this.Enable.Name = "Enable";
-            this.Enable.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Enable.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Enable.Width = 50;
-            // 
-            // Temperture
-            // 
-            this.Temperture.HeaderText = "Temperture[c]";
-            this.Temperture.Name = "Temperture";
-            // 
-            // TempStartTime
-            // 
-            this.TempStartTime.HeaderText = "Temp skip start time[Min]";
-            this.TempStartTime.Name = "TempStartTime";
-            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1261, 753);
+            this.ClientSize = new System.Drawing.Size(1382, 753);
             this.Controls.Add(this.bt_loadCustomerConfigFile);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.bt_Cancel);

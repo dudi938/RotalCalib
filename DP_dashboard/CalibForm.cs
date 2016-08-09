@@ -164,8 +164,8 @@ namespace DP_dashboard
         {
             CheckComPorts();
 
-            
-            if(!classCalibrationInfo.CriticalStates)
+            // && !classCalibrationInfo.ConnectingToDP
+            if (!classCalibrationInfo.CriticalStates && !classCalibrationInfo.ConnectingToDP)
             {
                 if (CheckTimout(UpdateTempTime, 1))
                 {
@@ -180,7 +180,10 @@ namespace DP_dashboard
 
 
             UpdateGUI();
-
+            //if (classCalibrationInfo.DoCalibration)
+            //{
+            //    UpdateCalibrationGUI();
+            //}
 
             if (classCalibrationInfo.FinishCalibrationEvent)
             {
@@ -231,10 +234,6 @@ namespace DP_dashboard
 
             }
 
-            if (classCalibrationInfo.DoCalibration)
-            {
-                UpdateCalibrationGUI();
-            }
 
             if (classCalibrationInfo.ErrorEvent)
             {
@@ -245,7 +244,7 @@ namespace DP_dashboard
             if (classCalibrationInfo.IncermentCalibPointStep)
             {
                 classCalibrationInfo.IncermentCalibPointStep = false;
-                string Message = string.Format("Calibration in process : Temp index:{0}. Pressure index:{1}  {1}", classCalibrationInfo.CurrentCalibTempIndex.ToString(), classCalibrationInfo.CurrentCalibPressureIndex.ToString(),DateTime.Now.ToString());
+                string Message = string.Format("Calibration in process :  {0}  Temp index:{1}. Pressure index:{2}", DateTime.Now.ToString(), classCalibrationInfo.CurrentCalibTempIndex.ToString(), classCalibrationInfo.CurrentCalibPressureIndex.ToString());
                 rtb_info.Text += Message + "\r\n";
 
                 UpdateDataTable(CurrentSnDeviceIsFocus);
@@ -257,11 +256,6 @@ namespace DP_dashboard
                 if (classCalibrationInfo.ClassTempControllerInstanse.TempControllerConnectionStatus)
                 {
                     classCalibrationInfo.ClassTempControllerInstanse.TempControllerConnectionStatus = false;
-                    tb_connectionStatus.Text = "Connected";
-                }
-                else
-                {
-                    tb_connectionStatus.Text = "Not connected";
                 }
             }
 
@@ -276,8 +270,16 @@ namespace DP_dashboard
         {
             if (classCalibrationInfo.DoCalibration)
             {
-                tb_timeFromSendPressure.Text = DateTime.Now.Subtract(classCalibrationInfo.TimeFromSetPressurePointRequest).ToString(); 
-                tb_timeFromSendTemp.Text = DateTime.Now.Subtract(classCalibrationInfo.TimeFromSetTempPointRequest).ToString(); 
+                try
+                {
+                    tb_timeFromSendTemp.Text = DateTime.Now.Subtract(classCalibrationInfo.TimeFromSetTempPointRequest).Minutes.ToString();
+
+                    UpdateCalibrationGUI();
+                }
+                catch(Exception ex)
+                {
+                    rtb_info.Text += "update GUI error\r\n";
+                }
             }
 
 
@@ -295,7 +297,7 @@ namespace DP_dashboard
                 int TotalCalibPoints = classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count * classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count;
                 int FinishCalibPoints = classCalibrationInfo.CurrentCalibTempIndex * classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count + classCalibrationInfo.CurrentCalibPressureIndex;
 
-                float Precent = (FinishCalibPoints / TotalCalibPoints) * 100;
+                float Precent = ((float)FinishCalibPoints / (float)TotalCalibPoints) * 100;
                 pb_calibProgressBar.Value = Convert.ToInt16(Precent);
             }
             else
@@ -386,7 +388,10 @@ namespace DP_dashboard
             classCalibrationInfo.InitDetectTread();
 
             //wait to finish the detect.
-            while (!classCalibrationInfo.EndDetectEvent) ;
+            while (!classCalibrationInfo.EndDetectEvent)
+            {
+                Application.DoEvents();
+            }
 
 
             if (classCalibrationInfo.DpCountAxist > 0)
@@ -476,13 +481,22 @@ namespace DP_dashboard
             //temp controller
             tb_currentTemperature.Text = classCalibrationInfo.CurrentTempControllerValue.ToString();
             tb_targetTemperature.Text = classCalibrationInfo.classCalibrationSettings.TempUnderTestList[classCalibrationInfo.CurrentCalibTempIndex].ToString();
+            tb_currentSkipTime.Text = ((classCalibrationInfo.classCalibrationSettings.TempSkipStartTime[classCalibrationInfo.CurrentCalibTempIndex]) / 60).ToString() + " [min]";
             //tb_temperatureOnDP.Text = classCalibrationInfo.CurrentTempOnDP.ToString();
 
             //pressure
             tb_pressCurrentPressure.Text = classCalibrationInfo.CurrentPressure.ToString();
-            tb_pressTargetPressure.Text = classCalibrationInfo.PlcBar2Adc(classCalibrationInfo.classCalibrationSettings.PressureUnderTestList[classCalibrationInfo.CurrentCalibPressureIndex]).ToString();
-            tb_currentSkipTime.Text = classCalibrationInfo.classCalibrationSettings.TempSkipStartTime[classCalibrationInfo.CurrentCalibTempIndex].ToString();
+            tb_pressTargetPressure.Text = classCalibrationInfo.PlcBar2Adc(classCalibrationInfo.classCalibrationSettings.PressureUnderTestList[classCalibrationInfo.CurrentCalibPressureIndex]).ToString();            
 
+            //disable dp selection
+            if(classCalibrationInfo.ConnectingToDP == true)
+            {
+                pnl_dpSelection.Enabled = false;
+            }
+            else
+            {
+                pnl_dpSelection.Enabled = true;
+            }
 
             if (classCalibrationInfo.PressureStableFlag)
             {

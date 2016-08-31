@@ -163,7 +163,7 @@ namespace DP_dashboard
         private void timer1_Tick(object sender, EventArgs e)
         {
             CheckComPorts();
-
+#if true
             // && !classCalibrationInfo.ConnectingToDP
             if (!classCalibrationInfo.CriticalStates && !classCalibrationInfo.ConnectingToDP)
             {
@@ -177,7 +177,7 @@ namespace DP_dashboard
                     UpdateTempTime = DateTime.Now;
                 }
             }
-
+#endif
 
             UpdateGUI();
             //if (classCalibrationInfo.DoCalibration)
@@ -640,7 +640,6 @@ namespace DP_dashboard
             {
                 DGVSetCellColor(dgv_devicesQueue, 1, i, Color.White);
             }
-
         }
 
 

@@ -794,10 +794,15 @@ namespace DP_dashboard
 
             Thread.Sleep(1000);
 
+            try
+            {
+                DataFromPLC = classDeltaProtocolInstanse.SendNewMessage(DeltaMsgType.ReadHoldingRegisters, DeltaMemType.D, PLC_FLAG_STATUS_REGISTER_ADDRESS, 1);
+                PressureVentleFlag = IsBitSet(Convert.ToByte(DataFromPLC.IntValue[0]), PRESSURE_VENT_BIT_INDEX_FLAG);
+            }
+            catch(Exception ex)
+            {
 
-            DataFromPLC = classDeltaProtocolInstanse.SendNewMessage(DeltaMsgType.ReadHoldingRegisters, DeltaMemType.D, PLC_FLAG_STATUS_REGISTER_ADDRESS, 1);
-            PressureVentleFlag = IsBitSet(Convert.ToByte(DataFromPLC.IntValue[0]), PRESSURE_VENT_BIT_INDEX_FLAG);
-
+            }
             if(PressureVentleFlag)
             {
                 Thread.Sleep(2000);

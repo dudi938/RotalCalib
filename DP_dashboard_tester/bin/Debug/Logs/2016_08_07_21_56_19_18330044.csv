@@ -1,0 +1,63 @@
+
+DP Name(SN),18330044
+MAC address,2411935816
+Calibration date,8/7/2016 9:56:19 PM
+
+
+,,,Temp#0,
+,A2D_Right,A2D_Left,A2D Delta,Temp on DP,
+Pressure 0 = 0[bar],209,480,271,89
+Pressure 1 = 0.34[bar],312,534,222,89
+Pressure 2 = 0.7[bar],471,747,276,89
+Pressure 3 = 1[bar],645,945,300,89
+Pressure 4 = 1.4[bar],904,1215,311,89
+Pressure 5 = 1.75[bar],1142,1454,312,89
+Pressure 6 = 2.1[bar],1383,1694,311,89
+Pressure 7 = 2.45[bar],1625,1933,308,89
+Pressure 8 = 2.8[bar],1866,2172,306,89
+Pressure 9 = 3.5[bar],2348,2648,300,89
+Pressure 10 = 4.3[bar],2898,3197,299,89
+Pressure 11 = 5.05[bar],3412,3705,293,89
+Pressure 12 = 5.8[bar],3930,4216,286,89
+Pressure 13 = 6.55[bar],4441,4722,281,89
+Pressure 14 = 6.7[bar],4544,4824,280,89
+
+
+,,,Temp#1,
+,A2D_Right,A2D_Left,A2D Delta,Temp on DP,
+Pressure 0 = 0[bar],209,402,193,89
+Pressure 1 = 0.34[bar],311,534,223,89
+Pressure 2 = 0.7[bar],472,748,276,89
+Pressure 3 = 1[bar],646,948,302,89
+Pressure 4 = 1.4[bar],904,1217,313,89
+Pressure 5 = 1.75[bar],1143,1456,313,89
+Pressure 6 = 2.1[bar],1385,1696,311,89
+Pressure 7 = 2.45[bar],1625,1934,309,89
+Pressure 8 = 2.8[bar],1868,2174,306,89
+Pressure 9 = 3.5[bar],2352,2651,299,89
+Pressure 10 = 4.3[bar],2902,3199,297,89
+Pressure 11 = 5.05[bar],3416,3708,292,89
+Pressure 12 = 5.8[bar],3931,4217,286,89
+Pressure 13 = 6.55[bar],4444,4727,283,89
+Pressure 14 = 6.7[bar],4547,4828,281,89
+
+
+,,,Temp#2,
+,A2D_Right,A2D_Left,A2D Delta,Temp on DP,
+Pressure 0 = 0[bar],208,396,188,89
+Pressure 1 = 0.34[bar],312,535,223,89
+Pressure 2 = 0.7[bar],473,750,277,89
+Pressure 3 = 1[bar],646,949,303,89
+Pressure 4 = 1.4[bar],907,1221,314,89
+Pressure 5 = 1.75[bar],1145,1458,313,89
+Pressure 6 = 2.1[bar],1387,1698,311,89
+Pressure 7 = 2.45[bar],1629,1937,308,89
+Pressure 8 = 2.8[bar],1869,2177,308,89
+Pressure 9 = 3.5[bar],2351,2653,302,89
+Pressure 10 = 4.3[bar],2903,3203,300,89
+Pressure 11 = 5.05[bar],3416,3711,295,89
+Pressure 12 = 5.8[bar],3932,4221,289,89
+Pressure 13 = 6.55[bar],4446,4730,284,89
+Pressure 14 = 6.7[bar],4549,4831,282,88
+
+

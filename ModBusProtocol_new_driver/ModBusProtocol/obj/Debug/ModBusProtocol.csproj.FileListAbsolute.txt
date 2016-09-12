@@ -1,0 +1,43 @@
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\ModBusProtocol.exe.config
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\ModBusProtocol.exe
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\ModBusProtocol.pdb
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\NModbus4.dll
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\obj\Debug\ModBusProtocol.csprojResolveAssemblyReference.cache
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\obj\Debug\ModBusProtocol.Form1.resources
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\obj\Debug\ModBusProtocol.Properties.Resources.resources
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\obj\Debug\ModBusProtocol.csproj.GenerateResource.Cache
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\obj\Debug\ModBusProtocol.exe
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\obj\Debug\ModBusProtocol.pdb
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\NModbus4.Serial.dll
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\NModbus4.Serial.xml
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\obj\Debug\ModBusProtocol.csproj.ModBusProtocol.exe.config
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\FtdAdapter.dll
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\Modbus.dll
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\Modbus.Extensions.dll
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\Modbus.IntegrationTests.dll
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\Modbus.UnitTests.dll
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\MySample.exe
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\MbUnit.Framework.dll
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\log4net.dll
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\Unme.Common.dll
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\Rhino.Mocks.dll
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\Unme.MbUnit.Framework.Extensions.dll
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\QuickGraph.dll
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\QuickGraph.Algorithms.dll
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\FtdAdapter.pdb
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\FtdAdapter.xml
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\Modbus.Extensions.pdb
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\Modbus.Extensions.xml
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\Modbus.IntegrationTests.pdb
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\Modbus.UnitTests.pdb
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\Modbus.pdb
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\Modbus.xml
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\MySample.pdb
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\MbUnit.Framework.xml
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\Unme.Common.xml
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\Rhino.Mocks.xml
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\QuickGraph.xml
+C:\Users\dudi9\Desktop\ModBusProtocol\ModBusProtocol\bin\Debug\QuickGraph.Algorithms.xml
+C:\work\Rotal\Rotal calibration\project\ModBusProtocol_new_driver\ModBusProtocol\bin\Debug\ModBusProtocol.exe.config
+C:\work\Rotal\Rotal calibration\project\ModBusProtocol_new_driver\ModBusProtocol\obj\Debug\ModBusProtocol.exe
+C:\work\Rotal\Rotal calibration\project\ModBusProtocol_new_driver\ModBusProtocol\obj\Debug\ModBusProtocol.pdb

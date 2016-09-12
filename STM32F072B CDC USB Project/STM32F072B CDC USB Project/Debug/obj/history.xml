@@ -1,119 +1,104 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <history>
-   <processor signature="arm-none-eabi-gcc noversion nomachine -mcpu=cortex-m0 -mthumb -Wall -ffunction-sections -g -O1 -c -DSTM32F072RB -DSTM32F072xB -DUSE_STM32072B_EVAL -D___int16_t_defined -D___int8_t_defined -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\CoX -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\cmsis_lib -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\STM32_USB_Device_Driver -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\STM32_USB_Device_Library\Core\inc -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\STM32_USB_Device_Library -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\STM32_USB_Device_Library\Class\cdc -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\STM32_USB_Device_Library\Class\cdc\inc -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\cmsis_core -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\STM32_USB_Device_Driver\inc -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\STM32_USB_Device_Library\Core -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\CoX\CoX_Driver\nRF24L01 -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\STM32_USB_Device_Library\Class -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib -I..\..\..\..\..\work\Rotal calibration\project -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\cmsis_lib\include -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\cmsis_boot -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\CoX\CoX_Driver -I..\..\..\..\..\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\inc">
-      <target file="system_stm32f0xx.o" lastModified="1550b34f69a">
-         <source file="..\..\..\cmsis_boot\system_stm32f0xx.c" lastModified="15370d8ee10"/>
-      </target>
-      <target file="syscalls.o" lastModified="1550b34f281">
-         <source file="..\..\..\syscalls\syscalls.c" lastModified="15370d8ee94"/>
-      </target>
-      <target file="usbd_usr.o" lastModified="1550b34e0cf">
-         <source file="..\..\..\USB-CDC\src\usbd_usr.c" lastModified="15370d8edfe"/>
-      </target>
-      <target file="usbd_pwr.o" lastModified="1550b34eef2">
-         <source file="..\..\..\USB-CDC\src\usbd_pwr.c" lastModified="15370d8edfc"/>
-      </target>
-      <target file="stm32f0xx_i2c.o" lastModified="1550b34ee8e">
-         <source file="..\..\..\cmsis_lib\source\stm32f0xx_i2c.c" lastModified="15370d8ee72"/>
-      </target>
-      <target file="usbd_ioreq.o" lastModified="1550b34fb3a">
-         <source file="..\..\..\USB-CDC\STM32_USB_Device_Library\Core\src\usbd_ioreq.c" lastModified="15370d8edd1"/>
-      </target>
-      <target file="stm32f0xx_spi.o" lastModified="1550b34ed8b">
-         <source file="..\..\..\cmsis_lib\source\stm32f0xx_spi.c" lastModified="15370d8ee83"/>
-      </target>
-      <target file="stm32072b_eval.o" lastModified="1550b34f85a">
-         <source file="..\..\..\USB-CDC\src\stm32072b_eval.c" lastModified="15370d8edef"/>
-      </target>
-      <target file="stm32f0xx_comp.o" lastModified="1550b34efde">
-         <source file="..\..\..\cmsis_lib\source\stm32f0xx_comp.c" lastModified="15370d8ee5c"/>
-      </target>
-      <target file="stm32f0xx_crs.o" lastModified="1550b34f39b">
-         <source file="..\..\..\cmsis_lib\source\stm32f0xx_crs.c" lastModified="15370d8ee5f"/>
-      </target>
-      <target file="usbd_req.o" lastModified="1550b34f554">
-         <source file="..\..\..\USB-CDC\STM32_USB_Device_Library\Core\src\usbd_req.c" lastModified="15370d8edd4"/>
-      </target>
-      <target file="api_task.o" lastModified="1550b34fa21">
-         <source file="..\..\..\api_task.c" lastModified="153ad46d4f3"/>
-      </target>
-      <target file="stm32_it.o" lastModified="1550b34f5ae">
-         <source file="..\..\..\USB-CDC\src\stm32_it.c" lastModified="15370d8edf1"/>
-      </target>
-      <target file="nRF24L01.o" lastModified="1550b34e9df">
-         <source file="..\..\..\CoX\CoX_Driver\nRF24L01\nRF24L01.cpp" lastModified="15370d8ed8a"/>
-      </target>
-      <target file="usbd_cdc_core.o" lastModified="1550b34f71f">
-         <source file="..\..\..\USB-CDC\STM32_USB_Device_Library\Class\cdc\src\usbd_cdc_core.c" lastModified="15370d8edb7"/>
-      </target>
-      <target file="usbd_desc.o" lastModified="1550b34ede6">
-         <source file="..\..\..\USB-CDC\src\usbd_desc.c" lastModified="15370d8edfa"/>
-      </target>
-      <target file="usb_bsp.o" lastModified="1550b34f3fc">
-         <source file="..\..\..\USB-CDC\src\usb_bsp.c" lastModified="15370d8edf4"/>
-      </target>
-      <target file="usbd_core.o" lastModified="1550b34ea4f">
+   <processor signature="arm-none-eabi-gcc noversion nomachine -mcpu=cortex-m0 -mthumb -Wall -ffunction-sections -g -O1 -c -DSTM32F072RB -DSTM32F072xB -DUSE_STM32072B_EVAL -D___int16_t_defined -D___int8_t_defined -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\STM32_USB_Device_Library -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\STM32_USB_Device_Library\Core -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\STM32_USB_Device_Driver\inc -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\inc -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\cmsis_lib\include -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\STM32_USB_Device_Library\Class\cdc -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\STM32_USB_Device_Library\Core\inc -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\cmsis_boot -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\CoX\CoX_Driver -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\STM32_USB_Device_Driver -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\STM32_USB_Device_Library\Class\cdc\inc -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\cmsis_core -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\USB-CDC\STM32_USB_Device_Library\Class -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\CoX -I..\..\..\..\..\work\Rotal\Rotal calibration\project -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\CoX\CoX_Driver\nRF24L01 -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib -I..\..\..\..\..\work\Rotal\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\cmsis_lib">
+      <target file="usbd_core.o" lastModified="156e18ff64c">
          <source file="..\..\..\USB-CDC\STM32_USB_Device_Library\Core\src\usbd_core.c" lastModified="15370d8edce"/>
       </target>
-      <target file="stm32f0xx_exti.o" lastModified="1550b34f80a">
-         <source file="..\..\..\cmsis_lib\source\stm32f0xx_exti.c" lastModified="15370d8ee67"/>
+      <target file="usbd_desc.o" lastModified="156e18ff829">
+         <source file="..\..\..\USB-CDC\src\usbd_desc.c" lastModified="15370d8edfa"/>
       </target>
-      <target file="stm32f0xx_gpio.o" lastModified="1550b34ef67">
-         <source file="..\..\..\cmsis_lib\source\stm32f0xx_gpio.c" lastModified="15370d8ee6e"/>
+      <target file="usbd_cdc_core.o" lastModified="156e190018e">
+         <source file="..\..\..\USB-CDC\STM32_USB_Device_Library\Class\cdc\src\usbd_cdc_core.c" lastModified="15370d8edb7"/>
       </target>
-      <target file="stm32f0xx_tim.o" lastModified="1550b34f4d5">
-         <source file="..\..\..\cmsis_lib\source\stm32f0xx_tim.c" lastModified="15370d8ee89"/>
-      </target>
-      <target file="usb_dcd.o" lastModified="1550b34f8ff">
-         <source file="..\..\..\USB-CDC\STM32_USB_Device_Driver\src\usb_dcd.c" lastModified="15370d8edac"/>
-      </target>
-      <target file="usbd_cdc_vcp.o" lastModified="1550b34f088">
-         <source file="..\..\..\USB-CDC\src\usbd_cdc_vcp.c" lastModified="15370d8edf7"/>
-      </target>
-      <target file="stm32f0xx_syscfg.o" lastModified="1550b34fa80">
-         <source file="..\..\..\cmsis_lib\source\stm32f0xx_syscfg.c" lastModified="15370d8ee86"/>
-      </target>
-      <target file="stm32f0xx_usart.o" lastModified="1550b34f316">
-         <source file="..\..\..\cmsis_lib\source\stm32f0xx_usart.c" lastModified="15370d8ee8d"/>
-      </target>
-      <target file="startup_stm32f0xx.o" lastModified="1550b34ec9e">
-         <source file="..\..\..\cmsis_boot\startup\startup_stm32f0xx.s" lastModified="15370d8ee07"/>
-      </target>
-      <target file="utilities.o" lastModified="1550b34e486">
-         <source file="..\..\..\utilities.c" lastModified="1539e3abafb"/>
-      </target>
-      <target file="stm32f0xx_rtc.o" lastModified="1550b34f140">
+      <target file="stm32f0xx_rtc.o" lastModified="156e18ffc0e">
          <source file="..\..\..\cmsis_lib\source\stm32f0xx_rtc.c" lastModified="15370d8ee80"/>
       </target>
-      <target file="stm32f0xx_rcc.o" lastModified="1550b34e030">
-         <source file="..\..\..\cmsis_lib\source\stm32f0xx_rcc.c" lastModified="15370d8ee7a"/>
+      <target file="usbd_ioreq.o" lastModified="156e19004f3">
+         <source file="..\..\..\USB-CDC\STM32_USB_Device_Library\Core\src\usbd_ioreq.c" lastModified="15370d8edd1"/>
       </target>
-      <target file="stm32f0xx_dac.o" lastModified="1550b34fc1d">
-         <source file="..\..\..\cmsis_lib\source\stm32f0xx_dac.c" lastModified="15370d8ee62"/>
+      <target file="stm32f0xx_tim.o" lastModified="156e18fff14">
+         <source file="..\..\..\cmsis_lib\source\stm32f0xx_tim.c" lastModified="15370d8ee89"/>
       </target>
-      <target file="usb_core.o" lastModified="1550b34df95">
-         <source file="..\..\..\USB-CDC\STM32_USB_Device_Driver\src\usb_core.c" lastModified="15370d8eda8"/>
+      <target file="usb_bsp.o" lastModified="156e18ffdfd">
+         <source file="..\..\..\USB-CDC\src\usb_bsp.c" lastModified="15370d8edf4"/>
       </target>
-      <target file="stm32f0xx_pwr.o" lastModified="1550b34fad2">
-         <source file="..\..\..\cmsis_lib\source\stm32f0xx_pwr.c" lastModified="15370d8ee78"/>
-      </target>
-      <target file="stm32f0xx_flash.o" lastModified="1550b34f7ac">
-         <source file="..\..\..\cmsis_lib\source\stm32f0xx_flash.c" lastModified="15370d8ee6b"/>
-      </target>
-      <target file="stm32f0xx_adc.o" lastModified="1550b34e151">
+      <target file="stm32f0xx_adc.o" lastModified="156e18ff47e">
          <source file="..\..\..\cmsis_lib\source\stm32f0xx_adc.c" lastModified="15370d8ee59"/>
       </target>
-      <target file="main.o" lastModified="1550b34ec1a">
-         <source file="..\..\..\main.c" lastModified="153ad328b83"/>
+      <target file="stm32f0xx_flash.o" lastModified="156e190022f">
+         <source file="..\..\..\cmsis_lib\source\stm32f0xx_flash.c" lastModified="15370d8ee6b"/>
       </target>
-      <target file="usb_dcd_int.o" lastModified="1550b34f63c">
+      <target file="stm32f0xx_dma.o" lastModified="156e18ff724">
+         <source file="..\..\..\cmsis_lib\source\stm32f0xx_dma.c" lastModified="15370d8ee65"/>
+      </target>
+      <target file="stm32f0xx_exti.o" lastModified="156e190029f">
+         <source file="..\..\..\cmsis_lib\source\stm32f0xx_exti.c" lastModified="15370d8ee67"/>
+      </target>
+      <target file="usbd_req.o" lastModified="156e18fffb3">
+         <source file="..\..\..\USB-CDC\STM32_USB_Device_Library\Core\src\usbd_req.c" lastModified="15370d8edd4"/>
+      </target>
+      <target file="usbd_pwr.o" lastModified="156e18ff949">
+         <source file="..\..\..\USB-CDC\src\usbd_pwr.c" lastModified="15370d8edfc"/>
+      </target>
+      <target file="stm32f0xx_gpio.o" lastModified="156e18ff9db">
+         <source file="..\..\..\cmsis_lib\source\stm32f0xx_gpio.c" lastModified="15370d8ee6e"/>
+      </target>
+      <target file="stm32f0xx_comp.o" lastModified="156e18ffa4f">
+         <source file="..\..\..\cmsis_lib\source\stm32f0xx_comp.c" lastModified="15370d8ee5c"/>
+      </target>
+      <target file="stm32f0xx_crs.o" lastModified="156e18ffd90">
+         <source file="..\..\..\cmsis_lib\source\stm32f0xx_crs.c" lastModified="15370d8ee5f"/>
+      </target>
+      <target file="usb_dcd.o" lastModified="156e1900365">
+         <source file="..\..\..\USB-CDC\STM32_USB_Device_Driver\src\usb_dcd.c" lastModified="15370d8edac"/>
+      </target>
+      <target file="usb_dcd_int.o" lastModified="156e19000a1">
          <source file="..\..\..\USB-CDC\STM32_USB_Device_Driver\src\usb_dcd_int.c" lastModified="15370d8edaf"/>
       </target>
-      <target file="stm32f0xx_misc.o" lastModified="1550b34fb86">
+      <target file="stm32f0xx_spi.o" lastModified="156e18ff798">
+         <source file="..\..\..\cmsis_lib\source\stm32f0xx_spi.c" lastModified="15370d8ee83"/>
+      </target>
+      <target file="stm32f0xx_syscfg.o" lastModified="156e190040a">
+         <source file="..\..\..\cmsis_lib\source\stm32f0xx_syscfg.c" lastModified="15370d8ee86"/>
+      </target>
+      <target file="stm32_it.o" lastModified="156e1900015">
+         <source file="..\..\..\USB-CDC\src\stm32_it.c" lastModified="15370d8edf1"/>
+      </target>
+      <target file="stm32f0xx_rcc.o" lastModified="156e18ff399">
+         <source file="..\..\..\cmsis_lib\source\stm32f0xx_rcc.c" lastModified="15370d8ee7a"/>
+      </target>
+      <target file="stm32f0xx_pwr.o" lastModified="156e1900465">
+         <source file="..\..\..\cmsis_lib\source\stm32f0xx_pwr.c" lastModified="15370d8ee78"/>
+      </target>
+      <target file="stm32f0xx_dac.o" lastModified="156e190058e">
+         <source file="..\..\..\cmsis_lib\source\stm32f0xx_dac.c" lastModified="15370d8ee62"/>
+      </target>
+      <target file="nRF24L01.o" lastModified="156e18ff5c2">
+         <source file="..\..\..\CoX\CoX_Driver\nRF24L01\nRF24L01.cpp" lastModified="15370d8ed8a"/>
+      </target>
+      <target file="usb_core.o" lastModified="156e18ff2d2">
+         <source file="..\..\..\USB-CDC\STM32_USB_Device_Driver\src\usb_core.c" lastModified="15370d8eda8"/>
+      </target>
+      <target file="stm32f0xx_misc.o" lastModified="156e1900536">
          <source file="..\..\..\cmsis_lib\source\stm32f0xx_misc.c" lastModified="15370d8ee75"/>
       </target>
-      <target file="stm32f0xx_dma.o" lastModified="1550b34ed0d">
-         <source file="..\..\..\cmsis_lib\source\stm32f0xx_dma.c" lastModified="15370d8ee65"/>
+      <target file="syscalls.o" lastModified="156e18ffc5f">
+         <source file="..\..\..\syscalls\syscalls.c" lastModified="15370d8ee94"/>
+      </target>
+      <target file="startup_stm32f0xx.o" lastModified="156e18ff6a3">
+         <source file="..\..\..\cmsis_boot\startup\startup_stm32f0xx.s" lastModified="15370d8ee07"/>
+      </target>
+      <target file="stm32f0xx_usart.o" lastModified="156e18ffd10">
+         <source file="..\..\..\cmsis_lib\source\stm32f0xx_usart.c" lastModified="15370d8ee8d"/>
+      </target>
+      <target file="stm32f0xx_i2c.o" lastModified="156e18ff8dd">
+         <source file="..\..\..\cmsis_lib\source\stm32f0xx_i2c.c" lastModified="15370d8ee72"/>
+      </target>
+      <target file="system_stm32f0xx.o" lastModified="156e190010c">
+         <source file="..\..\..\cmsis_boot\system_stm32f0xx.c" lastModified="15370d8ee10"/>
+      </target>
+      <target file="usbd_usr.o" lastModified="156e18ff3d7">
+         <source file="..\..\..\USB-CDC\src\usbd_usr.c" lastModified="15370d8edfe"/>
       </target>
    </processor>
 </history>

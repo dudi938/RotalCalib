@@ -385,7 +385,7 @@
             // 
             // tb_newsetPresssure
             // 
-            this.tb_newsetPresssure.Location = new System.Drawing.Point(163, 106);
+            this.tb_newsetPresssure.Location = new System.Drawing.Point(163, 103);
             this.tb_newsetPresssure.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_newsetPresssure.Name = "tb_newsetPresssure";
             this.tb_newsetPresssure.Size = new System.Drawing.Size(95, 22);
@@ -456,7 +456,7 @@
             this.label13.Location = new System.Drawing.Point(6, 166);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(164, 17);
+            this.label13.Size = new System.Drawing.Size(122, 13);
             this.label13.TabIndex = 13;
             this.label13.Text = "Setpoint temp timer[min] ";
             // 
@@ -486,7 +486,7 @@
             this.label12.Location = new System.Drawing.Point(5, 136);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(157, 17);
+            this.label12.Size = new System.Drawing.Size(117, 13);
             this.label12.TabIndex = 9;
             this.label12.Text = "Wait for temp timer[min]";
             // 
@@ -507,7 +507,7 @@
             this.label10.Location = new System.Drawing.Point(3, 76);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(125, 17);
+            this.label10.Size = new System.Drawing.Size(94, 13);
             this.label10.TabIndex = 7;
             this.label10.Text = "Temperture on DP";
             // 
@@ -519,7 +519,7 @@
             this.label8.Location = new System.Drawing.Point(83, 2);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(117, 17);
+            this.label8.Size = new System.Drawing.Size(88, 13);
             this.label8.TabIndex = 6;
             this.label8.Text = "Temperature Info";
             // 
@@ -549,7 +549,7 @@
             this.label7.Location = new System.Drawing.Point(1, 42);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(115, 17);
+            this.label7.Size = new System.Drawing.Size(86, 13);
             this.label7.TabIndex = 2;
             this.label7.Text = "Oven temperture";
             this.label7.Click += new System.EventHandler(this.label7_Click);
@@ -562,7 +562,7 @@
             this.label6.Location = new System.Drawing.Point(3, 104);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(50, 17);
+            this.label6.Size = new System.Drawing.Size(38, 13);
             this.label6.TabIndex = 1;
             this.label6.Text = "Target";
             this.label6.Click += new System.EventHandler(this.label6_Click);
@@ -684,7 +684,7 @@
             this.chb_pressureAutoMode.Location = new System.Drawing.Point(8, 162);
             this.chb_pressureAutoMode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chb_pressureAutoMode.Name = "chb_pressureAutoMode";
-            this.chb_pressureAutoMode.Size = new System.Drawing.Size(158, 21);
+            this.chb_pressureAutoMode.Size = new System.Drawing.Size(120, 17);
             this.chb_pressureAutoMode.TabIndex = 9;
             this.chb_pressureAutoMode.Text = "Pressure auto mode";
             this.chb_pressureAutoMode.UseVisualStyleBackColor = true;
@@ -708,7 +708,7 @@
             this.label9.Location = new System.Drawing.Point(9, 123);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(48, 17);
+            this.label9.Size = new System.Drawing.Size(37, 13);
             this.label9.TabIndex = 7;
             this.label9.Text = "Stable";
             // 
@@ -720,7 +720,7 @@
             this.label4.Location = new System.Drawing.Point(96, 14);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(92, 17);
+            this.label4.Size = new System.Drawing.Size(68, 13);
             this.label4.TabIndex = 6;
             this.label4.Text = "Pressure info";
             // 
@@ -750,7 +750,7 @@
             this.label1.Location = new System.Drawing.Point(6, 52);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 17);
+            this.label1.Size = new System.Drawing.Size(87, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Current  pressure";
             // 
@@ -762,7 +762,7 @@
             this.label2.Location = new System.Drawing.Point(6, 86);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(110, 17);
+            this.label2.Size = new System.Drawing.Size(81, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Target pressure";
             // 
@@ -782,7 +782,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CalibForm";
-            this.Text = " Calibration tool 08/08/2016";
+            this.Text = " Calibration tool 5/09/2016";
             this.TransparencyKey = System.Drawing.Color.Lime;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CalibForm_FormClosing);

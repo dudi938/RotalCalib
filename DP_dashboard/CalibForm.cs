@@ -394,7 +394,7 @@ namespace DP_dashboard
             }
 
 
-            if (classCalibrationInfo.DpCountAxist > 0)
+            if (classCalibrationInfo.DpCountAxist > 0 && classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count > 0 && classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count > 0)
             {
                 classCalibrationInfo.EndDetectEvent = false;
 
@@ -412,7 +412,19 @@ namespace DP_dashboard
             }
             else
             {
-                MessageBox.Show("No exist dp devices!");
+                if (classCalibrationInfo.DpCountAxist == 0)
+                {
+                    MessageBox.Show("No exist dp devices!");
+                }
+                else if (classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count == 0)
+                {
+                    MessageBox.Show("Load configuration file befor you calibration start");
+                }
+                else if (classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count == 0)
+                {
+                    MessageBox.Show("Load configuration file befor you calibration start");
+                }
+
             }
 
         }
@@ -834,10 +846,19 @@ namespace DP_dashboard
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            List<short> l = new List<short>();
-            l.Clear();
-            l.Add(Convert.ToInt16(tb_newsetPresssure.Text));
-            classCalibrationInfo.classDeltaProtocolInstanse.classDeltaWriteSetpoint(l);
+            try
+            {
+                short PressureinBar = classCalibrationInfo.PlcBar2Adc(float.Parse(tb_newsetPresssure.Text));
+
+                List < short > l = new List<short>();
+                l.Clear();
+                l.Add(PressureinBar);
+                classCalibrationInfo.classDeltaProtocolInstanse.classDeltaWriteSetpoint(l);
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         public void CheckComPorts()

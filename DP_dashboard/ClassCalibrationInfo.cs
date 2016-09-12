@@ -607,7 +607,7 @@ namespace DP_dashboard
 
             try
             {
-                while (!ClassTempControllerInstanse.SendFc16(Properties.Settings.Default.TempControllerSlaveAddress, registerAddress, (ushort)1, value)) ;
+                ClassTempControllerInstanse.SendFc16(Properties.Settings.Default.TempControllerSlaveAddress, registerAddress, (ushort)1, value);
             }
             catch (Exception err)
             {
@@ -623,7 +623,7 @@ namespace DP_dashboard
 
             try
             {
-                while (!ClassTempControllerInstanse.SendFc16(Properties.Settings.Default.TempControllerSlaveAddress, registerAddress, (ushort)1, value)) ;
+                ClassTempControllerInstanse.SendFc16(Properties.Settings.Default.TempControllerSlaveAddress, registerAddress, (ushort)1, value) ;
             }
             catch (Exception err)
             {

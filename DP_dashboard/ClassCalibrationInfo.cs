@@ -685,6 +685,8 @@ namespace DP_dashboard
 
                         if (classDpCommunicationInstanse.dpInfo.DeviceSerialNumber == "" || classDpCommunicationInstanse.dpInfo.DeviceSerialNumber.StartsWith("\0"))
                         {
+                            Ch = false;
+                            classCalibrationSettings.ConnectedChanels.Add(Ch);
                             continue;
                         }
 

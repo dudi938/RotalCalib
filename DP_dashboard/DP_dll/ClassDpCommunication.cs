@@ -402,6 +402,5 @@ namespace DpCommunication
             data[data.Count() - 1] = CheckCum(data, data.Count());
             SerialPortInstanse.Send(data, data.Count());
         }
-
     }
 }

@@ -16,8 +16,8 @@
 <attrib name="registered" value="true"/>
 <attrib name="path" value="/STM32F072B CDC USB Project/api_task.c"/>
 <attrib name="org.eclipse.cdt.debug.core.sourceHandle" value="C:\work\Rotal calibration\project\RotalCalib\STM32F072B CDC USB Project\api_task.c"/>
-<attrib name="org.eclipse.cdt.debug.core.ignoreCount" value="0"/>
 <attrib name="org.eclipse.debug.core.enabled" value="true"/>
+<attrib name="org.eclipse.cdt.debug.core.ignoreCount" value="0"/>
 </marker>
 </breakpoint>
 </breakpoints>

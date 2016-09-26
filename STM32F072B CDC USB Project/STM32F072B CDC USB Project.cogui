@@ -371,11 +371,6 @@
 <actionBarAdvisor/>
 </window>
 <mruList>
-<file factoryID="org.coocox.builder.ui.persistent.PersistentElementFactory" id="org.coocox.builder.ui.editors.ConfigEditor" name="" tooltip="">
-<persistable>
-<org.coocox.builder.ui.editors.ConfigEditor/>
-</persistable>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32072b_eval.c" tooltip="STM32F072B CDC USB Project/cmsis_usb/src/stm32072b_eval.c">
 <persistable path="/STM32F072B CDC USB Project/cmsis_usb/src/stm32072b_eval.c"/>
 </file>
@@ -414,6 +409,9 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.asm.AsmEditor" name="startup_stm32f0xx.s" tooltip="STM32F072B CDC USB Project/cmsis_boot/startup/startup_stm32f0xx.s">
 <persistable path="/STM32F072B CDC USB Project/cmsis_boot/startup/startup_stm32f0xx.s"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f0xx_rtc.c" tooltip="STM32F072B CDC USB Project/cmsis_lib/source/stm32f0xx_rtc.c">
+<persistable path="/STM32F072B CDC USB Project/cmsis_lib/source/stm32f0xx_rtc.c"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f0xx_rtc.c" tooltip="STM32F072B CDC USB Project/cmsis_lib/source/stm32f0xx_rtc.c">
 <persistable path="/STM32F072B CDC USB Project/cmsis_lib/source/stm32f0xx_rtc.c"/>

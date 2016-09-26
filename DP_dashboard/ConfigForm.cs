@@ -335,6 +335,30 @@ namespace DP_dashboard
             calibForm.tempControllerInstanse.CloseComPort();
 
             calibForm.Close();
+
+            Application.Exit();
+
+            //calibForm.Show();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            UpdateGui();
+        }
+
+
+
+
+        private void UpdateGui()
+        {
+            if (calibForm.classCalibrationInfo.DoCalibration)
+            {
+                pnl_settingsPanel.Enabled = false;
+            }
+            else
+            {
+                pnl_settingsPanel.Enabled = true;
+            }
         }
     }
 }

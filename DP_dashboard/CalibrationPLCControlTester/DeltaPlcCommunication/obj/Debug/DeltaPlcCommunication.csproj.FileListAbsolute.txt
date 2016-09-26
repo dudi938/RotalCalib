@@ -20,6 +20,6 @@ C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\CalibrationPLCControlT
 C:\work\Rotal calibration\project\RotalCalib\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.pdb
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\bin\Debug\DeltaPlcCommunication.dll
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\bin\Debug\DeltaPlcCommunication.pdb
+C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.csprojResolveAssemblyReference.cache
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.dll
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.pdb
-C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\CalibrationPLCControlTester\DeltaPlcCommunication\obj\Debug\DeltaPlcCommunication.csprojResolveAssemblyReference.cache

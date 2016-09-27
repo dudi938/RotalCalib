@@ -50,19 +50,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Jg4HmSEy4L4NIW1ra45QdV+7N3OnWbpHNcTYxxuM3Bs=</dsig:DigestValue>
+        <dsig:DigestValue>IHIvMTmme7cUvjAFGDwAVNAD8tz4BBXwR+dJzR3nWPU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DP_dashboard.exe" size="554976">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DP_dashboard.exe" size="557024">
       <assemblyIdentity name="DP_dashboard" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>6HGjO/pXBNUxRzcp1ijk9y6EplKap0FYTt8FyIrwsjU=</dsig:DigestValue>
+        <dsig:DigestValue>O/gp3YrVOEH5BXgl09F8cj+bhc+FzxDXmB4qpvhET8s=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -74,7 +74,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>QBXUnDsn5lB0t9KBKwRZcTHRp/LC/7s8sWdf2qvTnkA=</dsig:DigestValue>
+        <dsig:DigestValue>AonYlC2iZBiIcnZddpvQx35JbRFvsyybLVUMFCYAg5I=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -86,7 +86,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>5HK0qyuTV+EJ0A+Sff75sj4ZFdmw8M3xfQqJv3zZ5D8=</dsig:DigestValue>
+        <dsig:DigestValue>HrAjtmT9oQQdWDEKlWWJ19Bx1wa06hapHb0z7wEy6b0=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SerialQueryDriver.dll" size="5632">
+      <assemblyIdentity name="SerialQueryDriver" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>wSVII6dig/KFOFhr+Rg9I4wQy7ngufuhoDKbUIrqQ6E=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -98,7 +110,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>IX2FUhSOcfrtmK5nbJeDBgLEys2MStLPn4bYMhxb5mk=</dsig:DigestValue>
+        <dsig:DigestValue>9kdZ8j19LNJhnVFh9z8TO0j+tuwWL3ywVrVU+9/vTo0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -111,13 +123,13 @@
       <dsig:DigestValue>LnYErjhfMo1avCTx+NpSDwfYDRjVRW9Qg5zOUy/xURs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="DP_dashboard.exe.config" size="2171">
+  <file name="DP_dashboard.exe.config" size="2841">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>AE3YaJ9fC24zV4e8MGqspDtBrSda3pJ/nq+0ONcGNfY=</dsig:DigestValue>
+      <dsig:DigestValue>8EicGGFOqA48lUp5JZCpr3R28VqSJFxzyHDqJnzlVK0=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

@@ -131,5 +131,53 @@ namespace DP_dashboard.Properties {
                 this["TempControllerSlaveAddress"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("USB\\VID_10C4&PID_EA60\\0001_0")]
+        public string DpComPortID {
+            get {
+                return ((string)(this["DpComPortID"]));
+            }
+            set {
+                this["DpComPortID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("FTDIBUS\\VID_0403+PID_6001+FTBTMH3SA\\0000_0")]
+        public string PlcComPortID {
+            get {
+                return ((string)(this["PlcComPortID"]));
+            }
+            set {
+                this["PlcComPortID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("USB\\VID_0483&PID_5740\\325E355B4236_0")]
+        public string MultiplexerComPortID {
+            get {
+                return ((string)(this["MultiplexerComPortID"]));
+            }
+            set {
+                this["MultiplexerComPortID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("USB\\VID_067B&PID_2303\\7&1ea7c429&0&2_0")]
+        public string TempControllerComPortID {
+            get {
+                return ((string)(this["TempControllerComPortID"]));
+            }
+            set {
+                this["TempControllerComPortID"] = value;
+            }
+        }
     }
 }

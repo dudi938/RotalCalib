@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempController", "TempContr
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "RotalCalibrationSetup", "..\RotalCalibrationSetup\RotalCalibrationSetup.vdproj", "{F3B5ADB1-5B5C-4375-80BF-4805804DF274}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialQueryDriver", "SerialQueryDriver\SerialQueryDriver.csproj", "{662B0588-1870-437B-B42C-FD9EC0BC1D17}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{93B04CBF-C68C-45A7-B423-810C8E776737}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F3B5ADB1-5B5C-4375-80BF-4805804DF274}.Debug|Any CPU.ActiveCfg = Debug
 		{F3B5ADB1-5B5C-4375-80BF-4805804DF274}.Release|Any CPU.ActiveCfg = Release
+		{662B0588-1870-437B-B42C-FD9EC0BC1D17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{662B0588-1870-437B-B42C-FD9EC0BC1D17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{662B0588-1870-437B-B42C-FD9EC0BC1D17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{662B0588-1870-437B-B42C-FD9EC0BC1D17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

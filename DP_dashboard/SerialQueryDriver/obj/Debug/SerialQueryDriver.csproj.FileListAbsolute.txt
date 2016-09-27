@@ -1,0 +1,10 @@
+C:\work\Rotal\Rotal calibration\project\RotalCalib\SerialQueryDriver\bin\Debug\SerialQueryDriver.dll
+C:\work\Rotal\Rotal calibration\project\RotalCalib\SerialQueryDriver\bin\Debug\SerialQueryDriver.pdb
+C:\work\Rotal\Rotal calibration\project\RotalCalib\SerialQueryDriver\obj\Debug\SerialQueryDriver.csprojResolveAssemblyReference.cache
+C:\work\Rotal\Rotal calibration\project\RotalCalib\SerialQueryDriver\obj\Debug\SerialQueryDriver.dll
+C:\work\Rotal\Rotal calibration\project\RotalCalib\SerialQueryDriver\obj\Debug\SerialQueryDriver.pdb
+C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\SerialQueryDriver\bin\Debug\SerialQueryDriver.dll
+C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\SerialQueryDriver\bin\Debug\SerialQueryDriver.pdb
+C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\SerialQueryDriver\obj\Debug\SerialQueryDriver.csprojResolveAssemblyReference.cache
+C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\SerialQueryDriver\obj\Debug\SerialQueryDriver.dll
+C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\SerialQueryDriver\obj\Debug\SerialQueryDriver.pdb

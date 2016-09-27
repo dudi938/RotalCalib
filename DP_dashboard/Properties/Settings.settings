@@ -29,5 +29,17 @@
     <Setting Name="TempControllerSlaveAddress" Type="System.Byte" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
+    <Setting Name="DpComPortID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">USB\VID_10C4&amp;PID_EA60\0001_0</Value>
+    </Setting>
+    <Setting Name="PlcComPortID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">FTDIBUS\VID_0403+PID_6001+FTBTMH3SA\0000_0</Value>
+    </Setting>
+    <Setting Name="MultiplexerComPortID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">USB\VID_0483&amp;PID_5740\325E355B4236_0</Value>
+    </Setting>
+    <Setting Name="TempControllerComPortID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">USB\VID_067B&amp;PID_2303\7&amp;1ea7c429&amp;0&amp;2_0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

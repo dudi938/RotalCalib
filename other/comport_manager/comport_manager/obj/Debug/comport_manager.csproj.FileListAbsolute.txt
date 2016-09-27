@@ -1,0 +1,9 @@
+C:\Users\דודי\Desktop\comport_manager\comport_manager\bin\Debug\comport_manager.exe.config
+C:\Users\דודי\Desktop\comport_manager\comport_manager\bin\Debug\comport_manager.exe
+C:\Users\דודי\Desktop\comport_manager\comport_manager\bin\Debug\comport_manager.pdb
+C:\Users\דודי\Desktop\comport_manager\comport_manager\obj\Debug\comport_manager.csprojResolveAssemblyReference.cache
+C:\Users\דודי\Desktop\comport_manager\comport_manager\obj\Debug\comport_manager.Form1.resources
+C:\Users\דודי\Desktop\comport_manager\comport_manager\obj\Debug\comport_manager.Properties.Resources.resources
+C:\Users\דודי\Desktop\comport_manager\comport_manager\obj\Debug\comport_manager.csproj.GenerateResource.Cache
+C:\Users\דודי\Desktop\comport_manager\comport_manager\obj\Debug\comport_manager.exe
+C:\Users\דודי\Desktop\comport_manager\comport_manager\obj\Debug\comport_manager.pdb

@@ -96,3 +96,5 @@ C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_das
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.application
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.exe
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.pdb
+C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\SerialQueryDriver.dll
+C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\SerialQueryDriver.pdb

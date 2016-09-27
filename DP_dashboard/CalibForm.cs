@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO.Ports;
 using System.Windows.Forms;
 using multiplexing_dll;
 using DeltaPlcCommunication;
 using DpCommunication;
 using System.Diagnostics;
 using TempController_dll;
-
+using SerialQueryDriver;
 
 
 
@@ -24,31 +19,37 @@ namespace DP_dashboard
     {
         public static CalibForm currentForm;
 
-        //cosntants
+        //cosntantsC:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\CalibForm.cs
         private const int MAX_PRESSURE_POINT = 0x0f;
 
         // mult plexing protocol instance
         private MultiplexingIncomingInformation MultiplexingInfo;
         public classMultiplexing classMultiplexing;
+        public string MutiplexingComPortName = "NULL";
         // end
 
         // plc protocol instance
         public classDeltaProtocol ClassDeltaProtocol;
         private DeltaIncomingInformation PLCinfo;
         private DeltaReturnedData IncumingParametersFromPLC;
+        public string PlcComPortName = "NULL";
         // end   
 
         // DP protocol instance  
         public ClassDpCommunication classDpCommunication;
         private DpIncomingInformation DPinfo;
+        public string DpComPortName = "NULL";
         // end  
+
+        // temp controller protocol instance
+        public TempControllerProtocol tempControllerInstanse;
+        public string TempControllerComPortName = "NULL";
+        // end  
+         
 
         private classLog log = new classLog();
         public ClassCalibrationInfo classCalibrationInfo;
         private string CurrentSnDeviceIsFocus = "";
-
-        // temp controller protocol instance
-        public TempControllerProtocol tempControllerInstanse;
 
         ConfigForm ConfigFormInstanse;
         DateTime UpdateTempTime = new DateTime();
@@ -61,24 +62,37 @@ namespace DP_dashboard
             InitializeComponent();
             currentForm = this;
 
+            // check the names of the comports...
+              
+            classSerialQueryDriver.GetComPortName(
+                                                    ref MutiplexingComPortName,
+                                                    Properties.Settings.Default.MultiplexerComPortID,
+                                                    ref PlcComPortName,
+                                                    Properties.Settings.Default.PlcComPortID,
+                                                    ref DpComPortName,
+                                                    Properties.Settings.Default.DpComPortID,
+                                                    ref TempControllerComPortName,
+                                                    Properties.Settings.Default.TempControllerComPortID);
+
+
 
             // plc protocol init          
             PLCinfo = new DeltaIncomingInformation();
-            ClassDeltaProtocol = new classDeltaProtocol(Properties.Settings.Default.plcComPort, 9600, PLCinfo);
+            ClassDeltaProtocol = new classDeltaProtocol(PlcComPortName, 9600, PLCinfo);
 
             // multplexing protocol init 
             MultiplexingInfo = new MultiplexingIncomingInformation();
-            classMultiplexing = new classMultiplexing(Properties.Settings.Default.multiplexingComPort, 115200, MultiplexingInfo);
+            classMultiplexing = new classMultiplexing(MutiplexingComPortName, 115200, MultiplexingInfo);
 
 
             // DP protocol init
 
             DPinfo = new DpIncomingInformation();
-            classDpCommunication = new ClassDpCommunication(Properties.Settings.Default.dpComPort, 115200, DPinfo);
+            classDpCommunication = new ClassDpCommunication(DpComPortName, 115200, DPinfo);
 
 
             // Temp controller protocol init
-            tempControllerInstanse = new TempControllerProtocol(Properties.Settings.Default.TempControllerComPort, 9600);
+            tempControllerInstanse = new TempControllerProtocol(TempControllerComPortName, 9600);
 
 
             // Calibration class init           

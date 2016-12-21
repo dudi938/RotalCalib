@@ -18,7 +18,7 @@ namespace DpCommunication
 
         public string  DeviseMacAddress;
         public string  DeviceSerialNumber;
-        public byte    CurrentTemp;
+        public SByte CurrentTemp;
         public float   S1Pressure;
         public float   S2Pressure;
         public UInt16  LeftA2D;
@@ -233,7 +233,9 @@ namespace DpCommunication
                             dpInfo.DeviceSerialNumber = "";
 
                             dpInfo.DeviseMacAddress = System.Text.Encoding.UTF8.GetString(incomingData, DEVICE_INFO_MAC_ADDRESS_NUMBER_OFFSET, 10);
-                            dpInfo.CurrentTemp = incomingData[DEVICE_INFO_CURRENT_TEMP_OFFSET];
+                            dpInfo.CurrentTemp = (SByte)incomingData[DEVICE_INFO_CURRENT_TEMP_OFFSET];
+
+
                             dpInfo.S1Pressure = System.BitConverter.ToSingle(incomingData, DEVICE_INFO_S1_PRESSURE_OFFSET);
                             dpInfo.S2Pressure = System.BitConverter.ToSingle(incomingData, DEVICE_INFO_S2_PRESSURE_OFFSET);
                             dpInfo.Calibrated = incomingData[DEVICE_INFO_CALIBRATED_OFFSET];

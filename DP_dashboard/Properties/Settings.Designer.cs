@@ -170,13 +170,25 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("USB\\VID_067B&PID_2303\\7&1ea7c429&0&2_0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("USB\\VID_067B&PID_2303\\7&12988559&0&4_0")]
         public string TempControllerComPortID {
             get {
                 return ((string)(this["TempControllerComPortID"]));
             }
             set {
                 this["TempControllerComPortID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("USB\\VID_067B&PID_2303\\7&4cab9de&0&3_0")]
+        public string test {
+            get {
+                return ((string)(this["test"]));
+            }
+            set {
+                this["test"] = value;
             }
         }
     }

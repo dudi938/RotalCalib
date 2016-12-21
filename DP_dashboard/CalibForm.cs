@@ -63,7 +63,7 @@ namespace DP_dashboard
             currentForm = this;
 
             // check the names of the comports...
-              
+
             classSerialQueryDriver.GetComPortName(
                                                     ref MutiplexingComPortName,
                                                     Properties.Settings.Default.MultiplexerComPortID,
@@ -101,6 +101,16 @@ namespace DP_dashboard
 
 
             UpdateTempTime = DateTime.Now;
+
+
+            foreach (Device dev in classSerialQueryDriver.devices)
+            {
+                    rtb_info.AppendText(dev.ToString());
+                    Console.WriteLine(dev.ToString());
+            }
+            rtb_info.ScrollToCaret();
+
+            
         }
 
 
@@ -813,9 +823,9 @@ namespace DP_dashboard
         {
             try
             {
-                string CutSn = tb_dpSN.Text.Substring(4);
+                //string CutSn = tb_dpSN.Text.Substring(4);
 
-                byte[] SN = System.Text.Encoding.ASCII.GetBytes(CutSn);
+                byte[] SN = System.Text.Encoding.ASCII.GetBytes(tb_dpSN.Text);
                 classDpCommunication.SendDpSerialNumber(SN);
 
                 classDpCommunication.DPgetDpInfo();

@@ -36,6 +36,17 @@ namespace SerialQueryDriver
                     new ManagementObjectSearcher("root\\WMI",
                     "SELECT * FROM MSSerial_PortName");
 
+
+
+                string[] MultiplexerSplitId = multiplexerID.Split('\\');
+                string[] PlcSplitId = plcID.Split('\\');
+                string[] DpSplitId = dpID.Split('\\');
+                string[] TempControllerSplitId = tempControllerID.Split('\\');
+
+
+                string[] currentSplitId = new string[4];
+
+
                 foreach (ManagementObject queryObj in searcher.Get())
                 {
 
@@ -46,28 +57,28 @@ namespace SerialQueryDriver
                     newDevice.id = queryObj["InstanceName"].ToString();
 
 
+                    currentSplitId = queryObj["InstanceName"].ToString().Split('\\');
 
 
-
-                    if (string.Equals(queryObj["InstanceName"].ToString(), multiplexerID) )
+                    if (MultiplexerSplitId[0] == currentSplitId[0] && MultiplexerSplitId[1] == currentSplitId[1])
                     {
                         multiplexerComName = queryObj["PortName"].ToString();
                         newDevice.paired = true;
                     }
 
-                    if (string.Equals(queryObj["InstanceName"].ToString(), plcID))
+                    if (PlcSplitId[0] == currentSplitId[0] && PlcSplitId[1] == currentSplitId[1])
                     {
                         plcComName = queryObj["PortName"].ToString();
                         newDevice.paired = true;
                     }
 
-                    if (string.Equals(queryObj["InstanceName"].ToString(), dpID))
+                    if (DpSplitId[0] == currentSplitId[0] && DpSplitId[1] == currentSplitId[1])
                     {
                         dpComName = queryObj["PortName"].ToString();
                         newDevice.paired = true;
                     }
 
-                    if (string.Equals(queryObj["InstanceName"].ToString(), tempControllerID))
+                    if (TempControllerSplitId[0] == currentSplitId[0] && TempControllerSplitId[1] == currentSplitId[1])
                     {
                         tempControllerComName = queryObj["PortName"].ToString();
                         newDevice.paired = true;
@@ -85,7 +96,7 @@ namespace SerialQueryDriver
             }
             catch (ManagementException ex)
             {
-              //MessageBox.Show("An error occurred while querying for WMI data: " + ex.Message);
+                System.Windows.Forms.MessageBox.Show("Fail to scan comports.\r\n\r\n(1)Try restart the application as a administrator\r\n(2)Check that you connected well the comport cable.");
             }
 
 

@@ -110,7 +110,7 @@ namespace DP_dashboard
             }
             rtb_info.ScrollToCaret();
 
-            
+            timer1.Enabled = true;
         }
 
 
@@ -188,7 +188,6 @@ namespace DP_dashboard
         {
             CheckComPorts();
 #if true
-            // && !classCalibrationInfo.ConnectingToDP
             if (!classCalibrationInfo.CriticalStates && !classCalibrationInfo.ConnectingToDP)
             {
                 if (CheckTimout(UpdateTempTime, 1))
@@ -200,7 +199,9 @@ namespace DP_dashboard
 
                     UpdateTempTime = DateTime.Now;
                 }
+
             }
+
 #endif
 
             UpdateGUI();
@@ -217,11 +218,11 @@ namespace DP_dashboard
                 MessageBox.Show("Calibration done!");
             }
 
-            if(classCalibrationInfo.TempTimoutErrorEvent)
+            if (classCalibrationInfo.TempTimoutErrorEvent)
             {
                 classCalibrationInfo.TempTimoutErrorEvent = false;
 
-                DialogResult result = MessageBox.Show("Fail to set temperature!","Error", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show("Fail to set temperature!", "Error", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
                     classCalibrationInfo.NextAfterTempTimoutErrorEvent = true;
@@ -244,9 +245,9 @@ namespace DP_dashboard
             {
                 classCalibrationInfo.classCalibrationSettings.AlertToTechnican = false;
                 DialogResult result = MessageBox.Show("Pressure stable. the system wait to tachnicatan approve.", "Pressure info", MessageBoxButtons.OK);
-                if(result ==  DialogResult.OK)
+                if (result == DialogResult.OK)
                 {
-                    classCalibrationInfo.classCalibrationSettings.TechnicianApproveGoNext = true;   
+                    classCalibrationInfo.classCalibrationSettings.TechnicianApproveGoNext = true;
                 }
             }
 
@@ -262,7 +263,7 @@ namespace DP_dashboard
             if (classCalibrationInfo.ErrorEvent)
             {
                 classCalibrationInfo.ErrorEvent = false;
-                rtb_info.Text += "Error:   " + classCalibrationInfo.ErrorMessage + DateTime.Now.ToString() +  "\r\n";
+                rtb_info.Text += "Error:   " + classCalibrationInfo.ErrorMessage + DateTime.Now.ToString() + "\r\n";
             }
 
             if (classCalibrationInfo.IncermentCalibPointStep)
@@ -288,10 +289,12 @@ namespace DP_dashboard
 
             }
 
+
         }
 
         private void UpdateGUI()
         {
+
             if (classCalibrationInfo.DoCalibration)
             {
                 try
@@ -300,10 +303,11 @@ namespace DP_dashboard
 
                     UpdateCalibrationGUI();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     rtb_info.Text += "update GUI error\r\n";
                 }
+
             }
 
 
@@ -329,6 +333,7 @@ namespace DP_dashboard
                 pb_calibProgressBar.Visible = false;
                 pb_calibProgressBar.Value = 0;
             }
+
         }
 
         private void pnl_plcControl_Paint(object sender, PaintEventArgs e)
@@ -688,31 +693,43 @@ namespace DP_dashboard
 
         private void CalibrationButtonHandele()
         {
-
-            if (classCalibrationInfo.DoCalibration == true)
+            if (classCalibrationInfo != null)
             {
-                bt_startCalibration.Enabled = false;
-
-                if (!classCalibrationInfo.ConnectingToDP)
+                if (classCalibrationInfo.DoCalibration == true)
                 {
-                    if (classCalibrationInfo.CalibrationPaused)
+                    bt_startCalibration.Enabled = false;
+
+                    if (!classCalibrationInfo.ConnectingToDP)
                     {
-                        bt_pauseStartCalib.Text = "Start";
+                        if (classCalibrationInfo.CalibrationPaused)
+                        {
+                            bt_pauseStartCalib.Text = "Start";
+                        }
+                        else
+                        {
+                            bt_pauseStartCalib.Text = "Pause";
+                        }
+                        bt_pauseStartCalib.Enabled = true;
+
+                        bt_stopCalibration.Enabled = true;
                     }
                     else
                     {
-                        bt_pauseStartCalib.Text = "Pause";
-                    }
-                    bt_pauseStartCalib.Enabled = true;
+                        if (classCalibrationInfo.CalibrationPaused)
+                        {
+                            bt_startCalibration.Enabled = false;
+                        }
 
-                    bt_stopCalibration.Enabled = true;
+                        bt_pauseStartCalib.Text = "Pause";
+                        bt_pauseStartCalib.Enabled = false;
+
+                        bt_stopCalibration.Enabled = false;
+                    }
+
                 }
                 else
                 {
-                    if (classCalibrationInfo.CalibrationPaused)
-                    {
-                        bt_startCalibration.Enabled = false;
-                    }
+                    bt_startCalibration.Enabled = true;
 
                     bt_pauseStartCalib.Text = "Pause";
                     bt_pauseStartCalib.Enabled = false;
@@ -721,16 +738,6 @@ namespace DP_dashboard
                 }
 
             }
-            else
-            {
-                bt_startCalibration.Enabled = true;
-
-                bt_pauseStartCalib.Text = "Pause";
-                bt_pauseStartCalib.Enabled = false;
-
-                bt_stopCalibration.Enabled = false;
-            }
-
         }
 
         private void bt_pauseStartCalib_Click(object sender, EventArgs e)
@@ -865,44 +872,47 @@ namespace DP_dashboard
 
         public void CheckComPorts()
         {
-            //DP
-            if (!classCalibrationInfo.classDpCommunicationInstanse.SerialPortInstanse.ComPortOk  && classCalibrationInfo.classDpCommunicationInstanse.SerialPortInstanse.ComPortErrorMessage != string.Empty)
+            if (classCalibrationInfo != null)
             {
-                string Message = string.Copy(classCalibrationInfo.classDpCommunicationInstanse.SerialPortInstanse.ComPortErrorMessage);
-                classCalibrationInfo.classDpCommunicationInstanse.SerialPortInstanse.ComPortErrorMessage = "";
+                //DP
+                if (!classCalibrationInfo.classDpCommunicationInstanse.SerialPortInstanse.ComPortOk && classCalibrationInfo.classDpCommunicationInstanse.SerialPortInstanse.ComPortErrorMessage != string.Empty)
+                {
+                    string Message = string.Copy(classCalibrationInfo.classDpCommunicationInstanse.SerialPortInstanse.ComPortErrorMessage);
+                    classCalibrationInfo.classDpCommunicationInstanse.SerialPortInstanse.ComPortErrorMessage = "";
 
-                MessageBox.Show(Message);
+                    MessageBox.Show(Message);
 
-            }
+                }
 
-            //MultiPlexer
-            if (!classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortOk && classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortErrorMessage != string.Empty)
-            {
-                string Message = string.Copy(classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortErrorMessage);
-                classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortErrorMessage = "";
+                //MultiPlexer
+                if (!classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortOk && classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortErrorMessage != string.Empty)
+                {
+                    string Message = string.Copy(classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortErrorMessage);
+                    classCalibrationInfo.classMultiplexingInstanse.SerialPortInstanse.ComPortErrorMessage = "";
 
-                MessageBox.Show(Message);
+                    MessageBox.Show(Message);
 
-            }
+                }
 
-            //PLC-Delta
-            if (!classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortOk && classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortErrorMessage != string.Empty)
-            {
-                string Message = string.Copy(classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortErrorMessage);
-                classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortErrorMessage = "";
+                //PLC-Delta
+                if (!classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortOk && classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortErrorMessage != string.Empty)
+                {
+                    string Message = string.Copy(classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortErrorMessage);
+                    classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortErrorMessage = "";
 
-                MessageBox.Show(Message);
+                    MessageBox.Show(Message);
 
-            }
+                }
 
-            //temp controller
-            if (!classCalibrationInfo.ClassTempControllerInstanse.ComPortOk && classCalibrationInfo.ClassTempControllerInstanse.ComPortErrorMessage != string.Empty)
-            {
-                string Message = string.Copy(classCalibrationInfo.ClassTempControllerInstanse.ComPortErrorMessage);
-                classCalibrationInfo.ClassTempControllerInstanse.ComPortErrorMessage = "";
+                //temp controller
+                if (!classCalibrationInfo.ClassTempControllerInstanse.ComPortOk && classCalibrationInfo.ClassTempControllerInstanse.ComPortErrorMessage != string.Empty)
+                {
+                    string Message = string.Copy(classCalibrationInfo.ClassTempControllerInstanse.ComPortErrorMessage);
+                    classCalibrationInfo.ClassTempControllerInstanse.ComPortErrorMessage = "";
 
-                MessageBox.Show(Message);
+                    MessageBox.Show(Message);
 
+                }
             }
 
         }

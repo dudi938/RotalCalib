@@ -56,7 +56,7 @@ namespace DP_dashboard
 
         private void ConfigForm_Load(object sender, EventArgs e)
         {
-            UpdateComPortList();
+
         }
 
         private void bt_Cancel_Click(object sender, EventArgs e)
@@ -137,7 +137,6 @@ namespace DP_dashboard
 
 
             // update temp sample settings
-            calibForm.classCalibrationInfo.classCalibrationSettings.TempSkipTime = Convert.ToInt32(tb_tempSkipTime.Text) * 60;
             calibForm.classCalibrationInfo.classCalibrationSettings.TempSampleInterval = Convert.ToInt32(tb_temSpampleInterval.Text);
             calibForm.classCalibrationInfo.classCalibrationSettings.TempDeltaRange = float.Parse(tb_tempDeltaRange.Text);
             calibForm.classCalibrationInfo.classCalibrationSettings.MaxTimeWaitToTemp = Convert.ToInt32(tb_tempMaxWaitTime.Text) * 60;
@@ -168,15 +167,7 @@ namespace DP_dashboard
         }
 
 
-        void UpdateComPortList()
-        {
-            string[] ComPortArray = System.IO.Ports.SerialPort.GetPortNames();
 
-            cmb_DPComPort.DataSource = ComPortArray;
-            cmb_multiplexerComPort.DataSource = ComPortArray;
-            cmb_PLCComPort.DataSource = ComPortArray;
-            cmb_tempControllerComPort.DataSource = ComPortArray;
-        }
 
 
         private void dgv_calibPressuresPointsTable_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -272,10 +263,10 @@ namespace DP_dashboard
                 }
             }
 
-            if (dataSource.Rows[CF_TEMPERATURE_SKIP_TIME_ROW_INDEX][CF_TEMPERATURE_SKIP_TIME_COLUME_INDEX].ToString() != "" && dataSource.Rows[CF_TEMPERATURE_SKIP_TIME_ROW_INDEX][CF_TEMPERATURE_SKIP_TIME_COLUME_INDEX].ToString() != null)
-            {
-                tb_tempSkipTime.Text = dataSource.Rows[CF_TEMPERATURE_SKIP_TIME_ROW_INDEX][CF_TEMPERATURE_SKIP_TIME_COLUME_INDEX].ToString();
-            }
+            //if (dataSource.Rows[CF_TEMPERATURE_SKIP_TIME_ROW_INDEX][CF_TEMPERATURE_SKIP_TIME_COLUME_INDEX].ToString() != "" && dataSource.Rows[CF_TEMPERATURE_SKIP_TIME_ROW_INDEX][CF_TEMPERATURE_SKIP_TIME_COLUME_INDEX].ToString() != null)
+            //{
+            //    tb_tempSkipTime.Text = dataSource.Rows[CF_TEMPERATURE_SKIP_TIME_ROW_INDEX][CF_TEMPERATURE_SKIP_TIME_COLUME_INDEX].ToString();
+            //}
 
             if (dataSource.Rows[CF_TEMPERATURE_SAMPLES_AMOUNT_ROW_INDEX][CF_TEMPERATURE_SAMPLES_AMOUNT_COLUME_INDEX].ToString() != "" && dataSource.Rows[CF_TEMPERATURE_SAMPLES_AMOUNT_ROW_INDEX][CF_TEMPERATURE_SAMPLES_AMOUNT_COLUME_INDEX].ToString() != null)
             {

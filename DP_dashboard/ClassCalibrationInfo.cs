@@ -8,10 +8,8 @@ using TempController_dll;
 using DpCommunication;
 using multiplexing_dll;
 using DeltaPlcCommunication;
-
-
-
-
+using log4net;
+using System.Reflection;
 
 namespace DP_dashboard
 {
@@ -44,6 +42,9 @@ namespace DP_dashboard
 
     public class ClassCalibrationInfo
     {
+
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
 
         //state machine stats
         public byte CurrentState = StateStartCalib;
@@ -112,7 +113,7 @@ namespace DP_dashboard
         public bool ChengeStateEvent = false;
         public float CurrentTempControllerValue;
         public float CurrentTempOnDP;
-        public Int16 CurrentPressure;
+        public Int16 CurrentPLCPressure;
         public bool PressureStableFlag = false;
         public bool Pressure0AfterVentStable = false;
         public bool PressureVentleFlag = false;
@@ -128,6 +129,7 @@ namespace DP_dashboard
         //public List<float> TempUnderTestList = new List<float>();
         public ClassCalibrationSettings classCalibrationSettings = new ClassCalibrationSettings();
         public string ErrorMessage = "";
+        public string TraceInfo = "";
         public bool ErrorEvent = false;
         public bool CriticalStates = false;
         public bool TempTimoutErrorEvent = false;
@@ -311,15 +313,14 @@ namespace DP_dashboard
                                     //if (CheckTimout(TimeFromSetTempPointRequest, 1))//debug mode
                                 if (CheckTimout(TimeFromSetTempPointRequest, classCalibrationSettings.TempSkipStartTime[CurrentCalibTempIndex]))
                                 {
-
-                                        if (CheckTempStableOnOneDp(classCalibrationSettings.TempDeltaRange))
-                                        {
-                                            StateChangeState(StateSendPressureSetPoints);
-                                        }
-                                        else
-                                        {
-                                            Thread.Sleep(TEMP_WAIT_BETWEEN_TOW_SMPLINGS_CYCLE * 1000);
-                                        }                                   
+                                    if (CheckTempStableOnOneDp(classCalibrationSettings.TempDeltaRange))
+                                    {
+                                        StateChangeState(StateSendPressureSetPoints);
+                                    }
+                                    else
+                                    {
+                                        Thread.Sleep(TEMP_WAIT_BETWEEN_TOW_SMPLINGS_CYCLE * 1000);
+                                    }                                   
                                 }
 
                                 //StateChangeState(StateSendPressureSetPoints);
@@ -350,8 +351,12 @@ namespace DP_dashboard
                             {
                                 CurrentCalibPressureIndex = 0;
 
-                                WriteOneLineToFile();//write line to csv file
+                                WriteOneTempertureToFile();//write line to csv file
 
+                                if (Properties.Settings.Default.WriteToDB)
+                                {
+                                    SaveOneTempertureOnDB();//write line to data base
+                                }
                                 if (CurrentCalibTempIndex < classCalibrationSettings.TempUnderTestList.Count - 1)
                                 {
                                     CurrentCalibTempIndex++;
@@ -419,6 +424,8 @@ namespace DP_dashboard
             PreviousState = CurrentState;
             CurrentState = nextState;
             ChengeStateEvent = true;
+
+            Logger.Debug("Calibration state machine: from 111 to 222");
         }
 
         public void ResetStateMachine()
@@ -460,7 +467,7 @@ namespace DP_dashboard
 
 
                     DataFromPLC = classDeltaProtocolInstanse.SendNewMessage(DeltaMsgType.ReadHoldingRegisters, DeltaMemType.D, PLC_PRESENT_VALUE_REGISTER_ADDRESS, 1);
-                    CurrentPressure = (Int16)DataFromPLC.IntValue[0];
+                    CurrentPLCPressure = (Int16)DataFromPLC.IntValue[0];
                 }
 
                 catch (Exception ex)
@@ -470,7 +477,7 @@ namespace DP_dashboard
 
                 }
             }
-            return CurrentPressure;
+            return CurrentPLCPressure;
         }
 
 
@@ -504,12 +511,6 @@ namespace DP_dashboard
         {
             return 0.5f;
         }
-
-        private void SendCalibPointToDp(ClassDevice CurrentCalibDevice)
-        {
-
-
-        }
    
         private void WriteReadInfoFromDp()
         {
@@ -528,7 +529,7 @@ namespace DP_dashboard
                         ReadPressureFromPlc();
 
                         //classDpCommunicationInstanse.DpWritePressurePointToDevice(classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex], CurrentCalibTempIndex, classCalibrationSettings.PressureUnderTestList[CurrentCalibPressureIndex], CurrentCalibPressureIndex);
-                        classDpCommunicationInstanse.DpWritePressurePointToDevice(classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex], CurrentCalibTempIndex, PlcAdc2Bar(CurrentPressure), CurrentCalibPressureIndex);
+                        classDpCommunicationInstanse.DpWritePressurePointToDevice(classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex], CurrentCalibTempIndex, PlcAdc2Bar(CurrentPLCPressure), CurrentCalibPressureIndex);
                         Thread.Sleep(2000);
 
                         if (classDpCommunicationInstanse.NewDpInfoEvent) // check if recieve data from DP
@@ -541,7 +542,7 @@ namespace DP_dashboard
                             classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].RightA2DValue = classDpCommunicationInstanse.dpInfo.RightA2D;
                             classDevices[DpPtr].DeviceMacAddress = classDpCommunicationInstanse.dpInfo.DeviseMacAddress;
 
-                            classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].extA2dPressureValue = PlcAdc2Bar(CurrentPressure);
+                            classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].extA2dPressureValue = PlcAdc2Bar(CurrentPLCPressure);
 
                             classDpCommunicationInstanse.NewDpInfoEvent = false;
                             //classDpCommunicationInstanse.DPgetDpInfo();
@@ -589,7 +590,7 @@ namespace DP_dashboard
             return (b & (1 << pos)) != 0;
         }
 
-        public void WriteOneLineToFile()
+        public void WriteOneTempertureToFile()
         {
             for (int i = 0; i < DpCountAxist; i++)
             {
@@ -668,7 +669,7 @@ namespace DP_dashboard
                 classCalibrationSettings.ConnectedChanels.Clear();
                 for (int i = 0; i < classCalibrationSettings.JigConfiguration; i++)
                 {
-                    bool Ch = new bool();
+                    bool correct = new bool();
                     classMultiplexingInstanse.ConnectDpDevice((byte)i);
                     Thread.Sleep(250);
 
@@ -685,8 +686,11 @@ namespace DP_dashboard
 
                         if (classDpCommunicationInstanse.dpInfo.DeviceSerialNumber == "" || classDpCommunicationInstanse.dpInfo.DeviceSerialNumber.StartsWith("\0"))
                         {
-                            Ch = false;
-                            classCalibrationSettings.ConnectedChanels.Add(Ch);
+                            correct = false;
+                            classCalibrationSettings.ConnectedChanels.Add(correct);
+
+                            //TraceInfo += string.Format("Scan devices error: board position = {0}. DP serial number = {1}. not can start calibration proccess\r\n Serial namber must have minimum 8 digits.\r\n",i, classDpCommunicationInstanse.dpInfo.DeviceSerialNumber);
+
                             continue;
                         }
 
@@ -703,13 +707,13 @@ namespace DP_dashboard
 
                         DpCountAxist++;
 
-                        Ch = true;
-                        classCalibrationSettings.ConnectedChanels.Add(Ch);
+                        correct = true;
+                        classCalibrationSettings.ConnectedChanels.Add(correct);
                     }
                     else
                     {
-                        Ch = false;
-                        classCalibrationSettings.ConnectedChanels.Add(Ch);
+                        correct = false;
+                        classCalibrationSettings.ConnectedChanels.Add(correct);
                     }
                 }
                 DetectFlag = false;
@@ -812,9 +816,37 @@ namespace DP_dashboard
                 Pressure0AfterVentStable = true; 
 
                 DataFromPLC = classDeltaProtocolInstanse.SendNewMessage(DeltaMsgType.ReadHoldingRegisters, DeltaMemType.D, PLC_PRESENT_VALUE_REGISTER_ADDRESS, 1);
-                CurrentPressure = (Int16)DataFromPLC.IntValue[0];
+                CurrentPLCPressure = (Int16)DataFromPLC.IntValue[0];
             }
-            return CurrentPressure; 
+            return CurrentPLCPressure; 
+        }
+
+
+        public void SaveOneTempertureOnDB()
+        {
+            List<RIT_QA.CalibrationData> tempTable = new List<RIT_QA.CalibrationData>();
+
+            for (int unitCounter = 0; unitCounter < DpCountAxist; unitCounter++)
+            {
+                for (int pressureCounter = 0; pressureCounter < classCalibrationSettings.PressureUnderTestList.Count; pressureCounter++)
+                {
+                    RIT_QA.CalibrationData oneRowOfDevice = new RIT_QA.CalibrationData();
+
+                    oneRowOfDevice.SerialNo = classDevices[unitCounter].DeviceSerialNumber;
+                    oneRowOfDevice.StationID = 1;
+                    oneRowOfDevice.UserID = RIT_QA.ClassDal.GetFirstUserID();
+                    oneRowOfDevice.PressureSP = classCalibrationSettings.PressureUnderTestList[pressureCounter];
+                    oneRowOfDevice.PressurePLC = classDevices[unitCounter].CalibrationData[CurrentCalibTempIndex, pressureCounter].extA2dPressureValue;
+                    oneRowOfDevice.TempSP = classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex];
+                    oneRowOfDevice.TempDP =   classDevices[unitCounter].CalibrationData[CurrentCalibTempIndex, pressureCounter].tempOnDevice;
+                    oneRowOfDevice.RightA2D = (int)classDevices[unitCounter].CalibrationData[CurrentCalibTempIndex, pressureCounter].RightA2DValue;
+                    oneRowOfDevice.LeftA2D = (int)classDevices[unitCounter].CalibrationData[CurrentCalibTempIndex, pressureCounter].LeftA2DValue;
+
+                    tempTable.Add(oneRowOfDevice);
+                }
+            }
+
+            RIT_QA.ClassDal.AddOneTempertureTable(tempTable);
         }
     }
 }

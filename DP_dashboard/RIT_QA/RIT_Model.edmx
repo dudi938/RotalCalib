@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RIT_QAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Batches">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="BatchNumber" Type="nchar" MaxLength="15" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CalibrationDatas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="SerialNo" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="StationID" Type="int" />
+          <Property Name="PressureSP" Type="float" />
+          <Property Name="PressurePLC" Type="float" />
+          <Property Name="TempSP" Type="float" />
+          <Property Name="TempDP" Type="float" />
+          <Property Name="RightA2D" Type="int" />
+          <Property Name="LeftA2D" Type="int" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Devices">
+          <Key>
+            <PropertyRef Name="SerialNo" />
+          </Key>
+          <Property Name="SerialNo" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="MAC" Type="nchar" MaxLength="12" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="BatchId" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="30" />
+          <Property Name="Password" Type="nchar" MaxLength="30" />
+        </EntityType>
+        <Association Name="FK_Calibration_Batches">
+          <End Role="Batches" Type="Self.Batches" Multiplicity="0..1" />
+          <End Role="Devices" Type="Self.Devices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Batches">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Devices">
+              <PropertyRef Name="BatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalibrationDatas_Devices">
+          <End Role="Devices" Type="Self.Devices" Multiplicity="1" />
+          <End Role="CalibrationDatas" Type="Self.CalibrationDatas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devices">
+              <PropertyRef Name="SerialNo" />
+            </Principal>
+            <Dependent Role="CalibrationDatas">
+              <PropertyRef Name="SerialNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalibrationDatas_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="CalibrationDatas" Type="Self.CalibrationDatas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CalibrationDatas">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RIT_QAModelStoreContainer">
+          <EntitySet Name="Batches" EntityType="Self.Batches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalibrationDatas" EntityType="Self.CalibrationDatas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Devices" EntityType="Self.Devices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Calibration_Batches" Association="Self.FK_Calibration_Batches">
+            <End Role="Batches" EntitySet="Batches" />
+            <End Role="Devices" EntitySet="Devices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalibrationDatas_Devices" Association="Self.FK_CalibrationDatas_Devices">
+            <End Role="Devices" EntitySet="Devices" />
+            <End Role="CalibrationDatas" EntitySet="CalibrationDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalibrationDatas_Users" Association="Self.FK_CalibrationDatas_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CalibrationDatas" EntitySet="CalibrationDatas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RIT_QAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="RIT_QAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Batches" EntityType="RIT_QAModel.Batch" />
+          <EntitySet Name="CalibrationDatas" EntityType="RIT_QAModel.CalibrationData" />
+          <EntitySet Name="Devices" EntityType="RIT_QAModel.Device" />
+          <EntitySet Name="Users" EntityType="RIT_QAModel.User" />
+          <AssociationSet Name="FK_Calibration_Batches" Association="RIT_QAModel.FK_Calibration_Batches">
+            <End Role="Batch" EntitySet="Batches" />
+            <End Role="Device" EntitySet="Devices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalibrationDatas_Devices" Association="RIT_QAModel.FK_CalibrationDatas_Devices">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="CalibrationData" EntitySet="CalibrationDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalibrationDatas_Users" Association="RIT_QAModel.FK_CalibrationDatas_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="CalibrationData" EntitySet="CalibrationDatas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Batch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="BatchNumber" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Devices" Relationship="RIT_QAModel.FK_Calibration_Batches" FromRole="Batch" ToRole="Device" />
+        </EntityType>
+        <EntityType Name="CalibrationData">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="SerialNo" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="StationID" Type="Int32" />
+          <Property Name="PressureSP" Type="Double" />
+          <Property Name="PressurePLC" Type="Double" />
+          <Property Name="TempSP" Type="Double" />
+          <Property Name="TempDP" Type="Double" />
+          <Property Name="RightA2D" Type="Int32" />
+          <Property Name="LeftA2D" Type="Int32" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Device" Relationship="RIT_QAModel.FK_CalibrationDatas_Devices" FromRole="CalibrationData" ToRole="Device" />
+          <NavigationProperty Name="User" Relationship="RIT_QAModel.FK_CalibrationDatas_Users" FromRole="CalibrationData" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="SerialNo" />
+          </Key>
+          <Property Name="SerialNo" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="MAC" Type="String" MaxLength="12" FixedLength="true" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="BatchId" Type="Int32" />
+          <NavigationProperty Name="Batch" Relationship="RIT_QAModel.FK_Calibration_Batches" FromRole="Device" ToRole="Batch" />
+          <NavigationProperty Name="CalibrationDatas" Relationship="RIT_QAModel.FK_CalibrationDatas_Devices" FromRole="Device" ToRole="CalibrationData" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="CalibrationDatas" Relationship="RIT_QAModel.FK_CalibrationDatas_Users" FromRole="User" ToRole="CalibrationData" />
+        </EntityType>
+        <Association Name="FK_Calibration_Batches">
+          <End Type="RIT_QAModel.Batch" Role="Batch" Multiplicity="0..1" />
+          <End Type="RIT_QAModel.Device" Role="Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Batch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="BatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalibrationDatas_Devices">
+          <End Type="RIT_QAModel.Device" Role="Device" Multiplicity="1" />
+          <End Type="RIT_QAModel.CalibrationData" Role="CalibrationData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="SerialNo" />
+            </Principal>
+            <Dependent Role="CalibrationData">
+              <PropertyRef Name="SerialNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalibrationDatas_Users">
+          <End Type="RIT_QAModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="RIT_QAModel.CalibrationData" Role="CalibrationData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CalibrationData">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RIT_QAModelStoreContainer" CdmEntityContainer="RIT_QAEntities">
+          <EntitySetMapping Name="Batches">
+            <EntityTypeMapping TypeName="RIT_QAModel.Batch">
+              <MappingFragment StoreEntitySet="Batches">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="BatchNumber" ColumnName="BatchNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalibrationDatas">
+            <EntityTypeMapping TypeName="RIT_QAModel.CalibrationData">
+              <MappingFragment StoreEntitySet="CalibrationDatas">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="LeftA2D" ColumnName="LeftA2D" />
+                <ScalarProperty Name="RightA2D" ColumnName="RightA2D" />
+                <ScalarProperty Name="TempDP" ColumnName="TempDP" />
+                <ScalarProperty Name="TempSP" ColumnName="TempSP" />
+                <ScalarProperty Name="PressurePLC" ColumnName="PressurePLC" />
+                <ScalarProperty Name="PressureSP" ColumnName="PressureSP" />
+                <ScalarProperty Name="StationID" ColumnName="StationID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Devices">
+            <EntityTypeMapping TypeName="RIT_QAModel.Device">
+              <MappingFragment StoreEntitySet="Devices">
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="MAC" ColumnName="MAC" />
+                <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="RIT_QAModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

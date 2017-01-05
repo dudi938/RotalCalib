@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using log4net;
+using System.Reflection;
 
 namespace DP_dashboard
 {
     static class Program
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -17,15 +21,8 @@ namespace DP_dashboard
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (Properties.Settings.Default.StationType == "CalibrationStation")
-            {
-                Application.Run(new CalibForm());
-            }
-            else if (Properties.Settings.Default.StationType == "ProgramStation")
-            {
-               Application.Run(new StartForm());
-            }
-
+            Logger.Info("Program started");
+            Application.Run(new CalibForm());
 
         }
     }

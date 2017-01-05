@@ -781,9 +781,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CalibForm";
-            this.Text = " Calibration tool 21/12/2016";
+            this.Text = " Calibration tool 04/01/2016";
             this.TransparencyKey = System.Drawing.Color.Lime;
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CalibForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.pnl_calibrationPanel.ResumeLayout(false);

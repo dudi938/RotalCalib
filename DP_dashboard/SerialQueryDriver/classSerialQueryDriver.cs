@@ -14,10 +14,11 @@ namespace SerialQueryDriver
         public string comName { get; set; }
         public string id { get; set; }
         public bool paired = false;
+        public string pairedTo = "-";
 
         public override string ToString()
         {
-            string deviceStr = string.Format("\r\n\r\nDevice detiles:\r\nid = {0}.\r\nCom name = {1}.\r\nCom is busy - {2}\r\n\r\n", id, comName, paired == true ? "YES." : "NO.");
+            string deviceStr = string.Format("\r\n\r\nDevice detiles:\r\nid = {0}.\r\nCom name = {1}.\r\nCom is busy - {2}\r\nControll the {3}.\r\n\r\n", id, comName, paired == true ? "YES." : "NO.", pairedTo);
             return deviceStr;
         }
     }
@@ -35,8 +36,6 @@ namespace SerialQueryDriver
                 ManagementObjectSearcher searcher =
                     new ManagementObjectSearcher("root\\WMI",
                     "SELECT * FROM MSSerial_PortName");
-
-
 
                 string[] MultiplexerSplitId = multiplexerID.Split('\\');
                 string[] PlcSplitId = plcID.Split('\\');
@@ -63,24 +62,28 @@ namespace SerialQueryDriver
                     if (MultiplexerSplitId[0] == currentSplitId[0] && MultiplexerSplitId[1] == currentSplitId[1])
                     {
                         multiplexerComName = queryObj["PortName"].ToString();
+                        newDevice.pairedTo = "Multiplexer";
                         newDevice.paired = true;
                     }
 
                     if (PlcSplitId[0] == currentSplitId[0] && PlcSplitId[1] == currentSplitId[1])
                     {
                         plcComName = queryObj["PortName"].ToString();
+                        newDevice.pairedTo = "PLC";
                         newDevice.paired = true;
                     }
 
                     if (DpSplitId[0] == currentSplitId[0] && DpSplitId[1] == currentSplitId[1])
                     {
                         dpComName = queryObj["PortName"].ToString();
+                        newDevice.pairedTo = "DP";
                         newDevice.paired = true;
                     }
 
                     if (TempControllerSplitId[0] == currentSplitId[0] && TempControllerSplitId[1] == currentSplitId[1])
                     {
                         tempControllerComName = queryObj["PortName"].ToString();
+                        newDevice.pairedTo = "Oven";
                         newDevice.paired = true;
                     }
 

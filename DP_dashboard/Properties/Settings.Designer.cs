@@ -61,18 +61,6 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("CalibrationStation")]
-        public string StationType {
-            get {
-                return ((string)(this["StationType"]));
-            }
-            set {
-                this["StationType"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("COM8")]
         public string TempControllerComPort {
             get {
@@ -182,13 +170,13 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("USB\\VID_067B&PID_2303\\7&4cab9de&0&3_0")]
-        public string test {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool WriteToDB {
             get {
-                return ((string)(this["test"]));
+                return ((bool)(this["WriteToDB"]));
             }
             set {
-                this["test"] = value;
+                this["WriteToDB"] = value;
             }
         }
     }

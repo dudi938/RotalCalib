@@ -205,10 +205,12 @@ namespace DP_dashboard
 #endif
 
             UpdateGUI();
-            //if (classCalibrationInfo.DoCalibration)
-            //{
-            //    UpdateCalibrationGUI();
-            //}
+            if(classCalibrationInfo.TraceInfo != "")
+            {
+                rtb_info.AppendText(classCalibrationInfo.TraceInfo);
+                rtb_info.ScrollToCaret();
+                classCalibrationInfo.TraceInfo = "";
+            }
 
             if (classCalibrationInfo.FinishCalibrationEvent)
             {
@@ -526,7 +528,7 @@ namespace DP_dashboard
             //tb_temperatureOnDP.Text = classCalibrationInfo.CurrentTempOnDP.ToString();
 
             //pressure
-            tb_pressCurrentPressure.Text = classCalibrationInfo.CurrentPressure.ToString();
+            tb_pressCurrentPressure.Text = classCalibrationInfo.CurrentPLCPressure.ToString();
             tb_pressTargetPressure.Text = classCalibrationInfo.PlcBar2Adc(classCalibrationInfo.classCalibrationSettings.PressureUnderTestList[classCalibrationInfo.CurrentCalibPressureIndex]).ToString();            
 
             //disable dp selection
@@ -676,6 +678,8 @@ namespace DP_dashboard
         {
             classCalibrationInfo.DoCalibration = false;
             classCalibrationInfo.DetectFlag = false;
+            classCalibrationInfo.EndDetectEvent = true;
+
 
             ClassDeltaProtocol.CloseComPort();
             classDpCommunication.CloseComPort();

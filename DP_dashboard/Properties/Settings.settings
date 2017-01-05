@@ -11,9 +11,6 @@
     <Setting Name="dpComPort" Type="System.String" Scope="User">
       <Value Profile="(Default)">COM2</Value>
     </Setting>
-    <Setting Name="StationType" Type="System.String" Scope="User">
-      <Value Profile="(Default)">CalibrationStation</Value>
-    </Setting>
     <Setting Name="TempControllerComPort" Type="System.String" Scope="User">
       <Value Profile="(Default)">COM8</Value>
     </Setting>
@@ -39,7 +36,10 @@
       <Value Profile="(Default)">USB\VID_0483&amp;PID_5740\325E355B4236_0</Value>
     </Setting>
     <Setting Name="TempControllerComPortID" Type="System.String" Scope="User">
-      <Value Profile="(Default)">USB\VID_067B&amp;PID_2303\7&amp;1ea7c429&amp;0&amp;2_0</Value>
+      <Value Profile="(Default)">USB\VID_067B&amp;PID_2303\7&amp;12988559&amp;0&amp;4_0</Value>
+    </Setting>
+    <Setting Name="WriteToDB" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

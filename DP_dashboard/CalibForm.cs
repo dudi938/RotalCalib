@@ -9,14 +9,18 @@ using DpCommunication;
 using System.Diagnostics;
 using TempController_dll;
 using SerialQueryDriver;
-
-
+using log4net;
+using System.Reflection;
 
 namespace DP_dashboard
 {
 
     public partial class CalibForm : Form
     {
+
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+
         public static CalibForm currentForm;
 
         //cosntantsC:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\CalibForm.cs
@@ -415,47 +419,59 @@ namespace DP_dashboard
 
         private void bt_startCalibration_Click(object sender, EventArgs e)
         {
-            classCalibrationInfo.DetectFlag = true;
-            classCalibrationInfo.InitDetectTread();
 
-            //wait to finish the detect.
-            while (!classCalibrationInfo.EndDetectEvent)
+            try
             {
-                Application.DoEvents();
+                //check connection to database.....
+                int userId = RIT_QA.ClassDal.GetFirstUserID();
+
+                classCalibrationInfo.DetectFlag = true;
+                classCalibrationInfo.InitDetectTread();
+
+                //wait to finish the detect.
+                while (!classCalibrationInfo.EndDetectEvent)
+                {
+                    Application.DoEvents();
+                }
+
+
+                if (classCalibrationInfo.DpCountAxist > 0 && classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count > 0 && classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count > 0)
+                {
+                    classCalibrationInfo.EndDetectEvent = false;
+
+                    UpdateDeviceTable();
+
+
+                    classDpCommunication.SendStartCalibration();
+
+                    classCalibrationInfo.ResetStateMachine();
+                    classCalibrationInfo.DoCalibration = true;
+                    classCalibrationInfo.CalibrationPaused = false;
+                    classCalibrationInfo.InitCalibTread();
+                    classCalibrationInfo.CreateLogFiles();
+                    ClearColorIndication();
+                }
+                else
+                {
+                    if (classCalibrationInfo.DpCountAxist == 0)
+                    {
+                        MessageBox.Show("No exist dp devices!");
+                    }
+                    else if (classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count == 0)
+                    {
+                        MessageBox.Show("Load configuration file befor you calibration start");
+                    }
+                    else if (classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count == 0)
+                    {
+                        MessageBox.Show("Load configuration file befor you calibration start");
+                    }
+
+                }
             }
-
-
-            if (classCalibrationInfo.DpCountAxist > 0 && classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count > 0 && classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count > 0)
+            catch(Exception ex)
             {
-                classCalibrationInfo.EndDetectEvent = false;
-
-                UpdateDeviceTable();
-
-
-                classDpCommunication.SendStartCalibration();
-
-                classCalibrationInfo.ResetStateMachine();
-                classCalibrationInfo.DoCalibration = true;
-                classCalibrationInfo.CalibrationPaused = false;
-                classCalibrationInfo.InitCalibTread();
-                classCalibrationInfo.CreateLogFiles();
-                ClearColorIndication();
-            }
-            else
-            {
-                if (classCalibrationInfo.DpCountAxist == 0)
-                {
-                    MessageBox.Show("No exist dp devices!");
-                }
-                else if (classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count == 0)
-                {
-                    MessageBox.Show("Load configuration file befor you calibration start");
-                }
-                else if (classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count == 0)
-                {
-                    MessageBox.Show("Load configuration file befor you calibration start");
-                }
-
+                rtb_info.AppendText(ex.StackTrace.ToString() + "\r\n\r\n" + ex.InnerException.ToString() + ".\r\n\r\n");
+                Logger.Error("Faile to add table to database.   " + ex.StackTrace.ToString() + "       " + ex.InnerException.ToString());
             }
 
         }

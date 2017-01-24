@@ -258,10 +258,10 @@
             this.pnl_settingsPanel.Controls.Add(this.bt_loadCustomerConfigFile);
             this.pnl_settingsPanel.Controls.Add(this.panel3);
             this.pnl_settingsPanel.Controls.Add(this.bt_saveCalibPoint);
-            this.pnl_settingsPanel.Location = new System.Drawing.Point(16, 15);
+            this.pnl_settingsPanel.Location = new System.Drawing.Point(1, 1);
             this.pnl_settingsPanel.Margin = new System.Windows.Forms.Padding(4);
             this.pnl_settingsPanel.Name = "pnl_settingsPanel";
-            this.pnl_settingsPanel.Size = new System.Drawing.Size(1928, 708);
+            this.pnl_settingsPanel.Size = new System.Drawing.Size(1547, 712);
             this.pnl_settingsPanel.TabIndex = 8;
             // 
             // panel1

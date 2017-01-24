@@ -73,6 +73,7 @@ namespace DP_dashboard.RIT_QA
                 User user = db.Users.FirstOrDefault();
                 if(user == null)
                 {
+                    user = new User();
                     user.Name = "david";
                     user.Password = "123456";
                     db.Users.Add(user);

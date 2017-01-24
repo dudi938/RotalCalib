@@ -72,7 +72,7 @@ namespace DP_dashboard
         private const int MAX_TIME_WAIT_TO_TEMP_SET_POINT               = 1800;     // 30 min 1800
         private const int GET_DP_INFO_TIMOUT                            = 1;       // 1 sec
         private const int READ_PRESSURE_INTERVAL                        = 1;
-        private const int TEMP_WAIT_BETWEEN_TOW_SMPLINGS_CYCLE                = 300; // 5 min
+        private const int TEMP_WAIT_BETWEEN_TOW_SMPLINGS_CYCLE          = 300; // 5 min
 
         //constant parameters
         private const byte MAX_DP_DEVICES                               = 0x10;      //16
@@ -594,10 +594,11 @@ namespace DP_dashboard
         {
             for (int i = 0; i < DpCountAxist; i++)
             {
-                log.PrintLogRecordToFile(classDevices[i], classCalibrationSettings.PressureUnderTestList, Properties.Settings.Default.LogPath, CurrentCalibTempIndex);
+                TraceInfo += "\r\n" + log.PrintLogRecordToFile(classDevices[i], classCalibrationSettings.PressureUnderTestList, Properties.Settings.Default.LogPath, CurrentCalibTempIndex);
             }
-
         }
+
+        
 
 
         private void WriteTempSetPoint(Byte registerAddress, float tempValue)
@@ -826,27 +827,36 @@ namespace DP_dashboard
         {
             List<RIT_QA.CalibrationData> tempTable = new List<RIT_QA.CalibrationData>();
 
-            for (int unitCounter = 0; unitCounter < DpCountAxist; unitCounter++)
+            try
             {
-                for (int pressureCounter = 0; pressureCounter < classCalibrationSettings.PressureUnderTestList.Count; pressureCounter++)
+                for (int unitCounter = 0; unitCounter < DpCountAxist; unitCounter++)
                 {
-                    RIT_QA.CalibrationData oneRowOfDevice = new RIT_QA.CalibrationData();
+                    for (int pressureCounter = 0; pressureCounter < classCalibrationSettings.PressureUnderTestList.Count; pressureCounter++)
+                    {
+                        RIT_QA.CalibrationData oneRowOfDevice = new RIT_QA.CalibrationData();
 
-                    oneRowOfDevice.SerialNo = classDevices[unitCounter].DeviceSerialNumber;
-                    oneRowOfDevice.StationID = 1;
-                    oneRowOfDevice.UserID = RIT_QA.ClassDal.GetFirstUserID();
-                    oneRowOfDevice.PressureSP = classCalibrationSettings.PressureUnderTestList[pressureCounter];
-                    oneRowOfDevice.PressurePLC = classDevices[unitCounter].CalibrationData[CurrentCalibTempIndex, pressureCounter].extA2dPressureValue;
-                    oneRowOfDevice.TempSP = classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex];
-                    oneRowOfDevice.TempDP =   classDevices[unitCounter].CalibrationData[CurrentCalibTempIndex, pressureCounter].tempOnDevice;
-                    oneRowOfDevice.RightA2D = (int)classDevices[unitCounter].CalibrationData[CurrentCalibTempIndex, pressureCounter].RightA2DValue;
-                    oneRowOfDevice.LeftA2D = (int)classDevices[unitCounter].CalibrationData[CurrentCalibTempIndex, pressureCounter].LeftA2DValue;
+                        oneRowOfDevice.SerialNo = classDevices[unitCounter].DeviceSerialNumber;
+                        oneRowOfDevice.StationID = 1;
+                        oneRowOfDevice.UserID = RIT_QA.ClassDal.GetFirstUserID();
+                        oneRowOfDevice.PressureSP = classCalibrationSettings.PressureUnderTestList[pressureCounter];
+                        oneRowOfDevice.PressurePLC = classDevices[unitCounter].CalibrationData[CurrentCalibTempIndex, pressureCounter].extA2dPressureValue;
+                        oneRowOfDevice.TempSP = classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex];
+                        oneRowOfDevice.TempDP = classDevices[unitCounter].CalibrationData[CurrentCalibTempIndex, pressureCounter].tempOnDevice;
+                        oneRowOfDevice.RightA2D = (int)classDevices[unitCounter].CalibrationData[CurrentCalibTempIndex, pressureCounter].RightA2DValue;
+                        oneRowOfDevice.LeftA2D = (int)classDevices[unitCounter].CalibrationData[CurrentCalibTempIndex, pressureCounter].LeftA2DValue;
 
-                    tempTable.Add(oneRowOfDevice);
+                        tempTable.Add(oneRowOfDevice);
+                    }
                 }
+
+                RIT_QA.ClassDal.AddOneTempertureTable(tempTable);
+            }
+            catch (Exception ex)
+            {
+                TraceInfo += "Faile to add table to database.\r\n   " + ex.StackTrace.ToString() + "\r\n\r\n" + ex.InnerException.ToString() + ".\r\n\r\n";
+                Logger.Error("Faile to add table to database.   " + ex.StackTrace.ToString() +"       "+  ex.InnerException.ToString());
             }
 
-            RIT_QA.ClassDal.AddOneTempertureTable(tempTable);
         }
     }
 }

@@ -77,11 +77,18 @@ namespace DP_dashboard
             return logFileName;
         }
 
-        public void PrintLogRecordToFile(ClassDevice device, List<float> pressuresUnderTest, string path, byte tempIndex)
+        public string PrintLogRecordToFile(ClassDevice device, List<float> pressuresUnderTest, string path, byte tempIndex)
         {
             string path1 = path + @"\" + device.CSVFileName;
-            file = new StreamWriter(path1, true);
-      
+
+            try
+            {
+                file = new StreamWriter(path1, true);
+            }
+            catch
+            {
+                return "Log error: fail to open " + device.CSVFileName + " file to logging\r\nCheck Device name is correct!\r\n" + "Current device position is " + device.PositionOnBoard;
+            }
 
             if (file != null)
             {
@@ -109,6 +116,7 @@ namespace DP_dashboard
                 file.WriteLine("");
                 file.Close();
             }
+            return "";
         }
 
         public void CloseFileForLogging()

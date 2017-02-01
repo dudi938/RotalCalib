@@ -68,7 +68,7 @@ namespace DP_dashboard
 
 
         //timing parameters
-        private const int MAX_TIME_WAIT_TO_PRESSURE_SET_POINT          = 2700;       //30 sec'
+        private const int MAX_TIME_WAIT_TO_PRESSURE_SET_POINT           = 2700;       //45 minutes'
         private const int MAX_TIME_WAIT_TO_TEMP_SET_POINT               = 1800;     // 30 min 1800
         private const int GET_DP_INFO_TIMOUT                            = 1;       // 1 sec
         private const int READ_PRESSURE_INTERVAL                        = 1;
@@ -211,7 +211,7 @@ namespace DP_dashboard
 
                                 if (CurrentCalibPressureIndex > 0)
                                 {
-                                    List<Int16> SetPointPressure = new List<short>();
+                                    List<short> SetPointPressure = new List<short>();
                                     SetPointPressure.Add(PlcBar2Adc(classCalibrationSettings.PressureUnderTestList[CurrentCalibPressureIndex]));
                                     classDeltaProtocolInstanse.classDeltaWriteSetpoint(SetPointPressure);
 

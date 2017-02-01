@@ -460,7 +460,6 @@ namespace DeltaPlcCommunication
         public void classDeltaWriteSetpoint(List<Int16> SetPoint)
         {
             SendNewMessage(DeltaMsgType.PresetMultipleRegister, DeltaMemType.D, 305,1, SetPoint);
-
         }
 
 #if xx

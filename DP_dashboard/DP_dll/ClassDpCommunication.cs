@@ -66,7 +66,7 @@ namespace DpCommunication
         public DpInfo dpInfo = new DpInfo();
         // DP info Offset 
         private const byte MAC_ADDRESSS_NUMBER_LENGTH             = 0x0a;
-        private const byte SERIAL_NUMBER_LENGTH                   = 0x08;
+        private const byte SERIAL_NUMBER_LENGTH                   = 0x0C;
 
         private const byte DEVICE_INFO_MAC_ADDRESS_NUMBER_OFFSET = 0x03;
         private const byte DEVICE_INFO_CURRENT_TEMP_OFFSET       = DEVICE_INFO_MAC_ADDRESS_NUMBER_OFFSET     + MAC_ADDRESSS_NUMBER_LENGTH;
@@ -239,7 +239,7 @@ namespace DpCommunication
                             dpInfo.S1Pressure = System.BitConverter.ToSingle(incomingData, DEVICE_INFO_S1_PRESSURE_OFFSET);
                             dpInfo.S2Pressure = System.BitConverter.ToSingle(incomingData, DEVICE_INFO_S2_PRESSURE_OFFSET);
                             dpInfo.Calibrated = incomingData[DEVICE_INFO_CALIBRATED_OFFSET];
-                            dpInfo.DeviceSerialNumber = System.Text.Encoding.UTF8.GetString(incomingData, DEVICE_INFO_SERIAL_NUMBER_OFFSET, 8);
+                            dpInfo.DeviceSerialNumber = System.Text.Encoding.UTF8.GetString(incomingData, DEVICE_INFO_SERIAL_NUMBER_OFFSET, SERIAL_NUMBER_LENGTH);
 
                             dpInfo.LeftA2D = BitConverter.ToUInt16(incomingData, DEVICE_INFO_A2D1_OFFSET);
                             dpInfo.RightA2D = BitConverter.ToUInt16(incomingData, DEVICE_INFO_A2D2_OFFSET);

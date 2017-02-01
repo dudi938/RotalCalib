@@ -125,7 +125,7 @@
             // tb_logsPath
             // 
             this.tb_logsPath.Location = new System.Drawing.Point(598, 543);
-            this.tb_logsPath.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tb_logsPath.Margin = new System.Windows.Forms.Padding(2);
             this.tb_logsPath.Name = "tb_logsPath";
             this.tb_logsPath.ReadOnly = true;
             this.tb_logsPath.Size = new System.Drawing.Size(207, 20);
@@ -137,7 +137,7 @@
             // pb_calibProgressBar
             // 
             this.pb_calibProgressBar.Location = new System.Drawing.Point(62, 603);
-            this.pb_calibProgressBar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pb_calibProgressBar.Margin = new System.Windows.Forms.Padding(2);
             this.pb_calibProgressBar.Name = "pb_calibProgressBar";
             this.pb_calibProgressBar.Size = new System.Drawing.Size(507, 19);
             this.pb_calibProgressBar.Step = 1;
@@ -147,7 +147,7 @@
             // tb_tempIndexAfterPause
             // 
             this.tb_tempIndexAfterPause.Location = new System.Drawing.Point(721, 485);
-            this.tb_tempIndexAfterPause.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tb_tempIndexAfterPause.Margin = new System.Windows.Forms.Padding(2);
             this.tb_tempIndexAfterPause.Name = "tb_tempIndexAfterPause";
             this.tb_tempIndexAfterPause.Size = new System.Drawing.Size(76, 20);
             this.tb_tempIndexAfterPause.TabIndex = 9;
@@ -168,7 +168,7 @@
             // bt_clear
             // 
             this.bt_clear.Location = new System.Drawing.Point(6, 461);
-            this.bt_clear.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bt_clear.Margin = new System.Windows.Forms.Padding(2);
             this.bt_clear.Name = "bt_clear";
             this.bt_clear.Size = new System.Drawing.Size(50, 33);
             this.bt_clear.TabIndex = 7;
@@ -377,7 +377,7 @@
             // tb_newsetPresssure
             // 
             this.tb_newsetPresssure.Location = new System.Drawing.Point(164, 92);
-            this.tb_newsetPresssure.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tb_newsetPresssure.Margin = new System.Windows.Forms.Padding(2);
             this.tb_newsetPresssure.Name = "tb_newsetPresssure";
             this.tb_newsetPresssure.Size = new System.Drawing.Size(98, 20);
             this.tb_newsetPresssure.TabIndex = 13;
@@ -398,7 +398,7 @@
             // tb_testReadPressure
             // 
             this.tb_testReadPressure.Location = new System.Drawing.Point(164, 51);
-            this.tb_testReadPressure.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tb_testReadPressure.Margin = new System.Windows.Forms.Padding(2);
             this.tb_testReadPressure.Name = "tb_testReadPressure";
             this.tb_testReadPressure.Size = new System.Drawing.Size(98, 20);
             this.tb_testReadPressure.TabIndex = 11;
@@ -567,7 +567,7 @@
             // tb_dpSN
             // 
             this.tb_dpSN.Location = new System.Drawing.Point(164, 15);
-            this.tb_dpSN.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tb_dpSN.Margin = new System.Windows.Forms.Padding(2);
             this.tb_dpSN.Name = "tb_dpSN";
             this.tb_dpSN.Size = new System.Drawing.Size(98, 20);
             this.tb_dpSN.TabIndex = 10;
@@ -594,7 +594,7 @@
             "14",
             "15"});
             this.cmb_dpList.Location = new System.Drawing.Point(164, 181);
-            this.cmb_dpList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmb_dpList.Margin = new System.Windows.Forms.Padding(2);
             this.cmb_dpList.Name = "cmb_dpList";
             this.cmb_dpList.Size = new System.Drawing.Size(98, 21);
             this.cmb_dpList.TabIndex = 11;
@@ -603,7 +603,7 @@
             // bt_writeSN
             // 
             this.bt_writeSN.Location = new System.Drawing.Point(8, 7);
-            this.bt_writeSN.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bt_writeSN.Margin = new System.Windows.Forms.Padding(2);
             this.bt_writeSN.Name = "bt_writeSN";
             this.bt_writeSN.Size = new System.Drawing.Size(99, 31);
             this.bt_writeSN.TabIndex = 20;
@@ -614,7 +614,7 @@
             // bt_disConnectDP
             // 
             this.bt_disConnectDP.Location = new System.Drawing.Point(164, 132);
-            this.bt_disConnectDP.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bt_disConnectDP.Margin = new System.Windows.Forms.Padding(2);
             this.bt_disConnectDP.Name = "bt_disConnectDP";
             this.bt_disConnectDP.Size = new System.Drawing.Size(96, 31);
             this.bt_disConnectDP.TabIndex = 10;
@@ -625,7 +625,7 @@
             // bt_connectDP
             // 
             this.bt_connectDP.Location = new System.Drawing.Point(10, 129);
-            this.bt_connectDP.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bt_connectDP.Margin = new System.Windows.Forms.Padding(2);
             this.bt_connectDP.Name = "bt_connectDP";
             this.bt_connectDP.Size = new System.Drawing.Size(96, 31);
             this.bt_connectDP.TabIndex = 9;
@@ -657,7 +657,7 @@
             this.chb_pressureAutoMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chb_pressureAutoMode.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.chb_pressureAutoMode.Location = new System.Drawing.Point(8, 153);
-            this.chb_pressureAutoMode.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chb_pressureAutoMode.Margin = new System.Windows.Forms.Padding(2);
             this.chb_pressureAutoMode.Name = "chb_pressureAutoMode";
             this.chb_pressureAutoMode.Size = new System.Drawing.Size(120, 17);
             this.chb_pressureAutoMode.TabIndex = 9;
@@ -749,7 +749,7 @@
             this.Controls.Add(this.pnl_TempData);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CalibForm";
-            this.Text = " Calibration tool 23/01/2017";
+            this.Text = " Calibration tool 26/01/2017";
             this.TransparencyKey = System.Drawing.Color.Lime;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CalibForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);

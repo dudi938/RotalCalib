@@ -24,6 +24,10 @@ namespace DP_dashboard.RIT_QA
         public Nullable<int> RightA2D { get; set; }
         public Nullable<int> LeftA2D { get; set; }
         public int id { get; set; }
+        public Nullable<System.DateTime> Datetime { get; set; }
+        public string CalibrationToolVer { get; set; }
+        public string DpFwVer { get; set; }
+        public string MultiPlexerFwVer { get; set; }
     
         public virtual Device Device { get; set; }
         public virtual User User { get; set; }

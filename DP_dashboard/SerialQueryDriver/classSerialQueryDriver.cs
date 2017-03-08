@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Management;
 
 
@@ -34,8 +31,8 @@ namespace SerialQueryDriver
             try
             {
                 ManagementObjectSearcher searcher =
-                    new ManagementObjectSearcher("root\\WMI",
-                    "SELECT * FROM MSSerial_PortName");
+                new ManagementObjectSearcher("root\\WMI",
+                "SELECT * FROM MSSerial_PortName");
 
                 string[] MultiplexerSplitId = multiplexerID.Split('\\');
                 string[] PlcSplitId = plcID.Split('\\');

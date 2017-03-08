@@ -12,11 +12,7 @@ namespace DP_dashboard
     {
         private string logFileName;
         private StreamWriter file;
-        private int sizeWrittenToFile;
-        private int fileIndex = 0;
         private string sPath;
-        private string sHostVersion;
-        private string sFwVersion;
 
         private string GetTime()
         {
@@ -37,8 +33,6 @@ namespace DP_dashboard
         {
             string title1 = ",";
             DateTime now = DateTime.Now;
-
-            sizeWrittenToFile = 0;
 
             sPath = path;
 
@@ -96,13 +90,14 @@ namespace DP_dashboard
                 string line = string.Format(",,,Temp#{0},", tempIndex);
                 file.WriteLine(line);
 
-                line = ",PLC_Pressure,A2D_Right,A2D_Left,A2D Delta,Temp on DP,";
+                line = ",TIME,PLC_Pressure,A2D_Right,A2D_Left,A2D Delta,Temp on DP,";
                 file.WriteLine(line);
 
 
                 for (int i = 0; i < pressuresUnderTest.Count; i++)
                 {
-                    line = string.Format("Pressure {0} = {1}[bar]", i,pressuresUnderTest[i]);
+                    line = device.CalibrationData[tempIndex, i].time.ToString();
+                    line += "," + string.Format("Pressure {0} = {1}[bar]", i,pressuresUnderTest[i]);
                     line += "," + device.CalibrationData[tempIndex, i].extA2dPressureValue;
                     line += "," + device.CalibrationData[tempIndex,i].RightA2DValue;
                     line += "," + device.CalibrationData[tempIndex, i].LeftA2DValue;

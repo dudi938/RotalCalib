@@ -42,11 +42,13 @@ namespace DP_dashboard
         public static CalibForm calibForm;
         ClassDpCommunication DpProtocolInstanse;
 
-        public ConfigForm(ClassDpCommunication dpProtocolInstanse, CalibForm calibFormcaller)
+        public ConfigForm(ClassDpCommunication dpProtocolInstanse, CalibForm calibFormcaller, string ver)
         {
             calibForm = calibFormcaller;
             InitializeComponent();
             DpProtocolInstanse = dpProtocolInstanse;
+
+            Text += " Ver " + ver; 
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -56,7 +58,20 @@ namespace DP_dashboard
 
         private void ConfigForm_Load(object sender, EventArgs e)
         {
+            // Bind combobox to dictionary
+            Dictionary<string, string> items = new Dictionary<string, string>();
+            items.Add("1", "DPS");
+            items.Add("4", "PS");
+            items.Add("16", "Data Logger");
+            items.Add("2", "DPT");
+            items.Add("8", "PT");
+            items.Add("32", "Wash Controller");
+            items.Add("64", "Master");
+            items.Add("128", "Manufactor");
 
+            cmb_licenseTypeInput.DataSource = new BindingSource(items, null);
+            cmb_licenseTypeInput.DisplayMember = "Value";
+            cmb_licenseTypeInput.ValueMember = "Key";
         }
 
         private void bt_Cancel_Click(object sender, EventArgs e)
@@ -126,21 +141,17 @@ namespace DP_dashboard
                 calibForm.classCalibrationInfo.classCalibrationSettings.JigConfiguration = 8;
             }
 
-
-
-            //update comport nam's
-           //calibForm.classCalibrationInfo.classCalibrationSettings.MultiPlexerComPortName = cmb_multiplexerComPort.SelectedItem.ToString();
-           //calibForm.classCalibrationInfo.classCalibrationSettings.TempControllerComPortName = cmb_tempControllerComPort.SelectedItem.ToString();
-           //calibForm.classCalibrationInfo.classCalibrationSettings.PlcComPortName = cmb_PLCComPort.SelectedItem.ToString();
-           //calibForm.classCalibrationInfo.classCalibrationSettings.DpComPortName = cmb_DPComPort.SelectedItem.ToString();
-
-
-
             // update temp sample settings
             calibForm.classCalibrationInfo.classCalibrationSettings.TempSampleInterval = Convert.ToInt32(tb_temSpampleInterval.Text);
             calibForm.classCalibrationInfo.classCalibrationSettings.TempDeltaRange = float.Parse(tb_tempDeltaRange.Text);
             calibForm.classCalibrationInfo.classCalibrationSettings.MaxTimeWaitToTemp = Convert.ToInt32(tb_tempMaxWaitTime.Text) * 60;
             calibForm.classCalibrationInfo.classCalibrationSettings.TempSampleAmount = Convert.ToInt32(tb_tempSampleNum.Text);
+
+
+
+            //update license type
+            calibForm.classCalibrationInfo.classCalibrationSettings.DeviceLicens = cmb_licenseTypeInput.SelectedValue.ToString();
+
 
             this.Hide();
             calibForm.Show();

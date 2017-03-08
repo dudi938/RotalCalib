@@ -48,6 +48,7 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pnl_settingsPanel = new System.Windows.Forms.Panel();
+            this.cmb_licenseTypeInput = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgv_calibPressuresPointsTable = new System.Windows.Forms.DataGridView();
             this.prs_Enable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -70,10 +71,10 @@
             this.bt_loadCustomerConfigFile.BackColor = System.Drawing.Color.Silver;
             this.bt_loadCustomerConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_loadCustomerConfigFile.ForeColor = System.Drawing.Color.Blue;
-            this.bt_loadCustomerConfigFile.Location = new System.Drawing.Point(251, 641);
-            this.bt_loadCustomerConfigFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.bt_loadCustomerConfigFile.Location = new System.Drawing.Point(188, 521);
+            this.bt_loadCustomerConfigFile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.bt_loadCustomerConfigFile.Name = "bt_loadCustomerConfigFile";
-            this.bt_loadCustomerConfigFile.Size = new System.Drawing.Size(153, 56);
+            this.bt_loadCustomerConfigFile.Size = new System.Drawing.Size(115, 46);
             this.bt_loadCustomerConfigFile.TabIndex = 6;
             this.bt_loadCustomerConfigFile.Text = "Load configuration";
             this.bt_loadCustomerConfigFile.UseVisualStyleBackColor = false;
@@ -85,10 +86,9 @@
             this.bt_Cancel.CausesValidation = false;
             this.bt_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_Cancel.ForeColor = System.Drawing.Color.Blue;
-            this.bt_Cancel.Location = new System.Drawing.Point(110, 731);
-            this.bt_Cancel.Margin = new System.Windows.Forms.Padding(4);
+            this.bt_Cancel.Location = new System.Drawing.Point(82, 594);
             this.bt_Cancel.Name = "bt_Cancel";
-            this.bt_Cancel.Size = new System.Drawing.Size(150, 52);
+            this.bt_Cancel.Size = new System.Drawing.Size(112, 42);
             this.bt_Cancel.TabIndex = 4;
             this.bt_Cancel.Text = "Cancel";
             this.bt_Cancel.UseVisualStyleBackColor = false;
@@ -100,10 +100,9 @@
             this.bt_saveCalibPoint.CausesValidation = false;
             this.bt_saveCalibPoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_saveCalibPoint.ForeColor = System.Drawing.Color.Blue;
-            this.bt_saveCalibPoint.Location = new System.Drawing.Point(94, 641);
-            this.bt_saveCalibPoint.Margin = new System.Windows.Forms.Padding(4);
+            this.bt_saveCalibPoint.Location = new System.Drawing.Point(70, 521);
             this.bt_saveCalibPoint.Name = "bt_saveCalibPoint";
-            this.bt_saveCalibPoint.Size = new System.Drawing.Size(150, 56);
+            this.bt_saveCalibPoint.Size = new System.Drawing.Size(112, 46);
             this.bt_saveCalibPoint.TabIndex = 3;
             this.bt_saveCalibPoint.Text = "Save configuration";
             this.bt_saveCalibPoint.UseVisualStyleBackColor = false;
@@ -124,17 +123,18 @@
             this.panel3.Controls.Add(this.cmb_jigConfiguration);
             this.panel3.Controls.Add(this.tb_temSpampleInterval);
             this.panel3.Controls.Add(this.label6);
-            this.panel3.Location = new System.Drawing.Point(993, 120);
-            this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel3.Location = new System.Drawing.Point(745, 98);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(455, 344);
+            this.panel3.Size = new System.Drawing.Size(342, 280);
             this.panel3.TabIndex = 7;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
-            this.label11.Location = new System.Drawing.Point(8, 82);
+            this.label11.Location = new System.Drawing.Point(6, 67);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(86, 17);
             this.label11.TabIndex = 28;
@@ -142,10 +142,10 @@
             // 
             // tb_tempSampleNum
             // 
-            this.tb_tempSampleNum.Location = new System.Drawing.Point(210, 77);
-            this.tb_tempSampleNum.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tb_tempSampleNum.Location = new System.Drawing.Point(158, 63);
+            this.tb_tempSampleNum.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tb_tempSampleNum.Name = "tb_tempSampleNum";
-            this.tb_tempSampleNum.Size = new System.Drawing.Size(100, 22);
+            this.tb_tempSampleNum.Size = new System.Drawing.Size(76, 20);
             this.tb_tempSampleNum.TabIndex = 27;
             this.tb_tempSampleNum.Text = "10";
             // 
@@ -153,7 +153,8 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(8, 228);
+            this.label10.Location = new System.Drawing.Point(6, 185);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(148, 17);
             this.label10.TabIndex = 26;
@@ -161,10 +162,10 @@
             // 
             // tb_tempMaxWaitTime
             // 
-            this.tb_tempMaxWaitTime.Location = new System.Drawing.Point(210, 228);
-            this.tb_tempMaxWaitTime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tb_tempMaxWaitTime.Location = new System.Drawing.Point(158, 185);
+            this.tb_tempMaxWaitTime.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tb_tempMaxWaitTime.Name = "tb_tempMaxWaitTime";
-            this.tb_tempMaxWaitTime.Size = new System.Drawing.Size(100, 22);
+            this.tb_tempMaxWaitTime.Size = new System.Drawing.Size(76, 20);
             this.tb_tempMaxWaitTime.TabIndex = 25;
             this.tb_tempMaxWaitTime.Text = "45";
             // 
@@ -172,7 +173,8 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(5, 129);
+            this.label9.Location = new System.Drawing.Point(4, 105);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(135, 17);
             this.label9.TabIndex = 24;
@@ -182,7 +184,8 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(5, 180);
+            this.label8.Location = new System.Drawing.Point(4, 146);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(97, 17);
             this.label8.TabIndex = 23;
@@ -191,18 +194,19 @@
             // lbl_jigConfiguration
             // 
             this.lbl_jigConfiguration.AutoSize = true;
-            this.lbl_jigConfiguration.Location = new System.Drawing.Point(8, 291);
+            this.lbl_jigConfiguration.Location = new System.Drawing.Point(6, 236);
+            this.lbl_jigConfiguration.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_jigConfiguration.Name = "lbl_jigConfiguration";
-            this.lbl_jigConfiguration.Size = new System.Drawing.Size(107, 16);
+            this.lbl_jigConfiguration.Size = new System.Drawing.Size(85, 13);
             this.lbl_jigConfiguration.TabIndex = 8;
             this.lbl_jigConfiguration.Text = "Jig Configuration";
             // 
             // tb_tempDeltaRange
             // 
-            this.tb_tempDeltaRange.Location = new System.Drawing.Point(210, 180);
-            this.tb_tempDeltaRange.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tb_tempDeltaRange.Location = new System.Drawing.Point(158, 146);
+            this.tb_tempDeltaRange.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tb_tempDeltaRange.Name = "tb_tempDeltaRange";
-            this.tb_tempDeltaRange.Size = new System.Drawing.Size(100, 22);
+            this.tb_tempDeltaRange.Size = new System.Drawing.Size(76, 20);
             this.tb_tempDeltaRange.TabIndex = 21;
             this.tb_tempDeltaRange.Text = "0.5";
             // 
@@ -212,19 +216,19 @@
             this.cmb_jigConfiguration.Items.AddRange(new object[] {
             "8",
             "16"});
-            this.cmb_jigConfiguration.Location = new System.Drawing.Point(210, 285);
-            this.cmb_jigConfiguration.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cmb_jigConfiguration.Location = new System.Drawing.Point(158, 232);
+            this.cmb_jigConfiguration.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cmb_jigConfiguration.Name = "cmb_jigConfiguration";
-            this.cmb_jigConfiguration.Size = new System.Drawing.Size(121, 24);
+            this.cmb_jigConfiguration.Size = new System.Drawing.Size(92, 21);
             this.cmb_jigConfiguration.TabIndex = 5;
             this.cmb_jigConfiguration.Text = "16";
             // 
             // tb_temSpampleInterval
             // 
-            this.tb_temSpampleInterval.Location = new System.Drawing.Point(210, 130);
-            this.tb_temSpampleInterval.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tb_temSpampleInterval.Location = new System.Drawing.Point(158, 106);
+            this.tb_temSpampleInterval.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tb_temSpampleInterval.Name = "tb_temSpampleInterval";
-            this.tb_temSpampleInterval.Size = new System.Drawing.Size(100, 22);
+            this.tb_temSpampleInterval.Size = new System.Drawing.Size(76, 20);
             this.tb_temSpampleInterval.TabIndex = 20;
             this.tb_temSpampleInterval.Text = "1";
             // 
@@ -234,8 +238,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label6.Location = new System.Drawing.Point(63, 22);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(47, 18);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(268, 24);
             this.label6.TabIndex = 18;
@@ -254,15 +257,24 @@
             // 
             // pnl_settingsPanel
             // 
+            this.pnl_settingsPanel.Controls.Add(this.cmb_licenseTypeInput);
             this.pnl_settingsPanel.Controls.Add(this.panel1);
             this.pnl_settingsPanel.Controls.Add(this.bt_loadCustomerConfigFile);
             this.pnl_settingsPanel.Controls.Add(this.panel3);
             this.pnl_settingsPanel.Controls.Add(this.bt_saveCalibPoint);
             this.pnl_settingsPanel.Location = new System.Drawing.Point(1, 1);
-            this.pnl_settingsPanel.Margin = new System.Windows.Forms.Padding(4);
             this.pnl_settingsPanel.Name = "pnl_settingsPanel";
-            this.pnl_settingsPanel.Size = new System.Drawing.Size(1547, 712);
+            this.pnl_settingsPanel.Size = new System.Drawing.Size(1160, 578);
             this.pnl_settingsPanel.TabIndex = 8;
+            // 
+            // cmb_licenseTypeInput
+            // 
+            this.cmb_licenseTypeInput.FormattingEnabled = true;
+            this.cmb_licenseTypeInput.Location = new System.Drawing.Point(745, 416);
+            this.cmb_licenseTypeInput.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmb_licenseTypeInput.Name = "cmb_licenseTypeInput";
+            this.cmb_licenseTypeInput.Size = new System.Drawing.Size(92, 21);
+            this.cmb_licenseTypeInput.TabIndex = 8;
             // 
             // panel1
             // 
@@ -271,10 +283,9 @@
             this.panel1.Controls.Add(this.dgv_calibPressuresPointsTable);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.dgv_calibTempPointsTable);
-            this.panel1.Location = new System.Drawing.Point(39, 30);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
+            this.panel1.Location = new System.Drawing.Point(29, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(911, 605);
+            this.panel1.Size = new System.Drawing.Size(684, 492);
             this.panel1.TabIndex = 2;
             // 
             // dgv_calibPressuresPointsTable
@@ -284,10 +295,9 @@
             this.prs_Enable,
             this.txb_pressure});
             this.dgv_calibPressuresPointsTable.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dgv_calibPressuresPointsTable.Location = new System.Drawing.Point(471, 70);
-            this.dgv_calibPressuresPointsTable.Margin = new System.Windows.Forms.Padding(4);
+            this.dgv_calibPressuresPointsTable.Location = new System.Drawing.Point(353, 57);
             this.dgv_calibPressuresPointsTable.Name = "dgv_calibPressuresPointsTable";
-            this.dgv_calibPressuresPointsTable.Size = new System.Drawing.Size(349, 512);
+            this.dgv_calibPressuresPointsTable.Size = new System.Drawing.Size(262, 416);
             this.dgv_calibPressuresPointsTable.TabIndex = 5;
             // 
             // prs_Enable
@@ -307,8 +317,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label1.Location = new System.Drawing.Point(248, 17);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(186, 14);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(201, 24);
             this.label1.TabIndex = 2;
@@ -321,10 +330,9 @@
             this.Enable,
             this.Temperture,
             this.TempStartTime});
-            this.dgv_calibTempPointsTable.Location = new System.Drawing.Point(44, 70);
-            this.dgv_calibTempPointsTable.Margin = new System.Windows.Forms.Padding(4);
+            this.dgv_calibTempPointsTable.Location = new System.Drawing.Point(33, 57);
             this.dgv_calibTempPointsTable.Name = "dgv_calibTempPointsTable";
-            this.dgv_calibTempPointsTable.Size = new System.Drawing.Size(360, 505);
+            this.dgv_calibTempPointsTable.Size = new System.Drawing.Size(270, 410);
             this.dgv_calibTempPointsTable.TabIndex = 0;
             // 
             // Enable
@@ -347,15 +355,15 @@
             // 
             // ConfigForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1532, 837);
+            this.ClientSize = new System.Drawing.Size(1149, 680);
             this.Controls.Add(this.bt_Cancel);
             this.Controls.Add(this.pnl_settingsPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ConfigForm";
             this.Text = "ConfigForm";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConfigForm_FormClosing);
             this.Load += new System.EventHandler(this.ConfigForm_Load);
             this.panel3.ResumeLayout(false);
@@ -397,5 +405,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TempStartTime;
         private System.Windows.Forms.Label lbl_jigConfiguration;
         private System.Windows.Forms.ComboBox cmb_jigConfiguration;
+        private System.Windows.Forms.ComboBox cmb_licenseTypeInput;
     }
 }

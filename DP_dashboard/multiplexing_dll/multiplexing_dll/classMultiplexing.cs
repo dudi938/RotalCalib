@@ -59,6 +59,7 @@ namespace multiplexing_dll
             IncomingCommunicationBufferHandlerThread = new Thread(ApiTask);
             SerialPortInstanse = new classSerial(portName, 115200, null);
             incomingInfo = info;
+            IncomingCommunicationBufferHandlerThread.IsBackground = false;
             IncomingCommunicationBufferHandlerThread.Start();
         }
         public string GetCurrentTime()
@@ -74,6 +75,8 @@ namespace multiplexing_dll
                 SerialPortInstanse.port.Close();
                 SerialPortInstanse.ComPortOk = false;
             }
+            IncomingCommunicationBufferHandlerThread.Abort();
+            IncomingCommunicationBufferHandlerThread = null;
         }
 
         private void ApiTask()
@@ -199,6 +202,7 @@ namespace multiplexing_dll
             SerialPortInstanse.Send(data, data.Count());
 
             ConnectedChanel = (ChaneleNum)DpId;
+            Thread.Sleep(250);
         }
 
 

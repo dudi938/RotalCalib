@@ -120,7 +120,6 @@
             this.pnl_calibrationPanel.Name = "pnl_calibrationPanel";
             this.pnl_calibrationPanel.Size = new System.Drawing.Size(833, 650);
             this.pnl_calibrationPanel.TabIndex = 15;
-            this.pnl_calibrationPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl_calibrationPanel_Paint);
             // 
             // tb_logsPath
             // 
@@ -132,7 +131,6 @@
             this.tb_logsPath.TabIndex = 21;
             this.tb_logsPath.Text = " ";
             this.tb_logsPath.Click += new System.EventHandler(this.tb_logsPath_Click);
-            this.tb_logsPath.TextChanged += new System.EventHandler(this.tb_logsPath_TextChanged);
             // 
             // pb_calibProgressBar
             // 
@@ -322,8 +320,6 @@
             this.dgv_devicesQueue.Name = "dgv_devicesQueue";
             this.dgv_devicesQueue.Size = new System.Drawing.Size(250, 416);
             this.dgv_devicesQueue.TabIndex = 0;
-            this.dgv_devicesQueue.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_devicesQueue_CellClick);
-            this.dgv_devicesQueue.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_devicesQueue_CellContentClick);
             this.dgv_devicesQueue.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_devicesQueue_CellEnter);
             // 
             // col_no
@@ -434,7 +430,6 @@
             this.pnl_TempData.Name = "pnl_TempData";
             this.pnl_TempData.Size = new System.Drawing.Size(283, 199);
             this.pnl_TempData.TabIndex = 16;
-            this.pnl_TempData.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl_TempData_Paint);
             // 
             // label13
             // 
@@ -530,7 +525,6 @@
             this.label7.Size = new System.Drawing.Size(86, 13);
             this.label7.TabIndex = 2;
             this.label7.Text = "Oven temperture";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label6
             // 
@@ -542,7 +536,6 @@
             this.label6.Size = new System.Drawing.Size(38, 13);
             this.label6.TabIndex = 1;
             this.label6.Text = "Target";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // pnl_dpSelection
             // 
@@ -562,7 +555,6 @@
             this.pnl_dpSelection.Name = "pnl_dpSelection";
             this.pnl_dpSelection.Size = new System.Drawing.Size(283, 221);
             this.pnl_dpSelection.TabIndex = 13;
-            this.pnl_dpSelection.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint_1);
             // 
             // tb_dpSN
             // 
@@ -736,7 +728,6 @@
             // 
             // backgroundWorker1
             // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             // 
             // CalibForm
             // 
@@ -749,8 +740,9 @@
             this.Controls.Add(this.pnl_TempData);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CalibForm";
-            this.Text = " Calibration tool 26/01/2017";
+            this.Text = " Calibration tool 2/3/2017";
             this.TransparencyKey = System.Drawing.Color.Lime;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CalibForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.pnl_calibrationPanel.ResumeLayout(false);

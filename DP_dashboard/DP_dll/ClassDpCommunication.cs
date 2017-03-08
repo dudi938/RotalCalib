@@ -16,8 +16,9 @@ namespace DpCommunication
 
         private const byte SERIAL_NUMBER_LENGTH = 0x0A;
 
-        public string  DeviseMacAddress;
-        public string  DeviceSerialNumber;
+        public string  DeviseSerialNumber;
+        public string  DeviceBarcode;
+        public string DeviceMacAddress;
         public SByte CurrentTemp;
         public float   S1Pressure;
         public float   S2Pressure;
@@ -63,20 +64,25 @@ namespace DpCommunication
     public class ClassDpCommunication
     {
         public bool NewDpInfoEvent = false;
+        public bool LicenseAck = false;
+
+
+
         public DpInfo dpInfo = new DpInfo();
         // DP info Offset 
-        private const byte MAC_ADDRESSS_NUMBER_LENGTH             = 0x0a;
-        private const byte SERIAL_NUMBER_LENGTH                   = 0x0C;
+        private const byte SERIAL_NUMBER_LENGTH             = 0x0a;
+        private const byte MAC_ADDRESS_LENGTH               = 0x0C;
+        private const byte BARCODE_LENGTH                   = 0x0C;
 
-        private const byte DEVICE_INFO_MAC_ADDRESS_NUMBER_OFFSET = 0x03;
-        private const byte DEVICE_INFO_CURRENT_TEMP_OFFSET       = DEVICE_INFO_MAC_ADDRESS_NUMBER_OFFSET     + MAC_ADDRESSS_NUMBER_LENGTH;
+        private const byte DEVICE_INFO_SERIAL_NUMBER_NUMBER_OFFSET = 0x03;
+        private const byte DEVICE_INFO_CURRENT_TEMP_OFFSET       = DEVICE_INFO_SERIAL_NUMBER_NUMBER_OFFSET     + SERIAL_NUMBER_LENGTH;
         private const byte DEVICE_INFO_S1_PRESSURE_OFFSET        = DEVICE_INFO_CURRENT_TEMP_OFFSET           + 0x01;
         private const byte DEVICE_INFO_S2_PRESSURE_OFFSET        = DEVICE_INFO_S1_PRESSURE_OFFSET            + 0x04;
         private const byte DEVICE_INFO_CALIBRATED_OFFSET         = DEVICE_INFO_S2_PRESSURE_OFFSET            + 0x04;
-        private const byte DEVICE_INFO_SERIAL_NUMBER_OFFSET      = DEVICE_INFO_CALIBRATED_OFFSET             + 0x01;
-        private const byte DEVICE_INFO_A2D1_OFFSET               = DEVICE_INFO_SERIAL_NUMBER_OFFSET          + SERIAL_NUMBER_LENGTH;
+        private const byte DEVICE_INFO_BARCODE_OFFSET      = DEVICE_INFO_CALIBRATED_OFFSET             + 0x01;
+        private const byte DEVICE_INFO_A2D1_OFFSET               = DEVICE_INFO_BARCODE_OFFSET          + BARCODE_LENGTH;
         private const byte DEVICE_INFO_A2D2_OFFSET               = DEVICE_INFO_A2D1_OFFSET                   + 0x02;
-
+        private const byte DEVICE_INFO_MAC_ADDRESS_OFFSET               = DEVICE_INFO_A2D2_OFFSET            + 0x02;
         //end DP info Offset 
 
 
@@ -95,7 +101,8 @@ namespace DpCommunication
         private const byte API_MSG_DP_ACK_OK                  = 0x07;  //opcode
         private const byte API_MSG_DP_SEND_SERIAL_NUMBER      = 0x08;  //opcode
         private const byte API_MSG_DP_SEND_CALIBRATION_START  = 0x09;  //opcode
-
+        private const byte API_MSG_DP_SEND_LICENSE            = 0x0A;  //opcode
+        private const byte API_MSG_DP_LICENSE_ACK             = 0x0B;  //opcode
 
 
         public List<DpCalibPointsInTemperature> DPPressuresTable = new List<DpCalibPointsInTemperature>();
@@ -130,6 +137,7 @@ namespace DpCommunication
             SerialPortInstanse = new classSerial(portName, 115200, null);
             incomingInfo = info;
 
+            IncomingCommunicationBufferHandlerThread.IsBackground = false;
             IncomingCommunicationBufferHandlerThread.Start();
         }
         public string GetCurrentTime()
@@ -145,6 +153,23 @@ namespace DpCommunication
                 SerialPortInstanse.port.Close();
                 SerialPortInstanse.ComPortOk = false;
             }
+            IncomingCommunicationBufferHandlerThread.Abort();
+            IncomingCommunicationBufferHandlerThread = null;
+        }
+
+        public bool WaitForResponse(int mSecToWait)
+        {
+            do
+            {
+                if (NewDpInfoEvent == true)
+                {
+                    NewDpInfoEvent = false;
+                    return true;
+                }                
+                Thread.Sleep(10);
+                mSecToWait -= 10;
+            } while (mSecToWait > 0);
+            return false;
         }
 
         private void ApiTask()
@@ -230,20 +255,43 @@ namespace DpCommunication
                         break;
                     case API_MSG_DP_GET_DP_INFO:
                         {
-                            dpInfo.DeviceSerialNumber = "";
+                            dpInfo.DeviceBarcode = "";
+                            dpInfo.DeviceMacAddress = "";
 
-                            dpInfo.DeviseMacAddress = System.Text.Encoding.UTF8.GetString(incomingData, DEVICE_INFO_MAC_ADDRESS_NUMBER_OFFSET, 10);
+
+                            dpInfo.DeviseSerialNumber = System.Text.Encoding.UTF8.GetString(incomingData, DEVICE_INFO_SERIAL_NUMBER_NUMBER_OFFSET, 10);
                             dpInfo.CurrentTemp = (SByte)incomingData[DEVICE_INFO_CURRENT_TEMP_OFFSET];
 
 
                             dpInfo.S1Pressure = System.BitConverter.ToSingle(incomingData, DEVICE_INFO_S1_PRESSURE_OFFSET);
                             dpInfo.S2Pressure = System.BitConverter.ToSingle(incomingData, DEVICE_INFO_S2_PRESSURE_OFFSET);
                             dpInfo.Calibrated = incomingData[DEVICE_INFO_CALIBRATED_OFFSET];
-                            dpInfo.DeviceSerialNumber = System.Text.Encoding.UTF8.GetString(incomingData, DEVICE_INFO_SERIAL_NUMBER_OFFSET, SERIAL_NUMBER_LENGTH);
+                            dpInfo.DeviceBarcode = System.Text.Encoding.UTF8.GetString(incomingData, DEVICE_INFO_BARCODE_OFFSET, BARCODE_LENGTH);
 
                             dpInfo.LeftA2D = BitConverter.ToUInt16(incomingData, DEVICE_INFO_A2D1_OFFSET);
                             dpInfo.RightA2D = BitConverter.ToUInt16(incomingData, DEVICE_INFO_A2D2_OFFSET);
+
+                            Byte[] mac = new byte[6];
+                            mac[0] = incomingData[DEVICE_INFO_MAC_ADDRESS_OFFSET];
+                            mac[1] = incomingData[DEVICE_INFO_MAC_ADDRESS_OFFSET + 1];
+                            mac[2] = incomingData[DEVICE_INFO_MAC_ADDRESS_OFFSET + 2];
+                            mac[3] = incomingData[DEVICE_INFO_MAC_ADDRESS_OFFSET + 3];
+                            mac[4] = incomingData[DEVICE_INFO_MAC_ADDRESS_OFFSET + 4];
+                            mac[5] = incomingData[DEVICE_INFO_MAC_ADDRESS_OFFSET + 5];
+
+                            dpInfo.DeviceMacAddress += String.Format("{0:X2}", mac[0]);
+                            dpInfo.DeviceMacAddress += String.Format("{0:X2}", mac[1]);
+                            dpInfo.DeviceMacAddress += String.Format("{0:X2}", mac[2]);
+                            dpInfo.DeviceMacAddress += String.Format("{0:X2}", mac[3]);
+                            dpInfo.DeviceMacAddress += String.Format("{0:X2}", mac[4]);
+                            dpInfo.DeviceMacAddress += String.Format("{0:X2}", mac[5]);
+
                             NewDpInfoEvent = true; 
+                        }
+                        break;
+                    case API_MSG_DP_LICENSE_ACK:
+                        {
+                            LicenseAck = true;
                         }
                         break;
                     default:
@@ -401,6 +449,16 @@ namespace DpCommunication
             data[0] = API_MSG_PREAMBLE;
             data[1] = (byte)data.Count();
             data[2] = API_MSG_DP_SEND_CALIBRATION_START;  //opcode
+            data[data.Count() - 1] = CheckCum(data, data.Count());
+            SerialPortInstanse.Send(data, data.Count());
+        }
+
+        public void SendDpLicense(byte[] license)
+        {
+            byte[] data = new byte[API_MSG_DP_BASIC_MASSEGE_LENGTH + license.Length];
+            data[0] = API_MSG_PREAMBLE;
+            data[1] = (byte)data.Count();
+            data[2] = API_MSG_DP_SEND_LICENSE;  //opcode
             data[data.Count() - 1] = CheckCum(data, data.Count());
             SerialPortInstanse.Send(data, data.Count());
         }

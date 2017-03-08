@@ -134,7 +134,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("FTDIBUS\\VID_0403+PID_6001+FTBTMH3SA\\0000_0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("FTDIBUS\\VID_0403+PID_6001+FT94MRWKA\\0000_0")]
         public string PlcComPortID {
             get {
                 return ((string)(this["PlcComPortID"]));
@@ -158,7 +158,7 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("USB\\VID_067B&PID_2303\\7&2a8a5408&0&3_0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("USB\\VID_1A86&PID_7523\\7&10631d5e&0&2_0")]
         public string TempControllerComPortID {
             get {
                 return ((string)(this["TempControllerComPortID"]));
@@ -177,6 +177,30 @@ namespace DP_dashboard.Properties {
             }
             set {
                 this["WriteToDB"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://db-server:1234/license?mac=")]
+        public string LicenseServerURL {
+            get {
+                return ((string)(this["LicenseServerURL"]));
+            }
+            set {
+                this["LicenseServerURL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DebugMode {
+            get {
+                return ((bool)(this["DebugMode"]));
+            }
+            set {
+                this["DebugMode"] = value;
             }
         }
     }

@@ -20,6 +20,7 @@ namespace DP_dashboard
         public float LeftA2DValue             {get;  set;}           // calculate pressure value 1 from DP 
         public float RightA2DValue             {get;  set;}           // calculate pressure value 2 from DP 
         public float tempOnDevice          {get;  set;}           // temperature on device.
+        public DateTime time               { get; set; }  // execute time
     }
 
     public enum DeviceStatus { Wait, Pass, Fail, Runinng};
@@ -32,6 +33,7 @@ namespace DP_dashboard
 
         public string DeviceSerialNumber { get; set; }
         public string DeviceMacAddress { get; set; }
+        public string DeviceBarcode { get; set; }
         public DateTime  DeviceCalibrationTime { get; set; }
         public DateTime DeviceProgramTime { get; set; }
         public DeviceStatus deviceStatus = DeviceStatus.Pass;

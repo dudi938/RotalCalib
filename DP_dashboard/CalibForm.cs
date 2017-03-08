@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using multiplexing_dll;
@@ -11,13 +10,27 @@ using TempController_dll;
 using SerialQueryDriver;
 using log4net;
 using System.Reflection;
+using System.Threading;
 
 namespace DP_dashboard
 {
 
+    public struct SwVersion
+    {
+        public string MultiPlexerFw;
+        public string DpFw;
+        public string CalibrationTool;
+
+        public SwVersion(string multiPlexerFw, string dpFw, string calibrationTool)
+        {
+            MultiPlexerFw = multiPlexerFw;
+            DpFw = dpFw;
+            CalibrationTool = calibrationTool;
+        }
+    }
+
     public partial class CalibForm : Form
     {
-
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
 
@@ -58,7 +71,7 @@ namespace DP_dashboard
         ConfigForm ConfigFormInstanse;
         DateTime UpdateTempTime = new DateTime();
 
-
+        SwVersion swVersions;
 
 
         public CalibForm()
@@ -98,9 +111,11 @@ namespace DP_dashboard
             // Temp controller protocol init
             tempControllerInstanse = new TempControllerProtocol(TempControllerComPortName, 9600);
 
+            //update versions
+            swVersions = new SwVersion("1.0.0", "", "1.0.0");
 
             // Calibration class init           
-            classCalibrationInfo = new ClassCalibrationInfo(tempControllerInstanse, classDpCommunication, classMultiplexing, ClassDeltaProtocol);
+            classCalibrationInfo = new ClassCalibrationInfo(tempControllerInstanse, classDpCommunication, classMultiplexing, ClassDeltaProtocol, swVersions);
 
 
 
@@ -120,7 +135,7 @@ namespace DP_dashboard
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            this.Text += "  Ver " + swVersions.CalibrationTool;
             //LoadDefoultCalibPointToList();
 
             tb_logsPath.Text = Properties.Settings.Default.LogPath;
@@ -342,16 +357,16 @@ namespace DP_dashboard
 
         }
 
-        private void pnl_plcControl_Paint(object sender, PaintEventArgs e)
-        {
+        //private void pnl_plcControl_Paint(object sender, PaintEventArgs e)
+        //{
 
-        }
+        //}
 
-        private void bt_connectToDp_Click(object sender, EventArgs e)
-        {
-            //byte DpId = (byte)(int.Parse(cmb_dpDeviceNumber.SelectedItem.ToString()));
-            //MultiplexingProtocolInstanse.ConnectDpDevice(DpId);            
-        }
+        //private void bt_connectToDp_Click(object sender, EventArgs e)
+        //{
+        //    //byte DpId = (byte)(int.Parse(cmb_dpDeviceNumber.SelectedItem.ToString()));
+        //    //MultiplexingProtocolInstanse.ConnectDpDevice(DpId);            
+        //}
 
         private void bt_disconnect_Click(object sender, EventArgs e)
         {
@@ -395,10 +410,10 @@ namespace DP_dashboard
             //log.CloseFileForLogging();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
+        //private void panel1_Paint(object sender, PaintEventArgs e)
+        //{
 
-        }
+        //}
 
         private void bt_getDPinfo_Click(object sender, EventArgs e)
         {
@@ -407,15 +422,15 @@ namespace DP_dashboard
 
         private void bt_configuration_Click(object sender, EventArgs e)
         {
-            ConfigForm configForm = new ConfigForm(classDpCommunication, this);
+            ConfigForm configForm = new ConfigForm(classDpCommunication, this, swVersions.CalibrationTool);
             this.Hide();
             configForm.Show();
         }
 
-        private void rtbLog_TextChanged(object sender, EventArgs e)
-        {
+        //private void rtbLog_TextChanged(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
         private void bt_startCalibration_Click(object sender, EventArgs e)
         {
@@ -434,39 +449,42 @@ namespace DP_dashboard
                     Application.DoEvents();
                 }
 
-
-                if (classCalibrationInfo.DpCountAxist > 0 && classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count > 0 && classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count > 0)
+                if(Properties.Settings.Default.DebugMode == false)
                 {
-                    classCalibrationInfo.EndDetectEvent = false;
+                    if (classCalibrationInfo.DpCountAxist > 0 && classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count > 0 && classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count > 0)
+                    {
+                        classCalibrationInfo.EndDetectEvent = false;
 
-                    UpdateDeviceTable();
+                        UpdateDeviceTable();
 
 
-                    classDpCommunication.SendStartCalibration();
+                        classDpCommunication.SendStartCalibration();
 
-                    classCalibrationInfo.ResetStateMachine();
-                    classCalibrationInfo.DoCalibration = true;
-                    classCalibrationInfo.CalibrationPaused = false;
-                    classCalibrationInfo.InitCalibTread();
-                    classCalibrationInfo.CreateLogFiles();
-                    ClearColorIndication();
+                        classCalibrationInfo.ResetStateMachine();
+                        classCalibrationInfo.DoCalibration = true;
+                        classCalibrationInfo.CalibrationPaused = false;
+                        classCalibrationInfo.InitCalibTread();
+                        classCalibrationInfo.CreateLogFiles();
+                        ClearColorIndication();
+                    }
+                    else
+                    {
+                        if (classCalibrationInfo.DpCountAxist == 0)
+                        {
+                            MessageBox.Show("No exist dp devices!");
+                        }
+                        else if (classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count == 0)
+                        {
+                            MessageBox.Show("Load configuration file befor you calibration start");
+                        }
+                        else if (classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count == 0)
+                        {
+                            MessageBox.Show("Load configuration file befor you calibration start");
+                        }
+
+                    }
                 }
-                else
-                {
-                    if (classCalibrationInfo.DpCountAxist == 0)
-                    {
-                        MessageBox.Show("No exist dp devices!");
-                    }
-                    else if (classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count == 0)
-                    {
-                        MessageBox.Show("Load configuration file befor you calibration start");
-                    }
-                    else if (classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count == 0)
-                    {
-                        MessageBox.Show("Load configuration file befor you calibration start");
-                    }
-
-                }
+                
             }
             catch(Exception ex)
             {
@@ -483,18 +501,18 @@ namespace DP_dashboard
             {
                 dgv_devicesQueue.Rows.Add(i.ToString(),
                     classCalibrationInfo.classDevices[i].DeviceMacAddress.ToString(),
-                    classCalibrationInfo.classDevices[i].DeviceSerialNumber.ToString(),
+                    classCalibrationInfo.classDevices[i].DeviceBarcode.ToString(),
                     classCalibrationInfo.classDevices[i].PositionOnBoard.ToString(),
                     classCalibrationInfo.classDevices[i].BoardNumber.ToString());
             }
         }
-        private void UpdateDataTable(string serialNumber)
+        private void UpdateDataTable(string barcode)
         {
             bool ExistDevice = false;
             int i = 0;
             for (i = 0; i < classCalibrationInfo.DpCountAxist; i++)
             {
-                if (classCalibrationInfo.classDevices[i].DeviceSerialNumber == serialNumber)
+                if (classCalibrationInfo.classDevices[i].DeviceBarcode == barcode)
                 {
                     ExistDevice = true;
                     break;
@@ -583,25 +601,25 @@ namespace DP_dashboard
             classCalibrationInfo.StateMachineReset();
         }
 
-        private void pnl_TempData_Paint(object sender, PaintEventArgs e)
-        {
+        //private void pnl_TempData_Paint(object sender, PaintEventArgs e)
+        //{
 
-        }
+        //}
 
-        private void label7_Click(object sender, EventArgs e)
-        {
+        //private void label7_Click(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
-        private void label5_Click(object sender, EventArgs e)
-        {
+        //private void label5_Click(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
-        private void label6_Click(object sender, EventArgs e)
-        {
+        //private void label6_Click(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
         private void bt_clear_Click(object sender, EventArgs e)
         {
@@ -629,22 +647,22 @@ namespace DP_dashboard
             classCalibrationInfo.classMultiplexingInstanse.DisConnectAllDp();
         }
 
-        private void dgv_devicesQueue_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
+        //private void dgv_devicesQueue_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        //{
 
-        }
+        //}
 
-        private void pnl_calibrationPanel_Paint(object sender, PaintEventArgs e)
-        {
+        //private void pnl_calibrationPanel_Paint(object sender, PaintEventArgs e)
+        //{
 
-        }
+        //}
 
         private void bt_settings_Click(object sender, EventArgs e)
         {
             this.Hide();
             if (ConfigFormInstanse == null)
             {
-                ConfigFormInstanse = new ConfigForm(classDpCommunication, this);
+                ConfigFormInstanse = new ConfigForm(classDpCommunication, this, swVersions.CalibrationTool);
             }
             ConfigFormInstanse.Show();
         }
@@ -693,7 +711,18 @@ namespace DP_dashboard
         private void CalibForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             classCalibrationInfo.DoCalibration = false;
+            if (classCalibrationInfo.CalibrationTaskHandlerThread != null)
+            {
+                classCalibrationInfo.CalibrationTaskHandlerThread.Abort();
+                classCalibrationInfo.CalibrationTaskHandlerThread = null;
+            }
+
             classCalibrationInfo.DetectFlag = false;
+            if (classCalibrationInfo.DetectDevicesTaskHandlerThread != null)
+            {
+                classCalibrationInfo.DetectDevicesTaskHandlerThread.Abort();
+                classCalibrationInfo.DetectDevicesTaskHandlerThread = null;
+            }
             classCalibrationInfo.EndDetectEvent = true;
 
 
@@ -787,21 +816,21 @@ namespace DP_dashboard
             classDpCommunication.SendDpSerialNumber(SN);
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            //TEST
-            classCalibrationInfo.classDpCommunicationInstanse.DPgetDpInfo();
-        }
+        //private void button2_Click(object sender, EventArgs e)
+        //{
+        //    //TEST
+        //    classCalibrationInfo.classDpCommunicationInstanse.DPgetDpInfo();
+        //}
 
-        private void dgv_devicesQueue_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
+        //private void dgv_devicesQueue_CellClick(object sender, DataGridViewCellEventArgs e)
+        //{
 
-        }
+        //}
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
+        //private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        //{
 
-        }
+        //}
 
         public void MarkConnectedDevice()
         {
@@ -938,19 +967,60 @@ namespace DP_dashboard
 
         }
 
-        private void tb_logsPath_TextChanged(object sender, EventArgs e)
-        {
-            //System.Diagnostics.Process.Start(Properties.Settings.Default.LogPath);
-        }
+        //private void tb_logsPath_TextChanged(object sender, EventArgs e)
+        //{
+        //    //System.Diagnostics.Process.Start(Properties.Settings.Default.LogPath);
+        //}
 
         private void tb_logsPath_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(Properties.Settings.Default.LogPath);
         }
 
-        private void panel1_Paint_1(object sender, PaintEventArgs e)
-        {
+        //private void panel1_Paint_1(object sender, PaintEventArgs e)
+        //{
 
+        //}
+
+        //private void button3_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            classCalibrationInfo.classDpCommunicationInstanse.LicenseAck = false;
+            byte[] license = new LicenceSupport().GetKey("17", "");
+            if (license.Length > 0)
+                classCalibrationInfo.classDpCommunicationInstanse.SendDpLicense(license);
+
+            Thread.Sleep(1000);
+            if (classCalibrationInfo.classDpCommunicationInstanse.LicenseAck)
+            {
+                rtb_info.AppendText("succeess " + System.Text.Encoding.UTF8.GetString(license, 0, license.Length));
+            }
+            else
+            {
+                MessageBox.Show("error");
+            }
         }
+
+        //private void button3_Click_2(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        LicenceSupport lic = new LicenceSupport();
+        //        byte[] license = lic.GetKey(classCalibrationInfo.classCalibrationSettings.DeviceLicens, classCalibrationInfo.classDevices[0].DeviceMacAddress);
+        //        if (license.Length > 0)
+        //        {
+        //            MessageBox.Show("success");
+        //        }
+        //    }
+        //    catch
+        //    {
+
+        //    }
+            
+        //}
     }
 }           

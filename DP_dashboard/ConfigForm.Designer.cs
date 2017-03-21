@@ -58,6 +58,8 @@
             this.Enable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Temperture = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TempStartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tb_fwVersion = new System.Windows.Forms.TextBox();
             this.panel3.SuspendLayout();
             this.pnl_settingsPanel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -72,7 +74,7 @@
             this.bt_loadCustomerConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_loadCustomerConfigFile.ForeColor = System.Drawing.Color.Blue;
             this.bt_loadCustomerConfigFile.Location = new System.Drawing.Point(188, 521);
-            this.bt_loadCustomerConfigFile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bt_loadCustomerConfigFile.Margin = new System.Windows.Forms.Padding(2);
             this.bt_loadCustomerConfigFile.Name = "bt_loadCustomerConfigFile";
             this.bt_loadCustomerConfigFile.Size = new System.Drawing.Size(115, 46);
             this.bt_loadCustomerConfigFile.TabIndex = 6;
@@ -124,7 +126,7 @@
             this.panel3.Controls.Add(this.tb_temSpampleInterval);
             this.panel3.Controls.Add(this.label6);
             this.panel3.Location = new System.Drawing.Point(745, 98);
-            this.panel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(342, 280);
             this.panel3.TabIndex = 7;
@@ -136,14 +138,14 @@
             this.label11.Location = new System.Drawing.Point(6, 67);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(86, 17);
+            this.label11.Size = new System.Drawing.Size(102, 20);
             this.label11.TabIndex = 28;
             this.label11.Text = "Sample num";
             // 
             // tb_tempSampleNum
             // 
             this.tb_tempSampleNum.Location = new System.Drawing.Point(158, 63);
-            this.tb_tempSampleNum.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tb_tempSampleNum.Margin = new System.Windows.Forms.Padding(2);
             this.tb_tempSampleNum.Name = "tb_tempSampleNum";
             this.tb_tempSampleNum.Size = new System.Drawing.Size(76, 20);
             this.tb_tempSampleNum.TabIndex = 27;
@@ -156,14 +158,14 @@
             this.label10.Location = new System.Drawing.Point(6, 185);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(148, 17);
+            this.label10.Size = new System.Drawing.Size(181, 20);
             this.label10.TabIndex = 26;
             this.label10.Text = "Max wait time[minutes]";
             // 
             // tb_tempMaxWaitTime
             // 
             this.tb_tempMaxWaitTime.Location = new System.Drawing.Point(158, 185);
-            this.tb_tempMaxWaitTime.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tb_tempMaxWaitTime.Margin = new System.Windows.Forms.Padding(2);
             this.tb_tempMaxWaitTime.Name = "tb_tempMaxWaitTime";
             this.tb_tempMaxWaitTime.Size = new System.Drawing.Size(76, 20);
             this.tb_tempMaxWaitTime.TabIndex = 25;
@@ -176,7 +178,7 @@
             this.label9.Location = new System.Drawing.Point(4, 105);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(135, 17);
+            this.label9.Size = new System.Drawing.Size(161, 20);
             this.label9.TabIndex = 24;
             this.label9.Text = "Sample interval[sec]";
             // 
@@ -187,7 +189,7 @@
             this.label8.Location = new System.Drawing.Point(4, 146);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(97, 17);
+            this.label8.Size = new System.Drawing.Size(115, 20);
             this.label8.TabIndex = 23;
             this.label8.Text = "Delta range[c]";
             // 
@@ -197,14 +199,14 @@
             this.lbl_jigConfiguration.Location = new System.Drawing.Point(6, 236);
             this.lbl_jigConfiguration.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_jigConfiguration.Name = "lbl_jigConfiguration";
-            this.lbl_jigConfiguration.Size = new System.Drawing.Size(85, 13);
+            this.lbl_jigConfiguration.Size = new System.Drawing.Size(99, 15);
             this.lbl_jigConfiguration.TabIndex = 8;
             this.lbl_jigConfiguration.Text = "Jig Configuration";
             // 
             // tb_tempDeltaRange
             // 
             this.tb_tempDeltaRange.Location = new System.Drawing.Point(158, 146);
-            this.tb_tempDeltaRange.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tb_tempDeltaRange.Margin = new System.Windows.Forms.Padding(2);
             this.tb_tempDeltaRange.Name = "tb_tempDeltaRange";
             this.tb_tempDeltaRange.Size = new System.Drawing.Size(76, 20);
             this.tb_tempDeltaRange.TabIndex = 21;
@@ -217,7 +219,7 @@
             "8",
             "16"});
             this.cmb_jigConfiguration.Location = new System.Drawing.Point(158, 232);
-            this.cmb_jigConfiguration.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmb_jigConfiguration.Margin = new System.Windows.Forms.Padding(2);
             this.cmb_jigConfiguration.Name = "cmb_jigConfiguration";
             this.cmb_jigConfiguration.Size = new System.Drawing.Size(92, 21);
             this.cmb_jigConfiguration.TabIndex = 5;
@@ -226,7 +228,7 @@
             // tb_temSpampleInterval
             // 
             this.tb_temSpampleInterval.Location = new System.Drawing.Point(158, 106);
-            this.tb_temSpampleInterval.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tb_temSpampleInterval.Margin = new System.Windows.Forms.Padding(2);
             this.tb_temSpampleInterval.Name = "tb_temSpampleInterval";
             this.tb_temSpampleInterval.Size = new System.Drawing.Size(76, 20);
             this.tb_temSpampleInterval.TabIndex = 20;
@@ -240,7 +242,7 @@
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.label6.Location = new System.Drawing.Point(47, 18);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(268, 24);
+            this.label6.Size = new System.Drawing.Size(340, 29);
             this.label6.TabIndex = 18;
             this.label6.Text = "Temperature stable settings";
             // 
@@ -257,6 +259,8 @@
             // 
             // pnl_settingsPanel
             // 
+            this.pnl_settingsPanel.Controls.Add(this.label2);
+            this.pnl_settingsPanel.Controls.Add(this.tb_fwVersion);
             this.pnl_settingsPanel.Controls.Add(this.cmb_licenseTypeInput);
             this.pnl_settingsPanel.Controls.Add(this.panel1);
             this.pnl_settingsPanel.Controls.Add(this.bt_loadCustomerConfigFile);
@@ -271,7 +275,7 @@
             // 
             this.cmb_licenseTypeInput.FormattingEnabled = true;
             this.cmb_licenseTypeInput.Location = new System.Drawing.Point(745, 416);
-            this.cmb_licenseTypeInput.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmb_licenseTypeInput.Margin = new System.Windows.Forms.Padding(2);
             this.cmb_licenseTypeInput.Name = "cmb_licenseTypeInput";
             this.cmb_licenseTypeInput.Size = new System.Drawing.Size(92, 21);
             this.cmb_licenseTypeInput.TabIndex = 8;
@@ -319,7 +323,7 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.label1.Location = new System.Drawing.Point(186, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(201, 24);
+            this.label1.Size = new System.Drawing.Size(251, 29);
             this.label1.TabIndex = 2;
             this.label1.Text = " pressures and temp";
             // 
@@ -353,6 +357,26 @@
             this.TempStartTime.HeaderText = "Temp skip start time[Min]";
             this.TempStartTime.Name = "TempStartTime";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(741, 459);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(110, 20);
+            this.label2.TabIndex = 28;
+            this.label2.Text = " * FW version";
+            // 
+            // tb_fwVersion
+            // 
+            this.tb_fwVersion.Location = new System.Drawing.Point(880, 459);
+            this.tb_fwVersion.Margin = new System.Windows.Forms.Padding(2);
+            this.tb_fwVersion.Name = "tb_fwVersion";
+            this.tb_fwVersion.Size = new System.Drawing.Size(76, 20);
+            this.tb_fwVersion.TabIndex = 25;
+            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -369,6 +393,7 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.pnl_settingsPanel.ResumeLayout(false);
+            this.pnl_settingsPanel.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_calibPressuresPointsTable)).EndInit();
@@ -406,5 +431,7 @@
         private System.Windows.Forms.Label lbl_jigConfiguration;
         private System.Windows.Forms.ComboBox cmb_jigConfiguration;
         private System.Windows.Forms.ComboBox cmb_licenseTypeInput;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tb_fwVersion;
     }
 }

@@ -110,6 +110,7 @@ namespace DP_dashboard
 
             // Temp controller protocol init
             tempControllerInstanse = new TempControllerProtocol(TempControllerComPortName, 9600);
+            //tempControllerInstanse = new TempControllerProtocol("COM16", 9600);
 
             //update versions
             swVersions = new SwVersion("1.0.0", "", "1.0.0");
@@ -272,13 +273,6 @@ namespace DP_dashboard
                 }
             }
 
-            if (classCalibrationInfo.EndDetectEvent)
-            {
-                classCalibrationInfo.EndDetectEvent = false;
-
-                UpdateDeviceTable();
-
-            }
 
 
             if (classCalibrationInfo.ErrorEvent)
@@ -305,11 +299,16 @@ namespace DP_dashboard
                 }
             }
 
-            if (classCalibrationInfo.ChengeStateEvent)
+            if (classCalibrationInfo != null && classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortOk && classCalibrationInfo.ClassTempControllerInstanse.ComPortOk)
             {
+                classCalibrationInfo.UpdateRealTimeData();
 
+                tb_currentTemperature.Text = classCalibrationInfo.CurrentTempControllerValue.ToString();
+                tb_pressCurrentPressure.Text = classCalibrationInfo.CurrentPLCPressure.ToString();
             }
 
+
+            
 
         }
 
@@ -449,12 +448,17 @@ namespace DP_dashboard
                     Application.DoEvents();
                 }
 
-                if(Properties.Settings.Default.DebugMode == false)
-                {
-                    if (classCalibrationInfo.DpCountAxist > 0 && classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count > 0 && classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count > 0)
-                    {
-                        classCalibrationInfo.EndDetectEvent = false;
+                classCalibrationInfo.EndDetectEvent = false;
+                UpdateDeviceTable();
 
+
+                if (Properties.Settings.Default.DebugMode == false)
+                {
+                    if (classCalibrationInfo.DpCountAxist > 0 &&
+                        classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count > 0 && 
+                        classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count > 0 &&
+                        classCalibrationInfo.classCalibrationSettings.Versions.DpFw != "")
+                    {
                         UpdateDeviceTable();
 
 
@@ -556,13 +560,11 @@ namespace DP_dashboard
         void UpdateCalibrationGUI()
         {
             //temp controller
-            tb_currentTemperature.Text = classCalibrationInfo.CurrentTempControllerValue.ToString();
             tb_targetTemperature.Text = classCalibrationInfo.classCalibrationSettings.TempUnderTestList[classCalibrationInfo.CurrentCalibTempIndex].ToString();
             tb_currentSkipTime.Text = ((classCalibrationInfo.classCalibrationSettings.TempSkipStartTime[classCalibrationInfo.CurrentCalibTempIndex]) / 60).ToString() + " [min]";
             //tb_temperatureOnDP.Text = classCalibrationInfo.CurrentTempOnDP.ToString();
 
             //pressure
-            tb_pressCurrentPressure.Text = classCalibrationInfo.CurrentPLCPressure.ToString();
             tb_pressTargetPressure.Text = classCalibrationInfo.PlcBar2Adc(classCalibrationInfo.classCalibrationSettings.PressureUnderTestList[classCalibrationInfo.CurrentCalibPressureIndex]).ToString();            
 
             //disable dp selection
@@ -1005,6 +1007,20 @@ namespace DP_dashboard
             }
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+           float temp =  classCalibrationInfo.TempControllerReadTemp();
+            rtb_info.AppendText(temp.ToString());
+            rtb_info.ScrollToCaret();
+
+            classCalibrationInfo.classDpCommunicationInstanse.DPgetDpInfo();
+        }
+
+        private void pnl_calibrationPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         //private void button3_Click_2(object sender, EventArgs e)
         //{
         //    try
@@ -1020,7 +1036,7 @@ namespace DP_dashboard
         //    {
 
         //    }
-            
+
         //}
     }
 }           

@@ -89,6 +89,8 @@ namespace DP_dashboard
             calibForm.classCalibrationInfo.classCalibrationSettings.TempSkipStartTime.Clear();
 
 
+            calibForm.classCalibrationInfo.classCalibrationSettings.Versions.DpFw = tb_fwVersion.Text;
+
             //save temp points
             for (int i = 0; i < dgv_calibTempPointsTable.Rows.Count; i++)
             {

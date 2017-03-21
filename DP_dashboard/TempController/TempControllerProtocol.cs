@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO.Ports;
+using System.Threading;
 
 namespace TempController_dll
 {
@@ -175,21 +176,13 @@ namespace TempController_dll
             //There is a bug in .Net 2.0 DataReceived Event that prevents people from using this
             //event as an interrupt to handle data (it doesn't fire all of the time).  Therefore
             //we have to use the ReadByte command for a fixed length as it's been shown to be reliable.
-
             for (int i = 0; i < response.Length; i++)
             {
-                if (sp.BytesToRead > 0) // David: safty condition, if have not byte to read it's stuck the calibration Thread
-                {
-                    response[i] = (byte)(sp.ReadByte());
-                }
-                else
-                {
-                    return;
-                }
+                response[i] = (byte)(sp.ReadByte());
             }
         }
 
-        
+
         #endregion
 
 

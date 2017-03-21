@@ -86,7 +86,7 @@ namespace DP_dashboard
         private const int GET_DP_INFO_TIMOUT                            = 1;       // 1 sec
         private const int READ_PRESSURE_INTERVAL                        = 1;
         private const int TEMP_WAIT_BETWEEN_TWO_SMPLINGS_CYCLE          = 300; // 5 min
-
+        private const int READ_OVE_TEMP_FREQ                            = 2;   // 1 sec
         //constant parameters
         private const byte MAX_DP_DEVICES                               = 0x10;      //16
         private const byte MAX_PRESSURE_CALIB_POINT                     = 0x0f;      // 15
@@ -133,6 +133,7 @@ namespace DP_dashboard
         public bool IncermentCalibPointStep = false;
         public bool ConnectingToDP = false;
         public DateTime LastPressureSample = DateTime.Now;
+        public DateTime LastOvenReadTime = DateTime.Now;
         private classLog log = new classLog();
         public bool DetectFlag = false;
         //public int JigConfiguration = 8;
@@ -180,10 +181,16 @@ namespace DP_dashboard
         }
         #endregion
 
-        private void UpdateRealTimeData()
+        public void UpdateRealTimeData()
         {
-            //CurrentTempControllerValue = TempControllerReadTemp(); cancel becouse is stuck the proccess
-            CurrentTempControllerValue = 0;
+            //cancel becouse is stuck the proccess
+            if (CheckTimout(LastOvenReadTime, READ_OVE_TEMP_FREQ))
+            {
+                LastOvenReadTime = DateTime.Now;
+                CurrentTempControllerValue = TempControllerReadTemp();
+            }
+
+            //CurrentTempControllerValue = 0;
             ReadPressureFromPlc();
         }
 
@@ -194,7 +201,7 @@ namespace DP_dashboard
             {
                 while (!CalibrationPaused && DoCalibration)
                 {
-                    UpdateRealTimeData();
+                    //UpdateRealTimeData();
 
                     switch (CurrentState)
                     {
@@ -282,7 +289,7 @@ namespace DP_dashboard
                                     }
                                 }
 
-                                else if (Pressure0AfterVentStable && CurrentCalibPressureIndex == 0)
+                                else if (CurrentCalibPressureIndex == 0)
                                 {
                                     Pressure0AfterVentStable = false;
                                     StateChangeState(StateRunOfAllDp);
@@ -514,7 +521,7 @@ namespace DP_dashboard
         /// param: none
         /// return: uint16 current temp
         /// </summary>
-        private float TempControllerReadTemp()
+        public float TempControllerReadTemp()
         {
             //Create array to accept read values:
             short[] values = new short[Convert.ToInt32(1)];
@@ -535,7 +542,6 @@ namespace DP_dashboard
                 ClassTempControllerInstanse.ComPortOk = false;
                 ClassTempControllerInstanse.ComPortErrorMessage = string.Format("Error: {0} connection error. function - Temp controller.", ClassTempControllerInstanse.sp.PortName);
             }
-
             float value = float.Parse(values[0].ToString()) / 10;
 
             return value;
@@ -570,13 +576,11 @@ namespace DP_dashboard
                         //read current pressure from plc...
                         ReadPressureFromPlc();
 
-                        //classDpCommunicationInstanse.DpWritePressurePointToDevice(classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex], CurrentCalibTempIndex, classCalibrationSettings.PressureUnderTestList[CurrentCalibPressureIndex], CurrentCalibPressureIndex);
+                        classDpCommunicationInstanse.NewDpInfoEvent = false;
                         classDpCommunicationInstanse.DpWritePressurePointToDevice(classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex], CurrentCalibTempIndex, PlcAdc2Bar(CurrentPLCPressure), CurrentCalibPressureIndex);
 
-                        classDpCommunicationInstanse.NewDpInfoEvent = false;
-                        if (classDpCommunicationInstanse.WaitForResponse(2000)) // check if recieve data from DP
                         //Thread.Sleep(1000);
-                        if (classDpCommunicationInstanse.NewDpInfoEvent)
+                        if (classDpCommunicationInstanse.WaitForResponse(2000)) // check if recieve data from DP
                         {
                             //save the data on the current device and current calibpoint..
                             classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].PressureValue1 = classDpCommunicationInstanse.dpInfo.S1Pressure;
@@ -805,8 +809,6 @@ namespace DP_dashboard
                             newDeviceExist.DeviceMacAddress = classDpCommunicationInstanse.dpInfo.DeviceMacAddress;
                             newDeviceExist.DeviceBarcode= classDpCommunicationInstanse.dpInfo.DeviceBarcode;
 
-
-                            newDeviceExist.DeviceSerialNumber = classDpCommunicationInstanse.dpInfo.DeviceBarcode;
                             classDevices[DpCountAxist] = newDeviceExist;
 
                             UpdatePressAndTempOnDPBeforCalib(newDeviceExist);
@@ -933,21 +935,25 @@ namespace DP_dashboard
             {
                 DataFromPLC = classDeltaProtocolInstanse.SendNewMessage(DeltaMsgType.ReadHoldingRegisters, DeltaMemType.D, PLC_FLAG_STATUS_REGISTER_ADDRESS, 1);
                 PressureVentleFlag = IsBitSet(Convert.ToByte(DataFromPLC.IntValue[0]), PRESSURE_VENT_BIT_INDEX_FLAG);
+
+
+                if (PressureVentleFlag)
+                {
+                    Thread.Sleep(2000);
+
+                    Pressure0AfterVentStable = true;
+
+                    DataFromPLC = classDeltaProtocolInstanse.SendNewMessage(DeltaMsgType.ReadHoldingRegisters, DeltaMemType.D, PLC_PRESENT_VALUE_REGISTER_ADDRESS, 1);
+                    CurrentPLCPressure = (Int16)DataFromPLC.IntValue[0];
+                }
             }
             catch(Exception ex)
             {
 
             }
-            if(PressureVentleFlag)
-            {
-                Thread.Sleep(2000);
-
-                Pressure0AfterVentStable = true; 
-
-                DataFromPLC = classDeltaProtocolInstanse.SendNewMessage(DeltaMsgType.ReadHoldingRegisters, DeltaMemType.D, PLC_PRESENT_VALUE_REGISTER_ADDRESS, 1);
-                CurrentPLCPressure = (Int16)DataFromPLC.IntValue[0];
-            }
-            return CurrentPLCPressure; 
+            return CurrentPLCPressure;
+            
+             
         }
 
         /// <summary>
@@ -985,7 +991,7 @@ namespace DP_dashboard
                     }
                 }
 
-                RIT_QA.ClassDal.AddOneTempertureTable(tempTable);
+                RIT_QA.ClassDal.AddOneTempertureTable(tempTable, classDevices);
             }
             catch (Exception ex)
             {

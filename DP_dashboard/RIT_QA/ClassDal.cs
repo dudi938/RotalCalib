@@ -11,7 +11,7 @@ namespace DP_dashboard.RIT_QA
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public static bool AddCalibrationRow(CalibrationData row)
+        public static bool AddCalibrationRow(CalibrationData row, string mac)
         {
             using (RIT_QAEntities db = new RIT_QAEntities())
             {
@@ -19,6 +19,8 @@ namespace DP_dashboard.RIT_QA
                 {
                     Device dev = new Device();
                     dev.SerialNo = row.SerialNo;
+                    dev.MAC = mac;
+                    dev.Date = DateTime.Now;
                     db.Devices.Add(dev);
                     SaveDbChenges(db);
                 }
@@ -30,11 +32,28 @@ namespace DP_dashboard.RIT_QA
         }
 
 
-        public static bool AddOneTempertureTable(List<CalibrationData>  tampertureTable)
+        public static bool AddOneTempertureTable(List<CalibrationData>  tampertureTable, ClassDevice [] devices)
         {
             foreach (CalibrationData row in tampertureTable)
             {
-                if(!AddCalibrationRow(row))
+                string mac = "";
+                foreach(ClassDevice dev in devices)
+                {
+                    if(row.SerialNo == dev.DeviceSerialNumber)
+                    {
+                        mac = dev.DeviceMacAddress;
+                        break;
+                    }
+                }
+
+                if (mac != "")
+                {
+                    if (!AddCalibrationRow(row, mac))
+                    {
+                        return false;
+                    }
+                }
+                else
                 {
                     return false;
                 }

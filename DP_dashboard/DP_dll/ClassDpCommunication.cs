@@ -259,7 +259,9 @@ namespace DpCommunication
                             dpInfo.DeviceMacAddress = "";
 
 
-                            dpInfo.DeviseSerialNumber = System.Text.Encoding.UTF8.GetString(incomingData, DEVICE_INFO_SERIAL_NUMBER_NUMBER_OFFSET, 10);
+                            string temSerialNumber = System.Text.Encoding.UTF8.GetString(incomingData, DEVICE_INFO_SERIAL_NUMBER_NUMBER_OFFSET, 10);
+                            dpInfo.DeviseSerialNumber = temSerialNumber.Replace("\0", "");
+
                             dpInfo.CurrentTemp = (SByte)incomingData[DEVICE_INFO_CURRENT_TEMP_OFFSET];
 
 

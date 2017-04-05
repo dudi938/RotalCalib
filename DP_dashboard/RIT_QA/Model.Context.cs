@@ -16,7 +16,7 @@ namespace DP_dashboard.RIT_QA
     public partial class RIT_QAEntities1 : DbContext
     {
         public RIT_QAEntities1()
-            : base("name=RIT_QAEntities1")
+            : base("name=RIT_QAEntities2")
         {
         }
     

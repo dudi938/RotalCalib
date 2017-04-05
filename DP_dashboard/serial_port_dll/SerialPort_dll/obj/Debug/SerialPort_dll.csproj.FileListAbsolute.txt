@@ -1,4 +1,0 @@
-C:\work\פרויקט כיול - רוטל\project\dashboard\DP_dashboard\serial_port_dll\SerialPort_dll\bin\Debug\SerialPort_dll.dll
-C:\work\פרויקט כיול - רוטל\project\dashboard\DP_dashboard\serial_port_dll\SerialPort_dll\bin\Debug\SerialPort_dll.pdb
-C:\work\פרויקט כיול - רוטל\project\dashboard\DP_dashboard\serial_port_dll\SerialPort_dll\obj\Debug\SerialPort_dll.dll
-C:\work\פרויקט כיול - רוטל\project\dashboard\DP_dashboard\serial_port_dll\SerialPort_dll\obj\Debug\SerialPort_dll.pdb

@@ -153,7 +153,6 @@ namespace DpCommunication
                 SerialPortInstanse.port.Close();
                 SerialPortInstanse.ComPortOk = false;
             }
-            IncomingCommunicationBufferHandlerThread.Abort();
             IncomingCommunicationBufferHandlerThread = null;
         }
 
@@ -291,7 +290,7 @@ namespace DpCommunication
                         break;
                     case API_MSG_DP_LICENSE_ACK:
                         {
-                            LicenseAck = true;
+                            LicenseAck = incomingData[COM_PACKET_INDEX_MESSAGE_TYPE + 1] == 1? true: false;
                         }
                         break;
                     default:
@@ -459,6 +458,10 @@ namespace DpCommunication
             data[0] = API_MSG_PREAMBLE;
             data[1] = (byte)data.Count();
             data[2] = API_MSG_DP_SEND_LICENSE;  //opcode
+
+            Array.Copy(license, 0, data, API_MSG_DP_BASIC_MASSEGE_LENGTH - 1, license.Count());
+
+
             data[data.Count() - 1] = CheckCum(data, data.Count());
             SerialPortInstanse.Send(data, data.Count());
         }

@@ -1077,8 +1077,9 @@ namespace DP_dashboard
                         oneRowOfDevice.CalibrationToolVer = classCalibrationSettings.Versions.CalibrationTool;
                         oneRowOfDevice.DpFwVer = classCalibrationSettings.Versions.DpFw;
                         oneRowOfDevice.MultiPlexerFwVer = classCalibrationSettings.Versions.MultiPlexerFw;
-                        oneRowOfDevice.Batch = classCalibrationSettings.Batch;
+                        oneRowOfDevice.BatchID = classCalibrationSettings.Batch;
                         oneRowOfDevice.Barcode = classDevices[unitCounter].DeviceBarcode;
+                        oneRowOfDevice.MAC_ADDRESS = classDevices[unitCounter].DeviceMacAddress;
                         oneRowOfDevice.StationID = classCalibrationSettings.StationId;
                         oneRowOfDevice.UserID = RIT_QA.ClassDal.GetFirstUserID();
                         oneRowOfDevice.PressureSP = classCalibrationSettings.PressureUnderTestList[pressureCounter];

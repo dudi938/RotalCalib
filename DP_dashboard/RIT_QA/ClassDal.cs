@@ -11,22 +11,22 @@ namespace DP_dashboard.RIT_QA
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public static bool AddCalibrationRow(CalibrationData row, string mac)
+        public static bool AddCalibrationRow(CalibrationData row)
         {
             using (RIT_QAEntities1 db = new RIT_QAEntities1())
             {
-                if (db.Devices.Find(row.Barcode) == null)
+                if (db.Devices.Find(row.MAC_ADDRESS) == null)
                 {
                     Device dev = new Device();
                     dev.Barcode = row.Barcode;
-                    dev.MAC = mac;
+                    dev.MAC = row.MAC_ADDRESS;
                     dev.Date = DateTime.Now;
                     db.Devices.Add(dev);
                     SaveDbChenges(db);
                 }
                 else
                 {
-                    db.Devices.Find(row.Barcode).MAC = mac;
+                    db.Devices.Find(row.Barcode).MAC = row.MAC_ADDRESS;
                     if (db.Devices.Find(row.Barcode).Date == null)
                         db.Devices.Find(row.Barcode).Date = DateTime.Now;
                     SaveDbChenges(db);
@@ -43,27 +43,7 @@ namespace DP_dashboard.RIT_QA
         {
             foreach (CalibrationData row in tampertureTable)
             {
-                string mac = "";
-                foreach (ClassDevice dev in devices)
-                {
-                    if (row.Barcode == dev.DeviceSerialNumber)
-                    {
-                        mac = dev.DeviceMacAddress;
-                        break;
-                    }
-                }
-
-                if (mac != "")
-                {
-                    if (!AddCalibrationRow(row, mac))
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
+                AddCalibrationRow(row);
             }
             return true;
         }

@@ -4,14 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RIT_QAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RIT_QAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CalibrationDatas">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="Barcode" Type="nchar" MaxLength="20" Nullable="false" />
-          <Property Name="MAC" Type="nchar" MaxLength="12" />
-          <Property Name="Batch" Type="nchar" MaxLength="10" />
+          <Property Name="MAC_ADDRESS" Type="nchar" MaxLength="12" />
+          <Property Name="BatchID" Type="nchar" MaxLength="10" />
           <Property Name="UserID" Type="int" />
           <Property Name="StationID" Type="int" />
           <Property Name="PressureSP" Type="float" />
@@ -79,18 +79,30 @@
             <End Role="CalibrationDatas" EntitySet="CalibrationDatas" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RIT_QAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="RIT_QAEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CalibrationDatas" EntityType="RIT_QAModel.CalibrationData" />
+          <EntitySet Name="Devices" EntityType="RIT_QAModel.Device" />
+          <EntitySet Name="Users" EntityType="RIT_QAModel.User" />
+          <AssociationSet Name="FK_CalibrationDatas_Devices" Association="RIT_QAModel.FK_CalibrationDatas_Devices">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="CalibrationData" EntitySet="CalibrationDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalibrationDatas_Users" Association="RIT_QAModel.FK_CalibrationDatas_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="CalibrationData" EntitySet="CalibrationDatas" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="CalibrationData">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="Barcode" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="MAC" Type="String" MaxLength="12" FixedLength="true" Unicode="true" />
-          <Property Name="Batch" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Barcode" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="MAC_ADDRESS" Type="String" MaxLength="12" FixedLength="true" Unicode="true" />
+          <Property Name="BatchID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="UserID" Type="Int32" />
           <Property Name="StationID" Type="Int32" />
           <Property Name="PressureSP" Type="Double" />
@@ -104,17 +116,17 @@
           <Property Name="CalibrationToolVer" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="DpFwVer" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="MultiPlexerFwVer" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Device" Relationship="Self.FK_CalibrationDatas_Devices" FromRole="CalibrationDatas" ToRole="Devices" />
-          <NavigationProperty Name="User" Relationship="Self.FK_CalibrationDatas_Users" FromRole="CalibrationDatas" ToRole="Users" />
+          <NavigationProperty Name="Device" Relationship="RIT_QAModel.FK_CalibrationDatas_Devices" FromRole="CalibrationData" ToRole="Device" />
+          <NavigationProperty Name="User" Relationship="RIT_QAModel.FK_CalibrationDatas_Users" FromRole="CalibrationData" ToRole="User" />
         </EntityType>
         <EntityType Name="Device">
           <Key>
             <PropertyRef Name="Barcode" />
           </Key>
-          <Property Name="Barcode" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Barcode" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="MAC" Type="String" MaxLength="12" FixedLength="true" Unicode="true" />
           <Property Name="Date" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="CalibrationDatas" Relationship="Self.FK_CalibrationDatas_Devices" FromRole="Devices" ToRole="CalibrationDatas" />
+          <NavigationProperty Name="CalibrationDatas" Relationship="RIT_QAModel.FK_CalibrationDatas_Devices" FromRole="Device" ToRole="CalibrationData" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -123,45 +135,32 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="CalibrationDatas" Relationship="Self.FK_CalibrationDatas_Users" FromRole="Users" ToRole="CalibrationDatas" />
+          <NavigationProperty Name="CalibrationDatas" Relationship="RIT_QAModel.FK_CalibrationDatas_Users" FromRole="User" ToRole="CalibrationData" />
         </EntityType>
         <Association Name="FK_CalibrationDatas_Devices">
-          <End Role="Devices" Type="Self.Device" Multiplicity="1" />
-          <End Role="CalibrationDatas" Type="Self.CalibrationData" Multiplicity="*" />
+          <End Type="RIT_QAModel.Device" Role="Device" Multiplicity="1" />
+          <End Type="RIT_QAModel.CalibrationData" Role="CalibrationData" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Devices">
+            <Principal Role="Device">
               <PropertyRef Name="Barcode" />
             </Principal>
-            <Dependent Role="CalibrationDatas">
+            <Dependent Role="CalibrationData">
               <PropertyRef Name="Barcode" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CalibrationDatas_Users">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-          <End Role="CalibrationDatas" Type="Self.CalibrationData" Multiplicity="*" />
+          <End Type="RIT_QAModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="RIT_QAModel.CalibrationData" Role="CalibrationData" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Users">
+            <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CalibrationDatas">
+            <Dependent Role="CalibrationData">
               <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="RIT_QAEntities2" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CalibrationDatas" EntityType="Self.CalibrationData" />
-          <EntitySet Name="Devices" EntityType="Self.Device" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_CalibrationDatas_Devices" Association="Self.FK_CalibrationDatas_Devices">
-            <End Role="Devices" EntitySet="Devices" />
-            <End Role="CalibrationDatas" EntitySet="CalibrationDatas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CalibrationDatas_Users" Association="Self.FK_CalibrationDatas_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="CalibrationDatas" EntitySet="CalibrationDatas" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -171,40 +170,40 @@
           <EntitySetMapping Name="CalibrationDatas">
             <EntityTypeMapping TypeName="RIT_QAModel.CalibrationData">
               <MappingFragment StoreEntitySet="CalibrationDatas">
-                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
-                <ScalarProperty Name="MAC" ColumnName="MAC" />
-                <ScalarProperty Name="Batch" ColumnName="Batch" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="StationID" ColumnName="StationID" />
-                <ScalarProperty Name="PressureSP" ColumnName="PressureSP" />
-                <ScalarProperty Name="PressurePLC" ColumnName="PressurePLC" />
-                <ScalarProperty Name="TempSP" ColumnName="TempSP" />
-                <ScalarProperty Name="TempDP" ColumnName="TempDP" />
-                <ScalarProperty Name="RightA2D" ColumnName="RightA2D" />
-                <ScalarProperty Name="LeftA2D" ColumnName="LeftA2D" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
-                <ScalarProperty Name="CalibrationToolVer" ColumnName="CalibrationToolVer" />
-                <ScalarProperty Name="DpFwVer" ColumnName="DpFwVer" />
                 <ScalarProperty Name="MultiPlexerFwVer" ColumnName="MultiPlexerFwVer" />
+                <ScalarProperty Name="DpFwVer" ColumnName="DpFwVer" />
+                <ScalarProperty Name="CalibrationToolVer" ColumnName="CalibrationToolVer" />
+                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="LeftA2D" ColumnName="LeftA2D" />
+                <ScalarProperty Name="RightA2D" ColumnName="RightA2D" />
+                <ScalarProperty Name="TempDP" ColumnName="TempDP" />
+                <ScalarProperty Name="TempSP" ColumnName="TempSP" />
+                <ScalarProperty Name="PressurePLC" ColumnName="PressurePLC" />
+                <ScalarProperty Name="PressureSP" ColumnName="PressureSP" />
+                <ScalarProperty Name="StationID" ColumnName="StationID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+                <ScalarProperty Name="MAC_ADDRESS" ColumnName="MAC_ADDRESS" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Devices">
             <EntityTypeMapping TypeName="RIT_QAModel.Device">
               <MappingFragment StoreEntitySet="Devices">
-                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
-                <ScalarProperty Name="MAC" ColumnName="MAC" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="MAC" ColumnName="MAC" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="RIT_QAModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

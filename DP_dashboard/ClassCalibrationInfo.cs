@@ -84,14 +84,15 @@ namespace DP_dashboard
         private const int MAX_TIME_WAIT_TO_PRESSURE_SET_POINT           = 2700;       //45 minutes'
         private const int MAX_TIME_WAIT_TO_TEMP_SET_POINT               = 1800;     // 30 min 1800
         private const int GET_DP_INFO_TIMOUT                            = 1;       // 1 sec
-        private const int READ_PRESSURE_INTERVAL                        = 1;
+        private const int READ_PRESSURE_INTERVAL                        = 2;
         private const int TEMP_WAIT_BETWEEN_TWO_SMPLINGS_CYCLE          = 300; // 5 min
-        private const int READ_OVE_TEMP_FREQ                            = 2;   // 1 sec
+        private const int READ_OVE_TEMP_FREQ                            = 1;   // 1 sec
         //constant parameters
         private const byte MAX_DP_DEVICES                               = 0x10;      //16
         private const byte MAX_PRESSURE_CALIB_POINT                     = 0x0f;      // 15
         private const byte MAX_TEMP_CALIB_POINT                         = 0x05;      // 5
         private const byte TEMP_SELECT_SET_POINT_REGISTER_ADDRESSS      = 15;
+        private const byte TEMP_TARGET_SETPOINT_REGISTER_ADDRESSS       = 2;
         private const byte TEMP_SET_POINT_1_REGISTER_ADDRESSS           = 24;
         private const byte TEMP_SET_POINT_2_REGISTER_ADDRESSS           = 25;
         private const byte TEMP_PRESENT_VALUE_REGISTER_ADDRESSS         = 1;
@@ -100,6 +101,7 @@ namespace DP_dashboard
         private const int PLC_FLAG_STATUS_REGISTER_ADDRESS              = 300;
         private const int PLC_PRESENT_VALUE_REGISTER_ADDRESS            = 301;
         private const int MAX_ALLOW_SEND_GET_INFO_CMD                   = 3;
+        private const int MAX_SEND_TARGET_TEMP_TO_OVEN                  = 3;
         private const int TEMP_TEMP_TOLERANCE                           = 2;
 
         //Convert A2D to BAR constant
@@ -157,7 +159,7 @@ namespace DP_dashboard
         public classDeltaProtocol classDeltaProtocolInstanse;
 
         public ClassCalibrationSettings classCalibrationSettings;
-
+        public int OvenSendTargeTempCounter = 0;
         #endregion
 
         #region c'tor
@@ -181,13 +183,18 @@ namespace DP_dashboard
         }
         #endregion
 
-        public void UpdateRealTimeData()
+        public void UpdateRealTimeData(CalibForm form = null)
         {
             //cancel becouse is stuck the proccess
             if (CheckTimout(LastOvenReadTime, READ_OVE_TEMP_FREQ))
             {
                 LastOvenReadTime = DateTime.Now;
                 CurrentTempControllerValue = TempControllerReadTemp();
+                if (CurrentTempControllerValue > (-100))
+                {
+                    if (form != null)
+                        form.UpdateCurrentTemp(CurrentTempControllerValue.ToString());
+                }
             }
 
             //CurrentTempControllerValue = 0;
@@ -234,7 +241,7 @@ namespace DP_dashboard
                                 else
                                 {
 
-                                    // noo need set 0 bar becouse i still set  when i sent temp setpoint.
+                                    // no need set 0 bar becouse i still set  when i sent temp setpoint.
                                     TimeFromSetPressurePointRequest = DateTime.Now;
 
                                     StateChangeState(StateWaitToSetPressureStable);
@@ -250,16 +257,26 @@ namespace DP_dashboard
 
                                 WriteTempSetPoint(TEMP_SET_POINT_1_REGISTER_ADDRESSS, classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex]);
                                 SelectSetPoint(TEMP_SELECT_SET_POINT_REGISTER_ADDRESSS, 0);
+                                OvenSendTargeTempCounter++;
 
-                                TimeFromSetTempPointRequest = DateTime.Now;
+                                Thread.Sleep(1000);
+                                
+                                if (ValidOvenTargetSp(classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex]))
+                                {
+                                    TimeFromSetTempPointRequest = DateTime.Now;
 
-                                CriticalStates = false;
+                                    CriticalStates = false;
 
-                                ////TIME TO TEMP STABLE ERROR = CURRENT SKIP TIME + ERROR TIMEOUT
-                                //classCalibrationSettings.TempToTimoutError +=  
+                                    ////TIME TO TEMP STABLE ERROR = CURRENT SKIP TIME + ERROR TIMEOUT
+                                    //classCalibrationSettings.TempToTimoutError +=  
 
-                                StateChangeState(StateWaitToSetTempStable);
-
+                                    OvenSendTargeTempCounter = 0;
+                                    StateChangeState(StateWaitToSetTempStable);
+                                }
+                                else if(OvenSendTargeTempCounter >= MAX_SEND_TARGET_TEMP_TO_OVEN)
+                                {
+                                    StateChangeState(StateTempStableError);
+                                }
                             }
                             break;
 
@@ -345,7 +362,10 @@ namespace DP_dashboard
                                 {                                 
                                     StateChangeState(StateSendTempSetPoints);
                                     NextAfterTempTimoutErrorEvent = false;
-                                }                           
+                                }
+                                TraceInfo += "Fail to set temperature.\r\n" + "Close calibration proccess.\r\n";
+                                DoCalibration = false;
+                                StateMachineReset();
                             }
                             break;
                             
@@ -491,29 +511,45 @@ namespace DP_dashboard
         /// </summary>
         public float ReadPressureFromPlc()
         {
+
             if (CheckTimout(LastPressureSample, READ_PRESSURE_INTERVAL))
             {
-                try
+
+                DeltaReturnedData pressure = new DeltaReturnedData();
+                DeltaReturnedData flags = new DeltaReturnedData();
+                lock (this)
                 {
-                    LastPressureSample = DateTime.Now;
+                    try
+                    {
+                        LastPressureSample = DateTime.Now;
 
-                    DeltaReturnedData DataFromPLC = new DeltaReturnedData();
-                    DataFromPLC = classDeltaProtocolInstanse.SendNewMessage(DeltaMsgType.ReadHoldingRegisters, DeltaMemType.D, PLC_FLAG_STATUS_REGISTER_ADDRESS, 1);
-                    PressureStableFlag = IsBitSet(Convert.ToByte(DataFromPLC.IntValue[0]), PRESSURE_STABLE_BIT_INDEX_FLAG);
+                        flags = classDeltaProtocolInstanse.SendNewMessage(DeltaMsgType.ReadHoldingRegisters, DeltaMemType.D, PLC_FLAG_STATUS_REGISTER_ADDRESS, 1);
+                        if (flags.IntValue != null)
+                        {
+                            PressureStableFlag = IsBitSet(Convert.ToByte((byte)flags.IntValue[0]), PRESSURE_STABLE_BIT_INDEX_FLAG);
+                            //PressureStableFlag = true;
+                        }
 
+                        Thread.Sleep(100);
 
-                    DataFromPLC = classDeltaProtocolInstanse.SendNewMessage(DeltaMsgType.ReadHoldingRegisters, DeltaMemType.D, PLC_PRESENT_VALUE_REGISTER_ADDRESS, 1);
-                    CurrentPLCPressure = (Int16)DataFromPLC.IntValue[0];
-                }
+                        pressure = classDeltaProtocolInstanse.SendNewMessage(DeltaMsgType.ReadHoldingRegisters, DeltaMemType.D, PLC_PRESENT_VALUE_REGISTER_ADDRESS, 1);
+                        if (pressure.IntValue != null)
+                        {
+                            CurrentPLCPressure = (Int16)pressure.IntValue[0];
+                        }
+                        //CurrentPLCPressure = 23;
+                    }
 
-                catch (Exception ex)
-                {
-                    ErrorMessage = "PLC ERROR-" + ex.ToString();
-                    ErrorEvent = true;
+                    catch (Exception ex)
+                    {
+                        ErrorMessage = "PLC ERROR-" + ex.ToString();
+                        ErrorEvent = true;
 
+                    }
                 }
             }
             return CurrentPLCPressure;
+
         }
 
         /// <summary>
@@ -533,16 +569,20 @@ namespace DP_dashboard
             pollLength = Convert.ToUInt16(1);
 
             //Read registers and display data in desired format:
+            bool commstatus = false;
             try
             {
-               ClassTempControllerInstanse.SendFc3(Convert.ToByte(Properties.Settings.Default.TempControllerSlaveAddress), pollStart, pollLength, ref values);            
+                commstatus = ClassTempControllerInstanse.SendFc3(Convert.ToByte(Properties.Settings.Default.TempControllerSlaveAddress), pollStart, pollLength, ref values);            
             }
             catch (Exception err)
             {
                 ClassTempControllerInstanse.ComPortOk = false;
                 ClassTempControllerInstanse.ComPortErrorMessage = string.Format("Error: {0} connection error. function - Temp controller.", ClassTempControllerInstanse.sp.PortName);
             }
+            
             float value = float.Parse(values[0].ToString()) / 10;
+            if (!commstatus)
+                return (-200);
 
             return value;
         }
@@ -607,8 +647,11 @@ namespace DP_dashboard
                                 classDpCommunicationInstanse.LicenseAck = false;
                                 //MAC + Capabilities
                                 byte[] license = new LicenceSupport().GetKey(classCalibrationSettings.DeviceLicens, classDevices[DpPtr].DeviceMacAddress);
-                                if(license.Length > 0)
-                                classDpCommunicationInstanse.SendDpLicense(license);
+
+
+                                if(license != null)
+                                    if (license.Length > 0)
+                                        classDpCommunicationInstanse.SendDpLicense(license);
 
                                 Thread.Sleep(1000);
                                 if(classDpCommunicationInstanse.LicenseAck)
@@ -679,6 +722,50 @@ namespace DP_dashboard
         }
 
 
+
+        /// <summary>
+        /// discription: ValidOvenTargetSp write temp setpoint to the oven
+        /// param: float target setpoint
+        /// return: bool if valid ok
+        /// </summary> 
+        /// 
+        public bool ValidOvenTargetSp(float target)
+        {
+            target = target * 10;
+            short[] values = new short[1];
+            float value = 0.0f;
+
+            try
+            {
+                SelectSetPoint(TEMP_SELECT_SET_POINT_REGISTER_ADDRESSS, 0);
+                Thread.Sleep(200);
+                if (ClassTempControllerInstanse.SendFc3(Convert.ToByte(Properties.Settings.Default.TempControllerSlaveAddress), TEMP_TARGET_SETPOINT_REGISTER_ADDRESSS, 1, ref values))
+                {
+                    value = float.Parse(values[0].ToString());
+                    if (value == target)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
+
+                }
+                else
+                { 
+                    TraceInfo += "Error: Fail to valid temperatue set point on oven\r\n" + "Current Target temperature on oven is " + value.ToString() + ":\r\n";
+                    return false;
+                }
+                
+            }
+            catch (Exception err)
+            {
+                TraceInfo += "Error: Fail to valid temperatue set point\r\n" + "Current Target temperature on oven is " + value.ToString() + ":\r\n" + err.ToString();
+                return false;
+            }
+
+
+            return true;
+        }
 
         /// <summary>
         /// discription: WriteTempSetPoint write temp setpoint to the oven
@@ -922,13 +1009,13 @@ namespace DP_dashboard
         /// </summary>
         private Int16 VentToRead0Bar()
         {
+#if false
             List<short> l = new List<short>();
             DeltaReturnedData DataFromPLC = new DeltaReturnedData();
 
             l.Clear();
             l.Add(0); // a2d value   = 0
             classDeltaProtocolInstanse.classDeltaWriteSetpoint(l);
-
             Thread.Sleep(1000);
 
             try
@@ -951,9 +1038,16 @@ namespace DP_dashboard
             {
 
             }
-            return CurrentPLCPressure;
-            
-             
+#else
+
+            List<short> l = new List<short>();
+            l.Clear();
+            l.Add(0); // a2d value   = 0
+            classDeltaProtocolInstanse.classDeltaWriteSetpoint(l);
+
+            Thread.Sleep(1000);
+#endif
+            return CurrentPLCPressure;            
         }
 
         /// <summary>

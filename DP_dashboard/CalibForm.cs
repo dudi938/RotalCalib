@@ -109,7 +109,7 @@ namespace DP_dashboard
 
 
             // Temp controller protocol init
-            tempControllerInstanse = new TempControllerProtocol(TempControllerComPortName, 9600);
+            tempControllerInstanse = new TempControllerProtocol(TempControllerComPortName, 9600, true);
             //tempControllerInstanse = new TempControllerProtocol("COM16", 9600);
 
             //update versions
@@ -301,15 +301,24 @@ namespace DP_dashboard
 
             if (classCalibrationInfo != null && classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortOk && classCalibrationInfo.ClassTempControllerInstanse.ComPortOk)
             {
-                classCalibrationInfo.UpdateRealTimeData();
+                classCalibrationInfo.UpdateRealTimeData(this);
 
-                tb_currentTemperature.Text = classCalibrationInfo.CurrentTempControllerValue.ToString();
+                //UpdateCurrentTemp(classCalibrationInfo.CurrentTempControllerValue.ToString());
                 tb_pressCurrentPressure.Text = classCalibrationInfo.CurrentPLCPressure.ToString();
             }
 
 
             
 
+        }
+        public void UpdateCurrentTemp(string value)
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<string>(UpdateCurrentTemp), new object[] { value });
+                return;
+            }
+            tb_currentTemperature.Text = value;
         }
 
         private void UpdateGUI()
@@ -1021,22 +1030,9 @@ namespace DP_dashboard
 
         }
 
-        //private void button3_Click_2(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        LicenceSupport lic = new LicenceSupport();
-        //        byte[] license = lic.GetKey(classCalibrationInfo.classCalibrationSettings.DeviceLicens, classCalibrationInfo.classDevices[0].DeviceMacAddress);
-        //        if (license.Length > 0)
-        //        {
-        //            MessageBox.Show("success");
-        //        }
-        //    }
-        //    catch
-        //    {
-
-        //    }
-
-        //}
+        private void button3_Click_2(object sender, EventArgs e)
+        {
+            classCalibrationInfo.ValidOvenTargetSp(4.7f);
+        }
     }
 }           

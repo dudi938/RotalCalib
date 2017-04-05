@@ -3,10 +3,6 @@ using System.Net.Http;
 using System.Threading;
 
 
-//using Newtonsoft;
-//using Newtonsoft.Json;
-//using Newtonsoft.Json.Linq;
-
 namespace DP_dashboard
 {
     public class LicenceSupport

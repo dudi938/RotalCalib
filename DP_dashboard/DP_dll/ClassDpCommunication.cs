@@ -263,8 +263,6 @@ namespace DpCommunication
                             dpInfo.DeviseSerialNumber = temSerialNumber.Replace("\0", "");
 
                             dpInfo.CurrentTemp = (SByte)incomingData[DEVICE_INFO_CURRENT_TEMP_OFFSET];
-
-
                             dpInfo.S1Pressure = System.BitConverter.ToSingle(incomingData, DEVICE_INFO_S1_PRESSURE_OFFSET);
                             dpInfo.S2Pressure = System.BitConverter.ToSingle(incomingData, DEVICE_INFO_S2_PRESSURE_OFFSET);
                             dpInfo.Calibrated = incomingData[DEVICE_INFO_CALIBRATED_OFFSET];

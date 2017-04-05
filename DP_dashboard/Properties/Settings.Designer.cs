@@ -122,18 +122,6 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("FTDIBUS\\VID_0403+PID_6001+FT9FYCYCA\\0000_0")]
-        public string DpComPortID {
-            get {
-                return ((string)(this["DpComPortID"]));
-            }
-            set {
-                this["DpComPortID"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("FTDIBUS\\VID_0403+PID_6001+FT94MRWKA\\0000_0")]
         public string PlcComPortID {
             get {
@@ -158,18 +146,6 @@ namespace DP_dashboard.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("USB\\VID_1A86&PID_7523\\7&10631d5e&0&2_0")]
-        public string TempControllerComPortID {
-            get {
-                return ((string)(this["TempControllerComPortID"]));
-            }
-            set {
-                this["TempControllerComPortID"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool WriteToDB {
             get {
@@ -177,6 +153,30 @@ namespace DP_dashboard.Properties {
             }
             set {
                 this["WriteToDB"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("FTDIBUS\\VID_0403+PID_6001+FT9FYCYCA\\0000_0")]
+        public string DpComPortID {
+            get {
+                return ((string)(this["DpComPortID"]));
+            }
+            set {
+                this["DpComPortID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("USB\\VID_1A86&PID_7523\\6&390363f7&0&3_0")]
+        public string TempControllerComPortID {
+            get {
+                return ((string)(this["TempControllerComPortID"]));
+            }
+            set {
+                this["TempControllerComPortID"] = value;
             }
         }
         

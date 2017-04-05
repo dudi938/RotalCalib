@@ -13,10 +13,10 @@ namespace DP_dashboard.RIT_QA
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class RIT_QAEntities : DbContext
+    public partial class RIT_QAEntities1 : DbContext
     {
-        public RIT_QAEntities()
-            : base("name=RIT_QAEntities")
+        public RIT_QAEntities1()
+            : base("name=RIT_QAEntities1")
         {
         }
     

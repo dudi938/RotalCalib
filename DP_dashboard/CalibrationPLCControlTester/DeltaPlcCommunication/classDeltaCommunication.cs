@@ -304,7 +304,7 @@ namespace DeltaPlcCommunication
 
                     break;
             }
-
+            RxMsg = "";
             return Incoming;
         }
 

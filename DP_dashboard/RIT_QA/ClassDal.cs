@@ -13,15 +13,22 @@ namespace DP_dashboard.RIT_QA
 
         public static bool AddCalibrationRow(CalibrationData row, string mac)
         {
-            using (RIT_QAEntities db = new RIT_QAEntities())
+            using (RIT_QAEntities1 db = new RIT_QAEntities1())
             {
-                if(db.Devices.Find(row.SerialNo) == null)
+                if (db.Devices.Find(row.SerialNo) == null)
                 {
                     Device dev = new Device();
                     dev.SerialNo = row.SerialNo;
                     dev.MAC = mac;
                     dev.Date = DateTime.Now;
                     db.Devices.Add(dev);
+                    SaveDbChenges(db);
+                }
+                else
+                {
+                    db.Devices.Find(row.SerialNo).MAC = mac;
+                    if (db.Devices.Find(row.SerialNo).Date == null)
+                        db.Devices.Find(row.SerialNo).Date = DateTime.Now;
                     SaveDbChenges(db);
                 }
 
@@ -32,14 +39,14 @@ namespace DP_dashboard.RIT_QA
         }
 
 
-        public static bool AddOneTempertureTable(List<CalibrationData>  tampertureTable, ClassDevice [] devices)
+        public static bool AddOneTempertureTable(List<CalibrationData> tampertureTable, ClassDevice[] devices)
         {
             foreach (CalibrationData row in tampertureTable)
             {
                 string mac = "";
-                foreach(ClassDevice dev in devices)
+                foreach (ClassDevice dev in devices)
                 {
-                    if(row.SerialNo == dev.DeviceSerialNumber)
+                    if (row.SerialNo == dev.DeviceSerialNumber)
                     {
                         mac = dev.DeviceMacAddress;
                         break;
@@ -66,7 +73,7 @@ namespace DP_dashboard.RIT_QA
         static public Device GetDeviceBySerialNumber(string serialNo)
         {
             Device dev;
-            using (RIT_QAEntities db = new RIT_QAEntities())
+            using (RIT_QAEntities1 db = new RIT_QAEntities1())
             {
                 dev = db.Devices.Find(serialNo);
             }
@@ -77,7 +84,7 @@ namespace DP_dashboard.RIT_QA
         static public User GetUserByID(int id)
         {
             User user;
-            using (RIT_QAEntities db = new RIT_QAEntities())
+            using (RIT_QAEntities1 db = new RIT_QAEntities1())
             {
                 user = db.Users.Find(id);
             }
@@ -87,10 +94,10 @@ namespace DP_dashboard.RIT_QA
 
         public static int GetFirstUserID()
         {
-            using (RIT_QAEntities db = new RIT_QAEntities())
+            using (RIT_QAEntities1 db = new RIT_QAEntities1())
             {
                 User user = db.Users.FirstOrDefault();
-                if(user == null)
+                if (user == null)
                 {
                     user = new User();
                     user.Name = "david";
@@ -103,7 +110,7 @@ namespace DP_dashboard.RIT_QA
             }
         }
 
-        static bool SaveDbChenges(RIT_QAEntities db)
+        static bool SaveDbChenges(RIT_QAEntities1 db)
         {
             try
             {
@@ -113,9 +120,9 @@ namespace DP_dashboard.RIT_QA
 
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Logger.Error("Save chenges failed" + "    "  + ex.StackTrace.ToString() + ex.InnerException.ToString());
+                Logger.Error("Save chenges failed" + "    " + ex.StackTrace.ToString() + ex.InnerException.ToString());
 
                 return false;
             }

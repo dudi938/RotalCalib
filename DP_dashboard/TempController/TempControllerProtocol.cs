@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO.Ports;
 using System.Threading;
+using System.IO;
 
 namespace TempController_dll
 {
@@ -15,11 +16,12 @@ namespace TempController_dll
         public string modbusStatus;
         public bool TempControllerConnectionStatus = false;
         public bool TempControllerConnectionEvent = false;
-
+        private bool _debug = false;
 
         #region Constructor / Deconstructor
-        public TempControllerProtocol(string Name, int Baud)
+        public TempControllerProtocol(string Name, int Baud, bool debug=false)
         {
+            _debug = debug;
             StartPoll(Name, Baud);
         }
         ~TempControllerProtocol()
@@ -268,14 +270,30 @@ namespace TempController_dll
                 //Build outgoing modbus message:
                 BuildMessage(address, (byte)3, start, registers, ref message);
                 //Send modbus message to Serial Port:
+                if (_debug)
+                {
+                    WriteToFile("Tx -> ", message);
+
+                }
                 try
                 {
                     sp.Write(message, 0, message.Length);
                     GetResponse(ref response);
+                    if (_debug)
+                    {
+                        WriteToFile("Rx <- ", response);
+
+                    }
                 }
+
                 catch (Exception err)
                 {
                     modbusStatus = "Error in read event: " + err.Message;
+                    if (_debug)
+                    {
+                        WriteToFile(modbusStatus, new byte [0]);
+
+                    }
                     return false;
                 }
                 //Evaluate message:
@@ -294,15 +312,38 @@ namespace TempController_dll
                 else
                 {
                     modbusStatus = "CRC error";
+                    if (_debug)
+                    {
+                        WriteToFile(modbusStatus, new byte[0]);
+
+                    }
                     return false;
                 }
             }
             else
             {
+
                 modbusStatus = "Serial port not open";
+                if (_debug)
+                {
+                    WriteToFile(modbusStatus, new byte[0]);
+
+                }
                 return false;
             }
 
+        }
+
+        private void WriteToFile(string header,byte [] buffer)
+        {
+            for (int i = 0; i < buffer.Length; i++)
+                header += String.Format("{0:X2}", buffer[i]);
+
+            using (StreamWriter sw = File.AppendText(@"termo.txt"))
+            {
+
+                sw.WriteLine(header);
+            }
         }
         #endregion
 

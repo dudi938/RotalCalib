@@ -23,3 +23,11 @@ C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\multiplexing_dll
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\obj\Debug\multiplexing_dll.csprojResolveAssemblyReference.cache
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\obj\Debug\multiplexing_dll.dll
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\obj\Debug\multiplexing_dll.pdb
+C:\david\rotal\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\bin\Debug\multiplexing_dll.dll
+C:\david\rotal\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\bin\Debug\multiplexing_dll.pdb
+C:\david\rotal\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\bin\Debug\log4net.dll
+C:\david\rotal\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\bin\Debug\SerialPort_dll.dll
+C:\david\rotal\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\bin\Debug\log4net.xml
+C:\david\rotal\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\bin\Debug\SerialPort_dll.pdb
+C:\david\rotal\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\obj\Debug\multiplexing_dll.dll
+C:\david\rotal\RotalCalib\DP_dashboard\multiplexing_dll\multiplexing_dll\obj\Debug\multiplexing_dll.pdb

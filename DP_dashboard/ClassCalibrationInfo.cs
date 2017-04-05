@@ -17,6 +17,12 @@ namespace DP_dashboard
     {
         #region variables
         public SwVersion Versions;
+
+
+        public String UserName = "";
+        public int StationId = 0;
+        public string Batch;
+
         public List<float> PressureUnderTestList = new List<float>();
         public List<float> TempUnderTestList = new List<float>();
         public List<int> TempSkipStartTime = new List<int>();
@@ -46,6 +52,7 @@ namespace DP_dashboard
         public ClassCalibrationSettings(SwVersion versions)
         {
             Versions = versions;
+            StationId = Properties.Settings.Default.StationId;
         }
         #endregion
     }
@@ -1070,9 +1077,9 @@ namespace DP_dashboard
                         oneRowOfDevice.CalibrationToolVer = classCalibrationSettings.Versions.CalibrationTool;
                         oneRowOfDevice.DpFwVer = classCalibrationSettings.Versions.DpFw;
                         oneRowOfDevice.MultiPlexerFwVer = classCalibrationSettings.Versions.MultiPlexerFw;
-
-                        oneRowOfDevice.SerialNo = classDevices[unitCounter].DeviceSerialNumber;
-                        oneRowOfDevice.StationID = 1;
+                        oneRowOfDevice.Batch = classCalibrationSettings.Batch;
+                        oneRowOfDevice.Barcode = classDevices[unitCounter].DeviceBarcode;
+                        oneRowOfDevice.StationID = classCalibrationSettings.StationId;
                         oneRowOfDevice.UserID = RIT_QA.ClassDal.GetFirstUserID();
                         oneRowOfDevice.PressureSP = classCalibrationSettings.PressureUnderTestList[pressureCounter];
                         oneRowOfDevice.PressurePLC = classDevices[unitCounter].CalibrationData[CurrentCalibTempIndex, pressureCounter].extA2dPressureValue;

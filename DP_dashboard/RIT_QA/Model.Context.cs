@@ -25,7 +25,6 @@ namespace DP_dashboard.RIT_QA
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Batch> Batches { get; set; }
         public virtual DbSet<CalibrationData> CalibrationDatas { get; set; }
         public virtual DbSet<Device> Devices { get; set; }
         public virtual DbSet<User> Users { get; set; }

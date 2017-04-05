@@ -155,6 +155,14 @@ namespace DP_dashboard
             calibForm.classCalibrationInfo.classCalibrationSettings.DeviceLicens = cmb_licenseTypeInput.SelectedValue.ToString();
 
 
+            //save station detiles
+            calibForm.classCalibrationInfo.classCalibrationSettings.UserName = tb_userName.Text;
+            calibForm.classCalibrationInfo.classCalibrationSettings.StationId = int.Parse(tb_stationId.Text);
+
+            //save batch
+            calibForm.classCalibrationInfo.classCalibrationSettings.Batch = tb_batch.Text;
+
+
             this.Hide();
             calibForm.Show();
         }

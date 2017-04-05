@@ -98,3 +98,35 @@ C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_das
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.pdb
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\SerialQueryDriver.dll
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\bin\Debug\SerialQueryDriver.pdb
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\DP_dashboard.exe.config
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\DP_dashboard.exe.manifest
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\DP_dashboard.application
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\DP_dashboard.exe
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\DP_dashboard.pdb
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\DeltaPlcCommunication.dll
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\DP_dll.dll
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\EntityFramework.dll
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\EntityFramework.SqlServer.dll
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\log4net.dll
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\multiplexing_dll.dll
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\SerialQueryDriver.dll
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\TempController.dll
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\DeltaPlcCommunication.pdb
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\DP_dll.pdb
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\multiplexing_dll.pdb
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\SerialQueryDriver.pdb
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\TempController.pdb
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\EntityFramework.xml
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\EntityFramework.SqlServer.xml
+C:\david\rotal\RotalCalib\DP_dashboard\bin\Debug\log4net.xml
+C:\david\rotal\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.csprojResolveAssemblyReference.cache
+C:\david\rotal\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.csproj.ResolveComReference.cache
+C:\david\rotal\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.ConfigForm.resources
+C:\david\rotal\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.CalibForm.resources
+C:\david\rotal\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.Properties.Resources.resources
+C:\david\rotal\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.csproj.GenerateResource.Cache
+C:\david\rotal\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.TrustInfo.xml
+C:\david\rotal\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.exe.manifest
+C:\david\rotal\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.application
+C:\david\rotal\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.exe
+C:\david\rotal\RotalCalib\DP_dashboard\obj\Debug\DP_dashboard.pdb

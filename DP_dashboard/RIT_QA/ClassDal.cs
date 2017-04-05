@@ -15,10 +15,10 @@ namespace DP_dashboard.RIT_QA
         {
             using (RIT_QAEntities1 db = new RIT_QAEntities1())
             {
-                if (db.Devices.Find(row.SerialNo) == null)
+                if (db.Devices.Find(row.Barcode) == null)
                 {
                     Device dev = new Device();
-                    dev.SerialNo = row.SerialNo;
+                    dev.Barcode = row.Barcode;
                     dev.MAC = mac;
                     dev.Date = DateTime.Now;
                     db.Devices.Add(dev);
@@ -26,9 +26,9 @@ namespace DP_dashboard.RIT_QA
                 }
                 else
                 {
-                    db.Devices.Find(row.SerialNo).MAC = mac;
-                    if (db.Devices.Find(row.SerialNo).Date == null)
-                        db.Devices.Find(row.SerialNo).Date = DateTime.Now;
+                    db.Devices.Find(row.Barcode).MAC = mac;
+                    if (db.Devices.Find(row.Barcode).Date == null)
+                        db.Devices.Find(row.Barcode).Date = DateTime.Now;
                     SaveDbChenges(db);
                 }
 
@@ -46,7 +46,7 @@ namespace DP_dashboard.RIT_QA
                 string mac = "";
                 foreach (ClassDevice dev in devices)
                 {
-                    if (row.SerialNo == dev.DeviceSerialNumber)
+                    if (row.Barcode == dev.DeviceSerialNumber)
                     {
                         mac = dev.DeviceMacAddress;
                         break;

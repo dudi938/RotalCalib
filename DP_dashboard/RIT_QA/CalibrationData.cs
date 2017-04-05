@@ -14,7 +14,9 @@ namespace DP_dashboard.RIT_QA
     
     public partial class CalibrationData
     {
-        public string SerialNo { get; set; }
+        public string Barcode { get; set; }
+        public string MAC { get; set; }
+        public string Batch { get; set; }
         public Nullable<int> UserID { get; set; }
         public Nullable<int> StationID { get; set; }
         public Nullable<double> PressureSP { get; set; }

@@ -26,20 +26,29 @@
     <Setting Name="TempControllerSlaveAddress" Type="System.Byte" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="DpComPortID" Type="System.String" Scope="User">
-      <Value Profile="(Default)">USB\VID_10C4&amp;PID_EA60\0001_0</Value>
-    </Setting>
     <Setting Name="PlcComPortID" Type="System.String" Scope="User">
-      <Value Profile="(Default)">FTDIBUS\VID_0403+PID_6001+FTBTMH3SA\0000_0</Value>
+      <Value Profile="(Default)">FTDIBUS\VID_0403+PID_6001+FT94MRWKA\0000_0</Value>
     </Setting>
     <Setting Name="MultiplexerComPortID" Type="System.String" Scope="User">
       <Value Profile="(Default)">USB\VID_0483&amp;PID_5740\325E355B4236_0</Value>
     </Setting>
-    <Setting Name="TempControllerComPortID" Type="System.String" Scope="User">
-      <Value Profile="(Default)">USB\VID_067B&amp;PID_2303\7&amp;12988559&amp;0&amp;4_0</Value>
-    </Setting>
     <Setting Name="WriteToDB" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DpComPortID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">FTDIBUS\VID_0403+PID_6001+FT9FYCYCA\0000_0</Value>
+    </Setting>
+    <Setting Name="TempControllerComPortID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">USB\VID_1A86&amp;PID_7523\6&amp;390363f7&amp;0&amp;3_0</Value>
+    </Setting>
+    <Setting Name="LicenseServerURL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://db-server:1234/license?mac=</Value>
+    </Setting>
+    <Setting Name="DebugMode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="StationId" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -203,5 +203,17 @@ namespace DP_dashboard.Properties {
                 this["DebugMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int StationId {
+            get {
+                return ((int)(this["StationId"]));
+            }
+            set {
+                this["StationId"] = value;
+            }
+        }
     }
 }

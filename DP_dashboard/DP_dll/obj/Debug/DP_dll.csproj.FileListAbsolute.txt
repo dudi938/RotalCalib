@@ -18,3 +18,9 @@ C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\DP_dll\bin\Debug
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\DP_dll\obj\Debug\DP_dll.csprojResolveAssemblyReference.cache
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\DP_dll\obj\Debug\DP_dll.dll
 C:\work\Rotal\Rotal calibration\project\RotalCalib\DP_dashboard\DP_dll\obj\Debug\DP_dll.pdb
+C:\david\rotal\RotalCalib\DP_dashboard\DP_dll\bin\Debug\DP_dll.dll
+C:\david\rotal\RotalCalib\DP_dashboard\DP_dll\bin\Debug\DP_dll.pdb
+C:\david\rotal\RotalCalib\DP_dashboard\DP_dll\bin\Debug\log4net.dll
+C:\david\rotal\RotalCalib\DP_dashboard\DP_dll\bin\Debug\log4net.xml
+C:\david\rotal\RotalCalib\DP_dashboard\DP_dll\obj\Debug\DP_dll.dll
+C:\david\rotal\RotalCalib\DP_dashboard\DP_dll\obj\Debug\DP_dll.pdb

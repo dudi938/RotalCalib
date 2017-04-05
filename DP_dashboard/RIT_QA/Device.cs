@@ -20,12 +20,10 @@ namespace DP_dashboard.RIT_QA
             this.CalibrationDatas = new HashSet<CalibrationData>();
         }
     
-        public string SerialNo { get; set; }
+        public string Barcode { get; set; }
         public string MAC { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<int> BatchId { get; set; }
     
-        public virtual Batch Batch { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CalibrationData> CalibrationDatas { get; set; }
     }

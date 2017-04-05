@@ -73,7 +73,6 @@ namespace DP_dashboard
 
         SwVersion swVersions;
 
-
         public CalibForm()
         {
             InitializeComponent();
@@ -129,7 +128,6 @@ namespace DP_dashboard
                     Console.WriteLine(dev.ToString());
             }
             rtb_info.ScrollToCaret();
-
             timer1.Enabled = true;
         }
 
@@ -442,69 +440,80 @@ namespace DP_dashboard
 
         private void bt_startCalibration_Click(object sender, EventArgs e)
         {
-
-            try
+            if (ValidStationAccess())
             {
-                //check connection to database.....
-                int userId = RIT_QA.ClassDal.GetFirstUserID();
-
-                classCalibrationInfo.DetectFlag = true;
-                classCalibrationInfo.InitDetectTread();
-
-                //wait to finish the detect.
-                while (!classCalibrationInfo.EndDetectEvent)
+                try
                 {
-                    Application.DoEvents();
+                    //check connection to database.....
+                    int userId = RIT_QA.ClassDal.GetFirstUserID();
+
+                    classCalibrationInfo.DetectFlag = true;
+                    classCalibrationInfo.InitDetectTread();
+
+                    //wait to finish the detect.
+                    while (!classCalibrationInfo.EndDetectEvent)
+                    {
+                        Application.DoEvents();
+                    }
+
+                    classCalibrationInfo.EndDetectEvent = false;
+                    UpdateDeviceTable();
+
+
+                    if (Properties.Settings.Default.DebugMode == false)
+                    {
+                        if (classCalibrationInfo.DpCountAxist > 0 &&
+                            classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count > 0 &&
+                            classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count > 0 &&
+                            classCalibrationInfo.classCalibrationSettings.Versions.DpFw != "")
+                        {
+                            UpdateDeviceTable();
+
+
+                            classDpCommunication.SendStartCalibration();
+
+                            classCalibrationInfo.ResetStateMachine();
+                            classCalibrationInfo.DoCalibration = true;
+                            classCalibrationInfo.CalibrationPaused = false;
+                            classCalibrationInfo.InitCalibTread();
+                            classCalibrationInfo.CreateLogFiles();
+                            ClearColorIndication();
+                        }
+                        else
+                        {
+                            if (classCalibrationInfo.DpCountAxist == 0)
+                            {
+                                MessageBox.Show("No exist dp devices!");
+                            }
+                            else if (classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count == 0)
+                            {
+                                MessageBox.Show("Load configuration file befor you calibration start");
+                            }
+                            else if (classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count == 0)
+                            {
+                                MessageBox.Show("Load configuration file befor you calibration start");
+                            }
+
+                        }
+                    }
+
                 }
-
-                classCalibrationInfo.EndDetectEvent = false;
-                UpdateDeviceTable();
-
-
-                if (Properties.Settings.Default.DebugMode == false)
+                catch (Exception ex)
                 {
-                    if (classCalibrationInfo.DpCountAxist > 0 &&
-                        classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count > 0 && 
-                        classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count > 0 &&
-                        classCalibrationInfo.classCalibrationSettings.Versions.DpFw != "")
-                    {
-                        UpdateDeviceTable();
-
-
-                        classDpCommunication.SendStartCalibration();
-
-                        classCalibrationInfo.ResetStateMachine();
-                        classCalibrationInfo.DoCalibration = true;
-                        classCalibrationInfo.CalibrationPaused = false;
-                        classCalibrationInfo.InitCalibTread();
-                        classCalibrationInfo.CreateLogFiles();
-                        ClearColorIndication();
-                    }
-                    else
-                    {
-                        if (classCalibrationInfo.DpCountAxist == 0)
-                        {
-                            MessageBox.Show("No exist dp devices!");
-                        }
-                        else if (classCalibrationInfo.classCalibrationSettings.PressureUnderTestList.Count == 0)
-                        {
-                            MessageBox.Show("Load configuration file befor you calibration start");
-                        }
-                        else if (classCalibrationInfo.classCalibrationSettings.TempUnderTestList.Count == 0)
-                        {
-                            MessageBox.Show("Load configuration file befor you calibration start");
-                        }
-
-                    }
+                    rtb_info.AppendText(ex.StackTrace.ToString() + "\r\n\r\n" + ex.InnerException.ToString() + ".\r\n\r\n");
+                    Logger.Error("Faile to add table to database.   " + ex.StackTrace.ToString() + "       " + ex.InnerException.ToString());
                 }
-                
-            }
-            catch(Exception ex)
+            }else
             {
-                rtb_info.AppendText(ex.StackTrace.ToString() + "\r\n\r\n" + ex.InnerException.ToString() + ".\r\n\r\n");
-                Logger.Error("Faile to add table to database.   " + ex.StackTrace.ToString() + "       " + ex.InnerException.ToString());
+                DialogResult result = MessageBox.Show("Enter User name and Station id in config Form", "Warning", MessageBoxButtons.OK);
             }
+        }
 
+        private bool ValidStationAccess()
+        {
+            if (classCalibrationInfo.classCalibrationSettings.StationId > 0 && classCalibrationInfo.classCalibrationSettings.UserName != "")
+                return true;
+                    return false;
         }
 
         private void UpdateDeviceTable()

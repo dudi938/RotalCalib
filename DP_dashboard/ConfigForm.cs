@@ -16,8 +16,19 @@ namespace DP_dashboard
 {
     public partial class ConfigForm : Form
     {
+        enum LICENSE_BITS
+        {
+            DPS = 1,
+            DPT = 2,
+            PS = 4,
+            PT = 8,
+            DATA_LOGGER = 0x10,
+            WASH_CONTROL = 0x20,
+            MASTER = 0x40,
+            MANUFACTURE = 0x80
+        };
 
-       // Config file parameters offset
+        // Config file parameters offset
         private const byte CF_PRESSURE_COLUME_INDEX                                       = 0x06;
         private const byte CF_TEMPERATURE_COLUME_INDEX                                    = CF_PRESSURE_COLUME_INDEX + 1;
         private const byte CF_TEMPERATURE_TIMOUT_COLUME_INDEX                             = CF_TEMPERATURE_COLUME_INDEX + 1;
@@ -58,20 +69,7 @@ namespace DP_dashboard
 
         private void ConfigForm_Load(object sender, EventArgs e)
         {
-            // Bind combobox to dictionary
-            Dictionary<string, string> items = new Dictionary<string, string>();
-            items.Add("1", "DPS");
-            items.Add("4", "PS");
-            items.Add("16", "Data Logger");
-            items.Add("2", "DPT");
-            items.Add("8", "PT");
-            items.Add("32", "Wash Controller");
-            items.Add("64", "Master");
-            items.Add("128", "Manufactor");
-
-            cmb_licenseTypeInput.DataSource = new BindingSource(items, null);
-            cmb_licenseTypeInput.DisplayMember = "Value";
-            cmb_licenseTypeInput.ValueMember = "Key";
+         
         }
 
         private void bt_Cancel_Click(object sender, EventArgs e)
@@ -152,8 +150,15 @@ namespace DP_dashboard
 
 
             //update license type
-            calibForm.classCalibrationInfo.classCalibrationSettings.DeviceLicens = cmb_licenseTypeInput.SelectedValue.ToString();
 
+            byte _capabilities = 0;
+            _capabilities |= chkDPS.Checked ? (byte)LICENSE_BITS.DPS : (byte)0;
+            _capabilities |= chkDPT.Checked ? (byte)LICENSE_BITS.DPT : (byte)0;
+            _capabilities |= chkPS.Checked ? (byte)LICENSE_BITS.PS : (byte)0;
+            _capabilities |= chkPT.Checked ? (byte)LICENSE_BITS.PT : (byte)0;
+            _capabilities |= chkDataLogger.Checked ? (byte)LICENSE_BITS.DATA_LOGGER : (byte)0;
+            _capabilities |= chkWash.Checked ? (byte)LICENSE_BITS.WASH_CONTROL : (byte)0;
+            calibForm.classCalibrationInfo.classCalibrationSettings.DeviceLicens = _capabilities.ToString("X2");
 
             //save station detiles
             calibForm.classCalibrationInfo.classCalibrationSettings.UserName = tb_userName.Text;

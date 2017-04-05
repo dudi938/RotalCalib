@@ -3916,3 +3916,5 @@ The statement has been terminated.
 2017-01-04 19:23:37,217,DEBUG,23,SOURCE PATH ->, DP_dashboard.ClassCalibrationInfo,METHODE NAME ->, StateChangeState,LINE ->, 425,Calibration state machine: from 111 to 222
 2017-01-04 19:40:29,191,INFO,1,SOURCE PATH ->, DP_dashboard.Program,METHODE NAME ->, Main,LINE ->, 0,Program started
 2017-04-05 17:38:17,756,INFO,8,SOURCE PATH ->, DP_dashboard.Program,METHODE NAME ->, Main,LINE ->, 24,Program started
+2017-04-05 18:01:36,167,INFO,8,SOURCE PATH ->, DP_dashboard.Program,METHODE NAME ->, Main,LINE ->, 24,Program started
+2017-04-05 18:04:23,325,INFO,8,SOURCE PATH ->, DP_dashboard.Program,METHODE NAME ->, Main,LINE ->, 24,Program started

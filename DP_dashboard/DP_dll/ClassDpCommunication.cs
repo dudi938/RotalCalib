@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using SerialPort_dll;
-
-
+using System.IO;
 
 namespace DpCommunication
 {
@@ -65,7 +64,7 @@ namespace DpCommunication
     {
         public bool NewDpInfoEvent = false;
         public bool LicenseAck = false;
-
+        public bool GotLicenseReplay = false;
 
 
         public DpInfo dpInfo = new DpInfo();
@@ -290,6 +289,7 @@ namespace DpCommunication
                         break;
                     case API_MSG_DP_LICENSE_ACK:
                         {
+                            GotLicenseReplay = true;
                             LicenseAck = incomingData[COM_PACKET_INDEX_MESSAGE_TYPE + 1] == 1? true: false;
                         }
                         break;
@@ -452,8 +452,9 @@ namespace DpCommunication
             SerialPortInstanse.Send(data, data.Count());
         }
 
-        public void SendDpLicense(byte[] license)
+        public bool SendDpLicense(byte[] license, int Timeout = 250)
         {
+            GotLicenseReplay = false;
             byte[] data = new byte[API_MSG_DP_BASIC_MASSEGE_LENGTH + license.Length];
             data[0] = API_MSG_PREAMBLE;
             data[1] = (byte)data.Count();
@@ -464,6 +465,20 @@ namespace DpCommunication
 
             data[data.Count() - 1] = CheckCum(data, data.Count());
             SerialPortInstanse.Send(data, data.Count());
+
+            int time_counter = 0;
+            while (!GotLicenseReplay & Timeout > time_counter)
+            {
+                Thread.Sleep(2);
+                time_counter += 2;
+            }
+
+            string lic = "\t\t Sending license to DPS. License = ";
+            for (int i = 0; i < license.Length; i++)
+                lic += String.Format("{0:X2}", license[i]);
+
+
+            return LicenseAck;
         }
     }
 }

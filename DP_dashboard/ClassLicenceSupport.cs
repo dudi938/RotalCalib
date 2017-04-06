@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading;
 
@@ -18,7 +19,7 @@ namespace DP_dashboard
         public LicenceSupport(string Url = "")
         {
             if(Url != "")
-            licenseServerUrl = Url;
+                licenseServerUrl = Url;
         }
 
         /// <summary>
@@ -27,16 +28,18 @@ namespace DP_dashboard
         /// <returns></returns>
         public byte [] GetKey(string licTypy, string mac)
         {
-             if (licTypy != "")
+            if (licTypy != "")
             {
                 licenseType = licTypy;
                 dpMac = mac;
 
+                Generate();
+                
                 int i = 0;
-                new Thread(Generate).Start();
-                while (!ready)
+                //new Thread(Generate).Start();
+                while (license == null)
                 {
-                    Thread.Sleep(10);
+                    Thread.Sleep(200);
                     i += 10;
                     if (i > 3000)
                         break;
@@ -45,19 +48,26 @@ namespace DP_dashboard
             return license;
         }
 
-        private static async void Generate()
+        private static void Generate()
         {           
             ready = false;
            
             // ... Use HttpClient.
             using (HttpClient client = new HttpClient())
-            using (HttpResponseMessage response = await client.GetAsync(licenseServerUrl + dpMac + "&capabilities=" + licenseType))
+            using (HttpResponseMessage response = client.GetAsync(licenseServerUrl + dpMac + "&capabilities=" + licenseType).Result)
             using (HttpContent content = response.Content)
             {
                 try
                 {
-                    string result = await content.ReadAsStringAsync();
-                    key k = new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<key>(result);
+                    string result = null;
+                   
+                    result = content.ReadAsStringAsync().Result;
+                    response.EnsureSuccessStatusCode();
+                    
+                    string json = "{" + result.Split(new char[2] { '{', '}' })[1] + "}";
+
+                    key k = new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<key>(json);
+                   
 
                     if (k.Validation)
                     {
@@ -68,10 +78,11 @@ namespace DP_dashboard
                         license = null;
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
                     license = null;
                 }
+
                 ready = true;
             }
         }
@@ -106,11 +117,11 @@ namespace DP_dashboard
         {
             int val = (int)hex;
             //For uppercase A-F letters:
-            return val - (val < 58 ? 48 : 55);
+            //return val - (val < 58 ? 48 : 55);
             //For lowercase a-f letters:
             //return val - (val < 58 ? 48 : 87);
             //Or the two combined, but a bit slower:
-            //return val - (val < 58 ? 48 : (val < 97 ? 55 : 87));
+            return val - (val < 58 ? 48 : (val < 97 ? 55 : 87));
         }
     }
 }

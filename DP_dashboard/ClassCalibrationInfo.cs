@@ -9,6 +9,7 @@ using multiplexing_dll;
 using DeltaPlcCommunication;
 using log4net;
 using System.Reflection;
+using System.IO;
 
 namespace DP_dashboard
 {
@@ -422,9 +423,10 @@ namespace DP_dashboard
                             break;
                         case StateFinishAllCalibPoint:
                             {
+                                SetLicense();
                                 DoCalibration = false;
                                 FinishCalibrationEvent = true;
-
+                                
                                 ResetPressureAndTemp();
 
                                 StateChangeState(StateStartCalib);
@@ -609,7 +611,6 @@ namespace DP_dashboard
         /// 
         private void WriteReadInfoFromDp()
         {
-
             int DpPtr = 0;
 
             for (byte i = 0; i < classCalibrationSettings.JigConfiguration; i++)
@@ -627,6 +628,7 @@ namespace DP_dashboard
                         classDpCommunicationInstanse.DpWritePressurePointToDevice(classCalibrationSettings.TempUnderTestList[CurrentCalibTempIndex], CurrentCalibTempIndex, PlcAdc2Bar(CurrentPLCPressure), CurrentCalibPressureIndex);
 
                         //Thread.Sleep(1000);
+                        
                         if (classDpCommunicationInstanse.WaitForResponse(2000)) // check if recieve data from DP
                         {
                             //save the data on the current device and current calibpoint..
@@ -642,49 +644,7 @@ namespace DP_dashboard
                             classDevices[DpPtr].CalibrationData[CurrentCalibTempIndex, CurrentCalibPressureIndex].extA2dPressureValue = PlcAdc2Bar(CurrentPLCPressure);
 
                             classDpCommunicationInstanse.NewDpInfoEvent = false;
-                            //classDpCommunicationInstanse.DPgetDpInfo();
-
-                            if (CurrentCalibPressureIndex == (classCalibrationSettings.PressureUnderTestList.Count - 1) && (CurrentCalibTempIndex == classCalibrationSettings.TempUnderTestList.Count - 1))
-                            {
-                                //is the last calib point
-
-
-
-                                //set license on the device
-                                classDpCommunicationInstanse.LicenseAck = false;
-                                //MAC + Capabilities
-                                byte[] license = new LicenceSupport().GetKey(classCalibrationSettings.DeviceLicens, classDevices[DpPtr].DeviceMacAddress);
-
-
-                                if(license != null)
-                                    if (license.Length > 0)
-                                        classDpCommunicationInstanse.SendDpLicense(license);
-
-                                Thread.Sleep(1000);
-                                if(classDpCommunicationInstanse.LicenseAck)
-                                {
-                                    classDpCommunicationInstanse.LicenseAck = false;
-                                    TraceInfo +=  "License msg: SN = " + DateTime.Now   + classDevices[DpPtr].DeviceSerialNumber + " MAC = " + classDevices[DpPtr].DeviceMacAddress + "Chanel = " + i + " license is: " + Encoding.UTF8.GetString(license, 0, license.Length) + ".\r\n";
-
-
-                                }
-                                else
-                                {
-                                    //Not license response
-                                    TraceInfo += "License Error: " +  DateTime.Now + " SN = " + classDevices[DpPtr].DeviceSerialNumber + " MAC = " + classDevices[DpPtr].DeviceMacAddress + "Chanel = " + i + " fail to set the license.\r\n";
-
-                                    classDevices[DpPtr].deviceStatus = DeviceStatus.Fail;
-                                }
-
-
-
-                                //send end calibration CMD
-                                classDpCommunicationInstanse.SendEndCalibration();
-                                if (classDevices[DpPtr].deviceStatus == DeviceStatus.Wait)
-                                {
-                                    classDevices[DpPtr].deviceStatus = DeviceStatus.Pass;
-                                }
-                            }
+                            
                             j = MAX_ALLOW_SEND_GET_INFO_CMD; // break the for loop...
                         }
                         else
@@ -700,6 +660,68 @@ namespace DP_dashboard
             }
         }
 
+        public void SetLicense()
+        {
+            WriteToFile("Start Licensing");
+            int DpPtr = 0;
+            for (byte i = 0; i < classCalibrationSettings.JigConfiguration; i++)
+            {
+                if (classCalibrationSettings.ConnectedChanels[i] == true)
+                {
+                    classDpCommunicationInstanse.LicenseAck = false;
+
+                    WriteToFile("Connecting to channel" + i + ", DpPtr=" + DpPtr);
+                    classMultiplexingInstanse.ConnectDpDevice(i);
+                    //set license on the device
+                    
+                    //MAC + Capabilities
+                    WriteToFile("\tRequest License [" + DpPtr + "]");
+                    byte[] license = new LicenceSupport().GetKey(classCalibrationSettings.DeviceLicens, classDevices[DpPtr].DeviceMacAddress);
+
+                    if (license != null)
+                        if (license.Length > 0)
+                        {
+                            classDpCommunicationInstanse.SendDpLicense(license);
+                            WriteToFile("\tMAC = " + classDevices[DpPtr].DeviceMacAddress + "[" + DpPtr + "]");
+                        }
+
+                    if (classDpCommunicationInstanse.LicenseAck)
+                    {
+                        classDpCommunicationInstanse.LicenseAck = false;
+                        TraceInfo += "License Accepted: Barecode = " + classDevices[DpPtr].DeviceBarcode + ", Chanel = " + i + ".\r\n";
+                        WriteToFile("\tLicense Acepted [" + DpPtr + "]");
+                    }
+                    else
+                    {
+                        //Not license response
+                        TraceInfo += ">>>>>>License Error: Barecode = " + classDevices[DpPtr].DeviceBarcode + ", Chanel = " + i + "<<<<<<<<.\r\n";
+                        classDevices[DpPtr].deviceStatus = DeviceStatus.Fail;
+                        WriteToFile("\tLicense Error [" + DpPtr + "]");
+                    }
+
+                    //send end calibration CMD
+                    WriteToFile("\tClose calibration [" + DpPtr + "]");
+
+                    classDpCommunicationInstanse.SendEndCalibration();
+                    if (classDevices[DpPtr].deviceStatus == DeviceStatus.Wait)
+                    {
+                        classDevices[DpPtr].deviceStatus = DeviceStatus.Pass;
+                    }
+                    DpPtr++;
+                }
+            }
+            WriteToFile("End Licensing");
+        }
+
+        private void WriteToFile(string msg)
+        {
+            /*
+            using (StreamWriter sw = File.AppendText("liclog.txt"))
+            {
+                sw.WriteLine(msg);
+            }
+            */
+        }
 
         private bool CheckTimout(DateTime startTime, int timeout)
         {

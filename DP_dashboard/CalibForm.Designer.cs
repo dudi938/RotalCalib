@@ -91,6 +91,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.timer_rtDataUpdating = new System.Windows.Forms.Timer(this.components);
+            this.button3 = new System.Windows.Forms.Button();
             this.pnl_calibrationPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_deviceData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_devicesQueue)).BeginInit();
@@ -106,6 +108,7 @@
             // pnl_calibrationPanel
             // 
             this.pnl_calibrationPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnl_calibrationPanel.Controls.Add(this.button3);
             this.pnl_calibrationPanel.Controls.Add(this.tb_logsPath);
             this.pnl_calibrationPanel.Controls.Add(this.pb_calibProgressBar);
             this.pnl_calibrationPanel.Controls.Add(this.tb_tempIndexAfterPause);
@@ -727,6 +730,24 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Target pressure";
             // 
+            // timer_rtDataUpdating
+            // 
+            this.timer_rtDataUpdating.Enabled = true;
+            this.timer_rtDataUpdating.Interval = 2000;
+            this.timer_rtDataUpdating.Tick += new System.EventHandler(this.timer_rtDataUpdating_Tick);
+            // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.ForeColor = System.Drawing.Color.Black;
+            this.button3.Location = new System.Drawing.Point(377, 308);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(74, 31);
+            this.button3.TabIndex = 22;
+            this.button3.Text = "Start Calibration";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_3);
+            // 
             // CalibForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -819,6 +840,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_serialNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn DevicePositionOnBoard;
         private System.Windows.Forms.DataGridViewTextBoxColumn BoardNumber;
+        private System.Windows.Forms.Timer timer_rtDataUpdating;
+        private System.Windows.Forms.Button button3;
     }
 }
 

@@ -297,13 +297,13 @@ namespace DP_dashboard
                 }
             }
 
-            if (classCalibrationInfo != null && classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortOk && classCalibrationInfo.ClassTempControllerInstanse.ComPortOk)
-            {
-                classCalibrationInfo.UpdateRealTimeData(this);
+            //if (classCalibrationInfo != null && classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortOk && classCalibrationInfo.ClassTempControllerInstanse.ComPortOk)
+            //{
+            //    classCalibrationInfo.UpdateRealTimeData(this);
 
-                //UpdateCurrentTemp(classCalibrationInfo.CurrentTempControllerValue.ToString());
-                tb_pressCurrentPressure.Text = classCalibrationInfo.CurrentPLCPressure.ToString();
-            }
+            //    //UpdateCurrentTemp(classCalibrationInfo.CurrentTempControllerValue.ToString());
+            //    tb_pressCurrentPressure.Text = classCalibrationInfo.CurrentPLCPressure.ToString();
+            //}
 
 
             
@@ -495,6 +495,10 @@ namespace DP_dashboard
                             }
 
                         }
+                    }
+                    else
+                    {
+                        classCalibrationInfo.SetLicense();
                     }
 
                 }
@@ -1042,6 +1046,39 @@ namespace DP_dashboard
         private void button3_Click_2(object sender, EventArgs e)
         {
             classCalibrationInfo.ValidOvenTargetSp(4.7f);
+        }
+
+        private void timer_rtDataUpdating_Tick(object sender, EventArgs e)
+        {
+            if (classCalibrationInfo != null && classCalibrationInfo.classDeltaProtocolInstanse.serial.ComPortOk && classCalibrationInfo.ClassTempControllerInstanse.ComPortOk)
+            {
+                classCalibrationInfo.UpdateRealTimeData(this);
+
+                //UpdateCurrentTemp(classCalibrationInfo.CurrentTempControllerValue.ToString());
+                tb_pressCurrentPressure.Text = classCalibrationInfo.CurrentPLCPressure.ToString();
+            }
+        }
+
+        private void button3_Click_3(object sender, EventArgs e)
+        {
+            classCalibrationInfo.classMultiplexingInstanse.ConnectDpDevice(4);
+           
+            byte[] license = new LicenceSupport().GetKey("11", "04A31604B7BE");
+
+
+            if (license != null)
+                if (license.Length > 0)
+                    classCalibrationInfo.classDpCommunicationInstanse.SendDpLicense(license);
+
+            Thread.Sleep(1000);
+            if (classCalibrationInfo.classDpCommunicationInstanse.LicenseAck)
+            {
+                classCalibrationInfo.classDpCommunicationInstanse.LicenseAck = false;
+            }
+            else
+            {
+                MessageBox.Show("error");
+            }
         }
     }
 }           

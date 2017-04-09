@@ -87,7 +87,7 @@
             this.bt_loadCustomerConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_loadCustomerConfigFile.ForeColor = System.Drawing.Color.Blue;
             this.bt_loadCustomerConfigFile.Location = new System.Drawing.Point(188, 521);
-            this.bt_loadCustomerConfigFile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bt_loadCustomerConfigFile.Margin = new System.Windows.Forms.Padding(2);
             this.bt_loadCustomerConfigFile.Name = "bt_loadCustomerConfigFile";
             this.bt_loadCustomerConfigFile.Size = new System.Drawing.Size(115, 46);
             this.bt_loadCustomerConfigFile.TabIndex = 6;
@@ -139,7 +139,7 @@
             this.panel3.Controls.Add(this.tb_temSpampleInterval);
             this.panel3.Controls.Add(this.label6);
             this.panel3.Location = new System.Drawing.Point(744, 24);
-            this.panel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(342, 280);
             this.panel3.TabIndex = 7;
@@ -158,7 +158,7 @@
             // tb_tempSampleNum
             // 
             this.tb_tempSampleNum.Location = new System.Drawing.Point(158, 63);
-            this.tb_tempSampleNum.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tb_tempSampleNum.Margin = new System.Windows.Forms.Padding(2);
             this.tb_tempSampleNum.Name = "tb_tempSampleNum";
             this.tb_tempSampleNum.Size = new System.Drawing.Size(76, 20);
             this.tb_tempSampleNum.TabIndex = 27;
@@ -178,7 +178,7 @@
             // tb_tempMaxWaitTime
             // 
             this.tb_tempMaxWaitTime.Location = new System.Drawing.Point(158, 185);
-            this.tb_tempMaxWaitTime.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tb_tempMaxWaitTime.Margin = new System.Windows.Forms.Padding(2);
             this.tb_tempMaxWaitTime.Name = "tb_tempMaxWaitTime";
             this.tb_tempMaxWaitTime.Size = new System.Drawing.Size(76, 20);
             this.tb_tempMaxWaitTime.TabIndex = 25;
@@ -219,7 +219,7 @@
             // tb_tempDeltaRange
             // 
             this.tb_tempDeltaRange.Location = new System.Drawing.Point(158, 146);
-            this.tb_tempDeltaRange.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tb_tempDeltaRange.Margin = new System.Windows.Forms.Padding(2);
             this.tb_tempDeltaRange.Name = "tb_tempDeltaRange";
             this.tb_tempDeltaRange.Size = new System.Drawing.Size(76, 20);
             this.tb_tempDeltaRange.TabIndex = 21;
@@ -232,7 +232,7 @@
             "8",
             "16"});
             this.cmb_jigConfiguration.Location = new System.Drawing.Point(158, 232);
-            this.cmb_jigConfiguration.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmb_jigConfiguration.Margin = new System.Windows.Forms.Padding(2);
             this.cmb_jigConfiguration.Name = "cmb_jigConfiguration";
             this.cmb_jigConfiguration.Size = new System.Drawing.Size(92, 21);
             this.cmb_jigConfiguration.TabIndex = 5;
@@ -241,7 +241,7 @@
             // tb_temSpampleInterval
             // 
             this.tb_temSpampleInterval.Location = new System.Drawing.Point(158, 106);
-            this.tb_temSpampleInterval.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tb_temSpampleInterval.Margin = new System.Windows.Forms.Padding(2);
             this.tb_temSpampleInterval.Name = "tb_temSpampleInterval";
             this.tb_temSpampleInterval.Size = new System.Drawing.Size(76, 20);
             this.tb_temSpampleInterval.TabIndex = 20;
@@ -308,8 +308,6 @@
             // chkDataLogger
             // 
             this.chkDataLogger.AutoSize = true;
-            this.chkDataLogger.Checked = true;
-            this.chkDataLogger.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkDataLogger.Location = new System.Drawing.Point(136, 21);
             this.chkDataLogger.Name = "chkDataLogger";
             this.chkDataLogger.Size = new System.Drawing.Size(85, 17);
@@ -330,8 +328,6 @@
             // chkDPS
             // 
             this.chkDPS.AutoSize = true;
-            this.chkDPS.Checked = true;
-            this.chkDPS.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkDPS.Location = new System.Drawing.Point(14, 21);
             this.chkDPS.Name = "chkDPS";
             this.chkDPS.Size = new System.Drawing.Size(48, 17);
@@ -372,7 +368,7 @@
             // tb_batch
             // 
             this.tb_batch.Location = new System.Drawing.Point(875, 384);
-            this.tb_batch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tb_batch.Margin = new System.Windows.Forms.Padding(2);
             this.tb_batch.Name = "tb_batch";
             this.tb_batch.Size = new System.Drawing.Size(76, 20);
             this.tb_batch.TabIndex = 36;
@@ -391,7 +387,7 @@
             // tb_userName
             // 
             this.tb_userName.Location = new System.Drawing.Point(875, 347);
-            this.tb_userName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tb_userName.Margin = new System.Windows.Forms.Padding(2);
             this.tb_userName.Name = "tb_userName";
             this.tb_userName.Size = new System.Drawing.Size(76, 20);
             this.tb_userName.TabIndex = 34;
@@ -410,7 +406,7 @@
             // tb_stationId
             // 
             this.tb_stationId.Location = new System.Drawing.Point(875, 316);
-            this.tb_stationId.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tb_stationId.Margin = new System.Windows.Forms.Padding(2);
             this.tb_stationId.Name = "tb_stationId";
             this.tb_stationId.Size = new System.Drawing.Size(76, 20);
             this.tb_stationId.TabIndex = 32;
@@ -441,11 +437,10 @@
             // tb_fwVersion
             // 
             this.tb_fwVersion.Location = new System.Drawing.Point(875, 418);
-            this.tb_fwVersion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tb_fwVersion.Margin = new System.Windows.Forms.Padding(2);
             this.tb_fwVersion.Name = "tb_fwVersion";
             this.tb_fwVersion.Size = new System.Drawing.Size(76, 20);
             this.tb_fwVersion.TabIndex = 25;
-            this.tb_fwVersion.Text = "1";
             // 
             // panel1
             // 

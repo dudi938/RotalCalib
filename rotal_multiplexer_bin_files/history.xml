@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -g -nostartfiles -Map=STM32F072B CDC USB Project.map -O1 --gc-sections -LC:\CooCox\CoIDE\configuration\ProgramData\STM32F072B CDC USB Project -TC:\CooCox\CoIDE\configuration\ProgramData\STM32F072B CDC USB Project/arm-gcc-link.ld -g">
+      <target file="STM32F072B CDC USB Project.elf" lastModified="15b867a903b">
+         <source file="..\obj\usb_core.o" lastModified="15b867a7d17"/>
+         <source file="..\obj\stm32f0xx_rcc.o" lastModified="15b867a7dad"/>
+         <source file="..\obj\usbd_usr.o" lastModified="15b867a7df4"/>
+         <source file="..\obj\stm32f0xx_adc.o" lastModified="15b867a7e6f"/>
+         <source file="..\obj\utilities.o" lastModified="15b867a7eed"/>
+         <source file="..\obj\nRF24L01.o" lastModified="15b867a7f9b"/>
+         <source file="..\obj\usbd_core.o" lastModified="15b867a8003"/>
+         <source file="..\obj\main.o" lastModified="15b867a81dd"/>
+         <source file="..\obj\startup_stm32f0xx.o" lastModified="15b867a81ed"/>
+         <source file="..\obj\stm32f0xx_dma.o" lastModified="15b867a824b"/>
+         <source file="..\obj\stm32f0xx_spi.o" lastModified="15b867a82ce"/>
+         <source file="..\obj\usbd_desc.o" lastModified="15b867a8327"/>
+         <source file="..\obj\stm32f0xx_i2c.o" lastModified="15b867a83b5"/>
+         <source file="..\obj\usbd_pwr.o" lastModified="15b867a8402"/>
+         <source file="..\obj\stm32f0xx_gpio.o" lastModified="15b867a8460"/>
+         <source file="..\obj\stm32f0xx_comp.o" lastModified="15b867a84ac"/>
+         <source file="..\obj\usbd_cdc_vcp.o" lastModified="15b867a850f"/>
+         <source file="..\obj\stm32f0xx_rtc.o" lastModified="15b867a85dc"/>
+         <source file="..\obj\syscalls.o" lastModified="15b867a862e"/>
+         <source file="..\obj\stm32f0xx_usart.o" lastModified="15b867a86c8"/>
+         <source file="..\obj\stm32f0xx_crs.o" lastModified="15b867a872a"/>
+         <source file="..\obj\usb_bsp.o" lastModified="15b867a8777"/>
+         <source file="..\obj\stm32f0xx_tim.o" lastModified="15b867a8868"/>
+         <source file="..\obj\usbd_req.o" lastModified="15b867a88e2"/>
+         <source file="..\obj\stm32_it.o" lastModified="15b867a8926"/>
+         <source file="..\obj\usb_dcd_int.o" lastModified="15b867a8995"/>
+         <source file="..\obj\system_stm32f0xx.o" lastModified="15b867a89e2"/>
+         <source file="..\obj\usbd_cdc_core.o" lastModified="15b867a8a44"/>
+         <source file="..\obj\stm32f0xx_flash.o" lastModified="15b867a8ad0"/>
+         <source file="..\obj\stm32f0xx_exti.o" lastModified="15b867a8b1e"/>
+         <source file="..\obj\stm32072b_eval.o" lastModified="15b867a8b69"/>
+         <source file="..\obj\usb_dcd.o" lastModified="15b867a8be6"/>
+         <source file="..\obj\api_task.o" lastModified="15b867a8c8c"/>
+         <source file="..\obj\stm32f0xx_syscfg.o" lastModified="15b867a8cdd"/>
+         <source file="..\obj\stm32f0xx_pwr.o" lastModified="15b867a8d35"/>
+         <source file="..\obj\usbd_ioreq.o" lastModified="15b867a8d85"/>
+         <source file="..\obj\stm32f0xx_misc.o" lastModified="15b867a8dd0"/>
+         <source file="..\obj\stm32f0xx_dac.o" lastModified="15b867a8e33"/>
+      </target>
+   </processor>
+</history>
